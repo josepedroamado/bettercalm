@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{E9B94C18-ED83-49E7-B846-7C01249E51EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Injector", "Injector\Injector.csproj", "{DFDDA912-8370-43D7-999D-2A6E198B8154}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{E9B94C18-ED83-49E7-B846-7C01249E51EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9B94C18-ED83-49E7-B846-7C01249E51EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9B94C18-ED83-49E7-B846-7C01249E51EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFDDA912-8370-43D7-999D-2A6E198B8154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFDDA912-8370-43D7-999D-2A6E198B8154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFDDA912-8370-43D7-999D-2A6E198B8154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFDDA912-8370-43D7-999D-2A6E198B8154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
