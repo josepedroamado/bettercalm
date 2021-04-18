@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{87324770-8EC5-4A2A-9330-94E6DAE3222F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{480F451C-357A-4A67-8677-9979B3E09EB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{480F451C-357A-4A67-8677-9979B3E09EB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{64B8E5A7-D292-46D7-BB63-3F0AFD1E535F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{64B8E5A7-D292-46D7-BB63-3F0AFD1E535F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{0508CEA2-686E-49AD-A2A3-9667CC67B4CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{0508CEA2-686E-49AD-A2A3-9667CC67B4CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI.Test", "WebAPI.Test\WebAPI.Test.csproj", "{03A18C17-00EE-4D82-8867-248856264E1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0508CEA2-686E-49AD-A2A3-9667CC67B4CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0508CEA2-686E-49AD-A2A3-9667CC67B4CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0508CEA2-686E-49AD-A2A3-9667CC67B4CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03A18C17-00EE-4D82-8867-248856264E1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03A18C17-00EE-4D82-8867-248856264E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03A18C17-00EE-4D82-8867-248856264E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03A18C17-00EE-4D82-8867-248856264E1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
