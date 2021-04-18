@@ -7,8 +7,8 @@ namespace DataAccessInterfaces
 	{
 		Content Get(int id);
 		IEnumerable<Content> GetAll();
-		IEnumerable<Content> GetByCategory(Category category);
-		IEnumerable<Content> GetByPlaylist(Playlist playlist);
+		IEnumerable<Content> GetAll(Category category);
+		IEnumerable<Content> GetAll(Playlist playlist);
 		void Add(Content content);
 		void Update(Content content);
 	}
