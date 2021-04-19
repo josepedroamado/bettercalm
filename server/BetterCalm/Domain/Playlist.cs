@@ -9,5 +9,6 @@ namespace Domain
 		public string Description { get; set; }
 		public string ImageUrl { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
+		public IEnumerable<Content> Contents { get; set; }
 	}
 }
