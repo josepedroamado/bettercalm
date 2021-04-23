@@ -19,7 +19,7 @@ namespace DataAccess.Repositories
 
 		public IEnumerable<Playlist> Get()
 		{
-			throw new NotImplementedException();
+			return this.playlists;
 		}
 	}
 }
