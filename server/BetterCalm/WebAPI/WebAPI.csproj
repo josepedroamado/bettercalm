@@ -5,7 +5,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Content Remove="appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\BLInterfaces\BLInterfaces.csproj" />
+	  <ProjectReference Include="..\Injector\Injector.csproj" />
 	  <ProjectReference Include="..\Model\Model.csproj" />
 	</ItemGroup>
 
