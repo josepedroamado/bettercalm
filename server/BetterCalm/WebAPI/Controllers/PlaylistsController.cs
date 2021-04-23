@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -11,5 +8,17 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class PlaylistsController : ControllerBase
 	{
+		private readonly IMediaPlayer mediaPlayerLogic;
+
+		public PlaylistsController(IMediaPlayer mediaPlayerLogic)
+		{
+			this.mediaPlayerLogic = mediaPlayerLogic;
+		}
+
+		[HttpGet]
+		public IActionResult Get()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
