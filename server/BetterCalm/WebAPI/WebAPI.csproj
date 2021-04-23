@@ -5,7 +5,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\BL\BL.csproj" />
+	  <ProjectReference Include="..\BLInterfaces\BLInterfaces.csproj" />
+	  <ProjectReference Include="..\Model\Model.csproj" />
 	</ItemGroup>
 
 
