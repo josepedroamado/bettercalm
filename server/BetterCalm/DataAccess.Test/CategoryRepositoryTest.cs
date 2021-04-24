@@ -18,8 +18,14 @@ namespace DataAccess.Test
         [TestInitialize]
         public void Setup()
         {
-            this.options = new DbContextOptionsBuilder<BetterCalmContext>().UseInMemoryDatabase(databaseName: "BetterCalmDB_CategoryRepository").Options;
+            this.options = new DbContextOptionsBuilder<BetterCalmContext>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
             this.context = new BetterCalmContext(this.options);
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            this.context.Database.EnsureDeleted();
         }
 
         [TestMethod]
@@ -120,7 +126,6 @@ namespace DataAccess.Test
             Category obtainedCategory = categoryRepository.Get(expectedCategory.Id);
             
             Assert.AreEqual(expectedCategory, obtainedCategory);
-
         }
 
         private Category GetCategoryOkExpected()

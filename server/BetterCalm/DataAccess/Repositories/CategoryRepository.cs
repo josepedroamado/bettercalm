@@ -2,6 +2,7 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -23,7 +24,7 @@ namespace DataAccess.Repositories
 
         public Category Get(int Id)
         {
-            throw new System.NotImplementedException();
+            return this.categories.FirstOrDefault(category => category.Id == Id);
         }
     }
 }
