@@ -166,5 +166,17 @@ namespace DataAccess.Test
                     }
             };
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void GetCategoryNotFound()
+        {
+            Category expectedCategory = GetCategoryOkExpected();
+            CategoryRepository categoryRepository = new CategoryRepository(this.context);
+
+            Category obtainedCategory = categoryRepository.Get(expectedCategory.Id);
+
+            Assert.AreEqual(expectedCategory, obtainedCategory);
+        }
     }
 }

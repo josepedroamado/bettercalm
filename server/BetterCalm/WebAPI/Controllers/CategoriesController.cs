@@ -27,8 +27,15 @@ namespace WebAPI.Controllers
 		[HttpGet("{id}")]
 		public IActionResult Get(int Id)
 		{
-			Category category = this.contentPlayerLogic.GetCategory(Id);
-			return Ok(category);
+			try
+			{
+				Category category = this.contentPlayerLogic.GetCategory(Id);
+				return Ok(category);
+			}
+			catch (Exception e)
+			{
+				return NotFound(e.Message);
+			}
 		}
 	}
 }
