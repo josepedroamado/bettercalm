@@ -1,9 +1,8 @@
 ﻿using DataAccessInterfaces;
 using Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -21,6 +20,11 @@ namespace DataAccess.Repositories
         public IEnumerable<Category> GetAll()
         {
             return this.categories;
+        }
+
+        public Category Get(int Id)
+        {
+            return this.categories.First(category => category.Id == Id);
         }
     }
 }

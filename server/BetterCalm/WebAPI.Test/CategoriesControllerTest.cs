@@ -15,7 +15,7 @@ namespace WebAPI.Test
     public class CategoriesControllerTest
     {
         [TestMethod]
-        public void Get()
+        public void GetAllCategories()
         {
 			List<Category> expectedCategories = GetCategoriesOkExpected();
 
@@ -99,6 +99,60 @@ namespace WebAPI.Test
 
                     }
                 }
+            };
+        }
+
+        [TestMethod]
+        public void GetCategoryById()
+        {
+            Category expectedCategory = GetCategoryOkExpected();
+            Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
+            mock.Setup(m => m.GetCategory(expectedCategory.Id)).Returns(expectedCategory);
+            CategoriesController controller = new CategoriesController(mock.Object);
+
+            IActionResult result = controller.Get(expectedCategory.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            Category obtainedCategory = objectResult.Value as Category;
+
+            Assert.AreEqual(expectedCategory, obtainedCategory);
+        }
+
+        private Category GetCategoryOkExpected()
+        {
+            return new Category()
+            {
+                Id = 1,
+                Name = "Sleep",
+                PlayLists = new List<Playlist>()
+                    {
+                        new Playlist()
+                        {
+                            Id = 1,
+                            Name = "Nature ambiences",
+                            Description = "The best nature ambiences to put you to sleep",
+                            ImageUrl = "http://myimageurl.com/image.jpg",
+                            Contents = new List<Content>()
+                            {
+                                new Content()
+                                {
+                                    Id = 1,
+                                    ArtistName = "AmbienceOne",
+                                    Name = "Rain",
+                                    ImageUrl = "http://myimageurl.com/image.jpg"
+                                }
+                            }
+                        }
+                    },
+                Contents = new List<Content>()
+                    {
+                        new Content()
+                        {
+                            Id = 2,
+                            ArtistName = "AmbienceOne",
+                            Name = "Campfire",
+                            ImageUrl = "http://myimageurl.com/image.jpg"
+                        }
+                    }
             };
         }
     }
