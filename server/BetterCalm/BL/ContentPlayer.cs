@@ -9,10 +9,12 @@ namespace BL
 	public class ContentPlayer : IContentPlayer
 	{
 		private readonly IPlaylistRepository playlistRepository;
+		private readonly ICategoryRepository categoryRepository;
 
 		public ContentPlayer(IPlaylistRepository playlistRepository, ICategoryRepository categoryRepository)
 		{
 			this.playlistRepository = playlistRepository;
+			this.categoryRepository = categoryRepository;
 		}
 
 		public IEnumerable<Playlist> GetPlaylists()
@@ -22,7 +24,8 @@ namespace BL
 
         public IEnumerable<Category> GetCategories()
         {
-            throw new NotImplementedException();
-        }
+			return this.categoryRepository.GetAll();
+
+		}
     }
 }
