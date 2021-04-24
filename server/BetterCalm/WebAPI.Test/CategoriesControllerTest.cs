@@ -1,83 +1,36 @@
-using DataAccessInterfaces;
+﻿using BLInterfaces;
 using Domain;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using WebAPI.Controllers;
 
-namespace BL.Test
+namespace WebAPI.Test
 {
-	[TestClass]
-	public class ContentPlayerTest
-	{
-		[TestMethod]
-		public void GetPlaylistsOk()
-		{
-			List<Playlist> expectedPlaylists = GetPlaylistsOkExpected();
-			
-			Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
-			playlistRepositoryMock.Setup(m => m.Get()).Returns(expectedPlaylists);
-
-            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>();
-
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
-
-			IEnumerable<Playlist> obtainedPlaylists = contentPlayer.GetPlaylists();
-			Assert.IsTrue(obtainedPlaylists.SequenceEqual(expectedPlaylists));
-		}
-
-		private List<Playlist> GetPlaylistsOkExpected()
-		{
-			return new List<Playlist>()
-			{
-				new Playlist()
-				{
-					Id = 1,
-					Name = "Epic Rock",
-					Description = "Best of the Rock!",
-					ImageUrl = "http://myimageurl.com/image.jpg",
-					Contents = new List<Content>()
-					{
-						new Content()
-						{
-							Id = 1,
-							ArtistName = "Jhon Doe",
-							Name = "Rocking",
-							ImageUrl = "http://myrockurl.com/rock.jpg"
-						}
-					}
-				},
-				new Playlist()
-				{
-					Id = 2,
-					Name = "Hip Hop Rewind",
-					Description = "Hip Hop of 90's!",
-					ImageUrl = "http://myimageurl.com/image.jpg",
-					Categories = new List<Category>()
-					{
-						new Category()
-						{
-							Id = 2,
-							Name = "Hip Hop"
-						}
-					}
-				}
-			};
-		}
-
-		[TestMethod]
-		public void GetCategoriesOk()
+    [TestClass]
+    public class CategoriesControllerTest
+    {
+        [TestMethod]
+        public void Get()
         {
-            List<Category> expectedCategories = GetCategoriesOkExpected();
-            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
-            categoryRepositoryMock.Setup(m => m.GetAll()).Returns(expectedCategories);
-            Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+			List<Category> expectedCategories = GetCategoriesOkExpected();
 
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
+			Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
+			mock.Setup(m => m.GetCategories()).Returns(expectedCategories);
+			CategoriesController controller = new CategoriesController(mock.Object);
 
-            IEnumerable<Category> obtainedCategories = contentPlayer.GetCategories();
-            Assert.IsTrue(obtainedCategories.SequenceEqual(expectedCategories));
-        }
+			IActionResult result = controller.Get();
+			OkObjectResult objectResult = result as OkObjectResult;
+			IEnumerable<Category> obtainedCategories = objectResult.Value as IEnumerable<Category>;
+
+			mock.VerifyAll();
+			Assert.IsTrue(expectedCategories.SequenceEqual(obtainedCategories));
+		}
+
         private List<Category> GetCategoriesOkExpected()
         {
             return new List<Category>()
