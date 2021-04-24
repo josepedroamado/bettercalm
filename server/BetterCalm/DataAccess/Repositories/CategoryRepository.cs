@@ -24,7 +24,7 @@ namespace DataAccess.Repositories
 
         public Category Get(int Id)
         {
-            return this.categories.FirstOrDefault(category => category.Id == Id);
+            return this.categories.First(category => category.Id == Id);
         }
     }
 }

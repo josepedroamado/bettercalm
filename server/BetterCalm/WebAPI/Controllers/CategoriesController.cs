@@ -24,10 +24,11 @@ namespace WebAPI.Controllers
 			return Ok(categories);
 		}
 
-		[HttpGet]
+		[HttpGet("{id}")]
 		public IActionResult Get(int Id)
 		{
-			throw new NotImplementedException();
+			Category category = this.contentPlayerLogic.GetCategory(Id);
+			return Ok(category);
 		}
 	}
 }
