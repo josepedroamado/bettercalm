@@ -1,12 +1,12 @@
 ﻿using Domain;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccessInterfaces
 {
     public interface ICategoryRepository
     {
         IEnumerable<Category> GetAll();
+
+        Category Get(int Id);
     }
 }

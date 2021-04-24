@@ -108,5 +108,58 @@ namespace DataAccess.Test
                 }
             };
         }
+
+        [TestMethod]
+        public void GetCategoryOk()
+        {
+            Category expectedCategory = GetCategoryOkExpected();
+            this.context.Add(expectedCategory);
+            this.context.SaveChanges();
+            CategoryRepository categoryRepository = new CategoryRepository(this.context);
+            
+            Category obtainedCategory = categoryRepository.Get(expectedCategory.Id);
+            
+            Assert.AreEqual(expectedCategory, obtainedCategory);
+
+        }
+
+        private Category GetCategoryOkExpected()
+        {
+            return new Category()
+            {
+                Id = 1,
+                Name = "Sleep",
+                PlayLists = new List<Playlist>()
+                    {
+                        new Playlist()
+                        {
+                            Id = 1,
+                            Name = "Nature ambiences",
+                            Description = "The best nature ambiences to put you to sleep",
+                            ImageUrl = "http://myimageurl.com/image.jpg",
+                            Contents = new List<Content>()
+                            {
+                                new Content()
+                                {
+                                    Id = 1,
+                                    ArtistName = "AmbienceOne",
+                                    Name = "Rain",
+                                    ImageUrl = "http://myimageurl.com/image.jpg"
+                                }
+                            }
+                        }
+                    },
+                Contents = new List<Content>()
+                    {
+                        new Content()
+                        {
+                            Id = 2,
+                            ArtistName = "AmbienceOne",
+                            Name = "Campfire",
+                            ImageUrl = "http://myimageurl.com/image.jpg"
+                        }
+                    }
+            };
+        }
     }
 }
