@@ -148,5 +148,58 @@ namespace BL.Test
                 }
             };
         }
+
+        [TestMethod]
+        public void GetCategoryOk()
+        {
+            Category expectedCategory = GetCategoryOkExpected();
+            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            categoryRepositoryMock.Setup(m => m.Get(expectedCategory.Id)).Returns(expectedCategory);
+            Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
+
+            Category obtainedCategory = contentPlayer.GetCategory(expectedCategory.Id);
+
+            Assert.AreEqual(expectedCategory, obtainedCategory);
+        }
+
+        private Category GetCategoryOkExpected()
+        {
+            return new Category()
+            {
+                Id = 1,
+                Name = "Sleep",
+                PlayLists = new List<Playlist>()
+                    {
+                        new Playlist()
+                        {
+                            Id = 1,
+                            Name = "Nature ambiences",
+                            Description = "The best nature ambiences to put you to sleep",
+                            ImageUrl = "http://myimageurl.com/image.jpg",
+                            Contents = new List<Content>()
+                            {
+                                new Content()
+                                {
+                                    Id = 1,
+                                    ArtistName = "AmbienceOne",
+                                    Name = "Rain",
+                                    ImageUrl = "http://myimageurl.com/image.jpg"
+                                }
+                            }
+                        }
+                    },
+                Contents = new List<Content>()
+                    {
+                        new Content()
+                        {
+                            Id = 2,
+                            ArtistName = "AmbienceOne",
+                            Name = "Campfire",
+                            ImageUrl = "http://myimageurl.com/image.jpg"
+                        }
+                    }
+            };
+        }
     }
 }

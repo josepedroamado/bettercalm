@@ -8,5 +8,7 @@ namespace BLInterfaces
 		public IEnumerable<Playlist> GetPlaylists();
 
 		public IEnumerable<Category> GetCategories();
+
+		public Category GetCategory(int Id);
 	}
 }

@@ -27,5 +27,10 @@ namespace BL
 			return this.categoryRepository.GetAll();
 
 		}
+
+        public Category GetCategory(int Id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
