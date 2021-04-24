@@ -23,5 +23,11 @@ namespace WebAPI.Controllers
 			IEnumerable<Category> categories = this.contentPlayerLogic.GetCategories();
 			return Ok(categories);
 		}
+
+		[HttpGet]
+		public IActionResult Get(int Id)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
