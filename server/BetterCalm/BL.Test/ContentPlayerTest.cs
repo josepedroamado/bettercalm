@@ -15,10 +15,12 @@ namespace BL.Test
 		{
 			List<Playlist> expectedPlaylists = GetPlaylistsOkExpected();
 			
-			Mock<IPlaylistRepository> mock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
-			mock.Setup(m => m.Get()).Returns(expectedPlaylists);
+			Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+			playlistRepositoryMock.Setup(m => m.Get()).Returns(expectedPlaylists);
 
-			ContentPlayer contentPlayer = new ContentPlayer(mock.Object);
+            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>();
+
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
 
 			IEnumerable<Playlist> obtainedPlaylists = contentPlayer.GetPlaylists();
 			Assert.IsTrue(obtainedPlaylists.SequenceEqual(expectedPlaylists));
@@ -62,5 +64,89 @@ namespace BL.Test
 				}
 			};
 		}
-	}
+
+		[TestMethod]
+		public void GetCategoriesOk()
+        {
+            List<Category> expectedCategories = GetCategoriesOkExpected();
+            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            categoryRepositoryMock.Setup(m => m.GetAll()).Returns(expectedCategories);
+            Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
+
+            IEnumerable<Category> obtainedCategories = contentPlayer.GetCategories();
+            Assert.IsTrue(obtainedCategories.SequenceEqual(expectedCategories));
+        }
+        private List<Category> GetCategoriesOkExpected()
+        {
+            return new List<Category>()
+            {
+                new Category()
+                {
+                    Id = 1,
+                    Name = "Sleep",
+                    PlayLists = new List<Playlist>()
+                    {
+                        new Playlist()
+                        {
+                            Id = 1,
+                            Name = "Nature ambiences",
+                            Description = "The best nature ambiences to put you to sleep",
+                            ImageUrl = "http://myimageurl.com/image.jpg",
+                            Contents = new List<Content>()
+                            {
+                                new Content()
+                                {
+                                    Id = 1,
+                                    ArtistName = "AmbienceOne",
+                                    Name = "Rain",
+                                    ImageUrl = "http://myimageurl.com/image.jpg"
+                                }
+                            }
+                        }
+                    },
+                    Contents = new List<Content>()
+                    {
+                        new Content()
+                        {
+                            Id = 2,
+                            ArtistName = "AmbienceOne",
+                            Name = "Campfire",
+                            ImageUrl = "http://myimageurl.com/image.jpg"
+                        }
+                    }
+                },
+                new Category()
+                {
+                    Id = 2,
+                    Name = "Mediate",
+                    PlayLists = new List<Playlist>()
+                    {
+                        new Playlist()
+                        {
+                            Id = 2,
+                            Name = "Mantras",
+                            Description = "The best mantras to meditate",
+                            ImageUrl = "http://myimageurl.com/image.jpg",
+                            Contents = new List<Content>()
+                            {
+                                new Content()
+                                {
+                                    Id = 3,
+                                    ArtistName = "Mantrastic",
+                                    Name = "Indian Mantra",
+                                    ImageUrl = "http://myimageurl.com/image.jpg"
+                                }
+                            }
+                        }
+                    },
+                    Contents = new List<Content>()
+                    {
+
+                    }
+                }
+            };
+        }
+    }
 }

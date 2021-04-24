@@ -10,7 +10,7 @@ namespace BL
 	{
 		private readonly IPlaylistRepository playlistRepository;
 
-		public ContentPlayer(IPlaylistRepository playlistRepository)
+		public ContentPlayer(IPlaylistRepository playlistRepository, ICategoryRepository categoryRepository)
 		{
 			this.playlistRepository = playlistRepository;
 		}
@@ -19,5 +19,10 @@ namespace BL
 		{
 			return this.playlistRepository.Get();
 		}
-	}
+
+        public IEnumerable<Category> GetCategories()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
