@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace BL
 {
-	public class MediaPlayer : IMediaPlayer
+	public class ContentPlayer : IContentPlayer
 	{
 		private readonly IPlaylistRepository playlistRepository;
 
-		public MediaPlayer(IPlaylistRepository playlistRepository)
+		public ContentPlayer(IPlaylistRepository playlistRepository)
 		{
 			this.playlistRepository = playlistRepository;
 		}

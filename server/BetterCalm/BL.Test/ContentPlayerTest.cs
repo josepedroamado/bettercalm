@@ -8,7 +8,7 @@ using System.Linq;
 namespace BL.Test
 {
 	[TestClass]
-	public class MediaPlayerTest
+	public class ContentPlayerTest
 	{
 		[TestMethod]
 		public void GetPlaylistsOk()
@@ -18,9 +18,9 @@ namespace BL.Test
 			Mock<IPlaylistRepository> mock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
 			mock.Setup(m => m.Get()).Returns(expectedPlaylists);
 
-			MediaPlayer mediaPlayer = new MediaPlayer(mock.Object);
+			ContentPlayer contentPlayer = new ContentPlayer(mock.Object);
 
-			IEnumerable<Playlist> obtainedPlaylists = mediaPlayer.GetPlaylists();
+			IEnumerable<Playlist> obtainedPlaylists = contentPlayer.GetPlaylists();
 			Assert.IsTrue(obtainedPlaylists.SequenceEqual(expectedPlaylists));
 		}
 

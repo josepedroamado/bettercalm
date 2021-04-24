@@ -10,18 +10,18 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class PlaylistsController : ControllerBase
 	{
-		private readonly IMediaPlayer mediaPlayerLogic;
+		private readonly IContentPlayer contentPlayerLogic;
 
-		public PlaylistsController(IMediaPlayer mediaPlayerLogic)
+		public PlaylistsController(IContentPlayer contentPlayerLogic)
 		{
-			this.mediaPlayerLogic = mediaPlayerLogic;
+			this.contentPlayerLogic = contentPlayerLogic;
 		}
 
 		[HttpGet]
 		public IActionResult Get()
 		{
 			IEnumerable<PlaylistBasicInfo> playlists = 
-				this.mediaPlayerLogic.GetPlaylists().
+				this.contentPlayerLogic.GetPlaylists().
 				Select(playlist => new PlaylistBasicInfo(playlist));
 
 			return Ok(playlists);

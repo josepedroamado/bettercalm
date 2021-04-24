@@ -19,7 +19,7 @@ namespace Injector
 
 		public void AddBLServices() 
 		{
-			services.AddScoped<IMediaPlayer, MediaPlayer>();
+			services.AddScoped<IContentPlayer, ContentPlayer>();
 		}
 
 		public void AddDataAccessServices()

@@ -18,7 +18,7 @@ namespace WebAPI.Test
 		{
 			List<Playlist> expectedPlaylists = GetPlaylistsOkExpected();
 			
-			Mock<IMediaPlayer> mock = new Mock<IMediaPlayer>(MockBehavior.Strict);
+			Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
 			mock.Setup(m => m.GetPlaylists()).Returns(expectedPlaylists);
 			PlaylistsController controller = new PlaylistsController(mock.Object);
 

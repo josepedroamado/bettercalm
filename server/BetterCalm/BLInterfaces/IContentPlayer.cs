@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BLInterfaces
 {
-	public interface IMediaPlayer
+	public interface IContentPlayer
 	{
 		public IEnumerable<Playlist> GetPlaylists();
 	}
