@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccess.Test
 {
@@ -17,7 +18,7 @@ namespace DataAccess.Test
         [TestInitialize]
         public void Setup()
         {
-            this.options = new DbContextOptionsBuilder<BetterCalmContext>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
+            this.options = new DbContextOptionsBuilder<BetterCalmContext>().UseInMemoryDatabase(databaseName: "BetterCalmDB_CategoryRepository").Options;
             this.context = new BetterCalmContext(this.options);
         }
 
@@ -34,7 +35,7 @@ namespace DataAccess.Test
             CategoryRepository categoryRepository = new CategoryRepository(this.context);
 
             IEnumerable<Category> obtainedCategories = categoryRepository.GetAll();
-            Assert.IsTrue(expectedCategories.Equals(obtainedCategories));
+            Assert.IsTrue(expectedCategories.SequenceEqual(obtainedCategories));
         }
 
         private List<Category> GetCategoriesOkExpected()
@@ -84,7 +85,7 @@ namespace DataAccess.Test
                     {
                         new Playlist()
                         {
-                            Id = 1,
+                            Id = 2,
                             Name = "Mantras",
                             Description = "The best mantras to meditate",
                             ImageUrl = "http://myimageurl.com/image.jpg",
@@ -102,13 +103,7 @@ namespace DataAccess.Test
                     },
                     Contents = new List<Content>()
                     {
-                        new Content()
-                        {
-                            Id = 1,
-                            ArtistName = "AmbienceOne",
-                            Name = "Rain",
-                            ImageUrl = "http://myimageurl.com/image.jpg"
-                        }
+
                     }
                 }
             };

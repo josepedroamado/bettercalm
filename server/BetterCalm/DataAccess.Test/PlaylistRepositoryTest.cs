@@ -17,7 +17,7 @@ namespace DataAccess.Test
 		[TestInitialize]
 		public void Setup()
 		{
-			this.options = new DbContextOptionsBuilder<BetterCalmContext>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
+			this.options = new DbContextOptionsBuilder<BetterCalmContext>().UseInMemoryDatabase(databaseName: "BetterCalmDB_PlaylistRepository").Options;
 			this.context = new BetterCalmContext(this.options);
 		}
 

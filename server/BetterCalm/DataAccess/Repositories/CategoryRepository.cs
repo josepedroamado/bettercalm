@@ -20,7 +20,7 @@ namespace DataAccess.Repositories
 
         public IEnumerable<Category> GetAll()
         {
-            throw new NotImplementedException();
+            return this.categories;
         }
     }
 }
