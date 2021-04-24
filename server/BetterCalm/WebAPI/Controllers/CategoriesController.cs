@@ -1,15 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class CategoriesController : ControllerBase
 	{
+		private IContentPlayer contentPlayerLogic;
+		public CategoriesController(IContentPlayer contentPlayerLogic)
+		{
+
+		}
+
+		[HttpGet]
+		public IActionResult Get()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
