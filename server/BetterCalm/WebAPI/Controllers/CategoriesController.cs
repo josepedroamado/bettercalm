@@ -1,6 +1,8 @@
 ﻿using BLInterfaces;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace WebAPI.Controllers
 {
@@ -8,16 +10,18 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class CategoriesController : ControllerBase
 	{
-		private IContentPlayer contentPlayerLogic;
+		private readonly IContentPlayer contentPlayerLogic;
+
 		public CategoriesController(IContentPlayer contentPlayerLogic)
 		{
-
+			this.contentPlayerLogic = contentPlayerLogic;
 		}
 
 		[HttpGet]
 		public IActionResult Get()
 		{
-			throw new NotImplementedException();
+			IEnumerable<Category> categories = this.contentPlayerLogic.GetCategories();
+			return Ok(categories);
 		}
 	}
 }

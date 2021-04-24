@@ -25,6 +25,7 @@ namespace Injector
 		public void AddDataAccessServices()
 		{
 			services.AddScoped<IPlaylistRepository, PlaylistRepository>();
+			services.AddScoped<ICategoryRepository, CategoryRepository>();
 		}
 
 		public void AddContextServices()
