@@ -25,12 +25,11 @@ namespace BL
         public IEnumerable<Category> GetCategories()
         {
 			return this.categoryRepository.GetAll();
-
 		}
 
         public Category GetCategory(int Id)
         {
-            throw new NotImplementedException();
+			return this.categoryRepository.Get(Id);
         }
     }
 }
