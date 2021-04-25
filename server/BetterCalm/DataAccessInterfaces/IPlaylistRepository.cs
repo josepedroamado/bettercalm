@@ -6,5 +6,6 @@ namespace DataAccessInterfaces
     public interface IPlaylistRepository
     {
         IEnumerable<Playlist> GetAll();
+        Playlist Get(int id);
     }
 }

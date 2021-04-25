@@ -1,6 +1,8 @@
 ﻿using BLInterfaces;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,6 +27,20 @@ namespace WebAPI.Controllers
 				Select(playlist => new PlaylistBasicInfo(playlist));
 
 			return Ok(playlists);
+		}
+
+		[HttpGet("{id}")]
+		public IActionResult Get(int id)
+		{
+			try
+			{
+				Playlist playlist = this.contentPlayerLogic.GetPlaylist(id);
+				return Ok(playlist);
+			}
+			catch (InvalidOperationException e)
+			{
+				return NotFound(e.Message);
+			}
 		}
 	}
 }

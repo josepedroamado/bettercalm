@@ -2,6 +2,7 @@ using DataAccessInterfaces;
 using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,7 +24,8 @@ namespace BL.Test
             ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
 
 			IEnumerable<Playlist> obtainedPlaylists = contentPlayer.GetPlaylists();
-			Assert.IsTrue(obtainedPlaylists.SequenceEqual(expectedPlaylists));
+            playlistRepositoryMock.VerifyAll();
+            Assert.IsTrue(obtainedPlaylists.SequenceEqual(expectedPlaylists));
 		}
 
 		private List<Playlist> GetPlaylistsOkExpected()
@@ -76,8 +78,10 @@ namespace BL.Test
             ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
 
             IEnumerable<Category> obtainedCategories = contentPlayer.GetCategories();
+            categoryRepositoryMock.VerifyAll();
             Assert.IsTrue(obtainedCategories.SequenceEqual(expectedCategories));
         }
+
         private List<Category> GetCategoriesOkExpected()
         {
             return new List<Category>()
@@ -159,7 +163,7 @@ namespace BL.Test
             ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
 
             Category obtainedCategory = contentPlayer.GetCategory(expectedCategory.Id);
-
+            categoryRepositoryMock.VerifyAll();
             Assert.AreEqual(expectedCategory, obtainedCategory);
         }
 
@@ -200,6 +204,58 @@ namespace BL.Test
                         }
                     }
             };
+        }
+
+        [TestMethod]
+        public void GetPlaylistOk()
+        {
+            Playlist expectedPlaylist = GetPlaylistOkExpected();
+            Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+            playlistRepositoryMock.Setup(m => m.Get(expectedPlaylist.Id)).Returns(expectedPlaylist);
+            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
+
+            Playlist obtainedPlaylist = contentPlayer.GetPlaylist(expectedPlaylist.Id);
+
+            playlistRepositoryMock.VerifyAll();
+            Assert.AreEqual(expectedPlaylist, obtainedPlaylist);
+        }
+
+        private Playlist GetPlaylistOkExpected()
+        {
+            return new Playlist
+            {
+                Id = 1,
+                Name = "Epic Rock",
+                Description = "Best of the Rock!",
+                ImageUrl = "http://myimageurl.com/image.jpg",
+                Contents = new List<Content>()
+                {
+                    new Content()
+                    {
+                        Id = 1,
+                        ArtistName = "Jhon Doe",
+                        Name = "Rocking",
+                        ImageUrl = "http://myrockurl.com/rock.jpg"
+                    }
+                }
+            };
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void GetPlaylistNotFound()
+        {
+            Playlist expectedPlaylist = GetPlaylistOkExpected();
+            Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+            playlistRepositoryMock.Setup(m => m.Get(expectedPlaylist.Id)).Throws(new InvalidOperationException());
+            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
+
+            Playlist obtainedPlaylist = contentPlayer.GetPlaylist(expectedPlaylist.Id);
+
+            playlistRepositoryMock.VerifyAll();
+            Assert.AreEqual(expectedPlaylist, obtainedPlaylist);
         }
     }
 }
