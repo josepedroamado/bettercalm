@@ -17,6 +17,11 @@ namespace DataAccess.Repositories
 			this.playlists = context.Set<Playlist>();
 		}
 
+		public Playlist Get(int id)
+		{
+			throw new NotImplementedException();
+		}
+
 		public IEnumerable<Playlist> GetAll()
 		{
 			return this.playlists;
