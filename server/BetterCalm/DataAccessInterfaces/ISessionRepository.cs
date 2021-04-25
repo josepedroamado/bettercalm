@@ -2,6 +2,6 @@
 {
 	public interface ISessionRepository
 	{
-		string Login(string eMail, string password);
+		string Get(string eMail);
 	}
 }

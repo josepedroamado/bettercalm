@@ -5,7 +5,7 @@ namespace DataAccess.Repositories
 {
 	public class SessionRepository : ISessionRepository
 	{
-		public string Login(string eMail, string password)
+		public string Get(string eMail)
 		{
 			throw new NotImplementedException();
 		}
