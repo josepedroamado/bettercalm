@@ -5,13 +5,11 @@ using Domain.Exceptions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
 
 namespace DataAccess.Test
 {
+	[TestClass]
 	public class SessionRepositoryTest
 	{
         private DbContext context;
@@ -70,5 +68,24 @@ namespace DataAccess.Test
 
             Assert.IsNull(obtainedSession);
         }
+
+        [TestMethod]
+        public void AddOk()
+		{
+            Session session = new Session()
+            {
+                Id = 1,
+                EMail = "a@a.com",
+                Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4"
+            };
+
+            SessionRepository repository = new SessionRepository(this.context);
+            repository.Add(session);
+
+            Session obtainedSession = repository.Get(session.EMail);
+
+            Assert.AreEqual(session, obtainedSession);
+        }
+
     }
 }
