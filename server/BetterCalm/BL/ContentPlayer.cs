@@ -24,7 +24,7 @@ namespace BL
 
 		public Playlist GetPlaylist(int id)
 		{
-			throw new NotImplementedException();
+			return this.playlistRepository.Get(id);
 		}
 
 		public IEnumerable<Category> GetCategories()
