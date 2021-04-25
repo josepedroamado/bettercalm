@@ -1,8 +1,8 @@
 ﻿using DataAccessInterfaces;
 using Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -19,7 +19,7 @@ namespace DataAccess.Repositories
 
 		public Playlist Get(int id)
 		{
-			throw new NotImplementedException();
+			return this.playlists.First(playlist => playlist.Id == id);
 		}
 
 		public IEnumerable<Playlist> GetAll()
