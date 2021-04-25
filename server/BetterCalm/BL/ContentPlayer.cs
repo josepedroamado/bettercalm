@@ -19,7 +19,7 @@ namespace BL
 
 		public IEnumerable<Playlist> GetPlaylists()
 		{
-			return this.playlistRepository.Get();
+			return this.playlistRepository.GetAll();
 		}
 
         public IEnumerable<Category> GetCategories()

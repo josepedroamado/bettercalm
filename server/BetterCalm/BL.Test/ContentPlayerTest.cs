@@ -16,7 +16,7 @@ namespace BL.Test
 			List<Playlist> expectedPlaylists = GetPlaylistsOkExpected();
 			
 			Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
-			playlistRepositoryMock.Setup(m => m.Get()).Returns(expectedPlaylists);
+			playlistRepositoryMock.Setup(m => m.GetAll()).Returns(expectedPlaylists);
 
             Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>();
 
