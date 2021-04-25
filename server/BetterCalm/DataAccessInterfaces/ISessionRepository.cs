@@ -1,7 +1,9 @@
-﻿namespace DataAccessInterfaces
+﻿using Domain;
+
+namespace DataAccessInterfaces
 {
 	public interface ISessionRepository
 	{
-		string Get(string eMail);
+		Session Get(string eMail);
 	}
 }
