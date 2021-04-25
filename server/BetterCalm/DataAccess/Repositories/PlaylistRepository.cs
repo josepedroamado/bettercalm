@@ -17,7 +17,7 @@ namespace DataAccess.Repositories
 			this.playlists = context.Set<Playlist>();
 		}
 
-		public IEnumerable<Playlist> Get()
+		public IEnumerable<Playlist> GetAll()
 		{
 			return this.playlists;
 		}

@@ -35,7 +35,7 @@ namespace DataAccess.Test
 			this.context.SaveChanges();
 			PlaylistRepository repository = new PlaylistRepository(this.context);
 
-			IEnumerable<Playlist> obtainedPlaylists = repository.Get();
+			IEnumerable<Playlist> obtainedPlaylists = repository.GetAll();
 			Assert.IsTrue(expectedPlaylists.SequenceEqual(obtainedPlaylists));
 		}
 
