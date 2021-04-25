@@ -24,7 +24,8 @@ namespace BL.Test
             ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
 
 			IEnumerable<Playlist> obtainedPlaylists = contentPlayer.GetPlaylists();
-			Assert.IsTrue(obtainedPlaylists.SequenceEqual(expectedPlaylists));
+            playlistRepositoryMock.VerifyAll();
+            Assert.IsTrue(obtainedPlaylists.SequenceEqual(expectedPlaylists));
 		}
 
 		private List<Playlist> GetPlaylistsOkExpected()
@@ -77,6 +78,7 @@ namespace BL.Test
             ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
 
             IEnumerable<Category> obtainedCategories = contentPlayer.GetCategories();
+            categoryRepositoryMock.VerifyAll();
             Assert.IsTrue(obtainedCategories.SequenceEqual(expectedCategories));
         }
 
@@ -161,6 +163,7 @@ namespace BL.Test
             ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
 
             Category obtainedCategory = contentPlayer.GetCategory(expectedCategory.Id);
+            categoryRepositoryMock.VerifyAll();
             Assert.AreEqual(expectedCategory, obtainedCategory);
         }
 
