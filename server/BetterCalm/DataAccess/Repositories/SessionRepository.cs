@@ -1,7 +1,8 @@
 ﻿using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -18,7 +19,10 @@ namespace DataAccess.Repositories
 
 		public Session Get(string eMail)
 		{
-			throw new NotImplementedException();
+			Session session = this.sessions.FirstOrDefault(itSession => itSession.EMail == eMail);
+			if (session == null)
+				throw new NotFoundException(eMail);
+			return session;
 		}
 	}
 }
