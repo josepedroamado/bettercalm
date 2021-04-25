@@ -1,5 +1,6 @@
 ﻿using BLInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -154,6 +155,22 @@ namespace WebAPI.Test
                         }
                     }
             };
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void GetCategoryByIdNotFound()
+        {
+            int expectedCategoryId = 1;
+
+            Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
+            mock.Setup(m => m.GetCategory(expectedCategoryId)).Throws(new NotFoundException(expectedCategoryId.ToString()));
+            CategoriesController controller = new CategoriesController(mock.Object);
+
+            IActionResult result = controller.Get(expectedCategoryId);
+
+            mock.VerifyAll();
+            Assert.IsTrue(result is NotFoundObjectResult);
         }
     }
 }

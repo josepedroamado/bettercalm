@@ -1,6 +1,7 @@
 using DataAccess.Context;
 using DataAccess.Repositories;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -103,7 +104,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(InvalidOperationException))]
+		[ExpectedException(typeof(NotFoundException))]
 		public void GetPlaylistNotFound()
 		{
 			Playlist expectedPlaylist = GetPlaylistOkExpected();
@@ -111,7 +112,7 @@ namespace DataAccess.Test
 
 			Playlist obtainedPlaylist = repository.Get(expectedPlaylist.Id);
 
-			Assert.AreEqual(expectedPlaylist, obtainedPlaylist);
+			Assert.IsNull(obtainedPlaylist);
 		}
 
 		private Playlist GetPlaylistOkExpected()
