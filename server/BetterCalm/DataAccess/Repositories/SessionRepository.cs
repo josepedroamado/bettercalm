@@ -19,7 +19,8 @@ namespace DataAccess.Repositories
 
 		public void Add(Session session)
 		{
-			throw new System.NotImplementedException();
+			this.sessions.Add(session);
+			this.context.SaveChanges();
 		}
 
 		public Session Get(string eMail)
