@@ -1,5 +1,6 @@
 ﻿using BLInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using System;
@@ -32,15 +33,8 @@ namespace WebAPI.Controllers
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			try
-			{
-				Playlist playlist = this.contentPlayerLogic.GetPlaylist(id);
-				return Ok(playlist);
-			}
-			catch (InvalidOperationException e)
-			{
-				return NotFound(e.Message);
-			}
+			Playlist playlist = this.contentPlayerLogic.GetPlaylist(id);
+			return Ok(playlist);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,12 @@ namespace DataAccess.Repositories
             return this.categories;
         }
 
-        public Category Get(int Id)
+        public Category Get(int id)
         {
-            return this.categories.First(category => category.Id == Id);
+            Category category =  this.categories.FirstOrDefault(category => category.Id == id);
+            if (category == null)
+                throw new NotFoundException(id.ToString());
+            return category;
         }
     }
 }

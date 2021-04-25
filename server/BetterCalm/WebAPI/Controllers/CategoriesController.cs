@@ -1,5 +1,6 @@
 ﻿using BLInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -25,17 +26,10 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public IActionResult Get(int Id)
+		public IActionResult Get(int id)
 		{
-			try
-			{
-				Category category = this.contentPlayerLogic.GetCategory(Id);
-				return Ok(category);
-			}
-			catch (Exception e)
-			{
-				return NotFound(e.Message);
-			}
+			Category category = this.contentPlayerLogic.GetCategory(id);
+			return Ok(category);
 		}
 	}
 }
