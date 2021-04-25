@@ -14,7 +14,7 @@ namespace WebAPI.Test
 	public class PlaylistControllerTest
 	{
 		[TestMethod]
-		public void TestMethod1()
+		public void GetPlaylistsOk()
 		{
 			List<Playlist> expectedPlaylists = GetPlaylistsOkExpected();
 			
