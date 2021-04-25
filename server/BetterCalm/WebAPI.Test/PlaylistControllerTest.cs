@@ -7,6 +7,7 @@ using Moq;
 using System.Collections.Generic;
 using WebAPI.Controllers;
 using System.Linq;
+using System;
 
 namespace WebAPI.Test
 {
@@ -70,6 +71,59 @@ namespace WebAPI.Test
 					}
 				}
 			};
+		}
+
+		[TestMethod]
+		public void GetPlaylistByIdOk()
+		{
+			Playlist expectedPlaylist = GetPlaylistOkExpected();
+
+			Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
+			mock.Setup(m => m.GetPlaylist(expectedPlaylist.Id)).Returns(expectedPlaylist);
+			PlaylistsController controller = new PlaylistsController(mock.Object);
+
+			IActionResult result = controller.Get(expectedPlaylist.Id);
+			OkObjectResult objectResult = result as OkObjectResult;
+			Playlist obtainedPlaylist = objectResult.Value as Playlist;
+
+			mock.VerifyAll();
+			Assert.AreEqual(obtainedPlaylist, expectedPlaylist);
+		}
+
+		private Playlist GetPlaylistOkExpected()
+		{
+			return new Playlist
+			{
+				Id = 1,
+				Name = "Epic Rock",
+				Description = "Best of the Rock!",
+				ImageUrl = "http://myimageurl.com/image.jpg",
+				Contents = new List<Content>()
+				{
+					new Content()
+					{
+						Id = 1,
+						ArtistName = "Jhon Doe",
+						Name = "Rocking",
+						ImageUrl = "http://myrockurl.com/rock.jpg"
+					}
+				}
+			};
+		}
+
+		[TestMethod]
+		public void GetPlaylistByIdNotFound()
+		{
+			Playlist expectedPlaylist = GetPlaylistOkExpected();
+
+			Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
+			mock.Setup(m => m.GetPlaylist(expectedPlaylist.Id)).Throws(new InvalidOperationException());
+			PlaylistsController controller = new PlaylistsController(mock.Object);
+
+			IActionResult result = controller.Get(expectedPlaylist.Id);
+
+			mock.VerifyAll();
+			Assert.IsTrue(result is NotFoundObjectResult);
 		}
 	}
 }
