@@ -25,7 +25,8 @@ namespace DataAccess.Repositories
 
 		public Session Get(string eMail)
 		{
-			Session session = this.sessions.FirstOrDefault(itSession => itSession.EMail == eMail);
+			Session session = this.sessions.
+				FirstOrDefault(itSession => itSession.User.EMail == eMail);
 			if (session == null)
 				throw new NotFoundException(eMail);
 			return session;

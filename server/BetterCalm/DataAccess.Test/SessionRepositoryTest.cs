@@ -43,8 +43,13 @@ namespace DataAccess.Test
             Session expectedSession = new Session()
             {
                 Id = 1,
-                EMail = "a@a.com",
-                Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4"
+                Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
+                User = new Administrator()
+				{
+                    Id = 1,
+                    EMail = "a@a.com",
+                    Password = "1234"
+				}
             };
 
             this.context.Add(expectedSession);
@@ -52,7 +57,7 @@ namespace DataAccess.Test
 
             SessionRepository repository = new SessionRepository(this.context);
 
-            Session obtainedSession = repository.Get(expectedSession.EMail);
+            Session obtainedSession = repository.Get(expectedSession.GetSessionEmail());
 
             Assert.AreEqual(expectedSession, obtainedSession);
 		}
@@ -75,14 +80,19 @@ namespace DataAccess.Test
             Session session = new Session()
             {
                 Id = 1,
-                EMail = "a@a.com",
-                Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4"
+                Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
+                User = new Administrator()
+                {
+                    Id = 1,
+                    EMail = "a@a.com",
+                    Password = "1234"
+                }
             };
 
             SessionRepository repository = new SessionRepository(this.context);
             repository.Add(session);
 
-            Session obtainedSession = repository.Get(session.EMail);
+            Session obtainedSession = repository.Get(session.GetSessionEmail());
 
             Assert.AreEqual(session, obtainedSession);
         }

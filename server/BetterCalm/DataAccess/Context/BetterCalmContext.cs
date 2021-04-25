@@ -16,9 +16,11 @@ namespace DataAccess.Context
         public DbSet<Playlist> Playlists { get; set; }
         public DbSet<Psychologist> Psychologists { get; set; }
         public DbSet<Session> Sessions { get; set; }
+        public DbSet<User> User { get; set; }
 
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options) { }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -35,5 +37,12 @@ namespace DataAccess.Context
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }
-    }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Administrator>().ToTable("Administrators");
+        }
+	}
 }
