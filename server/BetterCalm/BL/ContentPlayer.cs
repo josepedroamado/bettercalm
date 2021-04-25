@@ -22,7 +22,12 @@ namespace BL
 			return this.playlistRepository.GetAll();
 		}
 
-        public IEnumerable<Category> GetCategories()
+		public Playlist GetPlaylist(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IEnumerable<Category> GetCategories()
         {
 			return this.categoryRepository.GetAll();
 		}
@@ -31,5 +36,5 @@ namespace BL
         {
 			return this.categoryRepository.Get(Id);
         }
-    }
+	}
 }
