@@ -1,7 +1,9 @@
 ﻿using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -19,7 +21,11 @@ namespace DataAccess.Repositories
 
 		public Administrator Get(string eMail)
 		{
-			throw new NotImplementedException();
+			Administrator administrator = this.administrators.
+				FirstOrDefault(admin => admin.EMail == eMail);
+			if (administrator == null)
+				throw new NotFoundException(eMail);
+			return administrator;
 		}
 	}
 }
