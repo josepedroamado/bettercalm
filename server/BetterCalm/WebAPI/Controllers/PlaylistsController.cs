@@ -1,6 +1,7 @@
 ﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,6 +26,12 @@ namespace WebAPI.Controllers
 				Select(playlist => new PlaylistBasicInfo(playlist));
 
 			return Ok(playlists);
+		}
+
+		[HttpGet("{id}")]
+		public IActionResult Get(int Id)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
