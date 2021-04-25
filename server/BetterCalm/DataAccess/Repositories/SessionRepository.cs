@@ -17,6 +17,11 @@ namespace DataAccess.Repositories
 			this.sessions = context.Set<Session>();
 		}
 
+		public void Add(Session session)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public Session Get(string eMail)
 		{
 			Session session = this.sessions.FirstOrDefault(itSession => itSession.EMail == eMail);
