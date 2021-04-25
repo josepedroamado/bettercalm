@@ -3,6 +3,7 @@ using DataAccess.Repositories;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -73,6 +74,51 @@ namespace DataAccess.Test
 							Id = 2,
 							Name = "Hip Hop"
 						}
+					}
+				}
+			};
+		}
+
+		[TestMethod]
+		public void GetPlaylistOk()
+		{
+			Playlist expectedPlaylist = GetPlaylistOkExpected();
+			this.context.Add(expectedPlaylist);
+			this.context.SaveChanges();
+			PlaylistRepository repository = new PlaylistRepository(this.context);
+
+			Playlist obtainedPlaylist = repository.Get(expectedPlaylist.Id);
+			Assert.AreEqual(expectedPlaylist, obtainedPlaylist);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidOperationException))]
+		public void GetPlaylistNotFound()
+		{
+			Playlist expectedPlaylist = GetPlaylistOkExpected();
+			PlaylistRepository repository = new PlaylistRepository(this.context);
+
+			Playlist obtainedPlaylist = repository.Get(expectedPlaylist.Id);
+
+			Assert.AreEqual(expectedPlaylist, obtainedPlaylist);
+		}
+
+		private Playlist GetPlaylistOkExpected()
+		{
+			return new Playlist
+			{
+				Id = 1,
+				Name = "Epic Rock",
+				Description = "Best of the Rock!",
+				ImageUrl = "http://myimageurl.com/image.jpg",
+				Contents = new List<Content>()
+				{
+					new Content()
+					{
+						Id = 1,
+						ArtistName = "Jhon Doe",
+						Name = "Rocking",
+						ImageUrl = "http://myrockurl.com/rock.jpg"
 					}
 				}
 			};
