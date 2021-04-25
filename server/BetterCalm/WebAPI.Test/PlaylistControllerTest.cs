@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using WebAPI.Controllers;
 using System.Linq;
 using System;
+using Domain.Exceptions;
 
 namespace WebAPI.Test
 {
@@ -112,15 +113,16 @@ namespace WebAPI.Test
 		}
 
 		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
 		public void GetPlaylistByIdNotFound()
 		{
-			Playlist expectedPlaylist = GetPlaylistOkExpected();
+			int expectedPlaylistId = 1;
 
 			Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
-			mock.Setup(m => m.GetPlaylist(expectedPlaylist.Id)).Throws(new InvalidOperationException());
+			mock.Setup(m => m.GetPlaylist(expectedPlaylistId)).Throws(new NotFoundException(expectedPlaylistId.ToString()));
 			PlaylistsController controller = new PlaylistsController(mock.Object);
 
-			IActionResult result = controller.Get(expectedPlaylist.Id);
+			IActionResult result = controller.Get(expectedPlaylistId);
 
 			mock.VerifyAll();
 			Assert.IsTrue(result is NotFoundObjectResult);
