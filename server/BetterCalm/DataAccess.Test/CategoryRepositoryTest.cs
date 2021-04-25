@@ -1,25 +1,36 @@
 ﻿using DataAccess.Context;
 using DataAccess.Repositories;
 using Domain;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 
 namespace DataAccess.Test
 {
-    [TestClass]
+	[TestClass]
     public class CategoryRepositoryTest
     {
         private DbContext context;
-        private DbContextOptions options;
+        private DbConnection connection;
+
+		public CategoryRepositoryTest()
+		{
+            this.connection = new SqliteConnection("Filename=:memory:");
+            this.context = new BetterCalmContext(
+                new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseSqlite(connection)
+                .Options);
+        }
 
         [TestInitialize]
         public void Setup()
         {
-            this.options = new DbContextOptionsBuilder<BetterCalmContext>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            this.context = new BetterCalmContext(this.options);
+            this.connection.Open();
+            this.context.Database.EnsureCreated();
         }
 
         [TestCleanup]
