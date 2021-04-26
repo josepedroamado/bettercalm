@@ -161,7 +161,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotLoggedInException))]
-        public void DeleteNotFound()
+        public void DeleteNotLoggedIn()
         {
             Session session = new Session()
             {
@@ -182,6 +182,5 @@ namespace DataAccess.Test
 
             Assert.IsNull(obtainedSession);
         }
-
     }
 }
