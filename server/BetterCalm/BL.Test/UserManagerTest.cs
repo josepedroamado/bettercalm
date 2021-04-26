@@ -1,12 +1,8 @@
-﻿using BLInterfaces;
-using DataAccessInterfaces;
+﻿using DataAccessInterfaces;
 using Domain;
 using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BL.Test
 {
@@ -45,6 +41,34 @@ namespace BL.Test
 
 			string obtainedToken = userManager.Login(queryEmail, queryPassword);
 			Assert.AreEqual(expectedToken, obtainedToken);
+
+		}
+
+		[TestMethod]
+		public void LoginOkCreatingSession()
+		{
+			string queryEmail = "a@a.com";
+			string queryPassword = "1234";
+
+			Administrator expectedAdministrator = new Administrator()
+			{
+				EMail = queryEmail,
+				Id = 1,
+				Password = queryPassword
+			};
+
+			Mock<IAdministratorRepository> administratorRepositoryMock = new Mock<IAdministratorRepository>(MockBehavior.Strict);
+			administratorRepositoryMock.Setup(m => m.Get(queryEmail)).Returns(expectedAdministrator);
+
+			Session expectedSession = null;
+
+			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
+			sessionRepositoryMock.Setup(m => m.Get(queryEmail)).Returns(expectedSession);
+
+			UserManager userManager = new UserManager(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+
+			string obtainedToken = userManager.Login(queryEmail, queryPassword);
+			Assert.IsTrue(!string.IsNullOrEmpty(obtainedToken));
 
 		}
 
