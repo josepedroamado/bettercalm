@@ -32,6 +32,7 @@ namespace BL
 							Token = Guid.NewGuid().ToString(),
 							User = administrator
 						};
+						this.sessionRepository.Add(session);
 					}
 					return session.Token;
 				}
