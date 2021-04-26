@@ -31,7 +31,7 @@ namespace WebAPI.Test
 
 			IActionResult result = controller.Post(credentialsParameters);
 			OkObjectResult objectResult = result as OkObjectResult;
-			string obtainedToken = objectResult.Value as string;
+			string obtainedToken = (objectResult.Value as SessionInfoModel).Token;
 
 			mock.VerifyAll();
 			Assert.AreEqual(expectedToken, obtainedToken);
@@ -55,7 +55,7 @@ namespace WebAPI.Test
 
 			IActionResult result = controller.Post(credentialsParameters);
 			OkObjectResult objectResult = result as OkObjectResult;
-			string obtainedToken = objectResult.Value as string;
+			string obtainedToken = (objectResult.Value as SessionInfoModel).Token;
 
 			mock.VerifyAll();
 			Assert.AreEqual(expectedToken, obtainedToken);
@@ -79,7 +79,7 @@ namespace WebAPI.Test
 
 			IActionResult result = controller.Post(credentialsParameters);
 			OkObjectResult objectResult = result as OkObjectResult;
-			string obtainedToken = objectResult.Value as string;
+			string obtainedToken = (objectResult.Value as SessionInfoModel).Token;
 
 			mock.VerifyAll();
 			Assert.AreEqual(expectedToken, obtainedToken);
