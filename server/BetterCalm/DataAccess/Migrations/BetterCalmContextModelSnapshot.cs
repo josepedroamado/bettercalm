@@ -64,24 +64,6 @@ namespace DataAccess.Migrations
                     b.ToTable("ContentPlaylist");
                 });
 
-            modelBuilder.Entity("Domain.Administrator", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("EMail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Administrators");
-                });
-
             modelBuilder.Entity("Domain.Appointment", b =>
                 {
                     b.Property<int>("Id")
@@ -246,6 +228,51 @@ namespace DataAccess.Migrations
                     b.ToTable("Psychologists");
                 });
 
+            modelBuilder.Entity("Domain.Session", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Sessions");
+                });
+
+            modelBuilder.Entity("Domain.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EMail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Domain.Administrator", b =>
+                {
+                    b.HasBaseType("Domain.User");
+
+                    b.ToTable("Administrators");
+                });
+
             modelBuilder.Entity("CategoryContent", b =>
                 {
                     b.HasOne("Domain.Category", null)
@@ -317,6 +344,24 @@ namespace DataAccess.Migrations
                     b.HasOne("Domain.Psychologist", null)
                         .WithMany("Illnesses")
                         .HasForeignKey("PsychologistId");
+                });
+
+            modelBuilder.Entity("Domain.Session", b =>
+                {
+                    b.HasOne("Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Administrator", b =>
+                {
+                    b.HasOne("Domain.User", null)
+                        .WithOne()
+                        .HasForeignKey("Domain.Administrator", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Psychologist", b =>

@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
+using Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -11,5 +9,23 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class SessionsController : ControllerBase
 	{
+		private readonly IUserManager userManager;
+
+		public SessionsController(IUserManager userManager)
+		{
+			this.userManager = userManager;
+		}
+
+		[HttpPost]
+		[HttpPost]
+		public IActionResult Post([FromBody] UserCredentialsModel movieModel)
+		{
+			string token = this.userManager.Login(movieModel.EMail, movieModel.Password);
+			SessionInfoModel sessionInfo = new SessionInfoModel()
+			{
+				Token = token
+			};
+			return Ok(sessionInfo);
+		}
 	}
 }

@@ -1,9 +1,9 @@
-﻿namespace Domain
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain
 {
-	public class Administrator
+	[Table("Administrators")]
+	public class Administrator : User
 	{
-		public int Id { get; set; }
-		public string EMail { get; set; }
-		public string Password { get; set; }
 	}
 }
