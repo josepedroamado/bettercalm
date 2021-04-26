@@ -21,6 +21,14 @@ namespace WebAPI.Filters
 					Content = ex.Message
 				};
 			}
+			catch (InvalidCredentialsException ex)
+			{
+				context.Result = new ContentResult()
+				{
+					StatusCode = 400,
+					Content = ex.Message
+				};
+			}
 			catch (Exception)
 			{
 				context.Result = new ContentResult()

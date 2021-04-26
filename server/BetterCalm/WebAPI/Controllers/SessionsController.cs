@@ -20,7 +20,12 @@ namespace WebAPI.Controllers
 		[HttpPost]
 		public IActionResult Post([FromBody] UserCredentialsModel movieModel)
 		{
-			throw new NotImplementedException();
+			string token = this.userManager.Login(movieModel.EMail, movieModel.Password);
+			SessionInfoModel sessionInfo = new SessionInfoModel()
+			{
+				Token = token
+			};
+			return Ok(sessionInfo);
 		}
 	}
 }
