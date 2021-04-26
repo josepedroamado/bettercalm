@@ -1,5 +1,7 @@
 ﻿using BLInterfaces;
 using DataAccessInterfaces;
+using Domain;
+using Domain.Exceptions;
 using System;
 
 namespace BL
@@ -17,7 +19,29 @@ namespace BL
 
 		public string Login(string eMail, string password)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				Administrator administrator = administratorRepository.Get(eMail);
+				if (administrator != null && UserCredentialsValidator.ValidateCredentials(administrator, password))
+				{
+					Session session = this.sessionRepository.Get(eMail);
+					if (session == null)
+					{
+						session = new Session()
+						{
+							Token = Guid.NewGuid().ToString(),
+							User = administrator
+						};
+					}
+					return session.Token;
+				}
+				else
+					throw new InvalidCredentialsException();
+			}
+			catch (NotFoundException)
+			{
+				throw new InvalidCredentialsException();
+			}
 		}
 	}
 }
