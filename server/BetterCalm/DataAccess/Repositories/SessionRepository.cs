@@ -27,7 +27,7 @@ namespace DataAccess.Repositories
         {
             if (this.sessions.Find(session.Id) == null)
             {
-				throw new NotFoundException($"The session for {session.GetSessionEmail()} ");
+				throw new NotLoggedInException();
             }
             else
             {
@@ -42,7 +42,7 @@ namespace DataAccess.Repositories
 				FirstOrDefault(itSession => itSession.User.EMail == eMail);
 			if (session == null)
 			{
-				throw new NotFoundException($"The session for {eMail} ");
+				throw new NotLoggedInException();
 			}
 			return session;
 		}
@@ -53,7 +53,7 @@ namespace DataAccess.Repositories
 				FirstOrDefault(itSession => itSession.Token == token);
 			if (session == null)
 			{
-				throw new NotFoundException($"The session for {token} ");
+				throw new NotLoggedInException();
 			}
 			return session;
 		}

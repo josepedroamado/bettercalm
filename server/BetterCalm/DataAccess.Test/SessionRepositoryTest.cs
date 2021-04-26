@@ -63,7 +63,7 @@ namespace DataAccess.Test
 		}
 
         [TestMethod]
-        [ExpectedException(typeof(NotFoundException))]
+        [ExpectedException(typeof(NotLoggedInException))]
         public void GetByEmailNotFound()
 		{
             string expectedSessionEMail = "a@a.com";
@@ -100,7 +100,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotFoundException))]
+        [ExpectedException(typeof(NotLoggedInException))]
         public void GetByTokenNotFound()
         {
             string expectedToken = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4";
@@ -135,7 +135,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotFoundException))]
+        [ExpectedException(typeof(NotLoggedInException))]
         public void DeleteOk()
         {
             Session session = new Session()
@@ -160,7 +160,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotFoundException))]
+        [ExpectedException(typeof(NotLoggedInException))]
         public void DeleteNotFound()
         {
             Session session = new Session()
