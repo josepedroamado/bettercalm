@@ -1,5 +1,8 @@
-﻿namespace Domain
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain
 {
+	[Table("Users")]
 	public abstract class User
 	{
 		public int Id { get; set; }

@@ -41,8 +41,6 @@ namespace DataAccess.Context
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().ToTable("Users");
-            modelBuilder.Entity<Administrator>().ToTable("Administrators");
         }
 	}
 }
