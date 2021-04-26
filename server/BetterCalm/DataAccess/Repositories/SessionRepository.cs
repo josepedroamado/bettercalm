@@ -36,11 +36,20 @@ namespace DataAccess.Repositories
             }
 		}
 
-        public Session Get(string eMail)
+        public Session GetByEmail(string eMail)
 		{
 			Session session = this.sessions.
 				FirstOrDefault(itSession => itSession.User.EMail == eMail);
+			if (session == null)
+			{
+				throw new NotFoundException($"The session for {eMail} ");
+			}
 			return session;
 		}
-	}
+
+        public Session GetByToken(string token)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
