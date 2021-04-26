@@ -1,7 +1,6 @@
 ﻿using DataAccess.Context;
 using DataAccess.Repositories;
 using Domain;
-using Domain.Exceptions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,7 +8,7 @@ using System.Data.Common;
 
 namespace DataAccess.Test
 {
-	[TestClass]
+    [TestClass]
 	public class SessionRepositoryTest
 	{
         private DbContext context;
@@ -63,7 +62,6 @@ namespace DataAccess.Test
 		}
 
         [TestMethod]
-        [ExpectedException(typeof(NotLoggedInException))]
         public void GetByEmailNotFound()
 		{
             string expectedSessionEMail = "a@a.com";
@@ -100,7 +98,6 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotLoggedInException))]
         public void GetByTokenNotFound()
         {
             string expectedToken = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4";
@@ -135,7 +132,6 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotLoggedInException))]
         public void DeleteOk()
         {
             Session session = new Session()
@@ -152,30 +148,6 @@ namespace DataAccess.Test
 
             SessionRepository repository = new SessionRepository(this.context);
             repository.Add(session);
-
-            repository.Delete(session);
-            Session obtainedSession = repository.GetByEmail(session.GetSessionEmail());
-
-            Assert.IsNull(obtainedSession);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(NotLoggedInException))]
-        public void DeleteNotLoggedIn()
-        {
-            Session session = new Session()
-            {
-                Id = 1,
-                Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
-                User = new Administrator()
-                {
-                    Id = 1,
-                    EMail = "a@a.com",
-                    Password = "1234"
-                }
-            };
-
-            SessionRepository repository = new SessionRepository(this.context);
 
             repository.Delete(session);
             Session obtainedSession = repository.GetByEmail(session.GetSessionEmail());

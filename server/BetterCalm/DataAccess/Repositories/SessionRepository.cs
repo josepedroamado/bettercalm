@@ -1,12 +1,11 @@
 ﻿using DataAccessInterfaces;
 using Domain;
-using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace DataAccess.Repositories
 {
-	public class SessionRepository : ISessionRepository
+    public class SessionRepository : ISessionRepository
 	{
 		private DbContext context;
 		private DbSet<Session> sessions;
@@ -25,25 +24,17 @@ namespace DataAccess.Repositories
 
         public void Delete(Session session)
         {
-            if (this.sessions.Find(session.Id) == null)
-            {
-				throw new NotLoggedInException();
-            }
-            else
-            {
+            if (this.sessions.Find(session.Id) != null)
+			{
 				this.sessions.Remove(session);
 				this.context.SaveChanges();
-            }
+			}
 		}
 
         public Session GetByEmail(string eMail)
 		{
 			Session session = this.sessions.
 				FirstOrDefault(itSession => itSession.User.EMail == eMail);
-			if (session == null)
-			{
-				throw new NotLoggedInException();
-			}
 			return session;
 		}
 
@@ -51,10 +42,6 @@ namespace DataAccess.Repositories
         {
 			Session session = this.sessions.
 				FirstOrDefault(itSession => itSession.Token == token);
-			if (session == null)
-			{
-				throw new NotLoggedInException();
-			}
 			return session;
 		}
     }
