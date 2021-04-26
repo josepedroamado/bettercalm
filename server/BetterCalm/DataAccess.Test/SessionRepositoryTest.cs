@@ -96,5 +96,53 @@ namespace DataAccess.Test
             Assert.AreEqual(session, obtainedSession);
         }
 
+        [TestMethod]
+        public void DeleteOk()
+        {
+            Session session = new Session()
+            {
+                Id = 1,
+                Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
+                User = new Administrator()
+                {
+                    Id = 1,
+                    EMail = "a@a.com",
+                    Password = "1234"
+                }
+            };
+
+            SessionRepository repository = new SessionRepository(this.context);
+            repository.Add(session);
+
+            repository.Delete(session);
+            Session obtainedSession = repository.Get(session.GetSessionEmail());
+
+            Assert.IsNull(obtainedSession);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void DeleteNotFound()
+        {
+            Session session = new Session()
+            {
+                Id = 1,
+                Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
+                User = new Administrator()
+                {
+                    Id = 1,
+                    EMail = "a@a.com",
+                    Password = "1234"
+                }
+            };
+
+            SessionRepository repository = new SessionRepository(this.context);
+
+            repository.Delete(session);
+            Session obtainedSession = repository.Get(session.GetSessionEmail());
+
+            Assert.IsNull(obtainedSession);
+        }
+
     }
 }

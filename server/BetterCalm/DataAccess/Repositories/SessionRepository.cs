@@ -22,7 +22,12 @@ namespace DataAccess.Repositories
 			this.context.SaveChanges();
 		}
 
-		public Session Get(string eMail)
+        public void Delete(Session session)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Session Get(string eMail)
 		{
 			Session session = this.sessions.
 				FirstOrDefault(itSession => itSession.User.EMail == eMail);

@@ -6,5 +6,6 @@ namespace DataAccessInterfaces
 	{
 		Session Get(string eMail);
 		void Add(Session session);
+		void Delete(Session session);
 	}
 }
