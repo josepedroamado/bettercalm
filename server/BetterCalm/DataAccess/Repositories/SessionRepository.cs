@@ -49,7 +49,13 @@ namespace DataAccess.Repositories
 
         public Session GetByToken(string token)
         {
-            throw new System.NotImplementedException();
-        }
+			Session session = this.sessions.
+				FirstOrDefault(itSession => itSession.Token == token);
+			if (session == null)
+			{
+				throw new NotFoundException($"The session for {token} ");
+			}
+			return session;
+		}
     }
 }
