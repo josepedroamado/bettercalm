@@ -63,7 +63,6 @@ namespace DataAccess.Test
 		}
 
         [TestMethod]
-        [ExpectedException(typeof(NotFoundException))]
         public void GetNotFound()
 		{
             string expectedSessionEMail = "a@a.com";
