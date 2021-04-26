@@ -1,5 +1,6 @@
 ﻿using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -24,8 +25,16 @@ namespace DataAccess.Repositories
 
         public void Delete(Session session)
         {
-            throw new System.NotImplementedException();
-        }
+            if (this.sessions.Find(session.Id) == null)
+            {
+				throw new NotFoundException($"The session for {session.GetSessionEmail()} ");
+            }
+            else
+            {
+				this.sessions.Remove(session);
+				this.context.SaveChanges();
+            }
+		}
 
         public Session Get(string eMail)
 		{
