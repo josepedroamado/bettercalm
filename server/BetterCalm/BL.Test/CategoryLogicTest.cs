@@ -1,36 +1,30 @@
-﻿using BLInterfaces;
+﻿using DataAccessInterfaces;
 using Domain;
 using Domain.Exceptions;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using WebAPI.Controllers;
 
-namespace WebAPI.Test
+namespace BL.Test
 {
-    [TestClass]
-    public class CategoriesControllerTest
-    {
+	[TestClass]
+	public class CategoryLogicTest
+	{
         [TestMethod]
-        public void GetAllCategories()
+        public void GetCategoriesOk()
         {
-			List<Category> expectedCategories = GetCategoriesOkExpected();
+            List<Category> expectedCategories = GetCategoriesOkExpected();
+            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            categoryRepositoryMock.Setup(m => m.GetAll()).Returns(expectedCategories);
 
-			Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
-			mock.Setup(m => m.GetCategories()).Returns(expectedCategories);
-			CategoriesController controller = new CategoriesController(mock.Object);
+            CategoryLogic categoryLogic = new CategoryLogic(categoryRepositoryMock.Object);
 
-			IActionResult result = controller.Get();
-			OkObjectResult objectResult = result as OkObjectResult;
-			IEnumerable<Category> obtainedCategories = objectResult.Value as IEnumerable<Category>;
-
-			mock.VerifyAll();
-			Assert.IsTrue(expectedCategories.SequenceEqual(obtainedCategories));
-		}
+            IEnumerable<Category> obtainedCategories = categoryLogic.GetCategories();
+            categoryRepositoryMock.VerifyAll();
+            Assert.IsTrue(obtainedCategories.SequenceEqual(expectedCategories));
+        }
 
         private List<Category> GetCategoriesOkExpected()
         {
@@ -104,18 +98,30 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void GetCategoryById()
+        public void GetCategoryOk()
         {
             Category expectedCategory = GetCategoryOkExpected();
-            Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetCategory(expectedCategory.Id)).Returns(expectedCategory);
-            CategoriesController controller = new CategoriesController(mock.Object);
+            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            categoryRepositoryMock.Setup(m => m.Get(expectedCategory.Id)).Returns(expectedCategory);
+            CategoryLogic categoryLogic = new CategoryLogic(categoryRepositoryMock.Object);
 
-            IActionResult result = controller.Get(expectedCategory.Id);
-            OkObjectResult objectResult = result as OkObjectResult;
-            Category obtainedCategory = objectResult.Value as Category;
-
+            Category obtainedCategory = categoryLogic.GetCategory(expectedCategory.Id);
+            categoryRepositoryMock.VerifyAll();
             Assert.AreEqual(expectedCategory, obtainedCategory);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void GetCategoryNotFound()
+        {
+            int expectedCategoryId = 1;
+            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+            categoryRepositoryMock.Setup(m => m.Get(expectedCategoryId)).Throws(new NotFoundException(expectedCategoryId.ToString()));
+            CategoryLogic categoryLogic = new CategoryLogic(categoryRepositoryMock.Object);
+
+            Category obtainedCategory = categoryLogic.GetCategory(expectedCategoryId);
+            categoryRepositoryMock.VerifyAll();
+            Assert.IsNull(obtainedCategory);
         }
 
         private Category GetCategoryOkExpected()
@@ -155,22 +161,6 @@ namespace WebAPI.Test
                         }
                     }
             };
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(NotFoundException))]
-        public void GetCategoryByIdNotFound()
-        {
-            int expectedCategoryId = 1;
-
-            Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetCategory(expectedCategoryId)).Throws(new NotFoundException(expectedCategoryId.ToString()));
-            CategoriesController controller = new CategoriesController(mock.Object);
-
-            IActionResult result = controller.Get(expectedCategoryId);
-
-            mock.VerifyAll();
-            Assert.IsTrue(result is NotFoundObjectResult);
         }
     }
 }

@@ -1,34 +1,32 @@
 ﻿using BLInterfaces;
 using Domain;
-using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class CategoriesController : ControllerBase
 	{
-		private readonly IContentPlayer contentPlayerLogic;
+		private readonly ICategoryLogic categoryLogic;
 
-		public CategoriesController(IContentPlayer contentPlayerLogic)
+		public CategoriesController(ICategoryLogic categoryLogic)
 		{
-			this.contentPlayerLogic = contentPlayerLogic;
+			this.categoryLogic = categoryLogic;
 		}
 
 		[HttpGet]
 		public IActionResult Get()
 		{
-			IEnumerable<Category> categories = this.contentPlayerLogic.GetCategories();
+			IEnumerable<Category> categories = this.categoryLogic.GetCategories();
 			return Ok(categories);
 		}
 
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			Category category = this.contentPlayerLogic.GetCategory(id);
+			Category category = this.categoryLogic.GetCategory(id);
 			return Ok(category);
 		}
 	}

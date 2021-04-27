@@ -19,16 +19,6 @@ namespace BL
 			this.contentRepository = contentRepository;
 		}
 
-		public IEnumerable<Category> GetCategories()
-        {
-			return this.categoryRepository.GetAll();
-		}
-
-        public Category GetCategory(int Id)
-        {
-			return this.categoryRepository.Get(Id);
-        }
-
 		public IEnumerable<Content> GetContents()
 		{
 			return this.contentRepository.GetAll();
