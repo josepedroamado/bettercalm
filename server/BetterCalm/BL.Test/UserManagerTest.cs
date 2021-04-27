@@ -64,6 +64,7 @@ namespace BL.Test
 
 			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMock.Setup(m => m.GetByEmail(queryEmail)).Returns(expectedSession);
+			sessionRepositoryMock.Setup(m => m.Add(It.IsAny<Session>()));
 
 			UserManager userManager = new UserManager(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
 
@@ -177,6 +178,7 @@ namespace BL.Test
 			Mock<ISessionRepository> sessionRepositoryMockAfterLogout = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMockAfterLogout.Setup(m => m.GetByToken(expectedToken)).Returns(deletedSession);
 			sessionRepositoryMockAfterLogout.Setup(m => m.GetByEmail(expectedSession.GetSessionEmail())).Returns(deletedSession);
+			sessionRepositoryMockAfterLogout.Setup(m => m.Add(It.IsAny<Session>()));
 
 			userManager = new UserManager(sessionRepositoryMockAfterLogout.Object, administratorRepositoryMock.Object);
 
