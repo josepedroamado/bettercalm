@@ -4,14 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WebAPI.Controllers;
 
 namespace WebAPI.Test
 {
-	[TestClass]
+    [TestClass]
 	public class SessionsControllerTest
 	{
 		[TestMethod]
@@ -83,6 +80,31 @@ namespace WebAPI.Test
 
 			mock.VerifyAll();
 			Assert.AreEqual(expectedToken, obtainedToken);
+		}
+
+		[TestMethod]
+		public void LogoutOk()
+		{
+			UserCredentialsModel credentialsParameters = new UserCredentialsModel()
+			{
+				EMail = "a@a.com",
+				Password = "1234"
+			};
+
+			string expectedToken = "token1234";
+			Mock<IUserManager> userManagerMock = new Mock<IUserManager>(MockBehavior.Strict);
+			userManagerMock.Setup(m => m.Logout(expectedToken));
+			userManagerMock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Returns("newToken");
+
+			SessionsController controller = new SessionsController(userManagerMock.Object);
+
+			controller.Delete(expectedToken);
+			IActionResult result = controller.Post(credentialsParameters);
+			OkObjectResult objectResult = result as OkObjectResult;
+			string obtainedToken = (objectResult.Value as SessionInfoModel).Token;
+
+			userManagerMock.VerifyAll();
+			Assert.AreNotEqual(expectedToken, obtainedToken);
 		}
 	}
 }
