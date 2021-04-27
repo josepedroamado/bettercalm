@@ -1,6 +1,7 @@
 ﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,6 +28,12 @@ namespace WebAPI.Controllers
 				Select(content => new ContentBasicInfo(content));
 
 			return Ok(contents);
+		}
+
+		[HttpGet("{id}")]
+		public IActionResult Get(int id)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
