@@ -1,4 +1,5 @@
 ﻿using BLInterfaces;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using System;
@@ -33,7 +34,8 @@ namespace WebAPI.Controllers
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			throw new NotImplementedException();
+			Content content = this.contentLogic.GetContent(id);
+			return Ok(new ContentBasicInfo(content));
 		}
 	}
 }
