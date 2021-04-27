@@ -16,6 +16,12 @@ namespace DataAccess.Repositories
 			this.context = context;
 			this.contents = context.Set<Content>();
 		}
+
+		public Content Get(int id)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public IEnumerable<Content> GetAll()
 		{
 			return this.contents;
