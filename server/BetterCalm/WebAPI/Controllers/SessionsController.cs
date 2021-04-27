@@ -17,10 +17,9 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpPost]
-		[HttpPost]
-		public IActionResult Post([FromBody] UserCredentialsModel movieModel)
+		public IActionResult Post([FromBody] UserCredentialsModel userCredentialsModel)
 		{
-			string token = this.userManager.Login(movieModel.EMail, movieModel.Password);
+			string token = this.userManager.Login(userCredentialsModel.EMail, userCredentialsModel.Password);
 			SessionInfoModel sessionInfo = new SessionInfoModel()
 			{
 				Token = token
