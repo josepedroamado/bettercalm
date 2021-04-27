@@ -6,12 +6,12 @@ using System;
 
 namespace BL
 {
-	public class UserManager : IUserManager
+	public class SessionLogic : ISessionLogic
 	{
 		private readonly ISessionRepository sessionRepository;
 		private readonly IAdministratorRepository administratorRepository;
 
-		public UserManager(ISessionRepository sessionRepository, IAdministratorRepository administratorRepository)
+		public SessionLogic(ISessionRepository sessionRepository, IAdministratorRepository administratorRepository)
 		{
 			this.sessionRepository = sessionRepository;
 			this.administratorRepository = administratorRepository;

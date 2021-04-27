@@ -21,7 +21,7 @@ namespace WebAPI.Test
 			};
 
 			string expectedToken = "6813521C-A18F-493A-9DF7-BE6704DAA2CC";
-			Mock<IUserManager> mock = new Mock<IUserManager>(MockBehavior.Strict);
+			Mock<ISessionLogic> mock = new Mock<ISessionLogic>(MockBehavior.Strict);
 			mock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Returns(expectedToken);
 
 			SessionsController controller = new SessionsController(mock.Object);
@@ -45,7 +45,7 @@ namespace WebAPI.Test
 			};
 
 			string expectedToken = "";
-			Mock<IUserManager> mock = new Mock<IUserManager>(MockBehavior.Strict);
+			Mock<ISessionLogic> mock = new Mock<ISessionLogic>(MockBehavior.Strict);
 			mock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Throws(new InvalidCredentialsException());
 
 			SessionsController controller = new SessionsController(mock.Object);
@@ -69,7 +69,7 @@ namespace WebAPI.Test
 			};
 
 			string expectedToken = "";
-			Mock<IUserManager> mock = new Mock<IUserManager>(MockBehavior.Strict);
+			Mock<ISessionLogic> mock = new Mock<ISessionLogic>(MockBehavior.Strict);
 			mock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Throws(new InvalidCredentialsException());
 
 			SessionsController controller = new SessionsController(mock.Object);
@@ -92,18 +92,18 @@ namespace WebAPI.Test
 			};
 
 			string expectedToken = "token1234";
-			Mock<IUserManager> userManagerMock = new Mock<IUserManager>(MockBehavior.Strict);
-			userManagerMock.Setup(m => m.Logout(expectedToken));
-			userManagerMock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Returns("newToken");
+			Mock<ISessionLogic> sessionLogicMock = new Mock<ISessionLogic>(MockBehavior.Strict);
+			sessionLogicMock.Setup(m => m.Logout(expectedToken));
+			sessionLogicMock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Returns("newToken");
 
-			SessionsController controller = new SessionsController(userManagerMock.Object);
+			SessionsController controller = new SessionsController(sessionLogicMock.Object);
 
 			controller.Delete(expectedToken);
 			IActionResult result = controller.Post(credentialsParameters);
 			OkObjectResult objectResult = result as OkObjectResult;
 			string obtainedToken = (objectResult.Value as SessionInfoModel).Token;
 
-			userManagerMock.VerifyAll();
+			sessionLogicMock.VerifyAll();
 			Assert.AreNotEqual(expectedToken, obtainedToken);
 		}
 	}

@@ -9,17 +9,17 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class SessionsController : ControllerBase
 	{
-		private readonly IUserManager userManager;
+		private readonly ISessionLogic sessionLogic;
 
-		public SessionsController(IUserManager userManager)
+		public SessionsController(ISessionLogic sessionLogic)
 		{
-			this.userManager = userManager;
+			this.sessionLogic = sessionLogic;
 		}
 
 		[HttpPost]
 		public IActionResult Post([FromBody] UserCredentialsModel userCredentialsModel)
 		{
-			string token = this.userManager.Login(userCredentialsModel.EMail, userCredentialsModel.Password);
+			string token = this.sessionLogic.Login(userCredentialsModel.EMail, userCredentialsModel.Password);
 			SessionInfoModel sessionInfo = new SessionInfoModel()
 			{
 				Token = token
@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
 		[HttpDelete]
 		public void Delete([FromBody] string expectedToken)
         {
-			this.userManager.Logout(expectedToken);
+			this.sessionLogic.Logout(expectedToken);
 		}
     }
 }
