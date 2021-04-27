@@ -7,7 +7,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
 using System.Linq;
 
 namespace DataAccess.Test
@@ -82,7 +81,7 @@ namespace DataAccess.Test
 							Name = "Tropical"
 						}
 					},
-					Id = 1,
+					Id = 2,
 					ContentLength = new TimeSpan(0, 2, 30),
 					Name = "La vida es un carnaval",
 					ImageUrl = "http://www.images.com/image2.jpg"
