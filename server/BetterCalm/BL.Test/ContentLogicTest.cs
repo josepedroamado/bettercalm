@@ -130,6 +130,65 @@ namespace BL.Test
 		}
 
 		[TestMethod]
+		public void GetContentsByCategoryOk()
+		{
+			List<Content> expectedContents = GetContentsByCategoryExpectedContents();
+			Category expectedCategory = expectedContents.First().Categories.First();
+			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
+			contentRepositoryMock.Setup(m => m.GetAll(expectedCategory)).Returns(expectedContents);
+
+			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object);
+
+			IEnumerable<Content> obtainedContents = contentLogic.GetContents(expectedCategory);
+			Assert.IsTrue(expectedContents.SequenceEqual(obtainedContents));
+		}
+
+		private static List<Content> GetContentsByCategoryExpectedContents()
+		{
+			Category rock = new Category()
+			{
+				Id = 1,
+				Name = "Rock"
+			};
+
+			Content itsMyLife = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>() { rock },
+				PlayLists = new List<Playlist>() { },
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg"
+			};
+
+			Content livinOnAPrayer = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>() { rock },
+				PlayLists = new List<Playlist>() { },
+				Id = 2,
+				ContentLength = new TimeSpan(0, 4, 10),
+				Name = "Livin' On A Prayer",
+				ImageUrl = "http://www.images.com/image.jpg"
+			};
+
+			rock = new Category()
+			{
+				Id = 1,
+				Name = "Rock",
+				Contents = new List<Content>() { itsMyLife, livinOnAPrayer }
+			};
+
+			List<Content> expectedContent = new List<Content>();
+			foreach (Content song in rock.Contents)
+			{
+				expectedContent.Add(song);
+			}
+			return expectedContent;
+		}
+
+		[TestMethod]
 		public void GetContentOk()
 		{
 			Content expectedContent = new Content()

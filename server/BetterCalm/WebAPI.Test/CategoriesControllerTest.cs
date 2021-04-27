@@ -3,6 +3,7 @@ using Domain;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Model;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace WebAPI.Test
 
 			Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
 			mock.Setup(m => m.GetCategories()).Returns(expectedCategories);
-			CategoriesController controller = new CategoriesController(mock.Object);
+			CategoriesController controller = new CategoriesController(mock.Object, It.IsAny<IContentLogic>());
 
 			IActionResult result = controller.Get();
 			OkObjectResult objectResult = result as OkObjectResult;
@@ -109,7 +110,7 @@ namespace WebAPI.Test
             Category expectedCategory = GetCategoryOkExpected();
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetCategory(expectedCategory.Id)).Returns(expectedCategory);
-            CategoriesController controller = new CategoriesController(mock.Object);
+            CategoriesController controller = new CategoriesController(mock.Object, It.IsAny<IContentLogic>());
 
             IActionResult result = controller.Get(expectedCategory.Id);
             OkObjectResult objectResult = result as OkObjectResult;
@@ -165,12 +166,83 @@ namespace WebAPI.Test
 
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetCategory(expectedCategoryId)).Throws(new NotFoundException(expectedCategoryId.ToString()));
-            CategoriesController controller = new CategoriesController(mock.Object);
+            CategoriesController controller = new CategoriesController(mock.Object, It.IsAny<IContentLogic>());
 
             IActionResult result = controller.Get(expectedCategoryId);
 
             mock.VerifyAll();
             Assert.IsTrue(result is NotFoundObjectResult);
+        }
+
+        [TestMethod]
+        public void GetContentsByCategoryOk()
+        {
+            List<Content> expectedContents = GetContentsByCategoryExpectedContents();
+            Category expectedCategory = expectedContents.First().Categories.First();
+
+            Mock<ICategoryLogic> categoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
+            categoryLogic.Setup(m => m.GetCategory(expectedCategory.Id)).Returns(expectedCategory);
+
+            Mock<IContentLogic> contentLogicMock = new Mock<IContentLogic>(MockBehavior.Strict);
+            contentLogicMock.Setup(m => m.GetContents(expectedCategory)).Returns(expectedContents);
+
+            CategoriesController controller = new CategoriesController(categoryLogic.Object, contentLogicMock.Object);
+
+            IActionResult result = controller.GetContents(expectedCategory.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            IEnumerable<ContentBasicInfo> obtainedContents = objectResult.Value as IEnumerable<ContentBasicInfo>;
+
+            contentLogicMock.VerifyAll();
+            CollectionAssert.AreEqual(expectedContents.
+                Select(content => new ContentBasicInfo(content)).
+                ToList(),
+                obtainedContents.ToList(),
+                new ContentBasicInfoComparer());
+        }
+
+        private static List<Content> GetContentsByCategoryExpectedContents()
+        {
+            Category rock = new Category()
+            {
+                Id = 1,
+                Name = "Rock"
+            };
+
+            Content itsMyLife = new Content()
+            {
+                ArtistName = "Bon Jovi",
+                Categories = new List<Category>() { rock },
+                PlayLists = new List<Playlist>() { },
+                Id = 1,
+                ContentLength = new TimeSpan(0, 2, 30),
+                Name = "It's My Life",
+                ImageUrl = "http://www.images.com/image.jpg"
+            };
+
+            Content livinOnAPrayer = new Content()
+            {
+                ArtistName = "Bon Jovi",
+                Categories = new List<Category>() { rock },
+                PlayLists = new List<Playlist>() { },
+                Id = 2,
+                ContentLength = new TimeSpan(0, 4, 10),
+                Name = "Livin' On A Prayer",
+                ImageUrl = "http://www.images.com/image.jpg"
+            };
+
+            rock = new Category()
+            {
+                Id = 1,
+                Name = "Rock",
+                Contents = new List<Content>() { itsMyLife, livinOnAPrayer }
+            };
+
+            List<Content> expectedContent = new List<Content>();
+            foreach (Content song in rock.Contents)
+            {
+                expectedContent.Add(song);
+            }
+            return expectedContent;
         }
     }
 }
