@@ -121,78 +121,14 @@ namespace DataAccess.Test
 				Contents = new List<Content>() { }
 			};
 
-			Content itsMyLife = new Content()
-			{
-				ArtistName = "Bon Jovi",
-				Categories = new List<Category>() { },
-				PlayLists = new List<Playlist>() { bonJoviPlaylist  },
-				Id = 1,
-				ContentLength = new TimeSpan(0, 2, 30),
-				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
-			};
-
-			Content livinOnAPrayer = new Content()
-			{
-				ArtistName = "Bon Jovi",
-				Categories = new List<Category>() { },
-				PlayLists = new List<Playlist>() { bonJoviPlaylist },
-				Id = 2,
-				ContentLength = new TimeSpan(0, 4, 10),
-				Name = "Livin' On A Prayer",
-				ImageUrl = "http://www.images.com/image.jpg"
-			};
-
-			bonJoviPlaylist = new Playlist()
-			{
-				Id = 1,
-				Name = "The Best of Bon Jovi",
-				Description = "The Best song of all time by Bon Jovi",
-				ImageUrl = "http://www.images.com/image.jpg",
-				Categories = new List<Category>() { rock },
-				Contents = new List<Content>() { itsMyLife, livinOnAPrayer }
-			};
-
 			Playlist greenDayPlaylist = new Playlist()
 			{
-				Id = 1,
+				Id = 2,
 				Name = "The Best of Green Day",
 				Description = "The Best song of all time by Green Day",
 				ImageUrl = "http://www.images.com/image.jpg",
 				Categories = new List<Category>() { rock },
 				Contents = new List<Content>() { }
-			};
-
-			Content welcomeToParadise = new Content()
-			{
-				ArtistName = "Green Day",
-				Categories = new List<Category>() { },
-				PlayLists = new List<Playlist>() { greenDayPlaylist },
-				Id = 1,
-				ContentLength = new TimeSpan(0, 3, 45),
-				Name = "Welcome To Paradise",
-				ImageUrl = "http://www.images.com/image.jpg"
-			};
-
-			Content theGrouch = new Content()
-			{
-				ArtistName = "Green Day",
-				Categories = new List<Category>() { },
-				PlayLists = new List<Playlist>() { greenDayPlaylist },
-				Id = 2,
-				ContentLength = new TimeSpan(0, 2, 12),
-				Name = "The Grouch",
-				ImageUrl = "http://www.images.com/image.jpg"
-			};
-
-			greenDayPlaylist = new Playlist()
-			{
-				Id = 1,
-				Name = "The Best of Bon Jovi",
-				Description = "The Best song of all time by Bon Jovi",
-				ImageUrl = "http://www.images.com/image.jpg",
-				Categories = new List<Category>() { rock },
-				Contents = new List<Content>() { itsMyLife, livinOnAPrayer }
 			};
 
 			rock = new Category()

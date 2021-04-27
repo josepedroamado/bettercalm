@@ -33,7 +33,7 @@ namespace DataAccess.Repositories
 
         public IEnumerable<Playlist> GetAll(Category category)
         {
-            throw new System.NotImplementedException();
-        }
+			return this.playlists.Where(playlist => playlist.Categories.Contains(category));
+		}
     }
 }
