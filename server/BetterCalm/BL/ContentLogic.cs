@@ -31,7 +31,7 @@ namespace BL
 
         public IEnumerable<Content> GetContents(Category category)
         {
-            throw new System.NotImplementedException();
-        }
+			return this.contentRepository.GetAll(category);
+		}
     }
 }
