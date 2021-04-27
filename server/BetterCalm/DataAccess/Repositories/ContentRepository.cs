@@ -1,21 +1,23 @@
 ﻿using DataAccessInterfaces;
 using Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 
 namespace DataAccess.Repositories
 {
 	public class ContentRepository : IContentRepository
 	{
+		private DbContext context;
+		private DbSet<Content> contents;
 
 		public ContentRepository(DbContext context)
 		{
-
+			this.context = context;
+			this.contents = context.Set<Content>();
 		}
 		public IEnumerable<Content> GetAll()
 		{
-			throw new NotImplementedException();
+			return this.contents;
 		}
 	}
 }
