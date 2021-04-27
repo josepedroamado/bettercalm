@@ -243,7 +243,6 @@ namespace DataAccess.Test
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg"
 			};
-			this.context.Add(toSaveContent);
 			this.context.SaveChanges();
 
 			ContentRepository repository = new ContentRepository(this.context);
@@ -251,7 +250,7 @@ namespace DataAccess.Test
 			repository.Add(toSaveContent);
 			Content added = repository.Get(toSaveContent.Id);
 
-			Assert.Equals(toSaveContent, added);
+			Assert.AreEqual(toSaveContent, added);
 		}
 
 		[TestMethod]
@@ -286,7 +285,6 @@ namespace DataAccess.Test
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg"
 			};
-			this.context.Add(toSaveContent);
 			this.context.SaveChanges();
 
 			ContentRepository repository = new ContentRepository(this.context);
@@ -294,7 +292,7 @@ namespace DataAccess.Test
 			repository.Add(toSaveContent);
 			Content added = repository.Get(toSaveContent.Id);
 
-			Assert.Equals(toSaveContent, added);
+			Assert.AreEqual(toSaveContent, added);
 		}
 
 		[TestMethod]
@@ -318,7 +316,6 @@ namespace DataAccess.Test
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg"
 			};
-			this.context.Add(toSaveContent);
 			this.context.SaveChanges();
 
 			ContentRepository repository = new ContentRepository(this.context);
@@ -326,7 +323,7 @@ namespace DataAccess.Test
 			repository.Add(toSaveContent);
 			Content added = repository.Get(toSaveContent.Id);
 
-			Assert.Equals(toSaveContent, added);
+			Assert.AreEqual(toSaveContent, added);
 		}
 	}
 }
