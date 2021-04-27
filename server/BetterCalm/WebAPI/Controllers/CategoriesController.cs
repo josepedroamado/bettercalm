@@ -36,20 +36,24 @@ namespace WebAPI.Controllers
 			return Ok(category);
 		}
 
-		[HttpGet("{id}/contents/")]
-		public IActionResult GetContents(int id)
+		[HttpGet("{categoryId}/contents/")]
+		public IActionResult GetContents(int categoryId)
 		{
 			IEnumerable<ContentBasicInfo> contents =
-				this.contentLogic.GetContents(categoryLogic.GetCategory(id)).
+				this.contentLogic.GetContents(categoryLogic.GetCategory(categoryId)).
 				Select(content => new ContentBasicInfo(content));
 
 			return Ok(contents);
 		}
 
-		[HttpGet("{id}/playlists/")]
-		public IActionResult GetPlaylists (int id)
+		[HttpGet("{categoryId}/playlists/")]
+		public IActionResult GetPlaylists (int categoryId)
 		{
-			return Ok();
+			IEnumerable<PlaylistBasicInfo> playlists =
+				this.playlistLogic.GetPlaylists(categoryLogic.GetCategory(categoryId)).
+				Select(playlist => new PlaylistBasicInfo(playlist));
+
+			return Ok(playlists);
 		}
 	}
 }
