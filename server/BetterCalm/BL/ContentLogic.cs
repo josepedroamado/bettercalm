@@ -16,7 +16,7 @@ namespace BL
 
 		public Content GetContent(int id)
 		{
-			throw new System.NotImplementedException();
+			return this.contentRepository.Get(id);
 		}
 
 		public IEnumerable<Content> GetContents()
