@@ -26,5 +26,11 @@ namespace WebAPI.Controllers
 			};
 			return Ok(sessionInfo);
 		}
-	}
+
+		[HttpDelete]
+		public void Delete([FromBody] string expectedToken)
+        {
+			this.userManager.Logout(expectedToken);
+		}
+    }
 }
