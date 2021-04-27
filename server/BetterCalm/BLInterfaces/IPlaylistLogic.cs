@@ -5,8 +5,8 @@ namespace BLInterfaces
 {
 	public interface IPlaylistLogic
 	{
-		public IEnumerable<Playlist> GetPlaylists();
-
 		public Playlist GetPlaylist(int id);
+		public IEnumerable<Playlist> GetPlaylists();
+		public IEnumerable<Playlist> GetPlaylists(Category category);
 	}
 }

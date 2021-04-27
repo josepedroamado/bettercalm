@@ -115,5 +115,63 @@ namespace BL.Test
 			playlistRepositoryMock.VerifyAll();
 			Assert.IsNull(obtainedPlaylist);
 		}
+
+		[TestMethod]
+		public void GetPlaylistsByCategoryOk()
+		{
+			List<Playlist> expectedPlaylists = GetPlaylistsByCategoryOkExpected();
+			Category expectedCategory = expectedPlaylists.First().Categories.First();
+			Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+			playlistRepositoryMock.Setup(m => m.GetAll(expectedCategory)).Returns(expectedPlaylists);
+
+			PlaylistLogic playlistLogic = new PlaylistLogic(playlistRepositoryMock.Object);
+
+			IEnumerable<Playlist> obtainedPlaylists = playlistLogic.GetPlaylists(expectedCategory);
+			playlistRepositoryMock.VerifyAll();
+			Assert.IsTrue(obtainedPlaylists.SequenceEqual(expectedPlaylists));
+		}
+
+		private List<Playlist> GetPlaylistsByCategoryOkExpected()
+		{
+			Category rock = new Category()
+			{
+				Id = 1,
+				Name = "Rock"
+			};
+
+			Playlist bonJoviPlaylist = new Playlist()
+			{
+				Id = 1,
+				Name = "The Best of Bon Jovi",
+				Description = "The Best song of all time by Bon Jovi",
+				ImageUrl = "http://www.images.com/image.jpg",
+				Categories = new List<Category>() { rock },
+				Contents = new List<Content>() { }
+			};
+
+			Playlist greenDayPlaylist = new Playlist()
+			{
+				Id = 2,
+				Name = "The Best of Green Day",
+				Description = "The Best song of all time by Green Day",
+				ImageUrl = "http://www.images.com/image.jpg",
+				Categories = new List<Category>() { rock },
+				Contents = new List<Content>() { }
+			};
+
+			rock = new Category()
+			{
+				Id = 1,
+				Name = "Rock",
+				PlayLists = new List<Playlist>() { bonJoviPlaylist, greenDayPlaylist }
+			};
+
+			List<Playlist> expectedPlaylists = new List<Playlist>();
+			foreach (Playlist playlist in rock.PlayLists)
+			{
+				expectedPlaylists.Add(playlist);
+			}
+			return expectedPlaylists;
+		}
 	}
 }
