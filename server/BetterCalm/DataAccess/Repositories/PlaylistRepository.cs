@@ -30,5 +30,10 @@ namespace DataAccess.Repositories
 		{
 			return this.playlists;
 		}
-	}
+
+        public IEnumerable<Playlist> GetAll(Category category)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
