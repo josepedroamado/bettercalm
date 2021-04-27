@@ -24,7 +24,7 @@ namespace BL
 				Administrator administrator = administratorRepository.Get(eMail);
 				if (administrator != null && UserCredentialsValidator.ValidateCredentials(administrator, password))
 				{
-					Session session = this.sessionRepository.Get(eMail);
+					Session session = this.sessionRepository.GetByEmail(eMail);
 					if (session == null)
 					{
 						session = new Session()
@@ -43,5 +43,10 @@ namespace BL
 				throw new InvalidCredentialsException();
 			}
 		}
-	}
+
+        public void Logout(string token)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
