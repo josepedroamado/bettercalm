@@ -250,15 +250,17 @@ namespace WebAPI.Test
         {         
             List<Playlist> expectedPlaylists = GetPlaylistsByCategoryOkExpected();
             Category expectedCategory = expectedPlaylists.First().Categories.First();
-            Mock<IPlaylistLogic> mock = new Mock<IPlaylistLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetPlaylists(expectedCategory)).Returns(expectedPlaylists);
-            CategoriesController controller = new CategoriesController(It.IsAny<ICategoryLogic>(), It.IsAny<IContentLogic>(), mock.Object);
+            Mock<IPlaylistLogic> playlistLogicMock = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            playlistLogicMock.Setup(m => m.GetPlaylists(expectedCategory)).Returns(expectedPlaylists);
+            Mock<ICategoryLogic> categoryLogicMock = new Mock<ICategoryLogic>(MockBehavior.Strict);
+            categoryLogicMock.Setup(m => m.GetCategory(expectedCategory.Id)).Returns(expectedCategory);
+            CategoriesController controller = new CategoriesController(categoryLogicMock.Object, It.IsAny<IContentLogic>(), playlistLogicMock.Object);
 
-            IActionResult result = controller.GetContents(expectedCategory.Id);
+            IActionResult result = controller.GetPlaylists(expectedCategory.Id);
             OkObjectResult objectResult = result as OkObjectResult;
             IEnumerable<PlaylistBasicInfo> obtainedPlaylists = objectResult.Value as IEnumerable<PlaylistBasicInfo>;
 
-            mock.VerifyAll();
+            playlistLogicMock.VerifyAll();
             CollectionAssert.AreEqual(expectedPlaylists.
                 Select(playlist => new PlaylistBasicInfo(playlist)).ToList(),
                 obtainedPlaylists.ToList(),
