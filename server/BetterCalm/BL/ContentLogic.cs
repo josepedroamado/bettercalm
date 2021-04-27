@@ -14,6 +14,11 @@ namespace BL
 			this.contentRepository = contentRepository;
 		}
 
+		public Content GetContent(int id)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public IEnumerable<Content> GetContents()
 		{
 			return this.contentRepository.GetAll();
