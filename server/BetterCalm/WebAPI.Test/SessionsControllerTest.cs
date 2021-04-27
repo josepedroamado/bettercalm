@@ -4,14 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WebAPI.Controllers;
 
 namespace WebAPI.Test
 {
-	[TestClass]
+    [TestClass]
 	public class SessionsControllerTest
 	{
 		[TestMethod]
@@ -86,7 +83,6 @@ namespace WebAPI.Test
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(InvalidCredentialsException))]
 		public void LogoutOk()
 		{
 			UserCredentialsModel credentialsParameters = new UserCredentialsModel()
@@ -98,6 +94,7 @@ namespace WebAPI.Test
 			string expectedToken = "token1234";
 			Mock<IUserManager> userManagerMock = new Mock<IUserManager>(MockBehavior.Strict);
 			userManagerMock.Setup(m => m.Logout(expectedToken));
+			userManagerMock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Returns("newToken");
 
 			SessionsController controller = new SessionsController(userManagerMock.Object);
 
