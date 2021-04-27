@@ -84,7 +84,7 @@ namespace WebAPI.Test
 			playlistLogicMock.Setup(m => m.GetPlaylist(expectedPlaylist.Id)).Returns(expectedPlaylist);
 
 			Mock<IContentLogic> contentLogicMock = new Mock<IContentLogic>(MockBehavior.Strict);
-			contentLogicMock.Setup(m => m.GetContents()).Returns(expectedContents);
+			contentLogicMock.Setup(m => m.GetContents(expectedPlaylist)).Returns(expectedContents);
 
 			ContentsController controller = new ContentsController(contentLogicMock.Object, playlistLogicMock.Object);
 

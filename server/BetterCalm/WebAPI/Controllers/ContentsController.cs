@@ -32,9 +32,13 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public IActionResult Get(int id)
+		public IActionResult Get(int playlistId)
 		{
-			return Ok();
+			IEnumerable<ContentBasicInfo> contents =
+				this.contentLogic.GetContents(playlistLogic.GetPlaylist(playlistId)).
+				Select(content => new ContentBasicInfo(content));
+
+			return Ok(contents);
 		}
 	}
 }
