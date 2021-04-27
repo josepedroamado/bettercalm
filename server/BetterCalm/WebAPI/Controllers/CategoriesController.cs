@@ -1,7 +1,9 @@
 ﻿using BLInterfaces;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebAPI.Controllers
 {
@@ -35,7 +37,11 @@ namespace WebAPI.Controllers
 		[HttpGet("{id}/contents/")]
 		public IActionResult GetContents(int id)
 		{
-			return Ok();
+			IEnumerable<ContentBasicInfo> contents =
+				this.contentLogic.GetContents(categoryLogic.GetCategory(id)).
+				Select(content => new ContentBasicInfo(content));
+
+			return Ok(contents);
 		}
 	}
 }
