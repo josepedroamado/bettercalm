@@ -21,7 +21,7 @@ namespace BL
 
         public IEnumerable<Content> GetContents(Playlist playlist)
         {
-            throw new System.NotImplementedException();
+			return this.contentRepository.GetAll(playlist);
         }
     }
 }
