@@ -10,23 +10,16 @@ using System.Linq;
 namespace BL.Test
 {
 	[TestClass]
-	public class ContentPlayerTest
+	public class ContentLogicTest
 	{
-		
-
-		
-
-
         [TestMethod]
         public void GetContentsOk()
 		{
             List<Content> expectedContents = GetExpectedContents();
             Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
             contentRepositoryMock.Setup(m => m.GetAll()).Returns(expectedContents);
-            Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
-            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
 
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object, contentRepositoryMock.Object);
+            ContentLogic contentPlayer = new ContentLogic(contentRepositoryMock.Object);
 
             IEnumerable<Content> obtainedContents = contentPlayer.GetContents();
 

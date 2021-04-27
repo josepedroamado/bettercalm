@@ -13,14 +13,14 @@ using System.Linq;
 namespace WebAPI.Test
 {
 	[TestClass]
-	public class ContentControllerTest
+	public class ContentsControllerTest
 	{
 		[TestMethod]
 		public void GetContentsOk()
 		{
             List<Content> expectedContents = GetExpectedContents();
 
-            Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
+            Mock<IContentLogic> mock = new Mock<IContentLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetContents()).Returns(expectedContents);
             ContentsController controller = new ContentsController(mock.Object);
 

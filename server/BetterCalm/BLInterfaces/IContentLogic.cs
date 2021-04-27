@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BLInterfaces
 {
-	public interface IContentPlayer
+	public interface IContentLogic
 	{
 		public IEnumerable<Content> GetContents();
 	}
