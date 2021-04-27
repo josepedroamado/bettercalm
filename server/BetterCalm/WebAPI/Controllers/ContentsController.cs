@@ -13,10 +13,12 @@ namespace WebAPI.Controllers
 	public class ContentsController : ControllerBase
 	{
 		private readonly IContentLogic contentLogic;
+		private readonly IPlaylistLogic playlistLogic;
 
-		public ContentsController(IContentLogic contentPlayerLogic)
+		public ContentsController(IContentLogic contentPlayerLogic, IPlaylistLogic playlistLogic)
 		{
 			this.contentLogic = contentPlayerLogic;
+			this.playlistLogic = playlistLogic;
 		}
 
 		[HttpGet]
@@ -27,6 +29,12 @@ namespace WebAPI.Controllers
 				Select(content => new ContentBasicInfo(content));
 
 			return Ok(contents);
+		}
+
+		[HttpGet("{id}")]
+		public IActionResult Get(int id)
+		{
+			return Ok();
 		}
 	}
 }
