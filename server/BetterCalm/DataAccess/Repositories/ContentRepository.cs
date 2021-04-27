@@ -19,5 +19,10 @@ namespace DataAccess.Repositories
 		{
 			return this.contents;
 		}
-	}
+
+        public IEnumerable<Content> GetAll(Playlist playlist)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
