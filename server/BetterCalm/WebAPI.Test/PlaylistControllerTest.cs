@@ -29,10 +29,10 @@ namespace WebAPI.Test
 			IEnumerable<PlaylistBasicInfo> obtainedPlaylists = objectResult.Value as IEnumerable<PlaylistBasicInfo>;
 
 			mock.VerifyAll();
-			Assert.IsTrue(expectedPlaylists.
-				Select(playlist => new PlaylistBasicInfo(playlist)).
-				SequenceEqual(obtainedPlaylists));
-
+			CollectionAssert.AreEqual(expectedPlaylists.
+				Select(playlist => new PlaylistBasicInfo(playlist)).ToList(),
+				obtainedPlaylists.ToList(),
+				new PlaylistBasicInfoComparer());
 		}
 
 		private List<Playlist> GetPlaylistsOkExpected()
