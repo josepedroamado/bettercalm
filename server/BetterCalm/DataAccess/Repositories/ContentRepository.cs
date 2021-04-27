@@ -20,7 +20,8 @@ namespace DataAccess.Repositories
 
 		public void Add(Content content)
 		{
-			throw new System.NotImplementedException();
+			this.context.Add(content);
+			this.context.SaveChanges();
 		}
 
 		public Content Get(int id)
