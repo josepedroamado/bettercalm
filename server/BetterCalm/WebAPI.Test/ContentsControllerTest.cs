@@ -97,12 +97,13 @@ namespace WebAPI.Test
             mock.Setup(m => m.GetContent(expectedContent.Id)).Returns(expectedContent);
             ContentsController controller = new ContentsController(mock.Object);
 
-            IActionResult result = controller.Get();
+            IActionResult result = controller.Get(expectedContent.Id);
             OkObjectResult objectResult = result as OkObjectResult;
             ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
 
             mock.VerifyAll();
-            Assert.AreEqual(new ContentBasicInfo(expectedContent), obtainedContent);
+            Assert.IsTrue((new ContentBasicInfoComparer()).
+               Compare(new ContentBasicInfo(expectedContent), obtainedContent) == 0);
         }
 
         [TestMethod]
@@ -112,10 +113,10 @@ namespace WebAPI.Test
             int toGetContentId = 1;
 
             Mock<IContentLogic> mock = new Mock<IContentLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.GetContent(1)).Throws(new NotFoundException(toGetContentId.ToString()));
+            mock.Setup(m => m.GetContent(toGetContentId)).Throws(new NotFoundException(toGetContentId.ToString()));
             ContentsController controller = new ContentsController(mock.Object);
 
-            IActionResult result = controller.Get();
+            IActionResult result = controller.Get(toGetContentId);
             OkObjectResult objectResult = result as OkObjectResult;
             ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
 
