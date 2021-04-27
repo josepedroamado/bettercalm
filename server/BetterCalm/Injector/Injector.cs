@@ -29,6 +29,7 @@ namespace Injector
 			services.AddScoped<ICategoryRepository, CategoryRepository>();
 			services.AddScoped<IAdministratorRepository, AdministratorRepository>();
 			services.AddScoped<ISessionRepository, SessionRepository>();
+			services.AddScoped<IContentRepository, ContentRepository>();
 		}
 
 		public void AddContextServices()
