@@ -14,6 +14,11 @@ namespace BL
 			this.contentRepository = contentRepository;
 		}
 
+		public Content GetContent(int id)
+		{
+			return this.contentRepository.Get(id);
+		}
+
 		public IEnumerable<Content> GetContents()
 		{
 			return this.contentRepository.GetAll();

@@ -1,6 +1,7 @@
 ﻿using DataAccess.Context;
 using DataAccess.Repositories;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -152,6 +153,65 @@ namespace DataAccess.Test
 			}
 
 			return expectedContent;
+		}
+
+		[TestMethod]
+		public void GetContentOk()
+		{
+			Content expectedContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						new Category()
+						{
+							Id = 1,
+							Name = "Rock"
+						}
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg"
+			};
+
+			this.context.Add(expectedContent);
+			this.context.SaveChanges();
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			Content obtainedContent = repository.Get(expectedContent.Id);
+			Assert.AreEqual(expectedContent, obtainedContent);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void GetContentNotFound()
+		{
+			Content toSaveContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						new Category()
+						{
+							Id = 1,
+							Name = "Rock"
+						}
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg"
+			};
+
+			this.context.Add(toSaveContent);
+			this.context.SaveChanges();
+
+			int toGetContentId = 2;
+			
+			ContentRepository repository = new ContentRepository(this.context);
+
+			Content obtainedContent = repository.Get(toGetContentId);
+			Assert.AreNotEqual(toSaveContent, obtainedContent);
 		}
 	}
 }

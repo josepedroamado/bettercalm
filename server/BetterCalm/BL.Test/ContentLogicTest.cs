@@ -128,5 +128,52 @@ namespace BL.Test
 
 			return expectedContent;
 		}
+
+		[TestMethod]
+		public void GetContentOk()
+		{
+			Content expectedContent = new Content()
+			{
+				ArtistName = "Celia Cruz",
+				Categories = new List<Category>(){
+						new Category()
+						{
+							Id = 2,
+							Name = "Tropical"
+						}
+					},
+				Id = 2,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "La vida es un carnaval",
+				ImageUrl = "http://www.images.com/image2.jpg"
+			};
+
+			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
+			contentRepositoryMock.Setup(m => m.Get(expectedContent.Id)).Returns(expectedContent);
+
+			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object);
+
+			Content obtainedContent = contentLogic.GetContent(expectedContent.Id);
+
+			contentRepositoryMock.VerifyAll();
+			Assert.AreEqual(expectedContent, obtainedContent);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void GetContentNotFound()
+		{
+			int testContentId = 1;
+
+			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
+			contentRepositoryMock.Setup(m => m.Get(testContentId)).Throws(new NotFoundException(testContentId.ToString()));
+
+			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object);
+
+			Content obtainedContent = contentLogic.GetContent(testContentId);
+
+			contentRepositoryMock.VerifyAll();
+			Assert.IsNull(obtainedContent);
+		}
 	}
 }
