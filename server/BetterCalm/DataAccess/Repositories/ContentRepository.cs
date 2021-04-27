@@ -18,6 +18,11 @@ namespace DataAccess.Repositories
 			this.contents = context.Set<Content>();
 		}
 
+		public void Add(Content content)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public Content Get(int id)
 		{
 			Content content = this.contents.FirstOrDefault(cont => cont.Id == id);

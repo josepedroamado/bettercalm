@@ -8,5 +8,6 @@ namespace DataAccessInterfaces
 		IEnumerable<Content> GetAll();
 		IEnumerable<Content> GetAll(Playlist playlist);
 		Content Get(int id);
+		void Add(Content content);
 	}
 }
