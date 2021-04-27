@@ -102,7 +102,7 @@ namespace WebAPI.Test
             ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
 
             mock.VerifyAll();
-            Assert.AreEqual(expectedContent, obtainedContent);
+            Assert.AreEqual(new ContentBasicInfo(expectedContent), obtainedContent);
         }
 
         [TestMethod]
