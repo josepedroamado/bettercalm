@@ -8,5 +8,6 @@ namespace BLInterfaces
 		public IEnumerable<Content> GetContents();
 		public IEnumerable<Content> GetContents(Playlist playlist);
 		public Content GetContent(int id);
+		void CreateContent(Content content);
 	}
 }
