@@ -21,8 +21,9 @@ namespace BL.Test
 			playlistRepositoryMock.Setup(m => m.GetAll()).Returns(expectedPlaylists);
 
             Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>();
+            Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>();
 
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object, contentRepositoryMock.Object);
 
 			IEnumerable<Playlist> obtainedPlaylists = contentPlayer.GetPlaylists();
             playlistRepositoryMock.VerifyAll();
@@ -75,8 +76,9 @@ namespace BL.Test
             Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
             categoryRepositoryMock.Setup(m => m.GetAll()).Returns(expectedCategories);
             Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+            Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>();
 
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object, contentRepositoryMock.Object);
 
             IEnumerable<Category> obtainedCategories = contentPlayer.GetCategories();
             categoryRepositoryMock.VerifyAll();
@@ -161,7 +163,8 @@ namespace BL.Test
             Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
             categoryRepositoryMock.Setup(m => m.Get(expectedCategory.Id)).Returns(expectedCategory);
             Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
+            Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>();
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object, contentRepositoryMock.Object);
 
             Category obtainedCategory = contentPlayer.GetCategory(expectedCategory.Id);
             categoryRepositoryMock.VerifyAll();
@@ -176,7 +179,8 @@ namespace BL.Test
             Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
             categoryRepositoryMock.Setup(m => m.Get(expectedCategoryId)).Throws(new NotFoundException(expectedCategoryId.ToString()));
             Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
+            Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>();
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object, contentRepositoryMock.Object);
 
             Category obtainedCategory = contentPlayer.GetCategory(expectedCategoryId);
             categoryRepositoryMock.VerifyAll();
@@ -229,7 +233,8 @@ namespace BL.Test
             Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
             playlistRepositoryMock.Setup(m => m.Get(expectedPlaylist.Id)).Returns(expectedPlaylist);
             Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
+            Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>();
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object, contentRepositoryMock.Object);
 
             Playlist obtainedPlaylist = contentPlayer.GetPlaylist(expectedPlaylist.Id);
 
@@ -266,12 +271,67 @@ namespace BL.Test
             Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
             playlistRepositoryMock.Setup(m => m.Get(expectedPlaylistId)).Throws(new NotFoundException(expectedPlaylistId.ToString()));
             Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object);
+            Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>();
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object, contentRepositoryMock.Object);
 
             Playlist obtainedPlaylist = contentPlayer.GetPlaylist(expectedPlaylistId);
 
             playlistRepositoryMock.VerifyAll();
             Assert.IsNull(obtainedPlaylist);
+        }
+
+        [TestMethod]
+        public void GetContentOk()
+		{
+            List<Content> expectedContents = GetExpectedContents();
+            Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
+            contentRepositoryMock.Setup(m => m.GetAll()).Returns(expectedContents);
+            Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
+
+            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object, contentRepositoryMock.Object);
+
+            IEnumerable<Content> obtainedContents = contentPlayer.GetContents();
+
+            contentRepositoryMock.VerifyAll();
+            Assert.IsTrue(obtainedContents.SequenceEqual(expectedContents));
+        }
+
+        private static List<Content> GetExpectedContents()
+        {
+            return new List<Content>()
+            {
+                new Content()
+                {
+                    ArtistName = "Bon Jovi",
+                    Categories = new List<Category>(){
+                        new Category()
+                        {
+                            Id = 1,
+                            Name = "Rock"
+                        }
+                    },
+                    Id = 1,
+                    ContentLength = new TimeSpan(0, 2, 30),
+                    Name = "It's My Life",
+                    ImageUrl = "http://www.images.com/image.jpg"
+                },
+                new Content()
+                {
+                    ArtistName = "Celia Cruz",
+                    Categories = new List<Category>(){
+                        new Category()
+                        {
+                            Id = 2,
+                            Name = "Tropical"
+                        }
+                    },
+                    Id = 2,
+                    ContentLength = new TimeSpan(0, 2, 30),
+                    Name = "La vida es un carnaval",
+                    ImageUrl = "http://www.images.com/image2.jpg"
+                }
+            };
         }
     }
 }
