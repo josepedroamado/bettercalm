@@ -1,14 +1,13 @@
 using BLInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Moq;
 using System.Collections.Generic;
-using WebAPI.Controllers;
 using System.Linq;
-using System;
-using Domain.Exceptions;
+using WebAPI.Controllers;
 
 namespace WebAPI.Test
 {
@@ -20,7 +19,7 @@ namespace WebAPI.Test
 		{
 			List<Playlist> expectedPlaylists = GetPlaylistsOkExpected();
 			
-			Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
+			Mock<IPlaylistLogic> mock = new Mock<IPlaylistLogic>(MockBehavior.Strict);
 			mock.Setup(m => m.GetPlaylists()).Returns(expectedPlaylists);
 			PlaylistsController controller = new PlaylistsController(mock.Object);
 
@@ -79,7 +78,7 @@ namespace WebAPI.Test
 		{
 			Playlist expectedPlaylist = GetPlaylistOkExpected();
 
-			Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
+			Mock<IPlaylistLogic> mock = new Mock<IPlaylistLogic>(MockBehavior.Strict);
 			mock.Setup(m => m.GetPlaylist(expectedPlaylist.Id)).Returns(expectedPlaylist);
 			PlaylistsController controller = new PlaylistsController(mock.Object);
 
@@ -118,7 +117,7 @@ namespace WebAPI.Test
 		{
 			int expectedPlaylistId = 1;
 
-			Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
+			Mock<IPlaylistLogic> mock = new Mock<IPlaylistLogic>(MockBehavior.Strict);
 			mock.Setup(m => m.GetPlaylist(expectedPlaylistId)).Throws(new NotFoundException(expectedPlaylistId.ToString()));
 			PlaylistsController controller = new PlaylistsController(mock.Object);
 

@@ -8,7 +8,6 @@ namespace BL
 {
 	public class ContentPlayer : IContentPlayer
 	{
-		private readonly IPlaylistRepository playlistRepository;
 		private readonly ICategoryRepository categoryRepository;
 		private readonly IContentRepository contentRepository;
 
@@ -16,19 +15,8 @@ namespace BL
 			ICategoryRepository categoryRepository, 
 			IContentRepository contentRepository)
 		{
-			this.playlistRepository = playlistRepository;
 			this.categoryRepository = categoryRepository;
 			this.contentRepository = contentRepository;
-		}
-
-		public IEnumerable<Playlist> GetPlaylists()
-		{
-			return this.playlistRepository.GetAll();
-		}
-
-		public Playlist GetPlaylist(int id)
-		{
-			return this.playlistRepository.Get(id);
 		}
 
 		public IEnumerable<Category> GetCategories()

@@ -12,62 +12,7 @@ namespace BL.Test
 	[TestClass]
 	public class ContentPlayerTest
 	{
-		[TestMethod]
-		public void GetPlaylistsOk()
-		{
-			List<Playlist> expectedPlaylists = GetPlaylistsOkExpected();
-			
-			Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
-			playlistRepositoryMock.Setup(m => m.GetAll()).Returns(expectedPlaylists);
-
-            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>();
-            Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>();
-
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object, contentRepositoryMock.Object);
-
-			IEnumerable<Playlist> obtainedPlaylists = contentPlayer.GetPlaylists();
-            playlistRepositoryMock.VerifyAll();
-            Assert.IsTrue(obtainedPlaylists.SequenceEqual(expectedPlaylists));
-		}
-
-		private List<Playlist> GetPlaylistsOkExpected()
-		{
-			return new List<Playlist>()
-			{
-				new Playlist()
-				{
-					Id = 1,
-					Name = "Epic Rock",
-					Description = "Best of the Rock!",
-					ImageUrl = "http://myimageurl.com/image.jpg",
-					Contents = new List<Content>()
-					{
-						new Content()
-						{
-							Id = 1,
-							ArtistName = "Jhon Doe",
-							Name = "Rocking",
-							ImageUrl = "http://myrockurl.com/rock.jpg"
-						}
-					}
-				},
-				new Playlist()
-				{
-					Id = 2,
-					Name = "Hip Hop Rewind",
-					Description = "Hip Hop of 90's!",
-					ImageUrl = "http://myimageurl.com/image.jpg",
-					Categories = new List<Category>()
-					{
-						new Category()
-						{
-							Id = 2,
-							Name = "Hip Hop"
-						}
-					}
-				}
-			};
-		}
+		
 
 		[TestMethod]
 		public void GetCategoriesOk()
@@ -226,59 +171,6 @@ namespace BL.Test
             };
         }
 
-        [TestMethod]
-        public void GetPlaylistOk()
-        {
-            Playlist expectedPlaylist = GetPlaylistOkExpected();
-            Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
-            playlistRepositoryMock.Setup(m => m.Get(expectedPlaylist.Id)).Returns(expectedPlaylist);
-            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
-            Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>();
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object, contentRepositoryMock.Object);
-
-            Playlist obtainedPlaylist = contentPlayer.GetPlaylist(expectedPlaylist.Id);
-
-            playlistRepositoryMock.VerifyAll();
-            Assert.AreEqual(expectedPlaylist, obtainedPlaylist);
-        }
-
-        private Playlist GetPlaylistOkExpected()
-        {
-            return new Playlist
-            {
-                Id = 1,
-                Name = "Epic Rock",
-                Description = "Best of the Rock!",
-                ImageUrl = "http://myimageurl.com/image.jpg",
-                Contents = new List<Content>()
-                {
-                    new Content()
-                    {
-                        Id = 1,
-                        ArtistName = "Jhon Doe",
-                        Name = "Rocking",
-                        ImageUrl = "http://myrockurl.com/rock.jpg"
-                    }
-                }
-            };
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(NotFoundException))]
-        public void GetPlaylistNotFound()
-        {
-            int expectedPlaylistId = 1;
-            Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
-            playlistRepositoryMock.Setup(m => m.Get(expectedPlaylistId)).Throws(new NotFoundException(expectedPlaylistId.ToString()));
-            Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
-            Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>();
-            ContentPlayer contentPlayer = new ContentPlayer(playlistRepositoryMock.Object, categoryRepositoryMock.Object, contentRepositoryMock.Object);
-
-            Playlist obtainedPlaylist = contentPlayer.GetPlaylist(expectedPlaylistId);
-
-            playlistRepositoryMock.VerifyAll();
-            Assert.IsNull(obtainedPlaylist);
-        }
 
         [TestMethod]
         public void GetContentsOk()

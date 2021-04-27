@@ -21,6 +21,7 @@ namespace Injector
 		{
 			services.AddScoped<IContentPlayer, ContentPlayer>();
 			services.AddScoped<ISessionLogic, SessionLogic>();
+			services.AddScoped<IPlaylistLogic, PlaylistLogic>();
 		}
 
 		public void AddDataAccessServices()

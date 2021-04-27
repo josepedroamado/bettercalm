@@ -13,18 +13,18 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class PlaylistsController : ControllerBase
 	{
-		private readonly IContentPlayer contentPlayerLogic;
+		private readonly IPlaylistLogic playlistLogic;
 
-		public PlaylistsController(IContentPlayer contentPlayerLogic)
+		public PlaylistsController(IPlaylistLogic playlistLogic)
 		{
-			this.contentPlayerLogic = contentPlayerLogic;
+			this.playlistLogic = playlistLogic;
 		}
 
 		[HttpGet]
 		public IActionResult Get()
 		{
 			IEnumerable<PlaylistBasicInfo> playlists = 
-				this.contentPlayerLogic.GetPlaylists().
+				this.playlistLogic.GetPlaylists().
 				Select(playlist => new PlaylistBasicInfo(playlist));
 
 			return Ok(playlists);
@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			Playlist playlist = this.contentPlayerLogic.GetPlaylist(id);
+			Playlist playlist = this.playlistLogic.GetPlaylist(id);
 			return Ok(playlist);
 		}
 	}
