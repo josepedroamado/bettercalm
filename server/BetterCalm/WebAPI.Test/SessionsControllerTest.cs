@@ -84,5 +84,30 @@ namespace WebAPI.Test
 			mock.VerifyAll();
 			Assert.AreEqual(expectedToken, obtainedToken);
 		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidCredentialsException))]
+		public void LogoutOk()
+		{
+			UserCredentialsModel credentialsParameters = new UserCredentialsModel()
+			{
+				EMail = "a@a.com",
+				Password = "1234"
+			};
+
+			string expectedToken = "token1234";
+			Mock<IUserManager> userManagerMock = new Mock<IUserManager>(MockBehavior.Strict);
+			userManagerMock.Setup(m => m.Logout(expectedToken));
+
+			SessionsController controller = new SessionsController(userManagerMock.Object);
+
+			controller.Delete(expectedToken);
+			IActionResult result = controller.Post(credentialsParameters);
+			OkObjectResult objectResult = result as OkObjectResult;
+			string obtainedToken = (objectResult.Value as SessionInfoModel).Token;
+
+			userManagerMock.VerifyAll();
+			Assert.AreNotEqual(expectedToken, obtainedToken);
+		}
 	}
 }

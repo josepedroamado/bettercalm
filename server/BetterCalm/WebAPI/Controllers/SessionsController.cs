@@ -27,5 +27,10 @@ namespace WebAPI.Controllers
 			};
 			return Ok(sessionInfo);
 		}
-	}
+
+        public void Delete(string expectedToken)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
