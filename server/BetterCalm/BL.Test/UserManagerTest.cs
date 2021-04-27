@@ -176,6 +176,7 @@ namespace BL.Test
 
 			Mock<ISessionRepository> sessionRepositoryMockAfterLogout = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMockAfterLogout.Setup(m => m.GetByToken(expectedToken)).Returns(deletedSession);
+			sessionRepositoryMockAfterLogout.Setup(m => m.GetByEmail(expectedSession.GetSessionEmail())).Returns(deletedSession);
 
 			userManager = new UserManager(sessionRepositoryMockAfterLogout.Object, administratorRepositoryMock.Object);
 

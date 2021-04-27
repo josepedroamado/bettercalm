@@ -46,7 +46,11 @@ namespace BL
 
         public void Logout(string token)
         {
-            throw new NotImplementedException();
+			Session sessionToDelete = this.sessionRepository.GetByToken(token);
+			if (sessionToDelete != null)
+            {
+				this.sessionRepository.Delete(sessionToDelete);
+            }
         }
     }
 }
