@@ -6,13 +6,12 @@ using Model;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using WebAPI.Controllers;
 using System.Linq;
 
 namespace WebAPI.Test
 {
-	[TestClass]
+    [TestClass]
 	public class ContentsControllerTest
 	{
 		[TestMethod]
@@ -73,5 +72,5 @@ namespace WebAPI.Test
                 }
             };
         }
-    }
+	}
 }

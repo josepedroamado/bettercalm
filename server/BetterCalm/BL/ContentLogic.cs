@@ -18,5 +18,10 @@ namespace BL
 		{
 			return this.contentRepository.GetAll();
 		}
-	}
+
+        public IEnumerable<Content> GetContents(Playlist playlist)
+        {
+			return this.contentRepository.GetAll(playlist);
+        }
+    }
 }

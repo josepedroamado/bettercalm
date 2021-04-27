@@ -2,6 +2,7 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -19,5 +20,10 @@ namespace DataAccess.Repositories
 		{
 			return this.contents;
 		}
-	}
+
+        public IEnumerable<Content> GetAll(Playlist playlist)
+        {
+			return this.contents.Where(content => content.PlayLists.Contains(playlist));
+        }
+    }
 }

@@ -14,9 +14,9 @@ namespace WebAPI.Controllers
 	{
 		private readonly IContentLogic contentLogic;
 
-		public ContentsController(IContentLogic contentPlayerLogic)
+		public ContentsController(IContentLogic contentLogic)
 		{
-			this.contentLogic = contentPlayerLogic;
+			this.contentLogic = contentLogic;
 		}
 
 		[HttpGet]
