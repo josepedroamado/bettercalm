@@ -6,5 +6,6 @@ namespace BLInterfaces
 	public interface IContentLogic
 	{
 		public IEnumerable<Content> GetContents();
+		public IEnumerable<Content> GetContents(Playlist playlist);
 	}
 }
