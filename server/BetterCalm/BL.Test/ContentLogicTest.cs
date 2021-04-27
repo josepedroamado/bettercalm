@@ -1,41 +1,31 @@
-﻿using BLInterfaces;
+using DataAccessInterfaces;
 using Domain;
-using Microsoft.AspNetCore.Mvc;
+using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Model;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using WebAPI.Controllers;
 using System.Linq;
 
-namespace WebAPI.Test
+namespace BL.Test
 {
 	[TestClass]
-	public class ContentControllerTest
+	public class ContentLogicTest
 	{
-		[TestMethod]
-		public void GetContentsOk()
+        [TestMethod]
+        public void GetContentsOk()
 		{
             List<Content> expectedContents = GetExpectedContents();
+            Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
+            contentRepositoryMock.Setup(m => m.GetAll()).Returns(expectedContents);
 
-            Mock<IContentPlayer> mock = new Mock<IContentPlayer>(MockBehavior.Strict);
-            mock.Setup(m => m.GetContents()).Returns(expectedContents);
-            ContentsController controller = new ContentsController(mock.Object);
+            ContentLogic contentPlayer = new ContentLogic(contentRepositoryMock.Object);
 
-            IActionResult result = controller.Get();
-            OkObjectResult objectResult = result as OkObjectResult;
-            IEnumerable<ContentBasicInfo> obtainedContents = objectResult.Value as IEnumerable<ContentBasicInfo>;
+            IEnumerable<Content> obtainedContents = contentPlayer.GetContents();
 
-            mock.VerifyAll();
-            CollectionAssert.AreEqual(expectedContents.
-                Select(content => new ContentBasicInfo(content)).
-                ToList(),
-                obtainedContents.ToList(),
-                new ContentBasicInfoComparer());
-
-		}
+            contentRepositoryMock.VerifyAll();
+            Assert.IsTrue(obtainedContents.SequenceEqual(expectedContents));
+        }
 
         private static List<Content> GetExpectedContents()
         {

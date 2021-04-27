@@ -1,6 +1,6 @@
 ﻿namespace BLInterfaces
 {
-	public interface IUserManager
+	public interface ISessionLogic
 	{
 		string Login(string eMail, string password);
 		void Logout(string token);

@@ -12,18 +12,18 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class ContentsController : ControllerBase
 	{
-		private readonly IContentPlayer contentPlayerLogic;
+		private readonly IContentLogic contentLogic;
 
-		public ContentsController(IContentPlayer contentPlayerLogic)
+		public ContentsController(IContentLogic contentPlayerLogic)
 		{
-			this.contentPlayerLogic = contentPlayerLogic;
+			this.contentLogic = contentPlayerLogic;
 		}
 
 		[HttpGet]
 		public IActionResult Get()
 		{
 			IEnumerable<ContentBasicInfo> contents =
-				this.contentPlayerLogic.GetContents().
+				this.contentLogic.GetContents().
 				Select(content => new ContentBasicInfo(content));
 
 			return Ok(contents);

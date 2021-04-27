@@ -19,8 +19,10 @@ namespace Injector
 
 		public void AddBLServices() 
 		{
-			services.AddScoped<IContentPlayer, ContentPlayer>();
-			services.AddScoped<IUserManager, UserManager>();
+			services.AddScoped<IContentLogic, ContentLogic>();
+			services.AddScoped<ISessionLogic, SessionLogic>();
+			services.AddScoped<IPlaylistLogic, PlaylistLogic>();
+			services.AddScoped<ICategoryLogic, CategoryLogic>();
 		}
 
 		public void AddDataAccessServices()

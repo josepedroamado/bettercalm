@@ -7,7 +7,7 @@ using Moq;
 namespace BL.Test
 {
 	[TestClass]
-	public class UserManagertest
+	public class SessionLogicTest
 	{
 
 		[TestMethod]
@@ -37,9 +37,9 @@ namespace BL.Test
 			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMock.Setup(m => m.GetByEmail(queryEmail)).Returns(expectedSession);
 
-			UserManager userManager = new UserManager(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
 
-			string obtainedToken = userManager.Login(queryEmail, queryPassword);
+			string obtainedToken = sessionLogic.Login(queryEmail, queryPassword);
 			Assert.AreEqual(expectedToken, obtainedToken);
 
 		}
@@ -66,9 +66,9 @@ namespace BL.Test
 			sessionRepositoryMock.Setup(m => m.GetByEmail(queryEmail)).Returns(expectedSession);
 			sessionRepositoryMock.Setup(m => m.Add(It.IsAny<Session>()));
 
-			UserManager userManager = new UserManager(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
 
-			string obtainedToken = userManager.Login(queryEmail, queryPassword);
+			string obtainedToken = sessionLogic.Login(queryEmail, queryPassword);
 			Assert.IsTrue(!string.IsNullOrEmpty(obtainedToken));
 
 		}
@@ -101,9 +101,9 @@ namespace BL.Test
 			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMock.Setup(m => m.GetByEmail(queryEmail)).Throws(new NotFoundException(queryEmail));
 
-			UserManager userManager = new UserManager(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
 
-			string obtainedToken = userManager.Login(queryEmail, queryPassword);
+			string obtainedToken = sessionLogic.Login(queryEmail, queryPassword);
 			Assert.IsNull(obtainedToken);
 		}
 
@@ -135,9 +135,9 @@ namespace BL.Test
 			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMock.Setup(m => m.GetByEmail(queryEmail)).Returns(expectedSession);
 
-			UserManager userManager = new UserManager(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
 
-			string obtainedToken = userManager.Login(queryEmail, queryPassword);
+			string obtainedToken = sessionLogic.Login(queryEmail, queryPassword);
 			Assert.IsNull(obtainedToken);
 		}
 
@@ -169,9 +169,9 @@ namespace BL.Test
 			sessionRepositoryMockBeforeLogout.Setup(m => m.GetByToken(expectedToken)).Returns(expectedSession);
 			sessionRepositoryMockBeforeLogout.Setup(m => m.Delete(expectedSession));
 
-			UserManager userManager = new UserManager(sessionRepositoryMockBeforeLogout.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMockBeforeLogout.Object, administratorRepositoryMock.Object);
 
-			userManager.Logout(expectedToken);
+			sessionLogic.Logout(expectedToken);
 
 			Session deletedSession = null;
 
@@ -180,9 +180,9 @@ namespace BL.Test
 			sessionRepositoryMockAfterLogout.Setup(m => m.GetByEmail(expectedSession.GetSessionEmail())).Returns(deletedSession);
 			sessionRepositoryMockAfterLogout.Setup(m => m.Add(It.IsAny<Session>()));
 
-			userManager = new UserManager(sessionRepositoryMockAfterLogout.Object, administratorRepositoryMock.Object);
+			sessionLogic = new SessionLogic(sessionRepositoryMockAfterLogout.Object, administratorRepositoryMock.Object);
 
-			string newToken = userManager.Login(queryEmail, queryPassword);
+			string newToken = sessionLogic.Login(queryEmail, queryPassword);
 
 			Assert.AreNotEqual(expectedToken, newToken);
 		}
