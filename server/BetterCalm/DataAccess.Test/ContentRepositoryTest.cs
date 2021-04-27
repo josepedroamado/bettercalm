@@ -156,6 +156,65 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
+		public void GetAllByCategoryOk()
+		{
+			List<Content> expectedContents = GetAllByCategoryExpectedContents();
+
+			expectedContents.ForEach(content => this.context.Add(content));
+			this.context.SaveChanges();
+			ContentRepository repository = new ContentRepository(this.context);
+
+			Category expectedCategory = expectedContents.First().Categories.First();
+			IEnumerable<Content> obtainedContents = repository.GetAll(expectedCategory);
+			Assert.IsTrue(expectedContents.SequenceEqual(obtainedContents));
+		}
+
+		private static List<Content> GetAllByCategoryExpectedContents()
+		{
+			Category rock = new Category()
+			{
+				Id = 1,
+				Name = "Rock"
+			};
+
+			Content itsMyLife = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>() { rock },
+				PlayLists = new List<Playlist>() { },
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg"
+			};
+
+			Content livinOnAPrayer = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>() { rock },
+				PlayLists = new List<Playlist>() { },
+				Id = 2,
+				ContentLength = new TimeSpan(0, 4, 10),
+				Name = "Livin' On A Prayer",
+				ImageUrl = "http://www.images.com/image.jpg"
+			};
+
+			rock = new Category()
+			{
+				Id = 1,
+				Name = "Rock",
+				Contents = new List<Content>() { itsMyLife, livinOnAPrayer }
+			};
+
+			List<Content> expectedContent = new List<Content>();
+			foreach (Content song in rock.Contents)
+			{
+				expectedContent.Add(song);
+			}
+			return expectedContent;
+		}
+
+		[TestMethod]
 		public void GetContentOk()
 		{
 			Content expectedContent = new Content()

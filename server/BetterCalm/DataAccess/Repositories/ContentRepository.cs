@@ -35,5 +35,10 @@ namespace DataAccess.Repositories
         {
 			return this.contents.Where(content => content.PlayLists.Contains(playlist));
         }
+
+        public IEnumerable<Content> GetAll(Category category)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
