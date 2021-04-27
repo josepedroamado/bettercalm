@@ -23,7 +23,7 @@ namespace WebAPI.Test
 
 			Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
 			mock.Setup(m => m.GetCategories()).Returns(expectedCategories);
-			CategoriesController controller = new CategoriesController(mock.Object, It.IsAny<IContentLogic>());
+			CategoriesController controller = new CategoriesController(mock.Object, It.IsAny<IContentLogic>(), It.IsAny<IPlaylistLogic>());
 
 			IActionResult result = controller.Get();
 			OkObjectResult objectResult = result as OkObjectResult;
@@ -110,7 +110,7 @@ namespace WebAPI.Test
             Category expectedCategory = GetCategoryOkExpected();
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetCategory(expectedCategory.Id)).Returns(expectedCategory);
-            CategoriesController controller = new CategoriesController(mock.Object, It.IsAny<IContentLogic>());
+            CategoriesController controller = new CategoriesController(mock.Object, It.IsAny<IContentLogic>(), It.IsAny<IPlaylistLogic>());
 
             IActionResult result = controller.Get(expectedCategory.Id);
             OkObjectResult objectResult = result as OkObjectResult;
@@ -166,7 +166,7 @@ namespace WebAPI.Test
 
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetCategory(expectedCategoryId)).Throws(new NotFoundException(expectedCategoryId.ToString()));
-            CategoriesController controller = new CategoriesController(mock.Object, It.IsAny<IContentLogic>());
+            CategoriesController controller = new CategoriesController(mock.Object, It.IsAny<IContentLogic>(), It.IsAny<IPlaylistLogic>());
 
             IActionResult result = controller.Get(expectedCategoryId);
 
@@ -186,7 +186,7 @@ namespace WebAPI.Test
             Mock<IContentLogic> contentLogicMock = new Mock<IContentLogic>(MockBehavior.Strict);
             contentLogicMock.Setup(m => m.GetContents(expectedCategory)).Returns(expectedContents);
 
-            CategoriesController controller = new CategoriesController(categoryLogic.Object, contentLogicMock.Object);
+            CategoriesController controller = new CategoriesController(categoryLogic.Object, contentLogicMock.Object, It.IsAny<IPlaylistLogic>());
 
             IActionResult result = controller.GetContents(expectedCategory.Id);
             OkObjectResult objectResult = result as OkObjectResult;
@@ -243,6 +243,71 @@ namespace WebAPI.Test
                 expectedContent.Add(song);
             }
             return expectedContent;
+        }
+
+        [TestMethod]
+        public void GetPlaylistsByCategoryOk()
+        {         
+            List<Playlist> expectedPlaylists = GetPlaylistsByCategoryOkExpected();
+            Category expectedCategory = expectedPlaylists.First().Categories.First();
+            Mock<IPlaylistLogic> playlistLogicMock = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            playlistLogicMock.Setup(m => m.GetPlaylists(expectedCategory)).Returns(expectedPlaylists);
+            Mock<ICategoryLogic> categoryLogicMock = new Mock<ICategoryLogic>(MockBehavior.Strict);
+            categoryLogicMock.Setup(m => m.GetCategory(expectedCategory.Id)).Returns(expectedCategory);
+            CategoriesController controller = new CategoriesController(categoryLogicMock.Object, It.IsAny<IContentLogic>(), playlistLogicMock.Object);
+
+            IActionResult result = controller.GetPlaylists(expectedCategory.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            IEnumerable<PlaylistBasicInfo> obtainedPlaylists = objectResult.Value as IEnumerable<PlaylistBasicInfo>;
+
+            playlistLogicMock.VerifyAll();
+            CollectionAssert.AreEqual(expectedPlaylists.
+                Select(playlist => new PlaylistBasicInfo(playlist)).ToList(),
+                obtainedPlaylists.ToList(),
+                new PlaylistBasicInfoComparer());
+        }
+
+        private List<Playlist> GetPlaylistsByCategoryOkExpected()
+        {
+            Category rock = new Category()
+            {
+                Id = 1,
+                Name = "Rock"
+            };
+
+            Playlist bonJoviPlaylist = new Playlist()
+            {
+                Id = 1,
+                Name = "The Best of Bon Jovi",
+                Description = "The Best song of all time by Bon Jovi",
+                ImageUrl = "http://www.images.com/image.jpg",
+                Categories = new List<Category>() { rock },
+                Contents = new List<Content>() { }
+            };
+
+            Playlist greenDayPlaylist = new Playlist()
+            {
+                Id = 2,
+                Name = "The Best of Green Day",
+                Description = "The Best song of all time by Green Day",
+                ImageUrl = "http://www.images.com/image.jpg",
+                Categories = new List<Category>() { rock },
+                Contents = new List<Content>() { }
+            };
+
+            rock = new Category()
+            {
+                Id = 1,
+                Name = "Rock",
+                PlayLists = new List<Playlist>() { bonJoviPlaylist, greenDayPlaylist }
+            };
+
+            List<Playlist> expectedPlaylists = new List<Playlist>();
+            foreach (Playlist playlist in rock.PlayLists)
+            {
+                expectedPlaylists.Add(playlist);
+            }
+            return expectedPlaylists;
         }
     }
 }

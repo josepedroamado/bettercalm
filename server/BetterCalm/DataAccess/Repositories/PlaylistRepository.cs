@@ -30,5 +30,10 @@ namespace DataAccess.Repositories
 		{
 			return this.playlists;
 		}
-	}
+
+        public IEnumerable<Playlist> GetAll(Category category)
+        {
+			return this.playlists.Where(playlist => playlist.Categories.Contains(category));
+		}
+    }
 }

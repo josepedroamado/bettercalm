@@ -13,11 +13,13 @@ namespace WebAPI.Controllers
 	{
 		private readonly ICategoryLogic categoryLogic;
 		private readonly IContentLogic contentLogic;
+		private readonly IPlaylistLogic playlistLogic;
 
-		public CategoriesController(ICategoryLogic categoryLogic, IContentLogic contentLogic)
+		public CategoriesController(ICategoryLogic categoryLogic, IContentLogic contentLogic, IPlaylistLogic playlistLogic)
 		{
 			this.categoryLogic = categoryLogic;
 			this.contentLogic = contentLogic;
+			this.playlistLogic = playlistLogic;
 		}
 
 		[HttpGet]
@@ -34,14 +36,24 @@ namespace WebAPI.Controllers
 			return Ok(category);
 		}
 
-		[HttpGet("{id}/contents/")]
-		public IActionResult GetContents(int id)
+		[HttpGet("{categoryId}/contents/")]
+		public IActionResult GetContents(int categoryId)
 		{
 			IEnumerable<ContentBasicInfo> contents =
-				this.contentLogic.GetContents(categoryLogic.GetCategory(id)).
+				this.contentLogic.GetContents(categoryLogic.GetCategory(categoryId)).
 				Select(content => new ContentBasicInfo(content));
 
 			return Ok(contents);
+		}
+
+		[HttpGet("{categoryId}/playlists/")]
+		public IActionResult GetPlaylists (int categoryId)
+		{
+			IEnumerable<PlaylistBasicInfo> playlists =
+				this.playlistLogic.GetPlaylists(categoryLogic.GetCategory(categoryId)).
+				Select(playlist => new PlaylistBasicInfo(playlist));
+
+			return Ok(playlists);
 		}
 	}
 }

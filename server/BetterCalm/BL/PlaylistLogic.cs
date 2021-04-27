@@ -13,14 +13,19 @@ namespace BL
 			this.playlistRepository = playlistRepository;
 		}
 
+		public Playlist GetPlaylist(int id)
+		{
+			return this.playlistRepository.Get(id);
+		}
+
 		public IEnumerable<Playlist> GetPlaylists()
 		{
 			return this.playlistRepository.GetAll();
 		}
 
-		public Playlist GetPlaylist(int id)
-		{
-			return this.playlistRepository.Get(id);
-		}
-	}
+        public IEnumerable<Playlist> GetPlaylists(Category category)
+        {
+			return this.playlistRepository.GetAll(category);
+        }
+    }
 }
