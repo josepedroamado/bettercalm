@@ -281,7 +281,7 @@ namespace BL.Test
         }
 
         [TestMethod]
-        public void GetContentOk()
+        public void GetContentsOk()
 		{
             List<Content> expectedContents = GetExpectedContents();
             Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
