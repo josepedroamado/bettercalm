@@ -12,7 +12,7 @@ using WebAPI.Controllers;
 namespace WebAPI.Test
 {
 	[TestClass]
-	public class PlaylistControllerTest
+	public class PlaylistsControllerTest
 	{
 		[TestMethod]
 		public void GetPlaylistsOk()
