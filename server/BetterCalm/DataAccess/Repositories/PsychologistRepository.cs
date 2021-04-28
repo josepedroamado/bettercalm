@@ -1,7 +1,9 @@
 ﻿using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -18,7 +20,11 @@ namespace DataAccess.Repositories
 
         public Psychologist Get(int id)
         {
-            throw new NotImplementedException();
+            Psychologist psychologist = this.psychologists.
+                FirstOrDefault(psychologist => psychologist.Id == id);
+            if (psychologist == null)
+                throw new NotFoundException(id.ToString());
+            return psychologist;
         }
 
         public void Add(Psychologist psychologist)
