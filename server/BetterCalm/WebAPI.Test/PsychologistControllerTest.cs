@@ -74,7 +74,6 @@ namespace WebAPI.Test
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistLogicMock.Setup(m => m.Add(expectedPsychologistModel.ToEntity()));
             psychologistLogicMock.Setup(m => m.Get(expectedPsychologistModel.Id)).Returns(expectedPsychologistModel.ToEntity());
-
             PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
             psychologistsController.Post(expectedPsychologistModel);
 
@@ -82,7 +81,6 @@ namespace WebAPI.Test
             OkObjectResult objectResult = result as OkObjectResult;
             PsychologistModel obtainedPsychologistModel = (objectResult.Value as PsychologistModel);
 
-            psychologistLogicMock.VerifyAll();
             Assert.AreEqual(expectedPsychologistModel, obtainedPsychologistModel);  
         }
 
@@ -99,9 +97,7 @@ namespace WebAPI.Test
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
-            psychologistLogicMock.Setup(m => m.Add(expectedPsychologistModel.ToEntity()))
-                .Throws(new AlreadyExistsException(expectedPsychologistModel.Id.ToString()));
-            psychologistLogicMock.Setup(m => m.Get(expectedPsychologistModel.Id)).Returns(expectedPsychologistModel.ToEntity());
+            psychologistLogicMock.Setup(p => p.Add(expectedPsychologistModel.ToEntity())).Throws(new AlreadyExistsException(expectedPsychologistModel.Id.ToString()));
 
             PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
             psychologistsController.Post(expectedPsychologistModel);
@@ -110,7 +106,6 @@ namespace WebAPI.Test
             OkObjectResult objectResult = result as OkObjectResult;
             PsychologistModel obtainedPsychologistModel = (objectResult.Value as PsychologistModel);
 
-            psychologistLogicMock.VerifyAll();
             Assert.AreEqual(expectedPsychologistModel, obtainedPsychologistModel);
         }
     }

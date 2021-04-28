@@ -34,6 +34,8 @@ namespace WebAPI.Controllers
 		[HttpPost]
 		public IActionResult Post([FromBody] PsychologistModel psychologistModel)
 		{
+			var psychologist = psychologistModel.ToEntity();
+			this.psychologistLogic.Add(psychologist);
 			return Ok();
 		}
 
