@@ -378,7 +378,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(UnableToCreatePlaylistException))]
-		public void CreateContentWithNewPlaylist()
+		public void CreateContentUnableToCreatePlaylist()
 		{
 			Category music = new Category()
 			{
