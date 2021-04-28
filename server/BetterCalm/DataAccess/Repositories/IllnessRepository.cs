@@ -10,14 +10,16 @@ namespace DataAccess.Repositories
     public class IllnessRepository : IIllnessRepository
     {
         private DbContext context;
+        private DbSet<Illness> illnesses;
 
         public IllnessRepository(DbContext context)
         {
             this.context = context;
+            this.illnesses = context.Set<Illness>();
         }
         public IEnumerable<Illness> GetAll()
         {
-            throw new NotImplementedException();
+            return this.illnesses;
         }
     }
 }
