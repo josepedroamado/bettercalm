@@ -25,5 +25,31 @@ namespace Model
 				CreatedDate = DateTime.Today
 			};
         }
-	}
+
+        public override bool Equals(object obj)
+        {
+            return obj is PsychologistModel model &&
+                   Id == model.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
+
+        public PsychologistModel(Psychologist psychologist)
+        {
+			Id = psychologist.Id;
+			FirstName = psychologist.FirstName;
+			LastName = psychologist.LastName;
+			Address = psychologist.Address;
+			Format = psychologist.Format;
+			Illnesses = psychologist.Illnesses;
+		}
+
+        public PsychologistModel()
+        {
+
+        }
+    }
 }

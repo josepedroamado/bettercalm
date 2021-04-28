@@ -16,7 +16,6 @@ namespace WebAPI.Test
         {
             PsychologistModel expectedPsychologistModel = new PsychologistModel()
             {
-                Id = 1,
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
@@ -42,7 +41,6 @@ namespace WebAPI.Test
         {
             PsychologistModel expectedPsychologistModel = new PsychologistModel()
             {
-                Id = 1,
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
@@ -67,7 +65,6 @@ namespace WebAPI.Test
         {
             PsychologistModel expectedPsychologistModel = new PsychologistModel()
             {
-                Id = 1,
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
@@ -95,7 +92,6 @@ namespace WebAPI.Test
         {
             PsychologistModel expectedPsychologistModel = new PsychologistModel()
             {
-                Id = 1,
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",

@@ -27,7 +27,8 @@ namespace WebAPI.Controllers
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			return Ok();
+			PsychologistModel psychologistModel = new PsychologistModel(this.psychologistLogic.Get(id));
+			return Ok(psychologistModel);
 		}
 
 		[HttpPost]
