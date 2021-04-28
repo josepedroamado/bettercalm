@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.Common;
 using System;
 using DataAccess.Repositories;
+using Domain.Exceptions;
 
 namespace DataAccess.Test
 {
@@ -58,6 +59,19 @@ namespace DataAccess.Test
             Psychologist obtainedPsychologist = repository.Get(expectedPsychologist.Id);
 
             Assert.AreEqual(expectedPsychologist, obtainedPsychologist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void GetNotFound()
+        {
+            int expectedPsychologistId = 1;
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+
+            Psychologist obtainedPsychologist = repository.Get(expectedPsychologistId);
+
+            Assert.IsNull(obtainedPsychologist);
         }
 
         [TestMethod]
