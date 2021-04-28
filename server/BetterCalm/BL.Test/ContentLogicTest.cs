@@ -325,7 +325,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(CategoryNotFoundException))]
+		[ExpectedException(typeof(NotFoundException))]
 		public void CreateContentInvalidCategory()
 		{
 			Category music = new Category()
@@ -357,7 +357,7 @@ namespace BL.Test
 			};
 
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
-			contentRepositoryMock.Setup(m => m.Add(toSaveContent)).Throws(new CategoryNotFoundException(music.Id));
+			contentRepositoryMock.Setup(m => m.Add(toSaveContent)).Throws(new NotFoundException(music.Id.ToString()));
 			contentRepositoryMock.Setup(m => m.Get(toSaveContent.Id)).Returns(toSaveContent);
 
 			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
@@ -366,6 +366,58 @@ namespace BL.Test
 			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
 			Category notFound = null;
 			categoryRepository.Setup(m => m.Get(music.Id)).Returns(notFound);
+
+			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
+
+			contentLogic.CreateContent(toSaveContent);
+			Content obtainedContent = contentLogic.GetContent(toSaveContent.Id);
+
+			contentRepositoryMock.VerifyAll();
+			Assert.IsNull(obtainedContent);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(UnableToCreatePlaylistException))]
+		public void CreateContentWithNewPlaylist()
+		{
+			Category music = new Category()
+			{
+				Id = 1,
+				Name = "Musica"
+			};
+
+			Playlist playlist = new Playlist()
+			{
+				Id = 1,
+				Name = "Besto of Bon Jovi"
+			};
+
+			Content toSaveContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						music
+					},
+				PlayLists = new List<Playlist>()
+				{
+					playlist
+				},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg"
+			};
+
+			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
+			contentRepositoryMock.Setup(m => m.Add(toSaveContent)).Throws(new UnableToCreatePlaylistException());
+			contentRepositoryMock.Setup(m => m.Get(toSaveContent.Id)).Returns(toSaveContent);
+
+			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+			Playlist notFound = null;
+			playlistRepository.Setup(m => m.Get(playlist.Id)).Returns(notFound);
+
+			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
+			categoryRepository.Setup(m => m.Get(music.Id)).Returns(music);
 
 			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
 
