@@ -1,35 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+using Model;
+using BLInterfaces;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class PsychologistsController : ControllerBase
 	{
-		// GET: api/<PsychologistsController>
+
+		private readonly IPsychologistLogic psychologistLogic;
+
+        public PsychologistsController(IPsychologistLogic psychologistLogic)
+        {
+			this.psychologistLogic = psychologistLogic;
+        }
+
 		[HttpGet]
 		public IEnumerable<string> Get()
 		{
 			return new string[] { "value1", "value2" };
 		}
 
-		// GET api/<PsychologistsController>/5
 		[HttpGet("{id}")]
-		public string Get(int id)
+		public IActionResult Get(int id)
 		{
-			return "value";
+			return Ok();
 		}
 
-		// POST api/<PsychologistsController>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public IActionResult Post([FromBody] PsychologistModel psychologistModel)
 		{
+			return Ok();
 		}
 
 		// PUT api/<PsychologistsController>/5
