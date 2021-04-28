@@ -2,7 +2,6 @@
 using Domain;
 using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq;
 
 namespace DataAccess.Repositories
@@ -29,8 +28,16 @@ namespace DataAccess.Repositories
 
         public void Add(Psychologist psychologist)
         {
-            this.psychologists.Add(psychologist);
-            this.context.SaveChanges();
+            Psychologist psychologistToAdd = this.psychologists.FirstOrDefault(psycho => psycho.Id == psychologist.Id);
+            if (psychologistToAdd != null)
+            {
+                throw new AlreadyExistsException(psychologistToAdd.Id.ToString());
+            }
+            else
+            {
+                this.psychologists.Add(psychologist);
+                this.context.SaveChanges();
+            }
         }
     }
 }
