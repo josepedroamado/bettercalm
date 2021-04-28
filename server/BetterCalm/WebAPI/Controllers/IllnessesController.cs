@@ -1,15 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class IllnessesController : ControllerBase
 	{
+		private readonly IIllnessLogic illnessLogic;
+        public IllnessesController(IIllnessLogic illnessLogic)
+        {
+			this.illnessLogic = illnessLogic;
+        }
+
+		[HttpGet]
+		public IActionResult Get()
+		{
+			return Ok();
+		}
 	}
 }
