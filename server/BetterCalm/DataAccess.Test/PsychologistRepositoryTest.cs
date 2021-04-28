@@ -94,5 +94,28 @@ namespace DataAccess.Test
 
             Assert.AreEqual(expectedPsychologist, obtainedPsychologist);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(AlreadyExistsException))]
+        public void AddAlreadyExists()
+        {
+            Psychologist expectedPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(expectedPsychologist);
+            repository.Add(expectedPsychologist);
+
+            Psychologist obtainedPsychologist = repository.Get(expectedPsychologist.Id);
+
+            Assert.AreEqual(expectedPsychologist, obtainedPsychologist);
+        }
     }
 }
