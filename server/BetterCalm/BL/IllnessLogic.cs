@@ -16,7 +16,7 @@ namespace BL
         }
         public IEnumerable<Illness> GetIllnesses()
         {
-            throw new NotImplementedException();
+            return this.illnessRepository.GetAll();
         }
     }
 }
