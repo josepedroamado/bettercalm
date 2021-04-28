@@ -9,7 +9,7 @@ namespace BL
 	{
 		private readonly IContentRepository contentRepository;
 
-		public ContentLogic(IContentRepository contentRepository)
+		public ContentLogic(IContentRepository contentRepository, IPlaylistRepository playlistRepository, ICategoryRepository categoryRepository)
 		{
 			this.contentRepository = contentRepository;
 		}
