@@ -15,12 +15,12 @@ namespace BL
 
         public Psychologist Get(int id)
         {
-            throw new System.NotImplementedException();
+            return this.psychologistRepository.Get(id);
         }
 
         public void Add(Psychologist psychologist)
         {
-            throw new System.NotImplementedException();
+            this.psychologistRepository.Add(psychologist);
         }
     }
 }
