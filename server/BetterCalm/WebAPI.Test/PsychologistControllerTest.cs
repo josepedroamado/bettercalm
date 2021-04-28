@@ -1,4 +1,5 @@
 ﻿using BLInterfaces;
+using Domain;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -72,7 +73,7 @@ namespace WebAPI.Test
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
-            psychologistLogicMock.Setup(m => m.Add(expectedPsychologistModel.ToEntity()));
+            psychologistLogicMock.Setup(m => m.Add(It.IsAny<Psychologist>()));
             psychologistLogicMock.Setup(m => m.Get(expectedPsychologistModel.Id)).Returns(expectedPsychologistModel.ToEntity());
             PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
             psychologistsController.Post(expectedPsychologistModel);
@@ -97,7 +98,7 @@ namespace WebAPI.Test
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
-            psychologistLogicMock.Setup(p => p.Add(expectedPsychologistModel.ToEntity())).Throws(new AlreadyExistsException(expectedPsychologistModel.Id.ToString()));
+            psychologistLogicMock.Setup(p => p.Add(It.IsAny<Psychologist>())).Throws(new AlreadyExistsException(expectedPsychologistModel.Id.ToString()));
 
             PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
             psychologistsController.Post(expectedPsychologistModel);
