@@ -84,7 +84,7 @@ namespace BL.Test
 
         [TestMethod]
         [ExpectedException(typeof(AlreadyExistsException))]
-        public void AddAleadyExists()
+        public void AddAlreadyExists()
         {
             Psychologist expectedPsychologist = new Psychologist()
             {
