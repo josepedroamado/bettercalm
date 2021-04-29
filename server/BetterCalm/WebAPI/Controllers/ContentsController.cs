@@ -46,5 +46,11 @@ namespace WebAPI.Controllers
 			this.contentLogic.CreateContent(contentModel.ToEntity());
 			return Ok();
 		}
+
+		[HttpDelete("{id}")]
+		public IActionResult Delete(int id)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
