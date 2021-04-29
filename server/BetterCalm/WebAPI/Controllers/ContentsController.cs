@@ -41,7 +41,8 @@ namespace WebAPI.Controllers
 		[HttpPost]
 		public IActionResult Post([FromBody] ContentModel contentModel)
 		{
-			throw new NotImplementedException();
+			this.contentLogic.CreateContent(contentModel.ToEntity());
+			return Ok();
 		}
 	}
 }

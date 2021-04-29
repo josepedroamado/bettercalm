@@ -1,6 +1,7 @@
 ﻿using Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Model
 {
@@ -17,7 +18,22 @@ namespace Model
 
 		public Content ToEntity()
 		{
-			throw new NotImplementedException();
+			return new Content()
+			{
+				ArtistName = ArtistName,
+				Categories = Categories.Select(category =>
+					new Category() { Id = category }).ToList(),
+				ContentLength = TimeSpan.Parse(ContentLength),
+				Id = Id,
+				ImageUrl = ImageUrl,
+				Name = Name,
+				PlayLists = Playlists.Select(playlist =>
+					new Playlist()
+					{
+						Id = playlist.Id,
+						Name = playlist.Name
+					}).ToList(),
+			};
 		}
 	}
 }
