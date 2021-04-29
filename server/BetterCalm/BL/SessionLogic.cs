@@ -19,7 +19,7 @@ namespace BL
 
 		public bool IsValidToken(string token)
 		{
-			throw new NotImplementedException();
+			return this.sessionRepository.GetByToken(token) != null;
 		}
 
 		public string Login(string eMail, string password)
