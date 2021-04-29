@@ -24,6 +24,11 @@ namespace DataAccess.Repositories
 			this.context.SaveChanges();
 		}
 
+		public void Delete(int id)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public Content Get(int id)
 		{
 			Content content = this.contents.FirstOrDefault(cont => cont.Id == id);
