@@ -96,7 +96,7 @@ namespace BL
 
 		public void DeleteContent(int id)
 		{
-			throw new System.NotImplementedException();
+			this.contentRepository.Delete(id);
 		}
 	}
 }
