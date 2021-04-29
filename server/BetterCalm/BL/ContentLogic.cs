@@ -26,21 +26,30 @@ namespace BL
 		{
 			if (content.Categories != null)
 			{
-				Category notFoundCategory = content.Categories.FirstOrDefault(category =>
-				this.categoryRepository.Get(category.Id) == null);
-				if (notFoundCategory != null)
-					throw new NotFoundException(notFoundCategory.Id.ToString());
+				List<Category> storedCategories = content.Categories.Select(category =>
+				{
+					Category stored = this.categoryRepository.Get(category.Id);
+					if (stored != null)
+						return stored;
+					throw new NotFoundException(category.Id.ToString());
+				}).ToList();
+				content.Categories = storedCategories;
 			}
 
 			if (content.PlayLists != null)
 			{
-				Playlist unableToCreatePlaylist = content.PlayLists.FirstOrDefault(playlist =>
-					this.playlistRepository.Get(playlist.Id) == null &&
-					string.IsNullOrEmpty(playlist.Name)
-				);
+				List<Playlist> storedPlaylists = content.PlayLists.Select(playlist =>
+				{
+					Playlist stored = this.playlistRepository.Get(playlist.Id);
 
-				if (unableToCreatePlaylist != null)
+					if (stored != null)
+						return stored;
+					if (!string.IsNullOrEmpty(playlist.Name))
+						return playlist;
+
 					throw new UnableToCreatePlaylistException();
+				}).ToList();
+				content.PlayLists = storedPlaylists;
 			}
 			
 			this.contentRepository.Add(content);

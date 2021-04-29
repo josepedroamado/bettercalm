@@ -20,7 +20,7 @@ namespace DataAccess.Repositories
 
 		public void Add(Content content)
 		{
-			this.context.Add(content);
+			this.contents.Add(content);
 			this.context.SaveChanges();
 		}
 
