@@ -40,7 +40,15 @@ namespace BL
 			{
 				List<Playlist> storedPlaylists = content.PlayLists.Select(playlist =>
 				{
-					Playlist stored = this.playlistRepository.Get(playlist.Id);
+					Playlist stored;
+					try
+					{
+						stored = this.playlistRepository.Get(playlist.Id);
+					}
+					catch (NotFoundException)
+					{
+						stored = null;
+					}
 
 					if (stored != null)
 						return stored;
