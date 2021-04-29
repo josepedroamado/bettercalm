@@ -24,7 +24,7 @@ namespace BL
 
 		public void CreateContent(Content content)
 		{
-			if (content.Categories != null)
+			if (content.Categories != null && content.Categories.Count() > 0)
 			{
 				List<Category> storedCategories = content.Categories.Select(category =>
 				{
@@ -35,6 +35,8 @@ namespace BL
 				}).ToList();
 				content.Categories = storedCategories;
 			}
+			else
+				throw new MissingCategoriesException();
 
 			if (content.PlayLists != null)
 			{
