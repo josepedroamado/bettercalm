@@ -17,6 +17,11 @@ namespace BL
 			this.administratorRepository = administratorRepository;
 		}
 
+		public bool IsValidToken(string token)
+		{
+			throw new NotImplementedException();
+		}
+
 		public string Login(string eMail, string password)
 		{
 			try
