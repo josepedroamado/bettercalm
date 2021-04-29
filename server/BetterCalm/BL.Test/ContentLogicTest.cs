@@ -544,5 +544,43 @@ namespace BL.Test
 			contentRepositoryMock.VerifyAll();
 			Assert.IsNull(obtainedContent);
 		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void DeleteContentOk()
+		{
+			Category music = new Category()
+			{
+				Id = 1,
+				Name = "Musica"
+			};
+
+			Content toDeleteContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						music
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
+			};
+
+			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
+			contentRepositoryMock.Setup(m => m.Get(toDeleteContent.Id)).Throws(new NotFoundException(toDeleteContent.Id.ToString()));
+			contentRepositoryMock.Setup(m => m.Delete(toDeleteContent.Id));
+
+			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
+			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
+
+			contentLogic.DeleteContent(toDeleteContent.Id);
+			Content obtainedContent = contentLogic.GetContent(toDeleteContent.Id);
+
+			contentRepositoryMock.VerifyAll();
+			Assert.AreNotEqual(toDeleteContent, obtainedContent);
+		}
 	}
 }

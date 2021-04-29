@@ -46,5 +46,13 @@ namespace WebAPI.Controllers
 			this.contentLogic.CreateContent(contentModel.ToEntity());
 			return Ok();
 		}
+
+		[HttpDelete("{id}")]
+		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
+		public IActionResult Delete(int id)
+		{
+			this.contentLogic.DeleteContent(id);
+			return Ok();
+		}
 	}
 }

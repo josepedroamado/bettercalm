@@ -389,5 +389,40 @@ namespace DataAccess.Test
 
 			Assert.AreEqual(toSaveContent, added);
 		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void DeleteContentOk()
+		{
+			Category music = new Category()
+			{
+				Id = 1,
+				Name = "Musica"
+			};
+			this.context.Add(music);
+			this.context.SaveChanges();
+
+			Content toSaveContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						music
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+			repository.Add(toSaveContent);
+
+			repository.Delete(toSaveContent.Id);
+			
+			Content obtained = repository.Get(toSaveContent.Id);
+
+			Assert.AreNotEqual(toSaveContent, obtained);
+		}
 	}
 }

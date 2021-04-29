@@ -298,5 +298,25 @@ namespace WebAPI.Test
             ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
             Assert.IsNull(obtainedContent);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void DeleteContentOk()
+        {
+            int toDeleteContent = 1;
+
+            Mock<IContentLogic> mock = new Mock<IContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.DeleteContent(toDeleteContent));
+            mock.Setup(m => m.GetContent(toDeleteContent)).Throws(new NotFoundException(toDeleteContent.ToString()));
+            ContentsController controller = new ContentsController(mock.Object);
+
+            IActionResult result = controller.Delete(toDeleteContent);
+            IActionResult getResult = controller.Get(toDeleteContent);
+            OkObjectResult objectResult = getResult as OkObjectResult;
+            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+
+            mock.VerifyAll();
+            Assert.IsNull(obtainedContent);
+        }
     }
 }
