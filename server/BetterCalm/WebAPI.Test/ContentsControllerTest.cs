@@ -123,5 +123,114 @@ namespace WebAPI.Test
             mock.VerifyAll();
             Assert.IsNull(obtainedContent);
         }
+
+        [TestMethod]
+        public void PostContentOk()
+        {
+            ContentModel contentModel = new ContentModel()
+            {
+                ArtistName = "Bon Jovi",
+                Categories = new int[] { 1 },
+                Playlists = new List<PlaylistBasicInfo>()
+                {
+                    new PlaylistBasicInfo()
+                    {
+                        Id = 1,
+                        Name = "Best of Bon Jovi"
+                    }
+                },
+                Id = 1,
+                ContentLength = "00:01:30",
+                Name = "It's My Life",
+                ImageUrl = "http://www.images.com/image.jpg",
+                AudioUrl = "http://www.audios.com/audio.mp3"
+            };
+            Content contentEntity = contentModel.ToEntity();
+
+            Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
+            contentLogic.Setup(m => m.CreateContent(It.IsAny<Content>()));
+            contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Returns(contentEntity);
+
+            ContentsController controller = new ContentsController(contentLogic.Object);
+
+            controller.Post(contentModel);
+            IActionResult result = controller.Get(contentEntity.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            Assert.IsTrue(obtainedContent.Id == contentEntity.Id);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void PostContentCategoryNotFound()
+        {
+            ContentModel contentModel = new ContentModel()
+            {
+                ArtistName = "Bon Jovi",
+                Categories = new int[] { 9999 },
+                Playlists = new List<PlaylistBasicInfo>()
+                {
+                    new PlaylistBasicInfo()
+                    {
+                        Id = 1,
+                        Name = "Best of Bon Jovi"
+                    }
+                },
+                Id = 1,
+                ContentLength = "00:01:30",
+                Name = "It's My Life",
+                ImageUrl = "http://www.images.com/image.jpg",
+                AudioUrl = "http://www.audios.com/audio.mp3"
+            };
+            Content contentEntity = contentModel.ToEntity();
+
+            Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
+            contentLogic.Setup(m => m.CreateContent(It.IsAny<Content>())).Throws(new NotFoundException(contentEntity.Id.ToString()));
+            contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Throws(new NotFoundException(contentEntity.Id.ToString()));
+
+            ContentsController controller = new ContentsController(contentLogic.Object);
+
+            controller.Post(contentModel);
+            IActionResult result = controller.Get(contentEntity.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            Assert.IsNull(obtainedContent);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UnableToCreatePlaylistException))]
+        public void PostContentUnableToCreateNewCategory()
+        {
+            ContentModel contentModel = new ContentModel()
+            {
+                ArtistName = "Bon Jovi",
+                Categories = new int[] { 9999 },
+                Playlists = new List<PlaylistBasicInfo>()
+                {
+                    new PlaylistBasicInfo()
+                    {
+                        Id = 1
+                    }
+                },
+                Id = 1,
+                ContentLength = "00:01:30",
+                Name = "It's My Life",
+                ImageUrl = "http://www.images.com/image.jpg",
+                AudioUrl = "http://www.audios.com/audio.mp3"
+            };
+            Content contentEntity = contentModel.ToEntity();
+
+            Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
+            contentLogic.Setup(m => m.CreateContent(It.IsAny<Content>())).Throws(new UnableToCreatePlaylistException());
+            contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Throws(new NotFoundException(contentEntity.Id.ToString()));
+
+            ContentsController controller = new ContentsController(contentLogic.Object);
+
+            controller.Post(contentModel);
+            IActionResult result = controller.Get(contentEntity.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            Assert.IsNull(obtainedContent);
+        }
     }
 }
