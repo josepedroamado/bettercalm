@@ -22,13 +22,13 @@ namespace Model
 			{
 				ArtistName = ArtistName,
 				AudioUrl = AudioUrl,
-				Categories = Categories.Select(category =>
+				Categories = Categories?.Select(category =>
 					new Category() { Id = category }).ToList(),
 				ContentLength = TimeSpan.Parse(ContentLength),
 				Id = Id,
 				ImageUrl = ImageUrl,
 				Name = Name,
-				PlayLists = Playlists.Select(playlist =>
+				PlayLists = Playlists?.Select(playlist =>
 					new Playlist()
 					{
 						Id = playlist.Id,
