@@ -37,5 +37,11 @@ namespace WebAPI.Controllers
 			Content content = this.contentLogic.GetContent(id);
 			return Ok(new ContentBasicInfo(content));
 		}
+
+		[HttpPost]
+		public IActionResult Post([FromBody] ContentModel contentModel)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
