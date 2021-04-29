@@ -569,9 +569,7 @@ namespace BL.Test
 			};
 
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
-			contentRepositoryMock.SetupSequence(m => m.Get(toDeleteContent.Id))
-				.Returns(toDeleteContent)
-				.Throws(new NotFoundException(toDeleteContent.Id.ToString()));
+			contentRepositoryMock.Setup(m => m.Get(toDeleteContent.Id)).Throws(new NotFoundException(toDeleteContent.Id.ToString()));
 			contentRepositoryMock.Setup(m => m.Delete(toDeleteContent.Id));
 
 			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
