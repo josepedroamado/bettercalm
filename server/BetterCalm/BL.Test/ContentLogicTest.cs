@@ -145,7 +145,9 @@ namespace BL.Test
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
 			contentRepositoryMock.Setup(m => m.GetAll(expectedCategory)).Returns(expectedContents);
 
-			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object);
+			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
+			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
 
 			IEnumerable<Content> obtainedContents = contentLogic.GetContents(expectedCategory);
 			Assert.IsTrue(expectedContents.SequenceEqual(obtainedContents));
