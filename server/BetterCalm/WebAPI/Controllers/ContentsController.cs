@@ -48,9 +48,11 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
 		public IActionResult Delete(int id)
 		{
-			throw new NotImplementedException();
+			this.contentLogic.DeleteContent(id);
+			return Ok();
 		}
 	}
 }
