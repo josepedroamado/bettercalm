@@ -164,6 +164,34 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
+        public void PostContentWithoutPlaylistOk()
+        {
+            ContentModel contentModel = new ContentModel()
+            {
+                ArtistName = "Bon Jovi",
+                Categories = new int[] { 1 },
+                Id = 1,
+                ContentLength = "00:01:30",
+                Name = "It's My Life",
+                ImageUrl = "http://www.images.com/image.jpg",
+                AudioUrl = "http://www.audios.com/audio.mp3"
+            };
+            Content contentEntity = contentModel.ToEntity();
+
+            Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
+            contentLogic.Setup(m => m.CreateContent(It.IsAny<Content>()));
+            contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Returns(contentEntity);
+
+            ContentsController controller = new ContentsController(contentLogic.Object);
+
+            controller.Post(contentModel);
+            IActionResult result = controller.Get(contentEntity.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            Assert.IsTrue(obtainedContent.Id == contentEntity.Id);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
         public void PostContentCategoryNotFound()
         {
