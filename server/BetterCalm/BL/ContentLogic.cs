@@ -93,5 +93,10 @@ namespace BL
         {
 			return this.contentRepository.GetAll(category);
 		}
-    }
+
+		public void DeleteContent(int id)
+		{
+			throw new System.NotImplementedException();
+		}
+	}
 }
