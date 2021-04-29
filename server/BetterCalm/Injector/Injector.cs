@@ -24,6 +24,7 @@ namespace Injector
 			services.AddScoped<IPlaylistLogic, PlaylistLogic>();
 			services.AddScoped<ICategoryLogic, CategoryLogic>();
 			services.AddScoped<IIllnessLogic, IllnessLogic>();
+			services.AddScoped<IPsychologistLogic, PsychologistLogic>();
 		}
 
 		public void AddDataAccessServices()
@@ -34,6 +35,7 @@ namespace Injector
 			services.AddScoped<ISessionRepository, SessionRepository>();
 			services.AddScoped<IContentRepository, ContentRepository>();
 			services.AddScoped<IIllnessRepository, IllnessRepository>();
+			services.AddScoped<IPsychologistRepository, PsychologistRepository>();
 		}
 
 		public void AddContextServices()
