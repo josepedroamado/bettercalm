@@ -10,6 +10,7 @@ namespace Model
 		public TimeSpan ContentLength { get; set; }
 		public string ArtistName { get; set; }
 		public string ImageUrl { get; set; }
+		public string AudioUrl { get; set; }
 
 		public ContentBasicInfo(Content content)
 		{
@@ -18,6 +19,7 @@ namespace Model
 			this.ContentLength = content.ContentLength;
 			this.ArtistName = content.ArtistName;
 			this.ImageUrl = content.ImageUrl;
+			this.AudioUrl = content.AudioUrl;
 		}
 	}
 }

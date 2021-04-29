@@ -21,6 +21,7 @@ namespace Model
 			return new Content()
 			{
 				ArtistName = ArtistName,
+				AudioUrl = AudioUrl,
 				Categories = Categories.Select(category =>
 					new Category() { Id = category }).ToList(),
 				ContentLength = TimeSpan.Parse(ContentLength),

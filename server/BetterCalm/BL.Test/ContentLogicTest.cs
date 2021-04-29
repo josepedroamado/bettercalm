@@ -46,8 +46,9 @@ namespace BL.Test
                     Id = 1,
                     ContentLength = new TimeSpan(0, 2, 30),
                     Name = "It's My Life",
-                    ImageUrl = "http://www.images.com/image.jpg"
-                },
+                    ImageUrl = "http://www.images.com/image.jpg",
+					AudioUrl = "http://www.audios.com/audio.mp3"
+				},
                 new Content()
                 {
                     ArtistName = "Celia Cruz",
@@ -61,8 +62,9 @@ namespace BL.Test
                     Id = 2,
                     ContentLength = new TimeSpan(0, 2, 30),
                     Name = "La vida es un carnaval",
-                    ImageUrl = "http://www.images.com/image2.jpg"
-                }
+                    ImageUrl = "http://www.images.com/image2.jpg",
+					AudioUrl = "http://www.audios.com/audio.mp3"
+				}
             };
         }
 
@@ -100,7 +102,8 @@ namespace BL.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Content livinOnAPrayer = new Content()
@@ -111,7 +114,8 @@ namespace BL.Test
 				Id = 2,
 				ContentLength = new TimeSpan(0, 4, 10),
 				Name = "Livin' On A Prayer",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			bestOfBonJovi = new Playlist()
@@ -149,7 +153,8 @@ namespace BL.Test
 				Id = 2,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "La vida es un carnaval",
-				ImageUrl = "http://www.images.com/image2.jpg"
+				ImageUrl = "http://www.images.com/image2.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
@@ -212,7 +217,8 @@ namespace BL.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
@@ -263,7 +269,8 @@ namespace BL.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
@@ -303,7 +310,8 @@ namespace BL.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
@@ -353,7 +361,8 @@ namespace BL.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
@@ -405,7 +414,8 @@ namespace BL.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);

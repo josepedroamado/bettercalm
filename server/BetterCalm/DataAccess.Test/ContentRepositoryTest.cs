@@ -171,7 +171,8 @@ namespace DataAccess.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			this.context.Add(expectedContent);
@@ -200,7 +201,8 @@ namespace DataAccess.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			this.context.Add(toSaveContent);
@@ -241,7 +243,8 @@ namespace DataAccess.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 			this.context.SaveChanges();
 
@@ -283,7 +286,8 @@ namespace DataAccess.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 			this.context.SaveChanges();
 
@@ -314,7 +318,8 @@ namespace DataAccess.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 			this.context.SaveChanges();
 
