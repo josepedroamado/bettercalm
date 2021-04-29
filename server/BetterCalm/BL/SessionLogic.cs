@@ -17,6 +17,11 @@ namespace BL
 			this.administratorRepository = administratorRepository;
 		}
 
+		public bool IsValidToken(string token)
+		{
+			return this.sessionRepository.GetByToken(token) != null;
+		}
+
 		public string Login(string eMail, string password)
 		{
 			try

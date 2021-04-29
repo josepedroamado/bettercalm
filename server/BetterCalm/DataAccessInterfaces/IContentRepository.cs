@@ -9,5 +9,6 @@ namespace DataAccessInterfaces
 		IEnumerable<Content> GetAll();
 		IEnumerable<Content> GetAll(Playlist playlist);
 		IEnumerable<Content> GetAll(Category category);
+		void Add(Content content);
 	}
 }

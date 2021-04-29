@@ -10,6 +10,7 @@ namespace Domain
 		public TimeSpan ContentLength { get; set; }
 		public string ArtistName { get; set; }
 		public string ImageUrl { get; set; }
+		public string AudioUrl { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
 		public IEnumerable<Playlist> PlayLists { get; set; }
 	}
