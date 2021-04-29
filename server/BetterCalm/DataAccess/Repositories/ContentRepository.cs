@@ -26,7 +26,16 @@ namespace DataAccess.Repositories
 
 		public void Delete(int id)
 		{
-			throw new System.NotImplementedException();
+			try
+			{
+				Content content = Get(id);
+				if (content != null)
+				{
+					this.context.Remove(content);
+					this.context.SaveChanges();
+				}
+			}
+			catch(NotFoundException){}
 		}
 
 		public Content Get(int id)
