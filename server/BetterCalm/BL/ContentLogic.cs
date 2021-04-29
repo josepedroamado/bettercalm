@@ -24,23 +24,34 @@ namespace BL
 
 		public void CreateContent(Content content)
 		{
-			if (content.Categories != null && content.Categories.Count() > 0)
-			{
-				List<Category> storedCategories = content.Categories.Select(category =>
-				{
-					Category stored = this.categoryRepository.Get(category.Id);
-					if (stored != null)
-						return stored;
-					throw new NotFoundException(category.Id.ToString());
-				}).ToList();
-				content.Categories = storedCategories;
-			}
-			else
+			content.Categories = GetStoredCategories(content.Categories);
+			content.PlayLists = GetStoredPlaylists(content.PlayLists);
+						
+			this.contentRepository.Add(content);
+		}
+
+		private List<Category> GetStoredCategories(IEnumerable<Category> inMemoryCategories)
+		{
+			if (inMemoryCategories == null || inMemoryCategories.Count() == 0)
 				throw new MissingCategoriesException();
 
-			if (content.PlayLists != null)
+			List<Category> storedCategories = inMemoryCategories.Select(category =>
 			{
-				List<Playlist> storedPlaylists = content.PlayLists.Select(playlist =>
+				Category stored = this.categoryRepository.Get(category.Id);
+				if (stored != null)
+					return stored;
+				throw new NotFoundException(category.Id.ToString());
+			}).ToList();
+			
+			return storedCategories;
+		}
+
+		private List<Playlist> GetStoredPlaylists(IEnumerable<Playlist> inMemoryPlaylists)
+		{
+			List<Playlist> storedPlaylists = new List<Playlist>();
+			if (inMemoryPlaylists  != null)
+			{
+				storedPlaylists = inMemoryPlaylists.Select(playlist =>
 				{
 					Playlist stored;
 					try
@@ -59,10 +70,8 @@ namespace BL
 
 					throw new UnableToCreatePlaylistException();
 				}).ToList();
-				content.PlayLists = storedPlaylists;
 			}
-			
-			this.contentRepository.Add(content);
+			return storedPlaylists;
 		}
 
 		public Content GetContent(int id)
