@@ -435,6 +435,11 @@ namespace DataAccess.Test
 			};
 			this.context.Add(music);
 
+			Playlist playlist = new Playlist()
+			{
+				Id = 1,
+				Name = "Best of Bon Jovi"
+			};
 			Content currentContent = new Content()
 			{
 				ArtistName = "Bon Jovi",
@@ -443,11 +448,7 @@ namespace DataAccess.Test
 					},
 				PlayLists = new List<Playlist>()
 				{
-					new Playlist()
-					{
-						Id = 1,
-						Name = "Best of Bon Jovi"
-					}
+					playlist
 				},
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
@@ -458,12 +459,16 @@ namespace DataAccess.Test
 			this.context.Add(currentContent);
 			this.context.SaveChanges();
 
-			Playlist playlist = new Playlist()
+			Playlist newPlaylist = new Playlist()
 			{
 				Id = 2,
 				Name = "Trend Jovi"
 			};
-			currentContent.PlayLists.Append(playlist);
+			currentContent.PlayLists = new List<Playlist>()
+			{
+				playlist,
+				newPlaylist
+			};
 
 			ContentRepository repository = new ContentRepository(this.context);
 
@@ -482,6 +487,13 @@ namespace DataAccess.Test
 			};
 			this.context.Add(music);
 
+			Playlist playlist = new Playlist()
+			{
+				Id = 1,
+				Name = "Best of Bon Jovi"
+			};
+			this.context.Add(playlist);
+
 			Content currentContent = new Content()
 			{
 				ArtistName = "Bon Jovi",
@@ -490,11 +502,7 @@ namespace DataAccess.Test
 					},
 				PlayLists = new List<Playlist>()
 				{
-					new Playlist()
-					{
-						Id = 1,
-						Name = "Best of Bon Jovi"
-					}
+					playlist
 				},
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
@@ -504,15 +512,19 @@ namespace DataAccess.Test
 			};
 			this.context.Add(currentContent);
 
-			Playlist playlist = new Playlist()
+			Playlist newPlaylist = new Playlist()
 			{
 				Id = 2,
 				Name = "Trend Jovi"
 			};
-			this.context.Add(playlist);
+			this.context.Add(newPlaylist);
 			this.context.SaveChanges();
 
-			currentContent.PlayLists.Append(playlist);
+			currentContent.PlayLists = new List<Playlist>()
+			{
+				playlist,
+				newPlaylist
+			};
 
 			ContentRepository repository = new ContentRepository(this.context);
 
@@ -603,7 +615,12 @@ namespace DataAccess.Test
 			this.context.Add(category);
 			this.context.SaveChanges();
 
-			currentContent.Categories.Append(category);
+			currentContent.Categories = new List<Category>()
+			{
+				music,
+				category
+			};
+
 			ContentRepository repository = new ContentRepository(this.context);
 
 			repository.Update(currentContent);
@@ -621,6 +638,13 @@ namespace DataAccess.Test
 			};
 			this.context.Add(music);
 
+			Playlist playlist = new Playlist()
+			{
+				Id = 1,
+				Name = "Best of Bon Jovi"
+			};
+			this.context.Add(playlist);
+
 			Content currentContent = new Content()
 			{
 				ArtistName = "Bon Jovi",
@@ -629,11 +653,7 @@ namespace DataAccess.Test
 					},
 				PlayLists = new List<Playlist>()
 				{
-					new Playlist()
-					{
-						Id = 1,
-						Name = "Best of Bon Jovi"
-					}
+					playlist
 				},
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
@@ -642,18 +662,32 @@ namespace DataAccess.Test
 				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 			this.context.Add(currentContent);
-			this.context.SaveChanges();
 
-			currentContent.Categories.Append(new Category()
+			Category newCategory = new Category()
 			{
 				Id = 2,
 				Name = "Category2"
-			});
-			currentContent.PlayLists.Append(new Playlist()
+			};
+			this.context.Add(newCategory);
+			Playlist newPlaylist = new Playlist()
 			{
 				Id = 2,
 				Name = "Playlist2"
-			});
+			};
+			this.context.Add(newPlaylist);
+			this.context.SaveChanges();
+
+			currentContent.Categories = new List<Category>()
+			{
+				music,
+				newCategory
+			};
+
+			currentContent.PlayLists = new List<Playlist>()
+			{
+				playlist,
+				newPlaylist
+			};
 			currentContent.ArtistName = "new artist name";
 			currentContent.AudioUrl = "http://audio.com/a.mp3";
 			currentContent.ContentLength = TimeSpan.Parse("00:00:30");
