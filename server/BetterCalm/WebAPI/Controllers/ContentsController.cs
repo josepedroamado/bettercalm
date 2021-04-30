@@ -54,5 +54,11 @@ namespace WebAPI.Controllers
 			this.contentLogic.DeleteContent(id);
 			return Ok();
 		}
+
+		[HttpPatch]
+		public IActionResult Patch([FromBody] ContentModel contentModel)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
