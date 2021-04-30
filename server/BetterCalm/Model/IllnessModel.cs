@@ -1,4 +1,5 @@
 ﻿using Domain;
+using System;
 
 namespace Model
 {
@@ -25,6 +26,17 @@ namespace Model
                 Id = this.Id,
                 Name = this.Name
             };
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is IllnessModel model &&
+                   Id == model.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
         }
     }
 }
