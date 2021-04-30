@@ -58,7 +58,8 @@ namespace WebAPI.Controllers
 		[HttpPatch]
 		public IActionResult Patch([FromBody] ContentModel contentModel)
 		{
-			throw new NotImplementedException();
+			this.contentLogic.UpdateContent(contentModel.ToEntity());
+			return Ok();
 		}
 	}
 }
