@@ -63,7 +63,8 @@ namespace DataAccess.Repositories
 
 		public void Update(Content content)
 		{
-			throw new System.NotImplementedException();
+			this.contents.Update(content);
+			this.context.SaveChanges();
 		}
 	}
 }
