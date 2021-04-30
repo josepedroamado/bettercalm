@@ -1,7 +1,8 @@
 ﻿using BLInterfaces;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebAPI.Controllers
 {
@@ -18,8 +19,8 @@ namespace WebAPI.Controllers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			IEnumerable<Illness> illnesses = this.illnessLogic.GetIllnesses();
-			return Ok(illnesses);
+			IEnumerable<IllnessModel> illnessModels = this.illnessLogic.GetIllnesses().Select(illness => new IllnessModel(illness)).ToList();
+			return Ok(illnessModels);
 		}
 	}
 }
