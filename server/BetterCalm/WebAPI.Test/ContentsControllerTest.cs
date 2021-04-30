@@ -343,7 +343,7 @@ namespace WebAPI.Test
             Content contentEntity = contentModel.ToEntity();
 
             Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
-            contentLogic.Setup(m => m.UpdateContent(contentEntity));
+            contentLogic.Setup(m => m.UpdateContent(It.IsAny<Content>()));
             contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Returns(contentEntity);
 
             ContentsController controller = new ContentsController(contentLogic.Object);
@@ -352,9 +352,8 @@ namespace WebAPI.Test
             IActionResult result = controller.Get(contentEntity.Id);
             OkObjectResult objectResult = result as OkObjectResult;
             ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
-            ContentBasicInfo input = new ContentBasicInfo(contentEntity);
-            
-            Assert.IsTrue(ContentBasicInfoComparer.Equals(obtainedContent, input));
+            Assert.IsTrue((new ContentBasicInfoComparer()).
+               Compare(new ContentBasicInfo(contentEntity), obtainedContent) == 0);
         }
 
         [TestMethod]
@@ -382,7 +381,7 @@ namespace WebAPI.Test
             Content contentEntity = contentModel.ToEntity();
 
             Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
-            contentLogic.Setup(m => m.UpdateContent(contentEntity)).Throws(new NotFoundException(contentEntity.Categories.ElementAt(0).ToString()));
+            contentLogic.Setup(m => m.UpdateContent(It.IsAny<Content>())).Throws(new NotFoundException(contentEntity.Categories.ElementAt(0).ToString()));
             contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Throws(new NotFoundException(contentEntity.Id.ToString()));
 
             ContentsController controller = new ContentsController(contentLogic.Object);
@@ -418,7 +417,7 @@ namespace WebAPI.Test
             Content contentEntity = contentModel.ToEntity();
 
             Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
-            contentLogic.Setup(m => m.UpdateContent(contentEntity)).Throws(new UnableToCreatePlaylistException());
+            contentLogic.Setup(m => m.UpdateContent(It.IsAny<Content>())).Throws(new UnableToCreatePlaylistException());
             contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Throws(new NotFoundException(contentEntity.Id.ToString()));
 
             ContentsController controller = new ContentsController(contentLogic.Object);
