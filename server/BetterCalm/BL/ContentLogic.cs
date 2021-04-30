@@ -98,5 +98,10 @@ namespace BL
 		{
 			this.contentRepository.Delete(id);
 		}
+
+		public void UpdateContent(Content content)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }
