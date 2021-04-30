@@ -426,58 +426,6 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void UpdateContentOkWithNewPlaylist()
-		{
-			Category music = new Category()
-			{
-				Id = 1,
-				Name = "Musica"
-			};
-			this.context.Add(music);
-
-			Playlist playlist = new Playlist()
-			{
-				Id = 1,
-				Name = "Best of Bon Jovi"
-			};
-			Content currentContent = new Content()
-			{
-				ArtistName = "Bon Jovi",
-				Categories = new List<Category>(){
-						music
-					},
-				PlayLists = new List<Playlist>()
-				{
-					playlist
-				},
-				Id = 1,
-				ContentLength = new TimeSpan(0, 2, 30),
-				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
-			};
-			this.context.Add(currentContent);
-			this.context.SaveChanges();
-
-			Playlist newPlaylist = new Playlist()
-			{
-				Id = 2,
-				Name = "Trend Jovi"
-			};
-			currentContent.PlayLists = new List<Playlist>()
-			{
-				playlist,
-				newPlaylist
-			};
-
-			ContentRepository repository = new ContentRepository(this.context);
-
-			repository.Update(currentContent);
-			Content obtained = repository.Get(currentContent.Id);
-			Assert.AreEqual(currentContent, obtained);
-		}
-
-		[TestMethod]
 		public void UpdateContentOkWithExistentPlaylist()
 		{
 			Category music = new Category()
