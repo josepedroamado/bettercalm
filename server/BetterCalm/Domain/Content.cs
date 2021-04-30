@@ -13,5 +13,10 @@ namespace Domain
 		public string AudioUrl { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
 		public IEnumerable<Playlist> PlayLists { get; set; }
+
+		public void UpdateFromContent(Content content)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
