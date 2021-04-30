@@ -230,7 +230,8 @@ namespace DataAccess.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			this.context.Add(expectedContent);
@@ -259,7 +260,8 @@ namespace DataAccess.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			this.context.Add(toSaveContent);
@@ -271,6 +273,156 @@ namespace DataAccess.Test
 
 			Content obtainedContent = repository.Get(toGetContentId);
 			Assert.AreNotEqual(toSaveContent, obtainedContent);
+		}
+
+		[TestMethod]
+		public void AddContentOkWithNewPlaylist()
+		{
+			Category music = new Category()
+			{
+				Id = 1,
+				Name = "Musica"
+			};
+			this.context.Add(music);
+
+			Content toSaveContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						music
+					},
+				PlayLists = new List<Playlist>()
+				{
+					new Playlist()
+					{
+						Id = 1,
+						Name = "Besto of Bon Jovi"
+					}
+				},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
+			};
+			this.context.SaveChanges();
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(toSaveContent);
+			Content added = repository.Get(toSaveContent.Id);
+
+			Assert.AreEqual(toSaveContent, added);
+		}
+
+		[TestMethod]
+		public void AddContentOkWithExistentPlaylist()
+		{
+			Category music = new Category()
+			{
+				Id = 1,
+				Name = "Musica"
+			};
+			this.context.Add(music);
+
+			Playlist playlist = new Playlist()
+			{
+				Id = 1,
+				Name = "Besto of Bon Jovi"
+			};
+			this.context.Add(playlist);
+
+			Content toSaveContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						music
+					},
+				PlayLists = new List<Playlist>()
+				{
+					playlist
+				},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
+			};
+			this.context.SaveChanges();
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(toSaveContent);
+			Content added = repository.Get(toSaveContent.Id);
+
+			Assert.AreEqual(toSaveContent, added);
+		}
+
+		[TestMethod]
+		public void AddContentOkWithoutPlaylist()
+		{
+			Category music = new Category()
+			{
+				Id = 1,
+				Name = "Musica"
+			};
+			this.context.Add(music);
+
+			Content toSaveContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						music
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
+			};
+			this.context.SaveChanges();
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(toSaveContent);
+			Content added = repository.Get(toSaveContent.Id);
+
+			Assert.AreEqual(toSaveContent, added);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void DeleteContentOk()
+		{
+			Category music = new Category()
+			{
+				Id = 1,
+				Name = "Musica"
+			};
+			this.context.Add(music);
+			this.context.SaveChanges();
+
+			Content toSaveContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						music
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+			repository.Add(toSaveContent);
+
+			repository.Delete(toSaveContent.Id);
+			
+			Content obtained = repository.Get(toSaveContent.Id);
+
+			Assert.AreNotEqual(toSaveContent, obtained);
 		}
 	}
 }

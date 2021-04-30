@@ -186,5 +186,55 @@ namespace BL.Test
 
 			Assert.AreNotEqual(expectedToken, newToken);
 		}
+
+		[TestMethod]
+		public void ValidateTokenOk()
+		{
+			;
+
+			string tokenToSearch = "token1234";
+			Session expectedSession = new Session()
+			{
+				Id = 1,
+				Token = tokenToSearch,
+				User = new Administrator()
+				{
+					EMail = "a@a.com",
+					Id = 1,
+					Password = "1234"
+				}
+			};
+
+			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
+			sessionRepositoryMock.Setup(m => m.GetByToken(tokenToSearch)).Returns(expectedSession);
+			Mock<IAdministratorRepository> administratorRepositoryMock = new Mock<IAdministratorRepository>(MockBehavior.Strict);
+
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+
+			bool isValidToken = sessionLogic.IsValidToken(tokenToSearch);
+			sessionRepositoryMock.VerifyAll();
+
+			Assert.IsTrue(isValidToken);
+		}
+
+		[TestMethod]
+		public void ValidateTokenNotFoundOk()
+		{
+			;
+
+			string tokenToSearch = "token1234";
+			Session expectedSession = null;
+
+			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
+			sessionRepositoryMock.Setup(m => m.GetByToken(tokenToSearch)).Returns(expectedSession);
+			Mock<IAdministratorRepository> administratorRepositoryMock = new Mock<IAdministratorRepository>(MockBehavior.Strict);
+
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+
+			bool isValidToken = sessionLogic.IsValidToken(tokenToSearch);
+			sessionRepositoryMock.VerifyAll();
+
+			Assert.IsFalse(isValidToken);
+		}
 	}
 }

@@ -49,7 +49,8 @@ namespace BL.Test
                                     Id = 1,
                                     ArtistName = "AmbienceOne",
                                     Name = "Rain",
-                                    ImageUrl = "http://myimageurl.com/image.jpg"
+                                    ImageUrl = "http://myimageurl.com/image.jpg",
+                                    AudioUrl = "http://www.audios.com/audio.mp3"
                                 }
                             }
                         }
@@ -61,7 +62,8 @@ namespace BL.Test
                             Id = 2,
                             ArtistName = "AmbienceOne",
                             Name = "Campfire",
-                            ImageUrl = "http://myimageurl.com/image.jpg"
+                            ImageUrl = "http://myimageurl.com/image.jpg",
+                            AudioUrl = "http://www.audios.com/audio.mp3"
                         }
                     }
                 },
@@ -84,7 +86,8 @@ namespace BL.Test
                                     Id = 3,
                                     ArtistName = "Mantrastic",
                                     Name = "Indian Mantra",
-                                    ImageUrl = "http://myimageurl.com/image.jpg"
+                                    ImageUrl = "http://myimageurl.com/image.jpg",
+                                    AudioUrl = "http://www.audios.com/audio.mp3"
                                 }
                             }
                         }
@@ -145,7 +148,8 @@ namespace BL.Test
                                     Id = 1,
                                     ArtistName = "AmbienceOne",
                                     Name = "Rain",
-                                    ImageUrl = "http://myimageurl.com/image.jpg"
+                                    ImageUrl = "http://myimageurl.com/image.jpg",
+                                    AudioUrl = "http://www.audios.com/audio.mp3"
                                 }
                             }
                         }
@@ -157,7 +161,8 @@ namespace BL.Test
                             Id = 2,
                             ArtistName = "AmbienceOne",
                             Name = "Campfire",
-                            ImageUrl = "http://myimageurl.com/image.jpg"
+                            ImageUrl = "http://myimageurl.com/image.jpg",
+                            AudioUrl = "http://www.audios.com/audio.mp3"
                         }
                     }
             };

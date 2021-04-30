@@ -18,6 +18,26 @@ namespace DataAccess.Repositories
 			this.contents = context.Set<Content>();
 		}
 
+		public void Add(Content content)
+		{
+			this.contents.Add(content);
+			this.context.SaveChanges();
+		}
+
+		public void Delete(int id)
+		{
+			try
+			{
+				Content content = Get(id);
+				if (content != null)
+				{
+					this.context.Remove(content);
+					this.context.SaveChanges();
+				}
+			}
+			catch(NotFoundException){}
+		}
+
 		public Content Get(int id)
 		{
 			Content content = this.contents.FirstOrDefault(cont => cont.Id == id);

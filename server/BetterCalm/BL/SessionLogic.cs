@@ -17,13 +17,19 @@ namespace BL
 			this.administratorRepository = administratorRepository;
 		}
 
+		public bool IsValidToken(string token)
+		{
+			return this.sessionRepository.GetByToken(token) != null;
+		}
+
 		public string Login(string eMail, string password)
 		{
+			string token = string.Empty;
 			try
 			{
 				Administrator administrator = administratorRepository.Get(eMail);
-				if (administrator != null && UserCredentialsValidator.ValidateCredentials(administrator, password))
-				{
+                if (UserCredentialsValidator.ValidateCredentials(administrator, password))
+                {
 					Session session = this.sessionRepository.GetByEmail(eMail);
 					if (session == null)
 					{
@@ -34,7 +40,7 @@ namespace BL
 						};
 						this.sessionRepository.Add(session);
 					}
-					return session.Token;
+					token = session.Token;
 				}
 				else
 					throw new InvalidCredentialsException();
@@ -43,6 +49,7 @@ namespace BL
 			{
 				throw new InvalidCredentialsException();
 			}
+			return token;
 		}
 
         public void Logout(string token)

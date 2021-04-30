@@ -69,7 +69,8 @@ namespace DataAccess.Test
 							Id = 1,
 							ArtistName = "Jhon Doe",
 							Name = "Rocking",
-							ImageUrl = "http://myrockurl.com/rock.jpg"
+							ImageUrl = "http://myrockurl.com/rock.jpg",
+							AudioUrl = "http://www.audios.com/audio.mp3"
 						}
 					}
 				},
@@ -185,7 +186,8 @@ namespace DataAccess.Test
 						Id = 1,
 						ArtistName = "Jhon Doe",
 						Name = "Rocking",
-						ImageUrl = "http://myrockurl.com/rock.jpg"
+						ImageUrl = "http://myrockurl.com/rock.jpg",
+						AudioUrl = "http://www.audios.com/audio.mp3"
 					}
 				}
 			};
