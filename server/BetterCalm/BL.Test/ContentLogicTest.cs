@@ -583,11 +583,6 @@ namespace BL.Test
 			Assert.AreNotEqual(toDeleteContent, obtainedContent);
 		}
 
-		//////////////////////
-		//////////////////////
-		//////////////////////
-		/////////////////////
-		///
 		[TestMethod]
 		public void UpdateContentWithNewPlaylist()
 		{
