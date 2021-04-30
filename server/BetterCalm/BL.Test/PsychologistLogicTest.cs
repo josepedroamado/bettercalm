@@ -91,6 +91,37 @@ namespace BL.Test
         }
 
         [TestMethod]
+        public void AddWithNoIllnessesOk()
+        {
+            Illness stress = new Illness { Id = 1, Name = "Stress" };
+            Illness depression = new Illness { Id = 2, Name = "Depression" };
+            Psychologist expectedPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
+            psychologistRepositoryMock.Setup(m => m.Add(expectedPsychologist));
+            psychologistRepositoryMock.Setup(m => m.Get(expectedPsychologist.Id)).Returns(expectedPsychologist);
+
+            Mock<IIllnessRepository> illnessRepositoryMock = new Mock<IIllnessRepository>(MockBehavior.Strict);
+            illnessRepositoryMock.Setup(m => m.Get(stress.Id)).Returns(stress);
+            illnessRepositoryMock.Setup(m => m.Get(depression.Id)).Returns(depression);
+
+            PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, illnessRepositoryMock.Object);
+            psychologistLogic.Add(expectedPsychologist);
+
+            Psychologist obtainedPsychologist = psychologistLogic.Get(expectedPsychologist.Id);
+
+            Assert.AreEqual(expectedPsychologist, obtainedPsychologist);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(AlreadyExistsException))]
         public void AddAlreadyExists()
         {
@@ -121,6 +152,37 @@ namespace BL.Test
             Psychologist obtainedPsychologist = psychologistLogic.Get(expectedPsychologist.Id);
 
             Assert.AreEqual(expectedPsychologist, obtainedPsychologist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void AddWithNonExistingIllnessFails()
+        {
+            Illness stress = new Illness { Id = 1, Name = "Stress" };
+            Psychologist expectedPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                Illnesses = new List<Illness>() { stress },
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
+            psychologistRepositoryMock.Setup(m => m.Add(expectedPsychologist));
+            psychologistRepositoryMock.Setup(m => m.Get(expectedPsychologist.Id)).Returns(expectedPsychologist);
+
+            Mock<IIllnessRepository> illnessRepositoryMock = new Mock<IIllnessRepository>(MockBehavior.Strict);
+            illnessRepositoryMock.Setup(m => m.Get(stress.Id)).Throws(new NotFoundException(stress.Id.ToString()));
+
+            PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, illnessRepositoryMock.Object);
+            psychologistLogic.Add(expectedPsychologist);
+
+            Psychologist obtainedPsychologist = psychologistLogic.Get(expectedPsychologist.Id);
+
+            Assert.IsNull(obtainedPsychologist);
         }
 
         [TestMethod]
