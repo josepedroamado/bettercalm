@@ -1,7 +1,9 @@
 ﻿using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -18,7 +20,10 @@ namespace DataAccess.Repositories
 
         public Illness Get(int id)
         {
-            throw new System.NotImplementedException();
+            Illness illness = this.illnesses.FirstOrDefault(illness => illness.Id == id);
+            if (illness == null)
+                throw new NotFoundException(id.ToString());
+            return illness;
         }
 
         public IEnumerable<Illness> GetAll()
