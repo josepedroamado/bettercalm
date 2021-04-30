@@ -40,7 +40,10 @@ namespace DataAccess.Repositories
 
 		public Content Get(int id)
 		{
-			Content content = this.contents.FirstOrDefault(cont => cont.Id == id);
+			Content content = this.contents
+				.Include("PlayLists")
+				.Include("Categories")
+				.FirstOrDefault(cont => cont.Id == id);
 			if (content == null)
 				throw new NotFoundException(id.ToString());
 			return content;
@@ -60,5 +63,11 @@ namespace DataAccess.Repositories
         {
 			return this.contents.Where(content => content.Categories.Contains(category));
 		}
-    }
+
+		public void Update(Content content)
+		{
+			this.contents.Update(content);
+			this.context.SaveChanges();
+		}
+	}
 }

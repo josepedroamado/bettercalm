@@ -424,5 +424,229 @@ namespace DataAccess.Test
 
 			Assert.AreNotEqual(toSaveContent, obtained);
 		}
+
+		[TestMethod]
+		public void UpdateContentOkWithExistentPlaylist()
+		{
+			Category music = new Category()
+			{
+				Id = 1,
+				Name = "Musica"
+			};
+			this.context.Add(music);
+
+			Playlist playlist = new Playlist()
+			{
+				Id = 1,
+				Name = "Best of Bon Jovi"
+			};
+			this.context.Add(playlist);
+
+			Content currentContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						music
+					},
+				PlayLists = new List<Playlist>()
+				{
+					playlist
+				},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
+			};
+			this.context.Add(currentContent);
+
+			Playlist newPlaylist = new Playlist()
+			{
+				Id = 2,
+				Name = "Trend Jovi"
+			};
+			this.context.Add(newPlaylist);
+			this.context.SaveChanges();
+
+			currentContent.PlayLists = new List<Playlist>()
+			{
+				playlist,
+				newPlaylist
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Update(currentContent);
+			Content obtained = repository.Get(currentContent.Id);
+			Assert.AreEqual(currentContent, obtained);
+		}
+
+		[TestMethod]
+		public void UpdateContentOkWithoutPlaylist()
+		{
+			Category music = new Category()
+			{
+				Id = 1,
+				Name = "Musica"
+			};
+			this.context.Add(music);
+
+			Content currentContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						music
+					},
+				PlayLists = new List<Playlist>()
+				{
+					new Playlist()
+					{
+						Id = 1,
+						Name = "Best of Bon Jovi"
+					}
+				},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
+			};
+			this.context.Add(currentContent);
+			this.context.SaveChanges();
+
+			currentContent.PlayLists = new List<Playlist>();
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Update(currentContent);
+			Content obtained = repository.Get(currentContent.Id);
+			Assert.AreEqual(currentContent, obtained);
+		}
+
+		[TestMethod]
+		public void UpdateContentOkWithAddCategory()
+		{
+			Category music = new Category()
+			{
+				Id = 1,
+				Name = "Musica"
+			};
+			this.context.Add(music);
+
+			Content currentContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						music
+					},
+				PlayLists = new List<Playlist>()
+				{
+					new Playlist()
+					{
+						Id = 1,
+						Name = "Best of Bon Jovi"
+					}
+				},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
+			};
+			this.context.Add(currentContent);
+
+			Category category = new Category()
+			{
+				Id = 2,
+				Name = "Category2"
+			};
+			this.context.Add(category);
+			this.context.SaveChanges();
+
+			currentContent.Categories = new List<Category>()
+			{
+				music,
+				category
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Update(currentContent);
+			Content obtained = repository.Get(currentContent.Id);
+			Assert.AreEqual(currentContent, obtained);
+		}
+
+		[TestMethod]
+		public void UpdateContentOkWithFullProperties()
+		{
+			Category music = new Category()
+			{
+				Id = 1,
+				Name = "Musica"
+			};
+			this.context.Add(music);
+
+			Playlist playlist = new Playlist()
+			{
+				Id = 1,
+				Name = "Best of Bon Jovi"
+			};
+			this.context.Add(playlist);
+
+			Content currentContent = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						music
+					},
+				PlayLists = new List<Playlist>()
+				{
+					playlist
+				},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
+			};
+			this.context.Add(currentContent);
+
+			Category newCategory = new Category()
+			{
+				Id = 2,
+				Name = "Category2"
+			};
+			this.context.Add(newCategory);
+			Playlist newPlaylist = new Playlist()
+			{
+				Id = 2,
+				Name = "Playlist2"
+			};
+			this.context.Add(newPlaylist);
+			this.context.SaveChanges();
+
+			currentContent.Categories = new List<Category>()
+			{
+				music,
+				newCategory
+			};
+
+			currentContent.PlayLists = new List<Playlist>()
+			{
+				playlist,
+				newPlaylist
+			};
+			currentContent.ArtistName = "new artist name";
+			currentContent.AudioUrl = "http://audio.com/a.mp3";
+			currentContent.ContentLength = TimeSpan.Parse("00:00:30");
+			currentContent.ImageUrl = "http://image.com/a.jpg";
+			currentContent.Name = "new content name";
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Update(currentContent);
+			Content obtained = repository.Get(currentContent.Id);
+			Assert.AreEqual(currentContent, obtained);
+		}
 	}
 }

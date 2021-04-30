@@ -11,5 +11,6 @@ namespace DataAccessInterfaces
 		IEnumerable<Content> GetAll(Category category);
 		void Add(Content content);
 		void Delete(int id);
+		void Update(Content content);
 	}
 }

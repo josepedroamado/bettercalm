@@ -98,5 +98,17 @@ namespace BL
 		{
 			this.contentRepository.Delete(id);
 		}
+
+		public void UpdateContent(Content content)
+		{
+			Content currentContent = this.contentRepository.Get(content.Id);
+			if (currentContent == null)
+				return;
+			currentContent.UpdateFromContent(content);
+			currentContent.PlayLists = GetStoredPlaylists(currentContent.PlayLists);
+			currentContent.Categories = GetStoredCategories(currentContent.Categories);
+
+			this.contentRepository.Update(currentContent);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain
 {
@@ -13,5 +14,64 @@ namespace Domain
 		public string AudioUrl { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
 		public IEnumerable<Playlist> PlayLists { get; set; }
+
+		public void UpdateFromContent(Content content)
+		{
+			this.Id = content.Id;
+
+			if (!string.IsNullOrEmpty(content.ArtistName))
+				this.ArtistName = content.ArtistName;
+			if (!string.IsNullOrEmpty(content.AudioUrl))
+				this.AudioUrl = content.AudioUrl;
+			if (content.Categories != null)
+				this.Categories = content.Categories;
+			if (content.ContentLength != null)
+				this.ContentLength = content.ContentLength;
+			if (!string.IsNullOrEmpty(content.ImageUrl))
+				this.ImageUrl = content.ImageUrl;
+			if (!string.IsNullOrEmpty(content.Name))
+				this.Name = content.Name;
+			if (content.PlayLists != null)
+				this.PlayLists = content.PlayLists;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is Content yContent)
+			{
+				bool equalsPlaylist;
+				if (this.PlayLists != null && yContent.PlayLists != null)
+					equalsPlaylist = this.PlayLists.SequenceEqual(yContent.PlayLists);
+				else
+					equalsPlaylist = true;
+
+				bool equalsCategories;
+				if (this.Categories != null && yContent.Categories != null)
+					equalsCategories = this.Categories.SequenceEqual(yContent.Categories);
+				else
+					equalsCategories = true;
+
+				return Equals(this.ArtistName, yContent.ArtistName) &&
+					Equals(this.AudioUrl, yContent.AudioUrl) &&
+					Equals(ContentLength, yContent.ContentLength) &&
+					this.Id == yContent.Id &&
+					Equals(this.ImageUrl, yContent.ImageUrl) &&
+					Equals(this.Name, yContent.Name) &&
+					equalsPlaylist && equalsCategories;
+			}
+			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(this.ArtistName, 
+				this.AudioUrl, 
+				this.Categories, 
+				this.ContentLength, 
+				this.Id, 
+				this.ImageUrl, 
+				this.Name, 
+				this.PlayLists);
+		}
 	}
 }
