@@ -1,9 +1,7 @@
 ﻿using DataAccessInterfaces;
 using Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.Repositories
 {
@@ -17,6 +15,12 @@ namespace DataAccess.Repositories
             this.context = context;
             this.illnesses = context.Set<Illness>();
         }
+
+        public Illness Get(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<Illness> GetAll()
         {
             return this.illnesses;
