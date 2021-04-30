@@ -1,6 +1,9 @@
 ﻿using BLInterfaces;
 using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BL
 {
@@ -22,7 +25,25 @@ namespace BL
 
         public void Add(Psychologist psychologist)
         {
+            psychologist.Illnesses = GetStoredIlnesses(psychologist.Illnesses);
             this.psychologistRepository.Add(psychologist);
+        }
+
+        private List<Illness> GetStoredIlnesses(IEnumerable<Illness> inMemoryIlnesses)
+        {
+            if (inMemoryIlnesses == null)
+            {
+                return null;
+            }
+
+            if (inMemoryIlnesses.Count() > 3)
+            {
+                throw new ExceedingNumberOfIllnessesException();
+            }
+
+            List<Illness> storedIllnesses = inMemoryIlnesses.Select(illness => this.illnessRepository.Get(illness.Id)).ToList();
+
+            return storedIllnesses;
         }
     }
 }
