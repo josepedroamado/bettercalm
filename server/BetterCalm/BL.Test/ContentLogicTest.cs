@@ -913,5 +913,29 @@ namespace BL.Test
 			contentRepositoryMock.VerifyAll();
 			Assert.AreNotEqual(obtainedContent, toSaveContent);
 		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void UpdateContentNotFound()
+		{
+			Content content = new Content()
+			{
+				Id = 1
+			};
+
+			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
+			contentRepositoryMock.Setup(m => m.Get(content.Id)).Throws(new NotFoundException(content.Id.ToString()));
+
+			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
+
+			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
+
+			contentLogic.UpdateContent(content);
+			Content obtainedContent = contentLogic.GetContent(content.Id);
+
+			contentRepositoryMock.VerifyAll();
+			Assert.IsNull(obtainedContent);
+		}
 	}
 }
