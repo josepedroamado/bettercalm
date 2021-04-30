@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Domain.Test
 {
@@ -37,14 +36,7 @@ namespace Domain.Test
 			};
 
 			empty.UpdateFromContent(source);
-			Assert.IsTrue(empty.Id == source.Id &&
-				empty.ArtistName.Equals(source.ArtistName) &&
-				empty.AudioUrl.Equals(source.AudioUrl) &&
-				empty.Categories.SequenceEqual(source.Categories) &&
-				empty.ContentLength.Equals(source.ContentLength) &&
-				empty.ImageUrl.Equals(source.ImageUrl) &&
-				empty.Name.Equals(source.Name) &&
-				empty.PlayLists.SequenceEqual(source.PlayLists));
+			Assert.IsTrue((new ContentComparer()).Equals(source, empty));
 		}
 	}
 }
