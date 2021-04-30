@@ -36,7 +36,7 @@ namespace Domain.Test
 			};
 
 			empty.UpdateFromContent(source);
-			Assert.IsTrue((new ContentComparer()).Equals(source, empty));
+			Assert.Equals(empty, source);
 		}
 	}
 }
