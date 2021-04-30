@@ -2,6 +2,7 @@
 using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Model
 {
@@ -12,7 +13,7 @@ namespace Model
 		public string LastName { get; set; }
 		public string Address { get; set; }
 		public string Format { get; set; }
-		public IEnumerable<Illness> Illnesses { get; set; }
+		public IEnumerable<IllnessModel> IllnessModels { get; set; }
 
 		public Psychologist ToEntity()
         {
@@ -22,7 +23,7 @@ namespace Model
 				LastName = this.LastName,
 				Address = this.Address,
 				Format = ParseFormat(this.Format),
-				Illnesses = this.Illnesses,
+				Illnesses = this.IllnessModels?.Select(illnessModel => illnessModel.ToEntity()).ToList(),
 				CreatedDate = DateTime.Today
 			};
         }
@@ -36,7 +37,6 @@ namespace Model
 			else
 			{
 				throw new InvalidPsychologistConsultationFormat();
-
 			}
 		}
 
@@ -58,7 +58,7 @@ namespace Model
 			LastName = psychologist.LastName;
 			Address = psychologist.Address;
 			Format = psychologist.Format.ToString();
-			Illnesses = psychologist.Illnesses;
+			IllnessModels = psychologist.Illnesses?.Select(illness => new IllnessModel(illness)).ToList();
 		}
 
         public PsychologistModel()

@@ -19,7 +19,7 @@ namespace DataAccess.Repositories
 
         public Psychologist Get(int id)
         {
-            Psychologist psychologist = this.psychologists.
+            Psychologist psychologist = this.psychologists.Include(psychologist => psychologist.Illnesses).
                 FirstOrDefault(psychologist => psychologist.Id == id);
             if (psychologist == null)
                 throw new NotFoundException(id.ToString());
