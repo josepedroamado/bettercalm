@@ -1,6 +1,7 @@
 ﻿using DataAccess.Context;
 using DataAccess.Repositories;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -36,6 +37,33 @@ namespace DataAccess.Test
         public void TestCleanup()
         {
             this.context.Database.EnsureDeleted();
+        }
+
+        [TestMethod]
+        public void GetOk()
+        {
+            Illness expectedIllness = new Illness { Id = 1, Name = "Stress" };
+            this.context.Add(expectedIllness);
+            this.context.SaveChanges();
+
+            IllnessRepository repository = new IllnessRepository(this.context);
+
+            Illness obtainedIllness = repository.Get(expectedIllness.Id);
+
+            Assert.AreEqual(expectedIllness, obtainedIllness);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void GetNotFound()
+        {
+            int expectedIllnessId = 1;
+
+            IllnessRepository repository = new IllnessRepository(this.context);
+
+            Illness obtainedIllness = repository.Get(expectedIllnessId);
+
+            Assert.IsNull(obtainedIllness);
         }
 
         [TestMethod]

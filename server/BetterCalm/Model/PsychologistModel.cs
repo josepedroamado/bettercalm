@@ -1,6 +1,8 @@
 ﻿using Domain;
+using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Model
 {
@@ -10,8 +12,8 @@ namespace Model
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Address { get; set; }
-		public Format Format { get; set; }
-		public IEnumerable<Illness> Illnesses { get; set; }
+		public string Format { get; set; }
+		public IEnumerable<IllnessModel> IllnessModels { get; set; }
 
 		public Psychologist ToEntity()
         {
@@ -20,13 +22,25 @@ namespace Model
 				FirstName = this.FirstName,
 				LastName = this.LastName,
 				Address = this.Address,
-				Format = this.Format,
-				Illnesses = this.Illnesses,
+				Format = ParseFormat(this.Format),
+				Illnesses = this.IllnessModels?.Select(illnessModel => illnessModel.ToEntity()).ToList(),
 				CreatedDate = DateTime.Today
 			};
         }
 
-        public override bool Equals(object obj)
+		private Format ParseFormat(string inputFormat)
+		{
+			if (Enum.TryParse<Format>(inputFormat, out Format parsedFormat))
+			{
+				return parsedFormat;
+			}
+			else
+			{
+				throw new InvalidPsychologistConsultationFormat();
+			}
+		}
+
+		public override bool Equals(object obj)
         {
             return obj is PsychologistModel model &&
                    Id == model.Id;
@@ -43,8 +57,8 @@ namespace Model
 			FirstName = psychologist.FirstName;
 			LastName = psychologist.LastName;
 			Address = psychologist.Address;
-			Format = psychologist.Format;
-			Illnesses = psychologist.Illnesses;
+			Format = psychologist.Format.ToString();
+			IllnessModels = psychologist.Illnesses?.Select(illness => new IllnessModel(illness)).ToList();
 		}
 
         public PsychologistModel()

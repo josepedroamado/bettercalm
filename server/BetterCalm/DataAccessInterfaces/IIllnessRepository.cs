@@ -5,6 +5,7 @@ namespace DataAccessInterfaces
 {
     public interface IIllnessRepository
     {
+        Illness Get(int id);
         IEnumerable<Illness> GetAll();
     }
 }

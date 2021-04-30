@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Model;
 using BLInterfaces;
 using WebAPI.Filters;
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebAPI.Controllers
 {
@@ -36,18 +35,15 @@ namespace WebAPI.Controllers
 		[HttpPost]
 		public IActionResult Post([FromBody] PsychologistModel psychologistModel)
 		{
-			var psychologist = psychologistModel.ToEntity();
-			this.psychologistLogic.Add(psychologist);
+			this.psychologistLogic.Add(psychologistModel.ToEntity());
 			return Ok();
 		}
 
-		// PUT api/<PsychologistsController>/5
 		[HttpPut("{id}")]
 		public void Put(int id, [FromBody] string value)
 		{
 		}
 
-		// DELETE api/<PsychologistsController>/5
 		[HttpDelete("{id}")]
 		public void Delete(int id)
 		{
