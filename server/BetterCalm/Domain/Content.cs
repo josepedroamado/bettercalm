@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain
 {
@@ -32,6 +33,45 @@ namespace Domain
 				this.Name = content.Name;
 			if (content.PlayLists != null)
 				this.PlayLists = content.PlayLists;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is Content yContent)
+			{
+				bool equalsPlaylist;
+				if (this.PlayLists != null && yContent.PlayLists != null)
+					equalsPlaylist = this.PlayLists.SequenceEqual(yContent.PlayLists);
+				else
+					equalsPlaylist = true;
+
+				bool equalsCategories;
+				if (this.Categories != null && yContent.Categories != null)
+					equalsCategories = this.Categories.SequenceEqual(yContent.Categories);
+				else
+					equalsCategories = true;
+
+				return Equals(this.ArtistName, yContent.ArtistName) &&
+					Equals(this.AudioUrl, yContent.AudioUrl) &&
+					Equals(ContentLength, yContent.ContentLength) &&
+					this.Id == yContent.Id &&
+					Equals(this.ImageUrl, yContent.ImageUrl) &&
+					Equals(this.Name, yContent.Name) &&
+					equalsPlaylist && equalsCategories;
+			}
+			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(this.ArtistName, 
+				this.AudioUrl, 
+				this.Categories, 
+				this.ContentLength, 
+				this.Id, 
+				this.ImageUrl, 
+				this.Name, 
+				this.PlayLists);
 		}
 	}
 }
