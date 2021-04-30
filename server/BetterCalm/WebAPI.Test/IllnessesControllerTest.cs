@@ -2,6 +2,7 @@
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Model;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace WebAPI.Test
         public void GetOk()
         {
             List<Illness> expectedIllnesses = GetAllOkExpected();
+            List<IllnessModel> expectedIllnessesConvertedToModel = expectedIllnesses.Select(illness => new IllnessModel(illness)).ToList();
 
             Mock<IIllnessLogic> mock = new Mock<IIllnessLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetIllnesses()).Returns(expectedIllnesses);
@@ -24,10 +26,10 @@ namespace WebAPI.Test
 
             IActionResult result = controller.Get();
             OkObjectResult objectResult = result as OkObjectResult;
-            IEnumerable<Illness> obtainedIllnesses = objectResult.Value as IEnumerable<Illness>;
+            IEnumerable<IllnessModel> obtainedIllnesses = objectResult.Value as IEnumerable<IllnessModel>;
 
             mock.VerifyAll();
-            Assert.IsTrue(expectedIllnesses.SequenceEqual(obtainedIllnesses));
+            Assert.IsTrue(expectedIllnessesConvertedToModel.SequenceEqual(obtainedIllnesses));
         }
 
         private List<Illness> GetAllOkExpected()
