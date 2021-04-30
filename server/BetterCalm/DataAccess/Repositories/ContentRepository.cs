@@ -40,7 +40,10 @@ namespace DataAccess.Repositories
 
 		public Content Get(int id)
 		{
-			Content content = this.contents.FirstOrDefault(cont => cont.Id == id);
+			Content content = this.contents
+				.Include("PlayLists")
+				.Include("Categories")
+				.FirstOrDefault(cont => cont.Id == id);
 			if (content == null)
 				throw new NotFoundException(id.ToString());
 			return content;
