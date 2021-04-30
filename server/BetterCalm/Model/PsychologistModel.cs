@@ -10,7 +10,7 @@ namespace Model
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Address { get; set; }
-		public Format Format { get; set; }
+		public string Format { get; set; }
 		public IEnumerable<Illness> Illnesses { get; set; }
 
 		public Psychologist ToEntity()
@@ -20,7 +20,7 @@ namespace Model
 				FirstName = this.FirstName,
 				LastName = this.LastName,
 				Address = this.Address,
-				Format = this.Format,
+				
 				Illnesses = this.Illnesses,
 				CreatedDate = DateTime.Today
 			};
@@ -43,7 +43,7 @@ namespace Model
 			FirstName = psychologist.FirstName;
 			LastName = psychologist.LastName;
 			Address = psychologist.Address;
-			Format = psychologist.Format;
+			Format = psychologist.Format.ToString();
 			Illnesses = psychologist.Illnesses;
 		}
 

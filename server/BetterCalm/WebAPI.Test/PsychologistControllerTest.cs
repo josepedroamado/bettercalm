@@ -20,7 +20,7 @@ namespace WebAPI.Test
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
-                Format = 0
+                Format = "OnSite"
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
@@ -45,7 +45,7 @@ namespace WebAPI.Test
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
-                Format = 0
+                Format = "OnSite"
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
@@ -69,7 +69,7 @@ namespace WebAPI.Test
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
-                Format = 0
+                Format = "OnSite"
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
@@ -94,7 +94,7 @@ namespace WebAPI.Test
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
-                Format = 0
+                Format = "OnSite"
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
