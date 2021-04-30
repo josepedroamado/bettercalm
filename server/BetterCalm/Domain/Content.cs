@@ -16,7 +16,14 @@ namespace Domain
 
 		public void UpdateFromContent(Content content)
 		{
-			throw new NotImplementedException();
+			this.ArtistName = content.ArtistName;
+			this.AudioUrl = content.AudioUrl;
+			this.Categories = content.Categories;
+			this.ContentLength = content.ContentLength;
+			this.Id = content.Id;
+			this.ImageUrl = content.ImageUrl;
+			this.Name = content.Name;
+			this.PlayLists = content.PlayLists;
 		}
 	}
 }
