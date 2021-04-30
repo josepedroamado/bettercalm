@@ -60,5 +60,10 @@ namespace DataAccess.Repositories
         {
 			return this.contents.Where(content => content.Categories.Contains(category));
 		}
-    }
+
+		public void Update(Content content)
+		{
+			throw new System.NotImplementedException();
+		}
+	}
 }
