@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 
@@ -20,13 +21,26 @@ namespace Model
 				FirstName = this.FirstName,
 				LastName = this.LastName,
 				Address = this.Address,
-				
+				Format = ParseFormat(this.Format),
 				Illnesses = this.Illnesses,
 				CreatedDate = DateTime.Today
 			};
         }
 
-        public override bool Equals(object obj)
+		private Format ParseFormat(string inputFormat)
+		{
+			if (Enum.TryParse<Format>(inputFormat, out Format parsedFormat))
+			{
+				return parsedFormat;
+			}
+			else
+			{
+				throw new InvalidPsychologistConsultationFormat();
+
+			}
+		}
+
+		public override bool Equals(object obj)
         {
             return obj is PsychologistModel model &&
                    Id == model.Id;
