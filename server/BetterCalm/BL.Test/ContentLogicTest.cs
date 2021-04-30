@@ -620,6 +620,12 @@ namespace BL.Test
 				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
+			Playlist newPlaylist = new Playlist()
+			{
+				Id = 2,
+				Name = "Playlist2"
+			};
+
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
 			contentRepositoryMock.Setup(m => m.Add(toSaveContent));
 
@@ -627,19 +633,19 @@ namespace BL.Test
 			contentRepositoryMock.Setup(m => m.Get(toSaveContent.Id)).Returns(toSaveContent);
 
 			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
-			playlistRepository.Setup(m => m.Get(playlist.Id)).Throws(new NotFoundException(playlist.Id.ToString()));
-
+			playlistRepository.Setup(m => m.Get(playlist.Id)).Returns(playlist);
+			playlistRepository.Setup(m => m.Get(newPlaylist.Id)).Throws(new NotFoundException(playlist.Id.ToString()));
+			
 			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
 			categoryRepository.Setup(m => m.Get(music.Id)).Returns(music);
 
 			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
 
 			contentLogic.CreateContent(toSaveContent);
-			toSaveContent.PlayLists.Append(new Playlist()
-			{
-				Id = 2,
-				Name = "Playlist2"
-			});
+			toSaveContent.PlayLists = new List<Playlist>(){
+				playlist,
+				newPlaylist
+			};
 			contentLogic.UpdateContent(toSaveContent);
 			
 			Content obtainedContent = contentLogic.GetContent(toSaveContent.Id);
@@ -690,7 +696,10 @@ namespace BL.Test
 			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
 
 			contentLogic.CreateContent(toSaveContent);
-			toSaveContent.PlayLists.Append(playlist);
+			toSaveContent.PlayLists = new List<Playlist>()
+			{
+				playlist
+			};
 			contentLogic.UpdateContent(toSaveContent);
 			Content obtainedContent = contentLogic.GetContent(toSaveContent.Id);
 
@@ -782,6 +791,7 @@ namespace BL.Test
 
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
 			contentRepositoryMock.Setup(m => m.Add(toSaveContent));
+			contentRepositoryMock.Setup(m => m.Update(toSaveContent));
 			contentRepositoryMock.Setup(m => m.Get(toSaveContent.Id)).Returns(toSaveContent);
 
 			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
@@ -795,12 +805,17 @@ namespace BL.Test
 				Id = 2222,
 				Name = "Invalid category"
 			};
-			categoryRepository.Setup(m => m.Get(music.Id)).Returns(invalid);
+			Category notFound = null;
+			categoryRepository.Setup(m => m.Get(music.Id)).Returns(notFound);
 
 			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
 
 			contentLogic.CreateContent(toSaveContent);
-			toSaveContent.Categories.Append(invalid);
+			toSaveContent.Categories = new List<Category>()
+			{
+				music,
+				notFound
+			};
 			Content obtainedContent = contentLogic.GetContent(toSaveContent.Id);
 
 			contentRepositoryMock.VerifyAll();
@@ -839,16 +854,19 @@ namespace BL.Test
 				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
-			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
-			contentRepositoryMock.Setup(m => m.Add(toSaveContent));
-			contentRepositoryMock.Setup(m => m.Get(toSaveContent.Id)).Returns(toSaveContent);
-
-			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
 			Playlist notFound = new Playlist()
 			{
 				Id = 2
 			};
-			playlistRepository.Setup(m => m.Get(playlist.Id)).Returns(notFound);
+
+			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
+			contentRepositoryMock.Setup(m => m.Add(toSaveContent));
+			contentRepositoryMock.Setup(m => m.Update(toSaveContent));
+			contentRepositoryMock.Setup(m => m.Get(toSaveContent.Id)).Returns(toSaveContent);
+
+			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+			playlistRepository.Setup(m => m.Get(playlist.Id)).Returns(playlist);
+			playlistRepository.Setup(m => m.Get(notFound.Id)).Throws(new NotFoundException(notFound.Id.ToString()));
 
 			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
 			categoryRepository.Setup(m => m.Get(music.Id)).Returns(music);
@@ -856,7 +874,10 @@ namespace BL.Test
 			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
 
 			contentLogic.CreateContent(toSaveContent);
-			toSaveContent.PlayLists.Append(notFound);
+			toSaveContent.PlayLists = new List<Playlist>(){
+				playlist,
+				notFound
+			};
 			contentLogic.UpdateContent(toSaveContent);
 			Content obtainedContent = contentLogic.GetContent(toSaveContent.Id);
 
