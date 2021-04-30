@@ -318,5 +318,187 @@ namespace WebAPI.Test
             mock.VerifyAll();
             Assert.IsNull(obtainedContent);
         }
+
+        [TestMethod]
+        public void PatchContentOk()
+        {
+            ContentModel contentModel = new ContentModel()
+            {
+                ArtistName = "Bon Jovi",
+                Categories = new int[] { 1 },
+                Playlists = new List<PlaylistBasicInfo>()
+                {
+                    new PlaylistBasicInfo()
+                    {
+                        Id = 1,
+                        Name = "Best of Bon Jovi"
+                    }
+                },
+                Id = 1,
+                ContentLength = "00:01:30",
+                Name = "It's My Life",
+                ImageUrl = "http://www.images.com/image.jpg",
+                AudioUrl = "http://www.audios.com/audio.mp3"
+            };
+            Content contentEntity = contentModel.ToEntity();
+
+            Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
+            contentLogic.Setup(m => m.UpdateContent(contentEntity));
+            contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Returns(contentEntity);
+
+            ContentsController controller = new ContentsController(contentLogic.Object);
+
+            controller.Patch(contentModel);
+            IActionResult result = controller.Get(contentEntity.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            ContentBasicInfo input = new ContentBasicInfo(contentEntity);
+            
+            Assert.IsTrue(ContentBasicInfoComparer.Equals(obtainedContent, input));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void PatchContentCategoryNotFound()
+        {
+            ContentModel contentModel = new ContentModel()
+            {
+                ArtistName = "Bon Jovi",
+                Categories = new int[] { 9999 },
+                Playlists = new List<PlaylistBasicInfo>()
+                {
+                    new PlaylistBasicInfo()
+                    {
+                        Id = 1,
+                        Name = "Best of Bon Jovi"
+                    }
+                },
+                Id = 1,
+                ContentLength = "00:01:30",
+                Name = "It's My Life",
+                ImageUrl = "http://www.images.com/image.jpg",
+                AudioUrl = "http://www.audios.com/audio.mp3"
+            };
+            Content contentEntity = contentModel.ToEntity();
+
+            Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
+            contentLogic.Setup(m => m.UpdateContent(contentEntity)).Throws(new NotFoundException(contentEntity.Categories.ElementAt(0).ToString()));
+            contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Throws(new NotFoundException(contentEntity.Id.ToString()));
+
+            ContentsController controller = new ContentsController(contentLogic.Object);
+
+            controller.Patch(contentModel);
+            IActionResult result = controller.Get(contentEntity.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            Assert.IsNull(obtainedContent);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UnableToCreatePlaylistException))]
+        public void PatchContentUnableToCreateNewPlaylist()
+        {
+            ContentModel contentModel = new ContentModel()
+            {
+                ArtistName = "Bon Jovi",
+                Categories = new int[] { 9999 },
+                Playlists = new List<PlaylistBasicInfo>()
+                {
+                    new PlaylistBasicInfo()
+                    {
+                        Id = 1
+                    }
+                },
+                Id = 1,
+                ContentLength = "00:01:30",
+                Name = "It's My Life",
+                ImageUrl = "http://www.images.com/image.jpg",
+                AudioUrl = "http://www.audios.com/audio.mp3"
+            };
+            Content contentEntity = contentModel.ToEntity();
+
+            Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
+            contentLogic.Setup(m => m.UpdateContent(contentEntity)).Throws(new UnableToCreatePlaylistException());
+            contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Throws(new NotFoundException(contentEntity.Id.ToString()));
+
+            ContentsController controller = new ContentsController(contentLogic.Object);
+
+            controller.Patch(contentModel);
+            IActionResult result = controller.Get(contentEntity.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            Assert.IsNull(obtainedContent);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(MissingCategoriesException))]
+        public void PatchContentMissingCategories()
+        {
+            ContentModel contentModel = new ContentModel()
+            {
+                ArtistName = "Bon Jovi",
+                Playlists = new List<PlaylistBasicInfo>()
+                {
+                    new PlaylistBasicInfo()
+                    {
+                        Id = 1
+                    }
+                },
+                Id = 1,
+                ContentLength = "00:01:30",
+                Name = "It's My Life",
+                ImageUrl = "http://www.images.com/image.jpg",
+                AudioUrl = "http://www.audios.com/audio.mp3"
+            };
+            Content contentEntity = contentModel.ToEntity();
+
+            Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
+            contentLogic.Setup(m => m.UpdateContent(It.IsAny<Content>())).Throws(new MissingCategoriesException());
+            contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Throws(new NotFoundException(contentEntity.Id.ToString()));
+
+            ContentsController controller = new ContentsController(contentLogic.Object);
+
+            controller.Patch(contentModel);
+            IActionResult result = controller.Get(contentEntity.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            Assert.IsNull(obtainedContent);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void PatchContentNotFound()
+        {
+            ContentModel contentModel = new ContentModel()
+            {
+                ArtistName = "Bon Jovi",
+                Playlists = new List<PlaylistBasicInfo>()
+                {
+                    new PlaylistBasicInfo()
+                    {
+                        Id = 1
+                    }
+                },
+                Id = 1,
+                ContentLength = "00:01:30",
+                Name = "It's My Life",
+                ImageUrl = "http://www.images.com/image.jpg",
+                AudioUrl = "http://www.audios.com/audio.mp3"
+            };
+            Content contentEntity = contentModel.ToEntity();
+
+            Mock<IContentLogic> contentLogic = new Mock<IContentLogic>(MockBehavior.Strict);
+            contentLogic.Setup(m => m.UpdateContent(It.IsAny<Content>())).Throws(new NotFoundException(contentEntity.Id.ToString()));
+            contentLogic.Setup(m => m.GetContent(contentEntity.Id)).Throws(new NotFoundException(contentEntity.Id.ToString()));
+
+            ContentsController controller = new ContentsController(contentLogic.Object);
+
+            controller.Patch(contentModel);
+            IActionResult result = controller.Get(contentEntity.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            Assert.IsNull(obtainedContent);
+        }
+
     }
 }
