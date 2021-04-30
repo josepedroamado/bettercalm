@@ -19,7 +19,7 @@ namespace Domain
 		{
 			this.Id = content.Id;
 
-			if (!string.IsNullOrEmpty(content.Name))
+			if (!string.IsNullOrEmpty(content.ArtistName))
 				this.ArtistName = content.ArtistName;
 			if (!string.IsNullOrEmpty(content.AudioUrl))
 				this.AudioUrl = content.AudioUrl;
