@@ -48,6 +48,7 @@ namespace DataAccess.Repositories
 
             Psychologist candidate = this.psychologists
                 .Include("ScheduleDays")
+                .Include("ScheduleDays.Appointments")
                 .Where(psychologist =>
                     psychologist.Illnesses.Contains(illness) &&
                     (psychologist.ScheduleDays.Count() == 0 ||
@@ -62,6 +63,7 @@ namespace DataAccess.Repositories
             {
                 candidate = this.psychologists
                    .Include("ScheduleDays")
+                   .Include("ScheduleDays.Appointments")
                    .Where(psychologist =>
                        psychologist.ScheduleDays.Count() == 0 ||
                        (psychologist.ScheduleDays.OrderBy(schedule => schedule.Date).Last().Date < until ||
