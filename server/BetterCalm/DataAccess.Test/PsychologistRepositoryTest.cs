@@ -303,10 +303,10 @@ namespace DataAccess.Test
                     estres
                 }
             };
-
+            this.context.Add(psychologist);
             Psychologist psychologist2 = new Psychologist()
             {
-                Id = 1,
+                Id = 2,
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
@@ -318,7 +318,7 @@ namespace DataAccess.Test
                     estres
                 }
             };
-            this.context.Add(psychologist);
+            this.context.Add(psychologist2);
 
             this.context.SaveChanges();
 
