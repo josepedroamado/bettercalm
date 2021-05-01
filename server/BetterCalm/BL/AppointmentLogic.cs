@@ -34,17 +34,17 @@ namespace BL
 			{
 				Address = CalculateAddress(candidate),
 				Date = CalculateAppointmentDate(candidate),
-				Illness = illness,
+				Illness = obtainedIllness,
 				Patient = obtainedPatient,
 				Psychologist = candidate
 			};
 
 			Schedule scheduleDay = candidate.GetLast();
-
+			
 			if (scheduleDay != null && scheduleDay.Date.Date == appointment.Date)
-				scheduleDay.Appointments.Append(appointment);
+				scheduleDay.Appointments.Add(appointment);
 			else
-				candidate.ScheduleDays.Append(
+				candidate.ScheduleDays.Add(
 					new Schedule()
 					{
 						Appointments = new List<Appointment>()
