@@ -17,7 +17,7 @@ namespace Domain
 
 		public int GetAppointmentsCount()
 		{
-			throw new NotImplementedException();
+			return Appointments.Count;
 		}
 
 		public DateTime GetScheduleDate()
