@@ -345,19 +345,28 @@ namespace DataAccess.Test
             PsychologistRepository repository = new PsychologistRepository(this.context);
             repository.Add(psychologist);
 
+            Appointment appointment = new Appointment()
+            {
+                Id = 1,
+                Psychologist = psychologist
+            };
+            this.context.Add(appointment);
+            this.context.SaveChanges();
+
+            Schedule schedule = new Schedule()
+            {
+                Id = 1,
+                Appointments = new List<Appointment>()
+                    {
+                        appointment
+                    },
+                Psychologist = psychologist
+            };
+            this.context.Add(schedule);
+
             psychologist.ScheduleDays = new List<Schedule>()
             {
-                new Schedule()
-                {
-                    Id = 1,
-                    Appointments = new List<Appointment>()
-                    {
-                        new Appointment()
-                        {
-                            Id = 1
-                        }
-                    }
-                }
+                schedule
             };
             repository.Update(psychologist);
             Psychologist obtained = repository.Get(psychologist.Id);
@@ -381,30 +390,44 @@ namespace DataAccess.Test
             PsychologistRepository repository = new PsychologistRepository(this.context);
             repository.Add(psychologist);
 
+            Appointment appointment = new Appointment()
+            {
+                Id = 1,
+                Psychologist = psychologist
+            };
+            this.context.Add(appointment);
+            this.context.SaveChanges();
+
+            Schedule schedule = new Schedule()
+            {
+                Id = 1,
+                Appointments = new List<Appointment>()
+                    {
+                        appointment
+                    },
+                Psychologist = psychologist
+            };
+            this.context.Add(schedule);
+
             psychologist.ScheduleDays = new List<Schedule>()
             {
-                new Schedule()
-                {
-                    Id = 1,
-                    Appointments = new List<Appointment>()
-                    {
-                        new Appointment()
-                        {
-                            Id = 1
-                        }
-                    }
-                }
+                schedule
             };
+
+            Illness newIllness = new Illness()
+            {
+                Id = 1,
+                Name = "estres"
+            };
+            this.context.Add(newIllness);
+            this.context.SaveChanges();
+
             psychologist.Address = "address";
             psychologist.FirstName = "first name";
             psychologist.Format = Format.Remote;
             psychologist.Illnesses = new List<Illness>()
             {
-                new Illness()
-				{
-                    Id = 1,
-                    Name = "estres"
-				}
+                newIllness
             };
             psychologist.LastName = "last name";
 
