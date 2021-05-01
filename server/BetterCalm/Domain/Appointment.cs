@@ -13,7 +13,7 @@ namespace Domain
 
 		public DateTime GetDate()
 		{
-			throw new NotImplementedException();
+			return Date.Date;
 		}
 	}
 }
