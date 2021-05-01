@@ -43,6 +43,9 @@ namespace DataAccess.Repositories
 
 		public Psychologist Get(Illness illness, DateTime until, int appointmentLimitPerDay)
 		{
+            if (this.psychologists.Count() == 0)
+                throw new CollectionEmptyException("Psychologists");
+
             Psychologist candidate = this.psychologists
                 .Include("ScheduleDays")
                 .Where(psychologist =>
