@@ -2,11 +2,12 @@
 using Domain;
 using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace DataAccess.Repositories
 {
-    public class PsychologistRepository : IPsychologistRepository
+	public class PsychologistRepository : IPsychologistRepository
     {
         private DbContext context;
         private DbSet<Psychologist> psychologists;
@@ -39,5 +40,10 @@ namespace DataAccess.Repositories
                 this.context.SaveChanges();
             }
         }
-    }
+
+		public Psychologist GetPsychologist(Illness illness, DateTime until, int appointmentLimitPerDay)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
