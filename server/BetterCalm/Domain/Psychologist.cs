@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain
 {
@@ -10,5 +11,45 @@ namespace Domain
 		public IEnumerable<Illness> Illnesses { get; set; }
 		public DateTime CreatedDate { get; set; }
 		public IEnumerable<Schedule> ScheduleDays { get; set; }
+
+		public override bool Equals(object obj)
+		{
+			if (obj is Psychologist psychologist)
+			{
+				bool equalsIllnesses;
+				if (this.Illnesses != null && psychologist.Illnesses != null)
+					equalsIllnesses = this.Illnesses.SequenceEqual(psychologist.Illnesses);
+				else
+					equalsIllnesses = true;
+				
+				bool equalsScheduleDays;
+				if (this.ScheduleDays != null && psychologist.ScheduleDays != null)
+					equalsScheduleDays = this.ScheduleDays.SequenceEqual(psychologist.ScheduleDays);
+				else
+					equalsScheduleDays = true;
+
+				return equalsIllnesses &&
+					equalsScheduleDays &&
+					Equals(this.Address, psychologist.Address) &&
+					Equals(this.Format, psychologist.Format) &&
+					Equals(this.CreatedDate, psychologist.CreatedDate) &&
+					Equals(this.FirstName, psychologist.FirstName) &&
+					Equals(this.LastName, psychologist.LastName);
+
+			}
+			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(this.Address,
+				this.CreatedDate,
+				this.FirstName,
+				this.Format,
+				this.Id,
+				this.Illnesses,
+				this.LastName,
+				this.ScheduleDays);
+		}
 	}
 }
