@@ -328,5 +328,90 @@ namespace DataAccess.Test
 
             Assert.IsTrue(obtained.Id == psychologist2.Id);
         }
+
+        [TestMethod]
+        public void UpdateOk()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(psychologist);
+
+            psychologist.ScheduleDays = new List<Schedule>()
+            {
+                new Schedule()
+                {
+                    Id = 1,
+                    Appointments = new List<Appointment>()
+                    {
+                        new Appointment()
+                        {
+                            Id = 1
+                        }
+                    }
+                }
+            };
+            repository.Update(psychologist);
+            Psychologist obtained = repository.Get(psychologist.Id);
+
+            Assert.AreEqual(psychologist, obtained);
+        }
+
+        [TestMethod]
+        public void UpdateFullPropertiesOk()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(psychologist);
+
+            psychologist.ScheduleDays = new List<Schedule>()
+            {
+                new Schedule()
+                {
+                    Id = 1,
+                    Appointments = new List<Appointment>()
+                    {
+                        new Appointment()
+                        {
+                            Id = 1
+                        }
+                    }
+                }
+            };
+            psychologist.Address = "address";
+            psychologist.FirstName = "first name";
+            psychologist.Format = Format.Remote;
+            psychologist.Illnesses = new List<Illness>()
+            {
+                new Illness()
+				{
+                    Id = 1,
+                    Name = "estres"
+				}
+            };
+            psychologist.LastName = "last name";
+
+            repository.Update(psychologist);
+            Psychologist obtained = repository.Get(psychologist.Id);
+
+            Assert.AreEqual(psychologist, obtained);
+        }
     }
 }
