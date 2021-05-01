@@ -1,7 +1,8 @@
 ﻿using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -18,7 +19,10 @@ namespace DataAccess.Repositories
 
 		public Patient Get(string eMail)
 		{
-			throw new NotImplementedException();
+			Patient patient = this.patients.FirstOrDefault(patient => patient.EMail.Equals(eMail));
+			if (patient == null)
+				throw new NotFoundException(eMail);
+			return patient;
 		}
 	}
 }
