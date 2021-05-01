@@ -17,7 +17,7 @@ namespace Domain
 
 		public DateTime GetScheduleDate()
 		{
-			throw new NotImplementedException();
+			return Date.Date;
 		}
 	}
 }
