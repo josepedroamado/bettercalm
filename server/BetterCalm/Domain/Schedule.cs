@@ -15,6 +15,11 @@ namespace Domain
 			set => appointments = value;
 		}
 
+		public int GetAppointmentsCount()
+		{
+			throw new NotImplementedException();
+		}
+
 		public DateTime GetScheduleDate()
 		{
 			return Date.Date;
