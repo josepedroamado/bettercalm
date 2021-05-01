@@ -1,7 +1,6 @@
 ﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Model;
-using System;
 
 namespace WebAPI.Controllers
 {
@@ -19,7 +18,9 @@ namespace WebAPI.Controllers
 		[HttpPost]
 		public IActionResult Post([FromBody] AppointmentInputModel model)
 		{
-			throw new NotImplementedException();
+			return Ok(new AppointmentOutputModel(
+				this.appointmentLogic.CreateAppointment(model.ToEntity().Patient, model.ToEntity().Illness)
+				));
 		}
 	}
 }
