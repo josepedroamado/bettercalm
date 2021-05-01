@@ -8,7 +8,7 @@ namespace DataAccess.Repositories
 {
 	public class PatientRepository : IPatientRepository
 	{
-		public Patient GetPatient(string eMail)
+		public Patient Get(string eMail)
 		{
 			throw new NotImplementedException();
 		}

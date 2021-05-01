@@ -4,6 +4,6 @@ namespace DataAccessInterfaces
 {
 	public interface IPatientRepository
 	{
-		Patient GetPatient(string eMail);
+		Patient Get(string eMail);
 	}
 }
