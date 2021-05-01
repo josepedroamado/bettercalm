@@ -8,6 +8,6 @@ namespace DataAccessInterfaces
         Psychologist Get(int id);
 
         void Add(Psychologist psychologist);
-        Psychologist GetPsychologist(Illness illness, DateTime until, int appointmentLimitPerDay);
+        Psychologist Get(Illness illness, DateTime until, int appointmentLimitPerDay);
     }
 }

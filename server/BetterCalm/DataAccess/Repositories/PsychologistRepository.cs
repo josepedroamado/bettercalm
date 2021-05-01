@@ -41,7 +41,7 @@ namespace DataAccess.Repositories
             }
         }
 
-		public Psychologist GetPsychologist(Illness illness, DateTime until, int appointmentLimitPerDay)
+		public Psychologist Get(Illness illness, DateTime until, int appointmentLimitPerDay)
 		{
 			throw new NotImplementedException();
 		}
