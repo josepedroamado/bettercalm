@@ -6,7 +6,7 @@ namespace BL
 {
 	public class AppointmentLogic : IAppointmentLogic
 	{
-		public AppointmentLogic(IPsychologistRepository psychologistRepository, IIllnessRepository illnessRepository)
+		public AppointmentLogic(IPsychologistRepository psychologistRepository, IIllnessRepository illnessRepository, IPatientRepository patientRepository)
 		{
 
 		}
