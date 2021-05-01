@@ -6,11 +6,23 @@ namespace Domain
 {
 	public class Psychologist : Person
 	{
+		private IEnumerable<Schedule> scheduleDays = new List<Schedule>();
 		public string Address { get; set; }
 		public Format Format { get; set; }
 		public IEnumerable<Illness> Illnesses { get; set; }
 		public DateTime CreatedDate { get; set; }
-		public IEnumerable<Schedule> ScheduleDays { get; set; }
+		public IEnumerable<Schedule> ScheduleDays
+		{
+			get => scheduleDays;
+			set => scheduleDays = value;
+		}
+
+		public Schedule GetLast()
+		{
+			if (ScheduleDays.Count() > 0)
+				return ScheduleDays.Last();
+			return null;
+		}
 
 		public override bool Equals(object obj)
 		{
