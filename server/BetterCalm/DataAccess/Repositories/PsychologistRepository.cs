@@ -69,5 +69,10 @@ namespace DataAccess.Repositories
 
             return candidate;
         }
+
+		public void Update(Psychologist psychologist)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
