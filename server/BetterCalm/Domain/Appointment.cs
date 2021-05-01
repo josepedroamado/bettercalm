@@ -9,5 +9,6 @@ namespace Domain
 		public Patient Patient { get; set; }
 		public Psychologist Psychologist { get; set; }
 		public Illness Illness { get; set; }
+		public string Address { get; set; }
 	}
 }
