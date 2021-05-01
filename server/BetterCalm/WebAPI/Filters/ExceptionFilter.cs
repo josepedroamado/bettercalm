@@ -45,6 +45,14 @@ namespace WebAPI.Filters
 					Content = ex.Message
 				};
 			}
+			catch (CollectionEmptyException ex)
+			{
+				context.Result = new ContentResult()
+				{
+					StatusCode = 500,
+					Content = ex.Message
+				};
+			}
 			catch (Exception)
 			{
 				context.Result = new ContentResult()

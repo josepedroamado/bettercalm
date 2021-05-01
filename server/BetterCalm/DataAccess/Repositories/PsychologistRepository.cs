@@ -2,11 +2,12 @@
 using Domain;
 using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace DataAccess.Repositories
 {
-    public class PsychologistRepository : IPsychologistRepository
+	public class PsychologistRepository : IPsychologistRepository
     {
         private DbContext context;
         private DbSet<Psychologist> psychologists;
@@ -39,5 +40,47 @@ namespace DataAccess.Repositories
                 this.context.SaveChanges();
             }
         }
-    }
+
+		public Psychologist Get(Illness illness, DateTime until, int appointmentLimitPerDay)
+		{
+            if (this.psychologists.Count() == 0)
+                throw new CollectionEmptyException("Psychologists");
+
+            Psychologist candidate = this.psychologists
+                .Include("ScheduleDays")
+                .Include("ScheduleDays.Appointments")
+                .Where(psychologist =>
+                    psychologist.Illnesses.Contains(illness) &&
+                    (psychologist.ScheduleDays.Count() == 0 ||
+                    psychologist.ScheduleDays.OrderBy(schedule => schedule.Date).Last().Date < until ||
+                    (psychologist.ScheduleDays.OrderBy(schedule => schedule.Date).Last().Date == until &&
+                    psychologist.ScheduleDays.OrderBy(schedule => schedule.Date).Last().Appointments.Count() < appointmentLimitPerDay
+                    )))
+                .OrderBy(psychologist => psychologist.CreatedDate)
+                .FirstOrDefault();
+
+            if (candidate == null)
+            {
+                candidate = this.psychologists
+                   .Include("ScheduleDays")
+                   .Include("ScheduleDays.Appointments")
+                   .Where(psychologist =>
+                       psychologist.ScheduleDays.Count() == 0 ||
+                       (psychologist.ScheduleDays.OrderBy(schedule => schedule.Date).Last().Date < until ||
+                       (psychologist.ScheduleDays.OrderBy(schedule => schedule.Date).Last().Date == until &&
+                       psychologist.ScheduleDays.OrderBy(schedule => schedule.Date).Last().Appointments.Count() < appointmentLimitPerDay
+                       )))
+                   .OrderBy(psychologist => psychologist.CreatedDate)
+                   .FirstOrDefault();
+            }
+
+            return candidate;
+        }
+
+		public void Update(Psychologist psychologist)
+		{
+            this.psychologists.Update(psychologist);
+            this.context.SaveChanges();
+		}
+	}
 }
