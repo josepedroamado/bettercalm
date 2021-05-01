@@ -55,5 +55,25 @@ namespace Domain.Test
             Schedule obtained = psychologist.GetLast();
             Assert.AreNotEqual(schedule, obtained);
         }
+
+        [TestMethod]
+        public void GetFullNameOk()
+        {
+
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = new DateTime(2021, 01, 01)
+            };
+
+            string expectedFullName = "Juan Sartori";
+            string fullName = psychologist.GetFullName();
+
+            Assert.AreEqual(expectedFullName, fullName);
+        }
     }
 }
