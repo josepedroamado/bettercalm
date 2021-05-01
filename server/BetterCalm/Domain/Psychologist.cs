@@ -9,5 +9,6 @@ namespace Domain
 		public Format Format { get; set; }
 		public IEnumerable<Illness> Illnesses { get; set; }
 		public DateTime CreatedDate { get; set; }
+		public IEnumerable<Schedule> ScheduleDays { get; set; }
 	}
 }
