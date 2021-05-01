@@ -72,7 +72,8 @@ namespace DataAccess.Repositories
 
 		public void Update(Psychologist psychologist)
 		{
-			throw new NotImplementedException();
+            this.psychologists.Update(psychologist);
+            this.context.SaveChanges();
 		}
 	}
 }
