@@ -41,7 +41,7 @@ namespace BL
 
 			Schedule scheduleDay = candidate.GetLast();
 			
-			if (scheduleDay != null && scheduleDay.Date.Date == appointment.Date)
+			if (ShouldAddAppointment(scheduleDay, appointment))
 				scheduleDay.Appointments.Add(appointment);
 			else
 				candidate.ScheduleDays.Add(
@@ -51,13 +51,20 @@ namespace BL
 						{
 							appointment
 						},
-						Date = appointment.Date,
+						Date = appointment.GetDate(),
 						Psychologist = candidate
 					});
 
 			this.psychologistRepository.Update(candidate);
 			return appointment;
 
+		}
+
+		private bool ShouldAddAppointment(Schedule scheduleDay, Appointment appointment)
+		{
+			return scheduleDay != null &&
+				scheduleDay.GetScheduleDate() == appointment.Date.Date &&
+				scheduleDay.GetAppointmentsCount() < LimitOfAppointmentsPerDay;
 		}
 
 		private DateTime CalculateAppointmentDate(Psychologist candidate)
@@ -67,12 +74,13 @@ namespace BL
 			Schedule last = candidate.GetLast();
 			if (last != null)
 			{
-				if (last.Date.Date <= DateTime.Now.Date)
+				if (last.GetScheduleDate() <= DateTime.Now.Date)
 				{
 					return SetNextWorkDay(date);
 				}
 				if (last.Appointments.Count() < LimitOfAppointmentsPerDay)
-					return last.Date;
+					return last.GetScheduleDate();
+				return SetNextWorkDay(last.GetScheduleDate().AddDays(1));
 			}
 
 			return SetNextWorkDay(date.AddDays(1));
@@ -81,12 +89,12 @@ namespace BL
 		private DateTime SetNextWorkDay(DateTime date)
 		{
 			if (date.DayOfWeek == DayOfWeek.Friday)
-				date.AddDays(3);
+				date = date.AddDays(3);
 			else if (date.DayOfWeek == DayOfWeek.Saturday)
-				date.AddDays(2);
+				date = date.AddDays(2);
 			else if (date.DayOfWeek == DayOfWeek.Sunday)
-				date.AddDays(1);
-			return date;
+				date = date.AddDays(1);
+			return date.Date;
 		}
 
 		private string CalculateAddress(Psychologist candidate)
@@ -125,7 +133,7 @@ namespace BL
 		private DateTime GetUntilDate(DateTime since)
 		{
 			int daysUntilFriday = (DayOfWeek.Friday - since.DayOfWeek + 7) % 7;
-			since.AddDays(daysUntilFriday);
+			since = since.AddDays(daysUntilFriday);
 			return since.Date;
 		}
 	}
