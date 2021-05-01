@@ -50,7 +50,8 @@ namespace BL.Test
 			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
 
 			Mock<IPsychologistRepository> mockPsychologist = new Mock<IPsychologistRepository>(MockBehavior.Strict);
-			mockPsychologist.Setup(m => m.Get(psychologist.Id)).Returns(psychologist);
+			mockPsychologist.Setup(m => m.Get(illness, It.IsAny<DateTime>(), 5)).Returns(psychologist);
+			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object);
 			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness);
@@ -101,7 +102,8 @@ namespace BL.Test
 			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
 
 			Mock<IPsychologistRepository> mockPsychologist = new Mock<IPsychologistRepository>(MockBehavior.Strict);
-			mockPsychologist.Setup(m => m.Get(psychologist.Id)).Returns(psychologist);
+			mockPsychologist.Setup(m => m.Get(illness, It.IsAny<DateTime>(), 5)).Returns(psychologist);
+			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object);
 			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness);
@@ -152,7 +154,8 @@ namespace BL.Test
 			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
 
 			Mock<IPsychologistRepository> mockPsychologist = new Mock<IPsychologistRepository>(MockBehavior.Strict);
-			mockPsychologist.Setup(m => m.Get(psychologist.Id)).Returns(psychologist);
+			mockPsychologist.Setup(m => m.Get(illness, It.IsAny<DateTime>(), 5)).Returns(psychologist);
+			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object);
 			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness);
@@ -204,7 +207,8 @@ namespace BL.Test
 			mockIllness.Setup(m => m.Get(illness.Id)).Throws(new NotFoundException(illness.Id.ToString()));
 
 			Mock<IPsychologistRepository> mockPsychologist = new Mock<IPsychologistRepository>(MockBehavior.Strict);
-			mockPsychologist.Setup(m => m.Get(psychologist.Id)).Returns(psychologist);
+			mockPsychologist.Setup(m => m.Get(illness, It.IsAny<DateTime>(), 5)).Returns(psychologist);
+			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object);
 			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness);
@@ -255,7 +259,8 @@ namespace BL.Test
 			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
 
 			Mock<IPsychologistRepository> mockPsychologist = new Mock<IPsychologistRepository>(MockBehavior.Strict);
-			mockPsychologist.Setup(m => m.Get(psychologist.Id)).Throws(new CollectionEmptyException("Psychologists"));
+			mockPsychologist.Setup(m => m.Get(illness, It.IsAny<DateTime>(), 5)).Throws(new CollectionEmptyException("Psychologists"));
+			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object);
 			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness);
