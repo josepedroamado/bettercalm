@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BLInterfaces;
+using Microsoft.AspNetCore.Mvc;
 using Model;
 using System;
 
@@ -8,6 +9,13 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class AppointmentsController : ControllerBase
 	{
+		private readonly IAppointmentLogic appointmentLogic;
+
+		public AppointmentsController(IAppointmentLogic appointmentLogic)
+		{
+			this.appointmentLogic = appointmentLogic;
+		}
+
 		[HttpPost]
 		public IActionResult Post([FromBody] AppointmentInputModel model)
 		{
