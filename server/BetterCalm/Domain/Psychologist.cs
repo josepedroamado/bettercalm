@@ -17,6 +17,11 @@ namespace Domain
 			set => scheduleDays = value;
 		}
 
+		public string GetFullName()
+		{
+			return string.Concat(this.FirstName, " ", this.LastName);
+		}
+
 		public Schedule GetLast()
 		{
 			if (ScheduleDays.Count() > 0)
