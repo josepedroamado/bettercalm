@@ -330,6 +330,24 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(CollectionEmptyException))]
+        public void GetWithIllnessEmptyCollection()
+        {
+            Illness estres = new Illness()
+            {
+                Id = 1,
+                Name = "Estres"
+            };
+            this.context.Add(estres);
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+
+            Psychologist obtainedPsychologist = repository.Get(estres, new DateTime(2021, 10, 10), 5);
+
+            Assert.IsNull(obtainedPsychologist);
+        }
+
+        [TestMethod]
         public void UpdateOk()
         {
             Psychologist psychologist = new Psychologist()
@@ -436,5 +454,6 @@ namespace DataAccess.Test
 
             Assert.AreEqual(psychologist, obtained);
         }
+
     }
 }
