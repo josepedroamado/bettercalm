@@ -54,7 +54,7 @@ namespace WebAPI.Test
 			AppointmentOutputModel obtainedOutput = objectResult.Value as AppointmentOutputModel;
 
 			logicMock.VerifyAll();
-			Assert.AreEqual(expectedOutput, obtainedOutput);
+			Assert.IsTrue((new AppointmentOutputModelComparer()).Compare(obtainedOutput, expectedOutput) == 0);
 		}
 
 		[TestMethod]
