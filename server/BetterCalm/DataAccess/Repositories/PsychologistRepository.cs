@@ -47,10 +47,10 @@ namespace DataAccess.Repositories
                 .Include("ScheduleDays")
                 .Where(psychologist =>
                     psychologist.Illnesses.Contains(illness) &&
-                    psychologist.ScheduleDays.Count() == 0 ||
+                    (psychologist.ScheduleDays.Count() == 0 ||
                     (psychologist.ScheduleDays.OrderBy(schedule => schedule.Date).Last().Date <= until &&
                     psychologist.ScheduleDays.OrderBy(schedule => schedule.Date).Last().Appointments.Count() < appointmentLimitPerDay
-                    ))
+                    )))
                 .OrderBy(psychologist => psychologist.CreatedDate)
                 .FirstOrDefault();
 
