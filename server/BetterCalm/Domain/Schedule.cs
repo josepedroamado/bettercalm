@@ -8,6 +8,6 @@ namespace Domain
 		public int Id { get; set; }
 		public Psychologist Psychologist { get; set; }
 		public DateTime Date { get; set; }
-		public IEnumerable<Appointment> Appointments { get; set; }
+		public ICollection<Appointment> Appointments { get; set; }
 	}
 }
