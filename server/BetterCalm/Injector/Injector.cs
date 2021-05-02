@@ -26,6 +26,7 @@ namespace Injector
 			services.AddScoped<IIllnessLogic, IllnessLogic>();
 			services.AddScoped<IPsychologistLogic, PsychologistLogic>();
 			services.AddScoped<IAppointmentLogic, AppointmentLogic>();
+			services.AddScoped<IUserLogic, UserLogic>();
 		}
 
 		public void AddDataAccessServices()
@@ -38,6 +39,7 @@ namespace Injector
 			services.AddScoped<IIllnessRepository, IllnessRepository>();
 			services.AddScoped<IPsychologistRepository, PsychologistRepository>();
 			services.AddScoped<IPatientRepository, PatientRepository>();
+			services.AddScoped<IRoleRepository, RoleRepository>();
 		}
 
 		public void AddContextServices()

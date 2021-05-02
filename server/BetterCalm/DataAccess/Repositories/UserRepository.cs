@@ -17,6 +17,19 @@ namespace DataAccess.Repositories
 			this.users = context.Set<User>();
 		}
 
+		public void Add(User user)
+		{
+			try
+			{
+				if (Get(user.EMail) != null)
+					throw new AlreadyExistsException(user.EMail);
+			}
+			catch (NotFoundException)
+			{
+				this.users.Add(user);
+				this.context.SaveChanges();
+			}
+		}
 
 		public User Get(string eMail)
 		{

@@ -48,8 +48,9 @@ namespace DataAccess.Test
 				{
                     Id = 1,
                     EMail = "a@a.com",
-                    Password = "1234"
-				}
+                    Password = "1234",
+                    Name = "test"
+                }
             };
 
             this.context.Add(expectedSession);
@@ -84,7 +85,8 @@ namespace DataAccess.Test
                 {
                     Id = 1,
                     EMail = "a@a.com",
-                    Password = "1234"
+                    Password = "1234",
+                    Name = "test"
                 }
             };
 
@@ -120,7 +122,8 @@ namespace DataAccess.Test
                 {
                     Id = 1,
                     EMail = "a@a.com",
-                    Password = "1234"
+                    Password = "1234",
+                    Name = "test"
                 }
             };
 
@@ -143,7 +146,8 @@ namespace DataAccess.Test
                 {
                     Id = 1,
                     EMail = "a@a.com",
-                    Password = "1234"
+                    Password = "1234",
+                    Name = "test"
                 }
             };
 

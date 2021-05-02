@@ -5,6 +5,7 @@ using Domain.Exceptions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Data.Common;
 
 namespace DataAccess.Test
@@ -44,7 +45,8 @@ namespace DataAccess.Test
             {
                 EMail = "a@a.com",
                 Id = 1,
-                Password = "1234Test"
+                Password = "1234Test",
+                Name = "test"
             };
 
             this.context.Add(expectedUser);
@@ -69,6 +71,61 @@ namespace DataAccess.Test
             User obtainedUser = repository.Get(expectedUserEmail);
 
             Assert.IsNull(obtainedUser);
+        }
+
+        [TestMethod]
+        public void AddOk()
+		{
+            User user = new User()
+            {
+                Id = 1,
+                EMail = "test@test.com",
+                Password = "test1234",
+                Name = "test",
+                Roles = new List<Role>()
+                {
+                    new Role()
+                    {
+                        Id = 1,
+                        Name = "Administrator"
+                    }
+                }
+            };
+
+            UserRepository repository = new UserRepository(this.context);
+            repository.Add(user);
+            User obtainedUser = repository.Get(user.EMail);
+
+            Assert.AreEqual(user, obtainedUser);
+		}
+
+        [TestMethod]
+        [ExpectedException(typeof(AlreadyExistsException))]
+        public void AddAlreadyExists()
+        {
+            User user = new User()
+            {
+                Id = 1,
+                EMail = "test@test.com",
+                Password = "test1234",
+                Name = "test",
+                Roles = new List<Role>()
+                {
+                    new Role()
+                    {
+                        Id = 1,
+                        Name = "Administrator"
+                    }
+                }
+            };
+
+            UserRepository repository = new UserRepository(this.context);
+            repository.Add(user);
+            repository.Add(user);
+
+            User obtainedUser = repository.Get(user.EMail);
+
+            Assert.AreEqual(user, obtainedUser);
         }
     }
 }
