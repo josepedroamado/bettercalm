@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Model;
 using BLInterfaces;
 using WebAPI.Filters;
+using System;
 
 namespace WebAPI.Controllers
 {
@@ -39,9 +40,10 @@ namespace WebAPI.Controllers
 			return Ok();
 		}
 
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		[HttpPatch]
+		public void Patch([FromBody] PsychologistModel psychologistModel)
 		{
+			this.psychologistLogic.Update(psychologistModel.ToEntity());
 		}
 
 		[HttpDelete("{id}")]

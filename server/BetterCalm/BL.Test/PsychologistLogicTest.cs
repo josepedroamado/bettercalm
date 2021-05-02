@@ -219,5 +219,48 @@ namespace BL.Test
 
             Assert.IsNull(obtainedPsychologist);
         }
+
+        [TestMethod]
+        public void UpdateOk()
+        {
+            Illness stress = new Illness { Id = 1, Name = "Stress" };
+            Illness depression = new Illness { Id = 2, Name = "Depression" };
+            Psychologist originalPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                Illnesses = new List<Illness>() { stress, depression },
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            Psychologist newPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Orestes",
+                LastName = "Fiandra",
+                Address = "General Paz 1234",
+                Format = Format.Remote,
+                Illnesses = new List<Illness>() { stress },
+                CreatedDate = DateTime.Today.AddMonths(-2)
+            };
+
+            Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
+            psychologistRepositoryMock.Setup(m => m.Update(It.IsAny<Psychologist>()));
+            psychologistRepositoryMock.Setup(m => m.Get(originalPsychologist.Id)).Returns(newPsychologist);
+
+            Mock<IIllnessRepository> illnessRepositoryMock = new Mock<IIllnessRepository>(MockBehavior.Strict);
+            illnessRepositoryMock.Setup(m => m.Get(stress.Id)).Returns(stress);
+            illnessRepositoryMock.Setup(m => m.Get(depression.Id)).Returns(depression);
+
+            PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, illnessRepositoryMock.Object);
+            psychologistLogic.Update(originalPsychologist);
+
+            Psychologist obtainedPsychologist = psychologistLogic.Get(originalPsychologist.Id);
+
+            Assert.AreEqual(newPsychologist, obtainedPsychologist);
+        }
     }
 }

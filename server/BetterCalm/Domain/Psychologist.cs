@@ -29,6 +29,19 @@ namespace Domain
 			return null;
 		}
 
+		public void UpdateData(Psychologist psychologist)
+		{
+			if (!string.IsNullOrEmpty(psychologist.FirstName))
+				this.FirstName = psychologist.FirstName;
+			if (!string.IsNullOrEmpty(psychologist.LastName))
+				this.LastName = psychologist.LastName;
+			if (!string.IsNullOrEmpty(psychologist.Address))
+				this.Address = psychologist.Address;
+			this.Format = psychologist.Format;
+			if (psychologist.Illnesses != null)
+				this.Illnesses = psychologist.Illnesses;
+		}
+
 		public override bool Equals(object obj)
 		{
 			if (obj is Psychologist psychologist)

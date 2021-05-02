@@ -45,5 +45,23 @@ namespace BL
 
             return storedIllnesses;
         }
+
+        public void Update(Psychologist psychologist)
+        {
+            Psychologist toUpdate = this.psychologistRepository.Get(psychologist.Id);
+            ICollection<Illness> illnesses = new List<Illness>() { };
+                
+            foreach (Illness illness in psychologist.Illnesses)
+            {
+                Illness obtainedIllness = this.illnessRepository.Get(illness.Id);
+                if (obtainedIllness != null)
+                {
+                    illnesses.Add(obtainedIllness);
+                }
+            }
+            psychologist.Illnesses = illnesses;
+            toUpdate.UpdateData(psychologist);
+            this.psychologistRepository.Update(toUpdate);
+        }
     }
 }
