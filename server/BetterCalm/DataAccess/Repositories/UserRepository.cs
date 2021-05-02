@@ -62,7 +62,13 @@ namespace DataAccess.Repositories
 
 		public void Delete(int id)
 		{
-			throw new System.NotImplementedException();
+			User user = this.users.FirstOrDefault(user => user.Id == id);
+			
+			if (user != null)
+			{
+				this.users.Remove(user);
+				this.context.SaveChanges();
+			}
 		}
 	}
 }
