@@ -17,6 +17,10 @@ namespace DataAccess.Repositories
 			this.users = context.Set<User>();
 		}
 
+		public void Add(User user)
+		{
+			throw new System.NotImplementedException();
+		}
 
 		public User Get(string eMail)
 		{
