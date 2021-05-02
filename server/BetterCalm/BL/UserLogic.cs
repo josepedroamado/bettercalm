@@ -45,5 +45,10 @@ namespace BL
 		{
 			this.userRepository.Delete(id);
 		}
+
+		public ICollection<User> GetUsersByRole(string roleName)
+		{
+			return this.roleRepository.GetUsers(roleName);
+		}
 	}
 }

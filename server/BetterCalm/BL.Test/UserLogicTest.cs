@@ -4,6 +4,7 @@ using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BL.Test
 {
@@ -212,6 +213,36 @@ namespace BL.Test
 			userMock.VerifyAll();
 
 			Assert.IsNull(obtainedUser);
+		}
+
+		[TestMethod]
+		public void GetUsersByRole()
+		{
+			string roleName = "Administrator";
+
+			User user = new User()
+			{
+				EMail = "a@a.com",
+				Id = 1,
+				Password = "1234Test",
+				Name = "test"
+			};
+
+			List<User> expectedUsers = new List<User>()
+			{
+				user
+			};
+
+			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
+			roleMock.Setup(m => m.GetUsers(roleName)).Returns(expectedUsers);
+
+			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
+
+			UserLogic logic = new UserLogic(userMock.Object, roleMock.Object);
+
+			ICollection<User> obtainedUsers = logic.GetUsersByRole(roleName);
+
+			CollectionAssert.AreEqual(expectedUsers, obtainedUsers.ToList());
 		}
 	}
 }
