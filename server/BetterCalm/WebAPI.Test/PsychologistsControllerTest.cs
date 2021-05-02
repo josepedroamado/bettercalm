@@ -10,7 +10,7 @@ using WebAPI.Controllers;
 namespace WebAPI.Test
 {
     [TestClass]
-    public class PsychologistControllerTest
+    public class PsychologistsControllerTest
     {
         [TestMethod]
         public void GetOk()
@@ -108,6 +108,41 @@ namespace WebAPI.Test
             PsychologistModel obtainedPsychologistModel = (objectResult.Value as PsychologistModel);
 
             Assert.AreEqual(expectedPsychologistModel, obtainedPsychologistModel);
+        }
+
+        [TestMethod]
+        public void PatchOk()
+        {
+            PsychologistModel originalPsychologistModel = new PsychologistModel()
+            {
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = "OnSite"
+            };
+
+            PsychologistModel newPsychologistModel = new PsychologistModel()
+            {
+                FirstName = "Orestes",
+                LastName = "Fiandra",
+                Address = "General Paz 1234",
+                Format = "Remote"
+            };
+
+            Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            psychologistLogicMock.Setup(m => m.Update(It.IsAny<Psychologist>()));
+            psychologistLogicMock.Setup(m => m.Get(originalPsychologistModel.Id)).Returns(originalPsychologistModel.ToEntity());
+            PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
+            psychologistsController.Patch(originalPsychologistModel);
+
+            psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            psychologistLogicMock.Setup(m => m.Get(originalPsychologistModel.Id)).Returns(newPsychologistModel.ToEntity());
+
+            IActionResult result = psychologistsController.Get(originalPsychologistModel.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            PsychologistModel obtainedPsychologistModel = (objectResult.Value as PsychologistModel);
+
+            Assert.AreEqual(newPsychologistModel, obtainedPsychologistModel);
         }
     }
 }
