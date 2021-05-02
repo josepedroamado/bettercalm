@@ -4,14 +4,16 @@ using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(BetterCalmContext))]
-    partial class BetterCalmContextModelSnapshot : ModelSnapshot
+    [Migration("20210502004108_UserImprovent")]
+    partial class UserImprovent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,6 +236,29 @@ namespace DataAccess.Migrations
                     b.ToTable("Psychologists");
                 });
 
+            modelBuilder.Entity("Domain.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Role");
+                });
+
             modelBuilder.Entity("Domain.Schedule", b =>
                 {
                     b.Property<int>("Id")
@@ -377,6 +402,13 @@ namespace DataAccess.Migrations
                     b.Navigation("Psychologist");
                 });
 
+            modelBuilder.Entity("Domain.Role", b =>
+                {
+                    b.HasOne("Domain.User", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Domain.Schedule", b =>
                 {
                     b.HasOne("Domain.Psychologist", "Psychologist")
@@ -418,6 +450,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Schedule", b =>
                 {
                     b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("Domain.User", b =>
+                {
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }
