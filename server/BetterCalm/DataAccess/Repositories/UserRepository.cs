@@ -74,7 +74,7 @@ namespace DataAccess.Repositories
 
 		public IEnumerable<User> GetAll()
 		{
-			throw new System.NotImplementedException();
+			return this.users;
 		}
 	}
 }
