@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using System;
+using WebAPI.Filters;
 
 namespace WebAPI.Controllers
 {
@@ -18,9 +19,11 @@ namespace WebAPI.Controllers
 
 		// POST api/<AdministratorsController>
 		[HttpPost]
+		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
 		public IActionResult Post([FromBody] AdministratorInputModel model)
 		{
-			throw new NotImplementedException();
+			this.userLogic.CreateUser(model.ToEntity());
+			return Ok();
 		}
 	}
 }
