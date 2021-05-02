@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BLInterfaces;
+using Microsoft.AspNetCore.Mvc;
 using Model;
 using System;
 
@@ -8,9 +9,16 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class AdministratorsController : ControllerBase
 	{
+		private readonly IUserLogic userLogic;
+
+		public AdministratorsController(IUserLogic userLogic)
+		{
+			this.userLogic = userLogic;
+		}
+
 		// POST api/<AdministratorsController>
 		[HttpPost]
-		public void Post([FromBody] AdministratorInputModel model)
+		public IActionResult Post([FromBody] AdministratorInputModel model)
 		{
 			throw new NotImplementedException();
 		}
