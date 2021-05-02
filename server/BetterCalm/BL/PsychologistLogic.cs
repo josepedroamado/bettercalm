@@ -45,5 +45,10 @@ namespace BL
 
             return storedIllnesses;
         }
+
+        public void Update(Psychologist psychologist)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

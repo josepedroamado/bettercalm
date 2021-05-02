@@ -7,6 +7,7 @@ namespace BLInterfaces
         Psychologist Get(int id);
 
         void Add(Psychologist psychologist);
-        
+
+        void Update(Psychologist psychologist);      
     }
 }
