@@ -59,5 +59,10 @@ namespace DataAccess.Repositories
 				this.context.SaveChanges();
 			}
 		}
+
+		public void Delete(User user)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }
