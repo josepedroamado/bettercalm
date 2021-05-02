@@ -133,58 +133,5 @@ namespace BL.Test
 
 			Assert.IsNull(obtainedUser);
 		}
-
-		[TestMethod]
-		public void GetUserOk()
-		{
-			User user = new User()
-			{
-				EMail = "a@a.com",
-				Id = 1,
-				Password = "1234Test",
-				Name = "test"
-			};
-
-			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
-			userMock.Setup(m => m.Get(user.EMail)).Returns(user);
-
-			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
-
-			UserLogic userLogic = new UserLogic(userMock.Object, roleMock.Object);
-
-			User obtainedUser = userLogic.GetUser(user.EMail);
-
-			userMock.VerifyAll();
-			roleMock.VerifyAll();
-
-			Assert.AreEqual(user, obtainedUser);
-		}
-
-		[TestMethod]
-		[ExpectedException(typeof(NotFoundException))]
-		public void GetUserNotFound()
-		{
-			User user = new User()
-			{
-				EMail = "a@a.com",
-				Id = 1,
-				Password = "1234Test",
-				Name = "test"
-			};
-
-			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
-			userMock.Setup(m => m.Get(user.EMail)).Throws(new NotFoundException(user.EMail));
-
-			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
-
-			UserLogic userLogic = new UserLogic(userMock.Object, roleMock.Object);
-
-			User obtainedUser = userLogic.GetUser(user.EMail);
-
-			userMock.VerifyAll();
-			roleMock.VerifyAll();
-
-			Assert.IsNull(obtainedUser);
-		}
 	}
 }
