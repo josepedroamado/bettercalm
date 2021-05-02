@@ -2,6 +2,7 @@
 using Domain;
 using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
@@ -69,6 +70,11 @@ namespace DataAccess.Repositories
 				this.users.Remove(user);
 				this.context.SaveChanges();
 			}
+		}
+
+		public IEnumerable<User> GetAll()
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }
