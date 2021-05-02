@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
 		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
 		public IActionResult Post([FromBody] AdministratorInputModel model)
 		{
-			this.userLogic.CreateUser(model.ToEntity());
+			this.userLogic.CreateUser(model.ToEntityWithRole());
 			return Ok();
 		}
 
