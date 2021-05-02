@@ -32,7 +32,7 @@ namespace Injector
 		{
 			services.AddScoped<IPlaylistRepository, PlaylistRepository>();
 			services.AddScoped<ICategoryRepository, CategoryRepository>();
-			services.AddScoped<IAdministratorRepository, AdministratorRepository>();
+			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<ISessionRepository, SessionRepository>();
 			services.AddScoped<IContentRepository, ContentRepository>();
 			services.AddScoped<IIllnessRepository, IllnessRepository>();

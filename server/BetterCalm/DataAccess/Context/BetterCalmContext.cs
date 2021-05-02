@@ -7,7 +7,7 @@ namespace DataAccess.Context
 {
     public class BetterCalmContext: DbContext
     {
-        public DbSet<Administrator> Administrators { get; set; }
+        public DbSet<User> Administrators { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Content> Contents { get; set; }

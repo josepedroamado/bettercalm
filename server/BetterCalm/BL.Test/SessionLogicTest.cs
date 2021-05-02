@@ -17,27 +17,27 @@ namespace BL.Test
 			string queryEmail = "a@a.com";
 			string queryPassword = "1234";
 
-			Administrator expectedAdministrator = new Administrator()
+			User expectedUser = new User()
 			{
 				EMail = queryEmail,
 				Id = 1,
 				Password = queryPassword
 			};
 
-			Mock<IAdministratorRepository> administratorRepositoryMock = new Mock<IAdministratorRepository>(MockBehavior.Strict);
-			administratorRepositoryMock.Setup(m => m.Get(queryEmail)).Returns(expectedAdministrator);
+			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+			userRepositoryMock.Setup(m => m.Get(queryEmail)).Returns(expectedUser);
 
 			Session expectedSession = new Session()
 			{
 				Id = 1,
 				Token = expectedToken,
-				User = expectedAdministrator
+				User = expectedUser
 			};
 
 			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMock.Setup(m => m.GetByEmail(queryEmail)).Returns(expectedSession);
 
-			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, userRepositoryMock.Object);
 
 			string obtainedToken = sessionLogic.Login(queryEmail, queryPassword);
 			Assert.AreEqual(expectedToken, obtainedToken);
@@ -50,15 +50,15 @@ namespace BL.Test
 			string queryEmail = "a@a.com";
 			string queryPassword = "1234";
 
-			Administrator expectedAdministrator = new Administrator()
+			User expectedUser = new User()
 			{
 				EMail = queryEmail,
 				Id = 1,
 				Password = queryPassword
 			};
 
-			Mock<IAdministratorRepository> administratorRepositoryMock = new Mock<IAdministratorRepository>(MockBehavior.Strict);
-			administratorRepositoryMock.Setup(m => m.Get(queryEmail)).Returns(expectedAdministrator);
+			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+			userRepositoryMock.Setup(m => m.Get(queryEmail)).Returns(expectedUser);
 
 			Session expectedSession = null;
 
@@ -66,7 +66,7 @@ namespace BL.Test
 			sessionRepositoryMock.Setup(m => m.GetByEmail(queryEmail)).Returns(expectedSession);
 			sessionRepositoryMock.Setup(m => m.Add(It.IsAny<Session>()));
 
-			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, userRepositoryMock.Object);
 
 			string obtainedToken = sessionLogic.Login(queryEmail, queryPassword);
 			Assert.IsTrue(!string.IsNullOrEmpty(obtainedToken));
@@ -81,27 +81,27 @@ namespace BL.Test
 			string queryEmail = "a@a.com";
 			string queryPassword = "1234";
 
-			Administrator expectedAdministrator = new Administrator()
+			User expectedUser = new User()
 			{
 				EMail = queryEmail,
 				Id = 1,
 				Password = queryPassword
 			};
 
-			Mock<IAdministratorRepository> administratorRepositoryMock = new Mock<IAdministratorRepository>(MockBehavior.Strict);
-			administratorRepositoryMock.Setup(m => m.Get(queryEmail)).Throws(new NotFoundException(queryEmail));
+			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+			userRepositoryMock.Setup(m => m.Get(queryEmail)).Throws(new NotFoundException(queryEmail));
 
 			Session expectedSession = new Session()
 			{
 				Id = 1,
 				Token = expectedToken,
-				User = expectedAdministrator
+				User = expectedUser
 			};
 
 			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMock.Setup(m => m.GetByEmail(queryEmail)).Throws(new NotFoundException(queryEmail));
 
-			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, userRepositoryMock.Object);
 
 			string obtainedToken = sessionLogic.Login(queryEmail, queryPassword);
 			Assert.IsNull(obtainedToken);
@@ -115,27 +115,27 @@ namespace BL.Test
 			string queryEmail = "a@a.com";
 			string queryPassword = "1234";
 
-			Administrator expectedAdministrator = new Administrator()
+			User expectedUser = new User()
 			{
 				EMail = queryEmail,
 				Id = 1,
 				Password = "123"
 			};
 
-			Mock<IAdministratorRepository> administratorRepositoryMock = new Mock<IAdministratorRepository>(MockBehavior.Strict);
-			administratorRepositoryMock.Setup(m => m.Get(queryEmail)).Returns(expectedAdministrator);
+			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+			userRepositoryMock.Setup(m => m.Get(queryEmail)).Returns(expectedUser);
 
 			Session expectedSession = new Session()
 			{
 				Id = 1,
 				Token = expectedToken,
-				User = expectedAdministrator
+				User = expectedUser
 			};
 
 			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMock.Setup(m => m.GetByEmail(queryEmail)).Returns(expectedSession);
 
-			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, userRepositoryMock.Object);
 
 			string obtainedToken = sessionLogic.Login(queryEmail, queryPassword);
 			Assert.IsNull(obtainedToken);
@@ -148,28 +148,28 @@ namespace BL.Test
 			string queryEmail = "a@a.com";
 			string queryPassword = "1234";
 
-			Administrator expectedAdministrator = new Administrator()
+			User expectedUser = new User()
 			{
 				EMail = queryEmail,
 				Id = 1,
 				Password = queryPassword
 			};
 
-			Mock<IAdministratorRepository> administratorRepositoryMock = new Mock<IAdministratorRepository>(MockBehavior.Strict);
-			administratorRepositoryMock.Setup(m => m.Get(queryEmail)).Returns(expectedAdministrator);
+			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+			userRepositoryMock.Setup(m => m.Get(queryEmail)).Returns(expectedUser);
 
 			Session expectedSession = new Session()
 			{
 				Id = 1,
 				Token = expectedToken,
-				User = expectedAdministrator
+				User = expectedUser
 			};
 
 			Mock<ISessionRepository> sessionRepositoryMockBeforeLogout = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMockBeforeLogout.Setup(m => m.GetByToken(expectedToken)).Returns(expectedSession);
 			sessionRepositoryMockBeforeLogout.Setup(m => m.Delete(expectedSession));
 
-			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMockBeforeLogout.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMockBeforeLogout.Object, userRepositoryMock.Object);
 
 			sessionLogic.Logout(expectedToken);
 
@@ -180,7 +180,7 @@ namespace BL.Test
 			sessionRepositoryMockAfterLogout.Setup(m => m.GetByEmail(expectedSession.GetSessionEmail())).Returns(deletedSession);
 			sessionRepositoryMockAfterLogout.Setup(m => m.Add(It.IsAny<Session>()));
 
-			sessionLogic = new SessionLogic(sessionRepositoryMockAfterLogout.Object, administratorRepositoryMock.Object);
+			sessionLogic = new SessionLogic(sessionRepositoryMockAfterLogout.Object, userRepositoryMock.Object);
 
 			string newToken = sessionLogic.Login(queryEmail, queryPassword);
 
@@ -197,7 +197,7 @@ namespace BL.Test
 			{
 				Id = 1,
 				Token = tokenToSearch,
-				User = new Administrator()
+				User = new User()
 				{
 					EMail = "a@a.com",
 					Id = 1,
@@ -207,9 +207,9 @@ namespace BL.Test
 
 			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMock.Setup(m => m.GetByToken(tokenToSearch)).Returns(expectedSession);
-			Mock<IAdministratorRepository> administratorRepositoryMock = new Mock<IAdministratorRepository>(MockBehavior.Strict);
+			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
 
-			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, userRepositoryMock.Object);
 
 			bool isValidToken = sessionLogic.IsValidToken(tokenToSearch);
 			sessionRepositoryMock.VerifyAll();
@@ -227,9 +227,9 @@ namespace BL.Test
 
 			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
 			sessionRepositoryMock.Setup(m => m.GetByToken(tokenToSearch)).Returns(expectedSession);
-			Mock<IAdministratorRepository> administratorRepositoryMock = new Mock<IAdministratorRepository>(MockBehavior.Strict);
+			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
 
-			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, administratorRepositoryMock.Object);
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, userRepositoryMock.Object);
 
 			bool isValidToken = sessionLogic.IsValidToken(tokenToSearch);
 			sessionRepositoryMock.VerifyAll();

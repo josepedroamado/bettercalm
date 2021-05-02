@@ -1,9 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain
+﻿namespace Domain
 {
-	[Table("Users")]
-	public abstract class User
+	public class User
 	{
 		public int Id { get; set; }
 		public string EMail { get; set; }

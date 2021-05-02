@@ -43,7 +43,7 @@ namespace DataAccess.Test
             {
                 Id = 1,
                 Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
-                User = new Administrator()
+                User = new User()
 				{
                     Id = 1,
                     EMail = "a@a.com",
@@ -79,7 +79,7 @@ namespace DataAccess.Test
             {
                 Id = 1,
                 Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
-                User = new Administrator()
+                User = new User()
                 {
                     Id = 1,
                     EMail = "a@a.com",
@@ -115,7 +115,7 @@ namespace DataAccess.Test
             {
                 Id = 1,
                 Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
-                User = new Administrator()
+                User = new User()
                 {
                     Id = 1,
                     EMail = "a@a.com",
@@ -138,7 +138,7 @@ namespace DataAccess.Test
             {
                 Id = 1,
                 Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
-                User = new Administrator()
+                User = new User()
                 {
                     Id = 1,
                     EMail = "a@a.com",
