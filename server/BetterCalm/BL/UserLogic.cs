@@ -40,5 +40,10 @@ namespace BL
 		{
 			this.userRepository.Update(user);
 		}
+
+		public void DeleteUser(int id)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }
