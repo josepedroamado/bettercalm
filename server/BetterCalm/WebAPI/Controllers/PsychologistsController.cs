@@ -43,7 +43,7 @@ namespace WebAPI.Controllers
 		[HttpPatch]
 		public void Patch([FromBody] PsychologistModel psychologistModel)
 		{
-			throw new NotImplementedException();
+			this.psychologistLogic.Update(psychologistModel.ToEntity());
 		}
 
 		[HttpDelete("{id}")]
