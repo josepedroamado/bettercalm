@@ -45,7 +45,8 @@ namespace DataAccess.Test
             {
                 EMail = "a@a.com",
                 Id = 1,
-                Password = "1234Test"
+                Password = "1234Test",
+                Name = "test"
             };
 
             this.context.Add(expectedUser);
@@ -80,6 +81,7 @@ namespace DataAccess.Test
                 Id = 1,
                 EMail = "test@test.com",
                 Password = "test1234",
+                Name = "test",
                 Roles = new List<Role>()
                 {
                     new Role()
@@ -106,6 +108,7 @@ namespace DataAccess.Test
                 Id = 1,
                 EMail = "test@test.com",
                 Password = "test1234",
+                Name = "test",
                 Roles = new List<Role>()
                 {
                     new Role()

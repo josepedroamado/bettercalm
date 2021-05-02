@@ -21,7 +21,8 @@ namespace BL.Test
 			{
 				EMail = queryEmail,
 				Id = 1,
-				Password = queryPassword
+				Password = queryPassword,
+				Name = "test"
 			};
 
 			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
@@ -54,7 +55,8 @@ namespace BL.Test
 			{
 				EMail = queryEmail,
 				Id = 1,
-				Password = queryPassword
+				Password = queryPassword,
+				Name = "test"
 			};
 
 			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
@@ -85,7 +87,8 @@ namespace BL.Test
 			{
 				EMail = queryEmail,
 				Id = 1,
-				Password = queryPassword
+				Password = queryPassword,
+				Name = "test"
 			};
 
 			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
@@ -119,7 +122,8 @@ namespace BL.Test
 			{
 				EMail = queryEmail,
 				Id = 1,
-				Password = "123"
+				Password = "123",
+				Name = "test"
 			};
 
 			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
@@ -152,7 +156,8 @@ namespace BL.Test
 			{
 				EMail = queryEmail,
 				Id = 1,
-				Password = queryPassword
+				Password = queryPassword,
+				Name = "test"
 			};
 
 			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
@@ -201,7 +206,8 @@ namespace BL.Test
 				{
 					EMail = "a@a.com",
 					Id = 1,
-					Password = "1234"
+					Password = "1234",
+					Name = "test"
 				}
 			};
 

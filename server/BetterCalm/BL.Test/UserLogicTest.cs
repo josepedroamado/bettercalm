@@ -25,6 +25,7 @@ namespace BL.Test
 				EMail = "a@a.com",
 				Id = 1,
 				Password = "1234Test",
+				Name = "test",
 				Roles = new List<Role>()
 				{
 					role
@@ -65,6 +66,7 @@ namespace BL.Test
 				EMail = "a@a.com",
 				Id = 1,
 				Password = "1234Test",
+				Name = "test",
 				Roles = new List<Role>()
 				{
 					role
@@ -107,6 +109,7 @@ namespace BL.Test
 				EMail = "a@a.com",
 				Id = 1,
 				Password = "1234Test",
+				Name = "test",
 				Roles = new List<Role>()
 				{
 					role
