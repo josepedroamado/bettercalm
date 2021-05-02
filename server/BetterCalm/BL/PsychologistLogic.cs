@@ -48,7 +48,7 @@ namespace BL
 
         public void Update(Psychologist psychologist)
         {
-            throw new System.NotImplementedException();
+            this.psychologistRepository.Update(psychologist);
         }
     }
 }
