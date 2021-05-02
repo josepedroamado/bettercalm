@@ -75,5 +75,78 @@ namespace Domain.Test
 
             Assert.AreEqual(expectedFullName, fullName);
         }
+
+
+        [TestMethod]
+        public void GetUpdateFullOk()
+        {
+            Illness stress = new Illness() { Id = 1, Name = "Stress" };
+            Illness depression = new Illness() { Id = 2, Name = "Depression" };
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                Illnesses = new List<Illness>() { stress },
+                CreatedDate = new DateTime(2021, 01, 01)
+            };
+
+            Psychologist newPsychologist = new Psychologist()
+            {
+                Id = 2,
+                FirstName = "Orestes",
+                LastName = "Fiandra",
+                Address = "General Paz 1234",
+                Format = Format.Remote,
+                Illnesses = new List<Illness>() { depression },
+                CreatedDate = new DateTime(2011, 01, 01)
+            };
+
+            psychologist.UpdateData(newPsychologist);
+
+            Assert.IsTrue(Equals(psychologist.FirstName, newPsychologist.FirstName) 
+                && Equals(psychologist.LastName, newPsychologist.LastName)
+                && Equals(psychologist.Address, newPsychologist.Address)
+                && Equals(psychologist.Format, newPsychologist.Format)
+                && Equals(psychologist.Illnesses, newPsychologist.Illnesses));
+        }
+
+        [TestMethod]
+        public void GetUpdateWithNullOrEmptyOk()
+        {
+            Illness stress = new Illness() { Id = 1, Name = "Stress" };
+            Illness depression = new Illness() { Id = 2, Name = "Depression" };
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                Illnesses = new List<Illness>() { stress },
+                CreatedDate = new DateTime(2021, 01, 01)
+            };
+
+            Psychologist newPsychologist = new Psychologist()
+            {
+                Id = 2,
+                FirstName = "",
+                LastName = null,
+                Address = "",
+                Format = Format.Remote,
+                Illnesses = null,
+                CreatedDate = new DateTime(2011, 01, 01)
+            };
+
+            psychologist.UpdateData(newPsychologist);
+
+            Assert.IsTrue(!Equals(psychologist.FirstName, newPsychologist.FirstName)
+                && !Equals(psychologist.LastName, newPsychologist.LastName)
+                && !Equals(psychologist.Address, newPsychologist.Address)
+                && Equals(psychologist.Format, newPsychologist.Format)
+                && !Equals(psychologist.Illnesses, newPsychologist.Illnesses));
+        }
     }
 }

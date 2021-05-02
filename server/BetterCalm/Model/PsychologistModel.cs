@@ -19,6 +19,7 @@ namespace Model
         {
 			return new Psychologist
 			{
+				Id = this.Id,
 				FirstName = this.FirstName,
 				LastName = this.LastName,
 				Address = this.Address,

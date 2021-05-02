@@ -29,6 +29,11 @@ namespace Domain
 			return null;
 		}
 
+		public void UpdateData(Psychologist psychologist)
+		{
+			throw new NotImplementedException();
+		}
+
 		public override bool Equals(object obj)
 		{
 			if (obj is Psychologist psychologist)
