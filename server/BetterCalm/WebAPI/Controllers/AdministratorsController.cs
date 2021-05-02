@@ -30,7 +30,8 @@ namespace WebAPI.Controllers
 		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
 		public IActionResult Patch([FromBody] AdministratorInputModel model)
 		{
-			throw new NotImplementedException();
+			this.userLogic.UpdateUser(model.ToEntity());
+			return new StatusCodeResult(204);
 		}
 	}
 }
