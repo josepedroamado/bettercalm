@@ -5,10 +5,9 @@ using Domain.Exceptions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
+using System.Linq;
 
 namespace DataAccess.Test
 {
@@ -79,6 +78,52 @@ namespace DataAccess.Test
             Role obtainedRole = repository.Get("patient");
 
             Assert.AreEqual(obtainedRole, role);
+        }
+
+        [TestMethod]
+        public void GetUsersByRole()
+        {
+            string roleName = "Administrator";
+            Role role = new Role()
+            {
+                Id = 1,
+                Name = roleName
+            };
+            this.context.Add(role);
+
+            User user1 = new User()
+            {
+                EMail = "a@a.com",
+                Id = 1,
+                Password = "1234Test",
+                Name = "test",
+                Roles = new List<Role>()
+                {
+                    role
+                }
+            };
+            User user2 = new User()
+            {
+                EMail = "b@b.com",
+                Id = 2,
+                Password = "1234Test",
+                Name = "test"
+            };
+
+            this.context.Add(user1);
+            this.context.Add(user2);
+            this.context.SaveChanges();
+
+            List<User> expectedUsers = new List<User>()
+            {
+                user1
+            };
+
+            RoleRepository repository = new RoleRepository(this.context);
+
+            ICollection<User> obtainedUsers = repository.GetUsers(roleName);
+
+            CollectionAssert.AreEqual(expectedUsers, obtainedUsers.ToList());
         }
     }
 }

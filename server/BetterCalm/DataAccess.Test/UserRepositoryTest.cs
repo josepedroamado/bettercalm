@@ -211,40 +211,5 @@ namespace DataAccess.Test
 
             Assert.IsNull(obtainedUser);
         }
-
-        [TestMethod]
-        public void GetAllOk()
-        {
-            User user1 = new User()
-            {
-                EMail = "a@a.com",
-                Id = 1,
-                Password = "1234Test",
-                Name = "test"
-            };
-            User user2 = new User()
-            {
-                EMail = "b@b.com",
-                Id = 2,
-                Password = "1234Test",
-                Name = "test"
-            };
-
-            this.context.Add(user1);
-            this.context.Add(user2);
-            this.context.SaveChanges();
-
-            List<User> expectedUsers = new List<User>()
-            {
-                user1,
-                user2
-            };
-
-            UserRepository repository = new UserRepository(this.context);
-
-            IEnumerable<User> obtainedUsers = repository.GetAll();
-
-            CollectionAssert.AreEqual(expectedUsers, obtainedUsers.ToList());
-        }
     }
 }

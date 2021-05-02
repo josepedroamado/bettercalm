@@ -71,10 +71,5 @@ namespace DataAccess.Repositories
 				this.context.SaveChanges();
 			}
 		}
-
-		public IEnumerable<User> GetAll()
-		{
-			return this.users;
-		}
 	}
 }
