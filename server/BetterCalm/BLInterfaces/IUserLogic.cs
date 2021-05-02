@@ -4,6 +4,6 @@ namespace BLInterfaces
 {
 	public interface IUserLogic
 	{
-		void Add(User user);
+		void CreateUser(User user);
 	}
 }
