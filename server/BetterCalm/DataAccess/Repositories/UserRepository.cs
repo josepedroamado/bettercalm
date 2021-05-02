@@ -60,7 +60,7 @@ namespace DataAccess.Repositories
 			}
 		}
 
-		public void Delete(User user)
+		public void Delete(int id)
 		{
 			throw new System.NotImplementedException();
 		}
