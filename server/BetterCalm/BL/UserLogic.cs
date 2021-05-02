@@ -43,7 +43,7 @@ namespace BL
 
 		public void DeleteUser(int id)
 		{
-			throw new System.NotImplementedException();
+			this.userRepository.Delete(id);
 		}
 	}
 }
