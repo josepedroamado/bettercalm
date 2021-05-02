@@ -38,6 +38,7 @@ namespace BL
 
 		public void UpdateUser(User user)
 		{
+			user.Roles = GetStoredRoles(user.Roles);
 			this.userRepository.Update(user);
 		}
 	}

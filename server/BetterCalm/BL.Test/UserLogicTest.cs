@@ -190,5 +190,46 @@ namespace BL.Test
 
 			Assert.IsNull(obtainedUser);
 		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void UpdateRoleNotFound()
+		{
+			Role role = new Role()
+			{
+				Id = 1,
+				Name = "Administrator",
+				Description = "Administrator test"
+			};
+
+			User user = new User()
+			{
+				EMail = "a@a.com",
+				Id = 1,
+				Password = "1234Test",
+				Name = "test",
+				Roles = new List<Role>()
+				{
+					role
+				}
+			};
+
+			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
+			userMock.Setup(m => m.Update(user));
+			userMock.Setup(m => m.Get(user.EMail)).Returns(user);
+
+			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
+			roleMock.Setup(m => m.Get(role.Name)).Throws(new NotFoundException(role.Name));
+
+			UserLogic userLogic = new UserLogic(userMock.Object, roleMock.Object);
+
+			userLogic.UpdateUser(user);
+			User obtainedUser = userLogic.GetUser(user.EMail);
+
+			userMock.VerifyAll();
+			roleMock.VerifyAll();
+
+			Assert.AreEqual(obtainedUser, user);
+		}
 	}
 }
