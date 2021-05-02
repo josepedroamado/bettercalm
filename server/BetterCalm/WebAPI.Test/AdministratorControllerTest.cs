@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Moq;
+using System.Collections.Generic;
 using WebAPI.Controllers;
 
 namespace WebAPI.Test
@@ -151,6 +152,34 @@ namespace WebAPI.Test
 			IActionResult result = controller.Delete(id);
 			StatusCodeResult statusCodeResult = result as StatusCodeResult;
 			Assert.IsTrue(statusCodeResult.StatusCode == 204);
+		}
+
+		[TestMethod]
+		public void GetOk()
+		{
+			string roleName = "Administrator";
+			User user = new User()
+			{
+				EMail = "a@a.com",
+				Id = 1,
+				Password = "1234Test",
+				Name = "test"
+			};
+
+			List<User> expectedUsers = new List<User>()
+			{
+				user
+			};
+
+			Mock<IUserLogic> userLogicMock = new Mock<IUserLogic>(MockBehavior.Strict);
+			userLogicMock.Setup(m => m.GetUsersByRole(roleName)).Returns(expectedUsers);
+
+			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
+
+			IActionResult result = controller.Get();
+			OkObjectResult okObjectResult = result as OkObjectResult;
+
+			Assert.IsTrue(okObjectResult.StatusCode == 200);
 		}
 	}
 }

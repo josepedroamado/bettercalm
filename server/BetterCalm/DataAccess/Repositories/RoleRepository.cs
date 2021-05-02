@@ -2,6 +2,7 @@
 using Domain;
 using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
@@ -23,6 +24,16 @@ namespace DataAccess.Repositories
 			if (role == null)
 				throw new NotFoundException(name);
 			return role;
+		}
+
+		public ICollection<User> GetUsers(string name)
+		{
+			Role role = this.roles.
+				Include("Users").
+				FirstOrDefault(role => role.Name.Equals(name));
+			if (role != null)
+				return role.Users;
+			return new List<User>();
 		}
 	}
 }

@@ -1,16 +1,18 @@
 ﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Model;
-using System;
+using System.Linq;
 using WebAPI.Filters;
 
 namespace WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[ServiceFilter(typeof(AuthorizationAttributeFilter))]
 	public class AdministratorsController : ControllerBase
 	{
 		private readonly IUserLogic userLogic;
+		private const string AdministratorRole = "Administrator";
 
 		public AdministratorsController(IUserLogic userLogic)
 		{
@@ -19,7 +21,6 @@ namespace WebAPI.Controllers
 
 		// POST api/<AdministratorsController>
 		[HttpPost]
-		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
 		public IActionResult Post([FromBody] AdministratorInputModel model)
 		{
 			this.userLogic.CreateUser(model.ToEntityWithRole());
@@ -27,7 +28,6 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpPatch]
-		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
 		public IActionResult Patch([FromBody] AdministratorInputModel model)
 		{
 			this.userLogic.UpdateUser(model.ToEntity());
@@ -35,11 +35,19 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
 		public IActionResult Delete(int id)
 		{
 			this.userLogic.DeleteUser(id);
 			return new StatusCodeResult(204);
+		}
+
+		[HttpGet]
+		public IActionResult Get()
+		{
+			return new OkObjectResult(
+				this.userLogic.GetUsersByRole(AdministratorRole).
+					Select(user => new AdministratorOutputModel(user)).
+					ToList());
 		}
 	}
 }
