@@ -189,6 +189,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
         public void DeleteOk()
         {
             User expectedUser = new User()
