@@ -22,8 +22,16 @@ namespace WebAPI.Controllers
 		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
 		public IActionResult Post([FromBody] AdministratorInputModel model)
 		{
-			this.userLogic.CreateUser(model.ToEntity());
+			this.userLogic.CreateUser(model.ToEntityWithRole());
 			return Ok();
+		}
+
+		[HttpPatch]
+		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
+		public IActionResult Patch([FromBody] AdministratorInputModel model)
+		{
+			this.userLogic.UpdateUser(model.ToEntity());
+			return new StatusCodeResult(204);
 		}
 	}
 }

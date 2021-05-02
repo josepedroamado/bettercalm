@@ -35,5 +35,10 @@ namespace BL
 
 			return roles.Select(role => this.roleRepository.Get(role.Name)).ToList();
 		}
+
+		public void UpdateUser(User user)
+		{
+			this.userRepository.Update(user);
+		}
 	}
 }

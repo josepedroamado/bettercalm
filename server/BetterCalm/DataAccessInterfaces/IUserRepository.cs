@@ -6,5 +6,6 @@ namespace DataAccessInterfaces
 	{
 		User Get(string eMail);
 		void Add(User user);
+		void Update(User user);
 	}
 }

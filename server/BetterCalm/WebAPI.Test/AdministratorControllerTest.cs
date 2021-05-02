@@ -73,5 +73,70 @@ namespace WebAPI.Test
 			ObjectResult objectResult = result as ObjectResult;
 			Assert.IsTrue(objectResult.StatusCode == 400);
 		}
+
+		[TestMethod]
+		public void PatchOk()
+		{
+			AdministratorInputModel input = new AdministratorInputModel()
+			{
+				Id = 1,
+				EMail = "test@test.com",
+				Name = "test",
+				Password = "test1234"
+			};
+
+			Mock<IUserLogic> userLogicMock = new Mock<IUserLogic>(MockBehavior.Strict);
+			userLogicMock.Setup(m => m.UpdateUser(It.IsAny<User>()));
+
+			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
+
+			IActionResult result = controller.Patch(input);
+			StatusCodeResult statusCodeResult = result as StatusCodeResult;
+			Assert.IsTrue(statusCodeResult.StatusCode == 204);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(AlreadyExistsException))]
+		public void PatchAlreadyExists()
+		{
+			AdministratorInputModel input = new AdministratorInputModel()
+			{
+				Id = 1,
+				EMail = "test@test.com",
+				Name = "test",
+				Password = "test1234"
+			};
+
+			Mock<IUserLogic> userLogicMock = new Mock<IUserLogic>(MockBehavior.Strict);
+			userLogicMock.Setup(m => m.UpdateUser(It.IsAny<User>())).Throws(new AlreadyExistsException(input.EMail));
+
+			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
+
+			IActionResult result = controller.Patch(input);
+			ObjectResult objectResult = result as ObjectResult;
+			Assert.IsTrue(objectResult.StatusCode == 400);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void PatchRoleNotFound()
+		{
+			AdministratorInputModel input = new AdministratorInputModel()
+			{
+				Id = 1,
+				EMail = "test@test.com",
+				Name = "test",
+				Password = "test1234"
+			};
+
+			Mock<IUserLogic> userLogicMock = new Mock<IUserLogic>(MockBehavior.Strict);
+			userLogicMock.Setup(m => m.UpdateUser(It.IsAny<User>())).Throws(new NotFoundException("Patient"));
+
+			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
+
+			IActionResult result = controller.Patch(input);
+			ObjectResult objectResult = result as ObjectResult;
+			Assert.IsTrue(objectResult.StatusCode == 400);
+		}
 	}
 }

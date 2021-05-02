@@ -127,5 +127,65 @@ namespace DataAccess.Test
 
             Assert.AreEqual(user, obtainedUser);
         }
+
+        [TestMethod]
+        public void UpdateOk()
+        {
+            User user = new User()
+            {
+                Id = 1,
+                EMail = "test@test.com",
+                Password = "test1234",
+                Name = "test",
+                Roles = new List<Role>()
+                {
+                    new Role()
+                    {
+                        Id = 1,
+                        Name = "Administrator"
+                    }
+                }
+            };
+
+            UserRepository repository = new UserRepository(this.context);
+            repository.Add(user);
+
+            user.Password = "test12345";
+            repository.Update(user);
+           
+            User obtainedUser = repository.Get(user.EMail);
+
+            Assert.AreEqual(user.Password, obtainedUser.Password);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void UpdateNotFound()
+        {
+            User user = new User()
+            {
+                Id = 1,
+                EMail = "test@test.com",
+                Password = "test1234",
+                Name = "test",
+                Roles = new List<Role>()
+                {
+                    new Role()
+                    {
+                        Id = 1,
+                        Name = "Administrator"
+                    }
+                }
+            };
+
+            UserRepository repository = new UserRepository(this.context);
+
+            user.Password = "test12345";
+            repository.Update(user);
+
+            User obtainedUser = repository.Get(user.EMail);
+
+            Assert.IsNull(obtainedUser);
+        }
     }
 }
