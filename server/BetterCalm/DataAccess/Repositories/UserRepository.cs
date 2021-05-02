@@ -42,7 +42,11 @@ namespace DataAccess.Repositories
 
 		public void Update(User user)
 		{
-			throw new System.NotImplementedException();
+			if (Get(user.EMail) != null)
+			{
+				this.users.Update(user);
+				this.context.SaveChanges();
+			}
 		}
 	}
 }
