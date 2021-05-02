@@ -38,7 +38,7 @@ namespace BL
 
 		public void UpdateUser(User user)
 		{
-			throw new System.NotImplementedException();
+			this.userRepository.Update(user);
 		}
 	}
 }
