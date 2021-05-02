@@ -11,7 +11,7 @@ namespace Model
 		public string EMail { get; set; }
 		public string Password { get; set; }
 
-		public User ToEntity()
+		public User ToEntityWithRole()
 		{
 			return new User()
 			{
@@ -26,6 +26,17 @@ namespace Model
 						Name = DefaultRole
 					}
 				}
+			};
+		}
+
+		public User ToEntity()
+		{
+			return new User()
+			{
+				Id = this.Id,
+				EMail = this.EMail,
+				Name = this.Name,
+				Password = this.Password
 			};
 		}
 	}
