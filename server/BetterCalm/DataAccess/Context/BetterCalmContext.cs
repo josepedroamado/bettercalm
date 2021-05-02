@@ -17,6 +17,7 @@ namespace DataAccess.Context
         public DbSet<Psychologist> Psychologists { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<User> Roles { get; set; }
 
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options) { }
