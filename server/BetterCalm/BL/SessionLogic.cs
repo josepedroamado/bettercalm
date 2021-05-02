@@ -9,12 +9,12 @@ namespace BL
 	public class SessionLogic : ISessionLogic
 	{
 		private readonly ISessionRepository sessionRepository;
-		private readonly IAdministratorRepository administratorRepository;
+		private readonly IUserRepository userRepository;
 
-		public SessionLogic(ISessionRepository sessionRepository, IAdministratorRepository administratorRepository)
+		public SessionLogic(ISessionRepository sessionRepository, IUserRepository userRepository)
 		{
 			this.sessionRepository = sessionRepository;
-			this.administratorRepository = administratorRepository;
+			this.userRepository = userRepository;
 		}
 
 		public bool IsValidToken(string token)
@@ -27,8 +27,8 @@ namespace BL
 			string token = string.Empty;
 			try
 			{
-				Administrator administrator = administratorRepository.Get(eMail);
-                if (UserCredentialsValidator.ValidateCredentials(administrator, password))
+				User user = userRepository.Get(eMail);
+                if (UserCredentialsValidator.ValidateCredentials(user, password))
                 {
 					Session session = this.sessionRepository.GetByEmail(eMail);
 					if (session == null)
@@ -36,7 +36,7 @@ namespace BL
 						session = new Session()
 						{
 							Token = Guid.NewGuid().ToString(),
-							User = administrator
+							User = user
 						};
 						this.sessionRepository.Add(session);
 					}

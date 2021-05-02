@@ -10,12 +10,12 @@ using System.Data.Common;
 namespace DataAccess.Test
 {
 	[TestClass]
-	public class AdministratorRepositoryTest
+	public class UserRepositoryTest
 	{
         private DbContext context;
         private DbConnection connection;
 
-        public AdministratorRepositoryTest()
+        public UserRepositoryTest()
         {
             this.connection = new SqliteConnection("Filename=:memory:");
             this.context = new BetterCalmContext(
@@ -40,21 +40,21 @@ namespace DataAccess.Test
         [TestMethod]
         public void GetOk()
 		{
-            Administrator expectedAdministrator = new Administrator()
+            User expectedUser = new User()
             {
                 EMail = "a@a.com",
                 Id = 1,
                 Password = "1234Test"
             };
 
-            this.context.Add(expectedAdministrator);
+            this.context.Add(expectedUser);
             this.context.SaveChanges();
 
-            AdministratorRepository repository = new AdministratorRepository(this.context);
+            UserRepository repository = new UserRepository(this.context);
 
-            Administrator obtainedAdministrator = repository.Get(expectedAdministrator.EMail);
+            User obtainedUser = repository.Get(expectedUser.EMail);
 
-            Assert.AreEqual(expectedAdministrator, obtainedAdministrator);
+            Assert.AreEqual(expectedUser, obtainedUser);
 		}
 
 
@@ -62,13 +62,13 @@ namespace DataAccess.Test
         [ExpectedException(typeof(NotFoundException))]
         public void GetNotFound()
         {
-            string expectedAdministratorEmail = "a@a.com";
+            string expectedUserEmail = "a@a.com";
 
-            AdministratorRepository repository = new AdministratorRepository(this.context);
+            UserRepository repository = new UserRepository(this.context);
 
-            Administrator obtainedAdministrator = repository.Get(expectedAdministratorEmail);
+            User obtainedUser = repository.Get(expectedUserEmail);
 
-            Assert.IsNull(obtainedAdministrator);
+            Assert.IsNull(obtainedUser);
         }
     }
 }

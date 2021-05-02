@@ -4,6 +4,7 @@ using Domain;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Data.Common;
 
 namespace DataAccess.Test
@@ -43,7 +44,7 @@ namespace DataAccess.Test
             {
                 Id = 1,
                 Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
-                User = new Administrator()
+                User = new User()
 				{
                     Id = 1,
                     EMail = "a@a.com",
@@ -79,7 +80,7 @@ namespace DataAccess.Test
             {
                 Id = 1,
                 Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
-                User = new Administrator()
+                User = new User()
                 {
                     Id = 1,
                     EMail = "a@a.com",
@@ -115,7 +116,7 @@ namespace DataAccess.Test
             {
                 Id = 1,
                 Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
-                User = new Administrator()
+                User = new User()
                 {
                     Id = 1,
                     EMail = "a@a.com",
@@ -138,7 +139,7 @@ namespace DataAccess.Test
             {
                 Id = 1,
                 Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
-                User = new Administrator()
+                User = new User()
                 {
                     Id = 1,
                     EMail = "a@a.com",
