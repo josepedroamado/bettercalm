@@ -59,5 +59,16 @@ namespace DataAccess.Repositories
 				this.context.SaveChanges();
 			}
 		}
+
+		public void Delete(int id)
+		{
+			User user = this.users.FirstOrDefault(user => user.Id == id);
+			
+			if (user != null)
+			{
+				this.users.Remove(user);
+				this.context.SaveChanges();
+			}
+		}
 	}
 }

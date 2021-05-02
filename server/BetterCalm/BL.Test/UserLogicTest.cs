@@ -190,5 +190,28 @@ namespace BL.Test
 
 			Assert.IsNull(obtainedUser);
 		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void DeleteOk()
+		{
+			string eMail = "a@a.com";
+			int toDelete = 1;
+
+			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
+			userMock.Setup(m => m.Delete(toDelete));
+			userMock.Setup(m => m.Get(eMail)).Throws(new NotFoundException(eMail));
+
+			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
+
+			UserLogic userLogic = new UserLogic(userMock.Object, roleMock.Object);
+
+			userLogic.DeleteUser(toDelete);
+			User obtainedUser = userLogic.GetUser(eMail);
+
+			userMock.VerifyAll();
+
+			Assert.IsNull(obtainedUser);
+		}
 	}
 }

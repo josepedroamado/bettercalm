@@ -138,5 +138,19 @@ namespace WebAPI.Test
 			ObjectResult objectResult = result as ObjectResult;
 			Assert.IsTrue(objectResult.StatusCode == 400);
 		}
+
+		[TestMethod]
+		public void DeleteOk()
+		{
+			int id = 1;
+			Mock<IUserLogic> userLogicMock = new Mock<IUserLogic>(MockBehavior.Strict);
+			userLogicMock.Setup(m => m.DeleteUser(id));
+
+			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
+
+			IActionResult result = controller.Delete(id);
+			StatusCodeResult statusCodeResult = result as StatusCodeResult;
+			Assert.IsTrue(statusCodeResult.StatusCode == 204);
+		}
 	}
 }

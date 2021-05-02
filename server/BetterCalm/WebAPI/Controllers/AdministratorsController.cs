@@ -33,5 +33,13 @@ namespace WebAPI.Controllers
 			this.userLogic.UpdateUser(model.ToEntity());
 			return new StatusCodeResult(204);
 		}
+
+		[HttpDelete("{id}")]
+		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
+		public IActionResult Delete(int id)
+		{
+			this.userLogic.DeleteUser(id);
+			return new StatusCodeResult(204);
+		}
 	}
 }
