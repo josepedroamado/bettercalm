@@ -260,7 +260,7 @@ namespace BL.Test
 
             Psychologist obtainedPsychologist = psychologistLogic.Get(originalPsychologist.Id);
 
-            Assert.AreEqual(originalPsychologist, obtainedPsychologist);
+            Assert.AreEqual(newPsychologist, obtainedPsychologist);
         }
     }
 }
