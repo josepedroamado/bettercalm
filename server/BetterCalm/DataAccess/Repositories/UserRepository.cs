@@ -19,7 +19,16 @@ namespace DataAccess.Repositories
 
 		public void Add(User user)
 		{
-			throw new System.NotImplementedException();
+			try
+			{
+				if (Get(user.EMail) != null)
+					throw new AlreadyExistsException(user.EMail);
+			}
+			catch (NotFoundException)
+			{
+				this.users.Add(user);
+				this.context.SaveChanges();
+			}
 		}
 
 		public User Get(string eMail)
