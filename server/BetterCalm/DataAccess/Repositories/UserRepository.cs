@@ -39,5 +39,10 @@ namespace DataAccess.Repositories
 				throw new NotFoundException(eMail);
 			return user;
 		}
+
+		public void Update(User user)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }
