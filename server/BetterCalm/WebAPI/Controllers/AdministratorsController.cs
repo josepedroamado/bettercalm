@@ -25,5 +25,12 @@ namespace WebAPI.Controllers
 			this.userLogic.CreateUser(model.ToEntity());
 			return Ok();
 		}
+
+		[HttpPatch]
+		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
+		public IActionResult Patch([FromBody] AdministratorInputModel model)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
