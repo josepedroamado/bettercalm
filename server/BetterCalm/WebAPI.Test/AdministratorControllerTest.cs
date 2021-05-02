@@ -91,8 +91,8 @@ namespace WebAPI.Test
 			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
 
 			IActionResult result = controller.Patch(input);
-			OkResult objectResult = result as OkResult;
-			Assert.IsTrue(objectResult.StatusCode == 204);
+			StatusCodeResult statusCodeResult = result as StatusCodeResult;
+			Assert.IsTrue(statusCodeResult.StatusCode == 204);
 		}
 
 		[TestMethod]
