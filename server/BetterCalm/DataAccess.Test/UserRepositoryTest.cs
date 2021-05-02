@@ -187,5 +187,27 @@ namespace DataAccess.Test
 
             Assert.IsNull(obtainedUser);
         }
+
+        [TestMethod]
+        public void DeleteOk()
+        {
+            User expectedUser = new User()
+            {
+                EMail = "a@a.com",
+                Id = 1,
+                Password = "1234Test",
+                Name = "test"
+            };
+
+            this.context.Add(expectedUser);
+            this.context.SaveChanges();
+
+            UserRepository repository = new UserRepository(this.context);
+
+            repository.Delete(expectedUser.Id);
+            User obtainedUser = repository.Get(expectedUser.EMail);
+
+            Assert.IsNull(obtainedUser);
+        }
     }
 }
