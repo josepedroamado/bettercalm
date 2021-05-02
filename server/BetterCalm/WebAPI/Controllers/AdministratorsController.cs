@@ -38,7 +38,8 @@ namespace WebAPI.Controllers
 		[ServiceFilter(typeof(AuthorizationAttributeFilter))]
 		public IActionResult Delete(int id)
 		{
-			throw new NotImplementedException();
+			this.userLogic.DeleteUser(id);
+			return new StatusCodeResult(204);
 		}
 	}
 }
