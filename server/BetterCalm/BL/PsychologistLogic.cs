@@ -71,7 +71,7 @@ namespace BL
 
         public void Delete(int psychologistId)
         {
-            throw new System.NotImplementedException();
+            this.psychologistRepository.Delete(psychologistId);
         }
     }
 }
