@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
 using WebAPI.Controllers;
 
 namespace WebAPI.Test
@@ -12,6 +14,68 @@ namespace WebAPI.Test
     [TestClass]
     public class PsychologistsControllerTest
     {
+        [TestMethod]
+        public void GetOk()
+        {
+            List<PsychologistModel> expectedPsychologistModels = GetAllExpectedPsychologistModels();
+            List<Psychologist> expectedPsychologists = new List<Psychologist>();
+            foreach (PsychologistModel psychologistModel in expectedPsychologistModels)
+            {
+                expectedPsychologists.Add(psychologistModel.ToEntity());
+            }
+            Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            psychologistLogicMock.Setup(m => m.GetAll()).Returns(expectedPsychologists);
+
+            PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
+
+            IActionResult result = psychologistsController.Get();
+            OkObjectResult objectResult = result as OkObjectResult;
+            IEnumerable<PsychologistModel> obtainedPsychologistModels = objectResult.Value as IEnumerable<PsychologistModel>;
+
+            psychologistLogicMock.VerifyAll();
+            Assert.IsTrue(expectedPsychologistModels.SequenceEqual(obtainedPsychologistModels));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CollectionEmptyException))]
+        public void GetWhenNoPsychologistsExist()
+        {
+            Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            psychologistLogicMock.Setup(m => m.GetAll()).Throws(new CollectionEmptyException("Psychologists"));
+
+            PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
+
+            IActionResult result = psychologistsController.Get();
+            OkObjectResult objectResult = result as OkObjectResult;
+            IEnumerable<PsychologistModel> obtainedPsychologistModels = objectResult.Value as IEnumerable<PsychologistModel>;
+
+            psychologistLogicMock.VerifyAll();
+            Assert.IsNull(obtainedPsychologistModels);
+        }
+
+        private List<PsychologistModel> GetAllExpectedPsychologistModels()
+        {
+            PsychologistModel firstPsychologist = new PsychologistModel()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = "OnSite"
+            };
+
+            PsychologistModel secondPsychologist = new PsychologistModel()
+            {
+                Id = 2,
+                FirstName = "Hannibal",
+                LastName = "Lecter",
+                Address = "14th Street",
+                Format = "Remote"
+            };
+            List<PsychologistModel> expectedPsychologists = new List<PsychologistModel>() { firstPsychologist, secondPsychologist };
+            return expectedPsychologists;
+        }
+
         [TestMethod]
         public void GetOk()
         {

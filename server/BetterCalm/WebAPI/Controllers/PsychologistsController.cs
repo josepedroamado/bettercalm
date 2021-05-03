@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
         }
 
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public IActionResult Get()
 		{
-			return new string[] { "value1", "value2" };
+			throw new NotImplementedException();
 		}
 
 		[HttpGet("{id}")]
