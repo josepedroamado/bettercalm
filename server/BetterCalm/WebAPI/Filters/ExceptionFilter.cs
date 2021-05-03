@@ -61,6 +61,22 @@ namespace WebAPI.Filters
 					Content = ex.Message
 				};
 			}
+			catch (ExceedingNumberOfIllnessesException ex)
+			{
+				context.Result = new ContentResult()
+				{
+					StatusCode = 400,
+					Content = ex.Message
+				};
+			}
+			catch (InvalidPsychologistConsultationFormat ex)
+			{
+				context.Result = new ContentResult()
+				{
+					StatusCode = 400,
+					Content = ex.Message
+				};
+			}
 			catch (Exception)
 			{
 				context.Result = new ContentResult()
