@@ -3,6 +3,7 @@ using Domain;
 using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
@@ -16,6 +17,14 @@ namespace DataAccess.Repositories
         {
             this.context = context;
             this.psychologists = context.Set<Psychologist>();
+        }
+
+        public IEnumerable<Psychologist> GetAll()
+        {
+            if (this.psychologists.Count() <= 0)
+                throw new CollectionEmptyException("Psychologists");
+            else
+                return this.psychologists;
         }
 
         public Psychologist Get(int id)
@@ -82,5 +91,5 @@ namespace DataAccess.Repositories
             this.psychologists.Update(psychologist);
             this.context.SaveChanges();
 		}
-	}
+    }
 }

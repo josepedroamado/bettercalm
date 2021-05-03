@@ -5,12 +5,64 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BL.Test
 {
     [TestClass]
     public class PsychologistLogicTest
     {
+        [TestMethod]
+        public void GetAllOk()
+        {
+            List<Psychologist> expectedPsychologists = GetAllExpectedPsychologists();
+
+            Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
+            psychologistRepositoryMock.Setup(m => m.GetAll()).Returns(expectedPsychologists);
+
+            PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, It.IsAny<IIllnessRepository>());
+
+            IEnumerable<Psychologist> obtainedPsychologists = psychologistLogic.GetAll();
+
+            Assert.IsTrue(expectedPsychologists.SequenceEqual(obtainedPsychologists));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CollectionEmptyException))]
+        public void GetAllNoPsychologists()
+        {
+            Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
+            psychologistRepositoryMock.Setup(m => m.GetAll()).Throws(new CollectionEmptyException("Psychologists"));
+            PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, It.IsAny<IIllnessRepository>());
+            IEnumerable<Psychologist> obtainedPsychologists = psychologistLogic.GetAll();
+            Assert.IsNull(obtainedPsychologists);
+        }
+
+        private List<Psychologist> GetAllExpectedPsychologists()
+        {
+            Psychologist firstPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            Psychologist secondPsychologist = new Psychologist()
+            {
+                Id = 2,
+                FirstName = "Hannibal",
+                LastName = "Lecter",
+                Address = "14th Street",
+                Format = Format.Remote,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+            List<Psychologist> expectedPsychologists = new List<Psychologist>() { firstPsychologist, secondPsychologist };
+            return expectedPsychologists;
+        }
+
         [TestMethod]
         public void GetOk()
         {

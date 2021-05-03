@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Model;
 using BLInterfaces;
 using WebAPI.Filters;
-using System;
+using System.Linq;
 
 namespace WebAPI.Controllers
 {
@@ -21,9 +21,12 @@ namespace WebAPI.Controllers
         }
 
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public IActionResult Get()
 		{
-			return new string[] { "value1", "value2" };
+			IEnumerable<PsychologistModel> models =
+				   this.psychologistLogic.GetAll().
+				   Select(psychologist => new PsychologistModel(psychologist));
+			return Ok(models);
 		}
 
 		[HttpGet("{id}")]

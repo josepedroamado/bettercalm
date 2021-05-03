@@ -18,6 +18,11 @@ namespace BL
             this.illnessRepository = illnessRepository;
         }
 
+        public IEnumerable<Psychologist> GetAll()
+        {
+            return this.psychologistRepository.GetAll();
+        }
+
         public Psychologist Get(int id)
         {
             return this.psychologistRepository.Get(id);

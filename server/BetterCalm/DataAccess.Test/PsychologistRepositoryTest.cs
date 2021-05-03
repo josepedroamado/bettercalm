@@ -8,6 +8,7 @@ using System;
 using DataAccess.Repositories;
 using Domain.Exceptions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccess.Test
 {
@@ -38,6 +39,54 @@ namespace DataAccess.Test
         {
             this.context.Database.EnsureDeleted();
         }
+
+        [TestMethod]
+        public void GetAllOk()
+        {
+            List<Psychologist> expectedPsychologists = GetAllExpectedPsychologists();
+            expectedPsychologists.ForEach(psychologist => this.context.Add(psychologist));
+            this.context.SaveChanges();
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+
+            IEnumerable<Psychologist> obtainedPsychologists = repository.GetAll();
+
+            Assert.IsTrue(expectedPsychologists.SequenceEqual(obtainedPsychologists));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CollectionEmptyException))]
+        public void GetAllNoPsychologists()
+        {
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            IEnumerable<Psychologist> obtainedPsychologists = repository.GetAll();
+            Assert.IsNull(obtainedPsychologists);
+        }
+        private List<Psychologist> GetAllExpectedPsychologists()
+        {
+            Psychologist firstPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            Psychologist secondPsychologist = new Psychologist()
+            {
+                Id = 2,
+                FirstName = "Hannibal",
+                LastName = "Lecter",
+                Address = "14th Street",
+                Format = Format.Remote,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+            List<Psychologist> expectedPsychologists = new List<Psychologist>() { firstPsychologist, secondPsychologist };
+            return expectedPsychologists;
+        }
+
 
         [TestMethod]
         public void GetOk()
