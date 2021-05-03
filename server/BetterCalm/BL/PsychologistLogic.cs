@@ -18,6 +18,11 @@ namespace BL
             this.illnessRepository = illnessRepository;
         }
 
+        public IEnumerable<Psychologist> GetAll()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Psychologist Get(int id)
         {
             return this.psychologistRepository.Get(id);
