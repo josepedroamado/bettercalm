@@ -91,5 +91,10 @@ namespace DataAccess.Repositories
             this.psychologists.Update(psychologist);
             this.context.SaveChanges();
 		}
+
+        public void Delete(Psychologist psychologist)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
