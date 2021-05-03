@@ -91,6 +91,15 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
+		[ExpectedException(typeof(CollectionEmptyException))]
+		public void GetAllWithoutContents()
+		{
+			ContentRepository repository = new ContentRepository(this.context);
+			IEnumerable<Content> obtainedContents = repository.GetAll();
+			Assert.IsNull(obtainedContents);
+		}
+
+		[TestMethod]
 		public void GetAllByPlaylistOk()
 		{
 			List<Content> expectedContents = GetAllByPlaylistExpectedContents();
@@ -102,6 +111,17 @@ namespace DataAccess.Test
 			Playlist expectedPlaylist = expectedContents.First().PlayLists.First();
 			IEnumerable<Content> obtainedContents = repository.GetAll(expectedPlaylist);
 			Assert.IsTrue(expectedContents.SequenceEqual(obtainedContents));
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(CollectionEmptyException))]
+		public void GetAllByPlaylistWithoutContents()
+		{
+			List<Content> expectedContents = GetAllByPlaylistExpectedContents();
+			ContentRepository repository = new ContentRepository(this.context);
+			Playlist expectedPlaylist = expectedContents.First().PlayLists.First();
+			IEnumerable<Content> obtainedContents = repository.GetAll(expectedPlaylist);
+			Assert.IsNull(obtainedContents);
 		}
 
 		private static List<Content> GetAllByPlaylistExpectedContents()
@@ -167,6 +187,17 @@ namespace DataAccess.Test
 			Category expectedCategory = expectedContents.First().Categories.First();
 			IEnumerable<Content> obtainedContents = repository.GetAll(expectedCategory);
 			Assert.IsTrue(expectedContents.SequenceEqual(obtainedContents));
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(CollectionEmptyException))]
+		public void GetAllByCategoryWithoutContents()
+		{
+			List<Content> expectedContents = GetAllByCategoryExpectedContents();
+			ContentRepository repository = new ContentRepository(this.context);
+			Category expectedCategory = expectedContents.First().Categories.First();
+			IEnumerable<Content> obtainedContents = repository.GetAll(expectedCategory);
+			Assert.IsNull(obtainedContents);
 		}
 
 		private static List<Content> GetAllByCategoryExpectedContents()

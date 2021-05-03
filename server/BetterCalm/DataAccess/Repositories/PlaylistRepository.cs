@@ -28,12 +28,18 @@ namespace DataAccess.Repositories
 
 		public IEnumerable<Playlist> GetAll()
 		{
-			return this.playlists;
+			if (this.playlists.Count() <= 0)
+				throw new CollectionEmptyException("Playlists");
+			else
+				return this.playlists;
 		}
 
         public IEnumerable<Playlist> GetAll(Category category)
         {
-			return this.playlists.Where(playlist => playlist.Categories.Contains(category));
+			if (this.playlists.Count() <= 0)
+				throw new CollectionEmptyException("Playlists");
+			else
+				return this.playlists.Where(playlist => playlist.Categories.Contains(category));
 		}
     }
 }

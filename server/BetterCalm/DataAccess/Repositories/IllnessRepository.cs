@@ -28,7 +28,10 @@ namespace DataAccess.Repositories
 
         public IEnumerable<Illness> GetAll()
         {
-            return this.illnesses;
+            if (this.illnesses.Count() <= 0)
+                throw new CollectionEmptyException("Illnesses");
+            else
+                return this.illnesses;
         }
     }
 }

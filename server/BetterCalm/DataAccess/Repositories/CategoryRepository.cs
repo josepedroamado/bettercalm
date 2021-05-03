@@ -20,7 +20,10 @@ namespace DataAccess.Repositories
 
         public IEnumerable<Category> GetAll()
         {
-            return this.categories;
+            if (this.categories.Count() <= 0)
+                throw new CollectionEmptyException("Categories");
+            else
+                return this.categories;
         }
 
         public Category Get(int id)

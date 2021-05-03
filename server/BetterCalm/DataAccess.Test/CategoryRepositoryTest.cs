@@ -41,9 +41,9 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetCategoriesOk()
+        public void GetAllOk()
         {
-            List<Category> expectedCategories = GetCategoriesOkExpected();
+            List<Category> expectedCategories = GetAllCategoriesOkExpected();
             
             foreach(Category category in expectedCategories)
             {
@@ -56,7 +56,7 @@ namespace DataAccess.Test
             Assert.IsTrue(expectedCategories.SequenceEqual(obtainedCategories));
         }
 
-        private List<Category> GetCategoriesOkExpected()
+        private List<Category> GetAllCategoriesOkExpected()
         {
             return new List<Category>()
             {
@@ -131,7 +131,16 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetCategoryOk()
+        [ExpectedException(typeof(CollectionEmptyException))]
+        public void GetAllWithoutCategories()
+        {
+            CategoryRepository categoryRepository = new CategoryRepository(this.context);
+            IEnumerable<Category> obtainedCategories = categoryRepository.GetAll();
+            Assert.IsNull(obtainedCategories);
+        }
+
+        [TestMethod]
+        public void GetOk()
         {
             Category expectedCategory = GetCategoryOkExpected();
             this.context.Add(expectedCategory);
@@ -186,7 +195,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetCategoryNotFound()
+        public void GetNotFound()
         {
             Category expectedCategory = GetCategoryOkExpected();
             CategoryRepository categoryRepository = new CategoryRepository(this.context);

@@ -52,6 +52,15 @@ namespace DataAccess.Test
 			Assert.IsTrue(expectedPlaylists.SequenceEqual(obtainedPlaylists));
 		}
 
+		[TestMethod]
+		[ExpectedException(typeof(CollectionEmptyException))]
+		public void GetPlaylistsWhenNoPlaylistsExist()
+		{
+			PlaylistRepository repository = new PlaylistRepository(this.context);
+			IEnumerable<Playlist> obtainedPlaylists = repository.GetAll();
+			Assert.IsNull(obtainedPlaylists);
+		}
+
 		private List<Playlist> GetPlaylistsOkExpected()
 		{
 			return new List<Playlist>()
@@ -102,6 +111,16 @@ namespace DataAccess.Test
 
 			IEnumerable<Playlist> obtainedPlaylists = repository.GetAll(expectedPlaylists.First().Categories.First());
 			Assert.IsTrue(expectedPlaylists.SequenceEqual(obtainedPlaylists));
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(CollectionEmptyException))]
+		public void GetPlaylistsByCategoryWhenNoPlaylistsExist()
+		{
+			List<Playlist> expectedPlaylists = GetPlaylistsByCategoryOkExpected();
+			PlaylistRepository repository = new PlaylistRepository(this.context);
+			IEnumerable<Playlist> obtainedPlaylists = repository.GetAll(expectedPlaylists.First().Categories.First());
+			Assert.IsNull(obtainedPlaylists);
 		}
 
 		private List<Playlist> GetPlaylistsByCategoryOkExpected()
