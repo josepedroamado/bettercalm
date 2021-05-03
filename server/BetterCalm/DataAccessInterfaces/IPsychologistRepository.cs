@@ -1,10 +1,12 @@
 ﻿using Domain;
 using System;
+using System.Collections.Generic;
 
 namespace DataAccessInterfaces
 {
 	public interface IPsychologistRepository
     {
+        IEnumerable<Psychologist> GetAll();
         Psychologist Get(int id);
 
         void Add(Psychologist psychologist);
