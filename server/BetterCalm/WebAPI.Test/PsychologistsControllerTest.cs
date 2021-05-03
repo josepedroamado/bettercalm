@@ -77,7 +77,7 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void GetOk()
+        public void GetByIdOk()
         {
             PsychologistModel expectedPsychologistModel = new PsychologistModel()
             {
@@ -102,7 +102,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetNotFound()
+        public void GetByIdNotFound()
         {
             PsychologistModel expectedPsychologistModel = new PsychologistModel()
             {
