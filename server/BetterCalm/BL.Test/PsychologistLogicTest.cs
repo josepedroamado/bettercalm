@@ -314,5 +314,32 @@ namespace BL.Test
 
             Assert.AreEqual(newPsychologist, obtainedPsychologist);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void DeleteOk()
+        {
+            Psychologist psychologistToDelete = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
+            psychologistRepositoryMock.Setup(m => m.Delete(psychologistToDelete.Id));
+            psychologistRepositoryMock.Setup(m => m.Get(psychologistToDelete.Id)).Returns(psychologistToDelete);
+
+            PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, It.IsAny<IIllnessRepository>());
+            psychologistLogic.Delete(psychologistToDelete.Id);
+
+            psychologistRepositoryMock.Setup(m => m.Get(psychologistToDelete.Id)).Throws(new NotFoundException(psychologistToDelete.Id.ToString()));
+            Psychologist obtainedPsychologist = psychologistLogic.Get(psychologistToDelete.Id);
+
+            Assert.IsNull(obtainedPsychologist);
+        }
     }
 }

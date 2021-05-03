@@ -504,5 +504,27 @@ namespace DataAccess.Test
             Assert.AreEqual(psychologist, obtained);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void DeleteOk()
+        {
+            Psychologist psychologistToDelete = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(psychologistToDelete);
+            repository.Delete(psychologistToDelete.Id);
+
+            Psychologist obtainedPsychologist = repository.Get(psychologistToDelete.Id);
+
+            Assert.IsNull(obtainedPsychologist);
+        }
     }
 }

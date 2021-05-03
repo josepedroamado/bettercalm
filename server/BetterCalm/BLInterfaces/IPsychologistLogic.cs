@@ -11,6 +11,7 @@ namespace BLInterfaces
 
         void Add(Psychologist psychologist);
 
-        void Update(Psychologist psychologist);      
+        void Update(Psychologist psychologist);
+        void Delete(int psychologistId);
     }
 }

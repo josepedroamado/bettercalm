@@ -208,5 +208,33 @@ namespace WebAPI.Test
 
             Assert.AreEqual(newPsychologistModel, obtainedPsychologistModel);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void DeleteOk()
+        {
+            PsychologistModel psychologistToDelete = new PsychologistModel()
+            {
+                FirstName = "Hannibal",
+                LastName = "Lecter",
+                Address = "Calle 1234",
+                Format = "OnSite"
+            };
+
+            Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            psychologistLogicMock.Setup(m => m.Delete(psychologistToDelete.Id));
+            psychologistLogicMock.Setup(m => m.Get(psychologistToDelete.Id)).Returns(psychologistToDelete.ToEntity());
+
+            PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
+            psychologistsController.Delete(psychologistToDelete.Id);
+
+            psychologistLogicMock.Setup(m => m.Get(psychologistToDelete.Id)).Throws(new NotFoundException(psychologistToDelete.Id.ToString()));
+
+            IActionResult result = psychologistsController.Get(psychologistToDelete.Id);
+            OkObjectResult objectResult = result as OkObjectResult;
+            PsychologistModel obtainedPsychologistModel = (objectResult.Value as PsychologistModel);
+
+            Assert.IsNull(obtainedPsychologistModel);
+        }
     }
 }

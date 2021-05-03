@@ -4,6 +4,7 @@ using Model;
 using BLInterfaces;
 using WebAPI.Filters;
 using System.Linq;
+using System;
 
 namespace WebAPI.Controllers
 {
@@ -49,9 +50,10 @@ namespace WebAPI.Controllers
 			this.psychologistLogic.Update(psychologistModel.ToEntity());
 		}
 
-		[HttpDelete("{id}")]
-		public void Delete(int id)
+		[HttpDelete]
+		public void Delete([FromBody] int id)
 		{
+			this.psychologistLogic.Delete(id);
 		}
 	}
 }
