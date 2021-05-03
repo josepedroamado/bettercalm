@@ -94,9 +94,16 @@ namespace DataAccess.Repositories
 
         public void Delete(int psychologistId)
         {
-            Psychologist psychologistToDelete = this.Get(psychologistId);
-            this.psychologists.Remove(psychologistToDelete);
-            this.context.SaveChanges();
+            try
+            {
+                Psychologist psychologistToDelete = this.Get(psychologistId);
+                if (psychologistToDelete != null)
+                {
+                    this.psychologists.Remove(psychologistToDelete);
+                    this.context.SaveChanges();
+                }
+            }
+            catch (NotFoundException) { }    
         }
     }
 }
