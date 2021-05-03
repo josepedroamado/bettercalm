@@ -21,7 +21,10 @@ namespace DataAccess.Repositories
 
         public IEnumerable<Psychologist> GetAll()
         {
-            throw new NotImplementedException();
+            if (this.psychologists.Count() <= 0)
+                throw new CollectionEmptyException("Psychologists");
+            else
+                return this.psychologists;
         }
 
         public Psychologist Get(int id)
