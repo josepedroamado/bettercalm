@@ -68,5 +68,10 @@ namespace BL
             toUpdate.UpdateData(psychologist);
             this.psychologistRepository.Update(toUpdate);
         }
+
+        public void Delete(int psychologistId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
