@@ -76,7 +76,7 @@ namespace DataAccess.Test
 
             Psychologist secondPsychologist = new Psychologist()
             {
-                Id = 1,
+                Id = 2,
                 FirstName = "Hannibal",
                 LastName = "Lecter",
                 Address = "14th Street",
