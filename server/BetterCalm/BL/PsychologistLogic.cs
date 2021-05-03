@@ -20,7 +20,7 @@ namespace BL
 
         public IEnumerable<Psychologist> GetAll()
         {
-            throw new System.NotImplementedException();
+            return this.psychologistRepository.GetAll();
         }
 
         public Psychologist Get(int id)
