@@ -53,7 +53,7 @@ namespace WebAPI.Controllers
 		[HttpDelete]
 		public void Delete([FromBody] int id)
 		{
-			throw new NotImplementedException();
+			this.psychologistLogic.Delete(id);
 		}
 	}
 }
