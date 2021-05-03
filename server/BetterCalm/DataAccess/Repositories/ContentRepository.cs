@@ -51,17 +51,26 @@ namespace DataAccess.Repositories
 
 		public IEnumerable<Content> GetAll()
 		{
-			return this.contents;
+			if (this.contents.Count() <= 0)
+				throw new CollectionEmptyException("Contents");
+			else
+				return this.contents;
 		}
 
         public IEnumerable<Content> GetAll(Playlist playlist)
         {
-			return this.contents.Where(content => content.PlayLists.Contains(playlist));
-        }
+			if (this.contents.Count() <= 0)
+				throw new CollectionEmptyException("Contents");
+			else
+				return this.contents.Where(content => content.PlayLists.Contains(playlist));
+		}
 
         public IEnumerable<Content> GetAll(Category category)
         {
-			return this.contents.Where(content => content.Categories.Contains(category));
+			if (this.contents.Count() <= 0)
+				throw new CollectionEmptyException("Contents");
+			else
+				return this.contents.Where(content => content.Categories.Contains(category));
 		}
 
 		public void Update(Content content)
