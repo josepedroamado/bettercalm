@@ -12,6 +12,6 @@ namespace DataAccessInterfaces
         void Add(Psychologist psychologist);
         Psychologist Get(Illness illness, DateTime until, int appointmentLimitPerDay);
         void Update(Psychologist psychologist);
-        void Delete(Psychologist psychologist);
+        void Delete(int psychologistId);
     }
 }

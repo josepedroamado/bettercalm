@@ -92,9 +92,11 @@ namespace DataAccess.Repositories
             this.context.SaveChanges();
 		}
 
-        public void Delete(Psychologist psychologist)
+        public void Delete(int psychologistId)
         {
-            throw new NotImplementedException();
+            Psychologist psychologistToDelete = this.Get(psychologistId);
+            this.psychologists.Remove(psychologistToDelete);
+            this.context.SaveChanges();
         }
     }
 }
