@@ -98,5 +98,14 @@ namespace DataAccess.Test
             };
             return new List<Illness>() { depression, stress };         
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(CollectionEmptyException))]
+        public void GetAllWithoutIllnesses()
+        {
+            IllnessRepository repository = new IllnessRepository(this.context);
+            IEnumerable<Illness> obtainedIllnesses = repository.GetAll();
+            Assert.IsNull(obtainedIllnesses);
+        }
     }
 }  
