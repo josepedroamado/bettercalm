@@ -14,7 +14,7 @@ namespace WebAPI.Test
 	public class AdministratorControllerTest
 	{
 		[TestMethod]
-		public void PostOk()
+		public void Post_DataIsCorrect_Created()
 		{
 			AdministratorInputModel input = new AdministratorInputModel()
 			{
@@ -35,7 +35,7 @@ namespace WebAPI.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(AlreadyExistsException))]
-		public void PostAlreadyExists()
+		public void Post_AlreadyExists_ExceptionThrown()
 		{
 			AdministratorInputModel input = new AdministratorInputModel()
 			{
@@ -56,7 +56,7 @@ namespace WebAPI.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void PostRoleNotFound()
+		public void Post_RoleNotFound_ExceptionThrown()
 		{
 			AdministratorInputModel input = new AdministratorInputModel()
 			{
@@ -76,7 +76,7 @@ namespace WebAPI.Test
 		}
 
 		[TestMethod]
-		public void PatchOk()
+		public void Patch_DataIsCorrect_Updated()
 		{
 			AdministratorInputModel input = new AdministratorInputModel()
 			{
@@ -98,7 +98,7 @@ namespace WebAPI.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(AlreadyExistsException))]
-		public void PatchAlreadyExists()
+		public void Patch_EmailAlreadyExists_ExceptionThrown()
 		{
 			AdministratorInputModel input = new AdministratorInputModel()
 			{
@@ -120,7 +120,7 @@ namespace WebAPI.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void PatchRoleNotFound()
+		public void Patch_RoleNotFound_ExceptionThrown()
 		{
 			AdministratorInputModel input = new AdministratorInputModel()
 			{
@@ -141,7 +141,7 @@ namespace WebAPI.Test
 		}
 
 		[TestMethod]
-		public void DeleteOk()
+		public void Delete_UserFound_Deleted()
 		{
 			int id = 1;
 			Mock<IUserLogic> userLogicMock = new Mock<IUserLogic>(MockBehavior.Strict);
@@ -155,7 +155,7 @@ namespace WebAPI.Test
 		}
 
 		[TestMethod]
-		public void GetOk()
+		public void Get_UserFound_Fetched()
 		{
 			string roleName = "Administrator";
 			User user = new User()

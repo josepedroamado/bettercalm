@@ -16,9 +16,9 @@ namespace WebAPI.Test
 	public class PlaylistsControllerTest
 	{
 		[TestMethod]
-		public void GetPlaylistsOk()
+		public void Get_PlaylistsExist_Fetched()
 		{
-			List<Playlist> expectedPlaylists = GetPlaylistsOkExpected();
+			List<Playlist> expectedPlaylists = GetExpectedPlaylists();
 			
 			Mock<IPlaylistLogic> mock = new Mock<IPlaylistLogic>(MockBehavior.Strict);
 			mock.Setup(m => m.GetPlaylists()).Returns(expectedPlaylists);
@@ -35,7 +35,7 @@ namespace WebAPI.Test
 				new PlaylistBasicInfoComparer());
 		}
 
-		private List<Playlist> GetPlaylistsOkExpected()
+		private List<Playlist> GetExpectedPlaylists()
 		{
 			return new List<Playlist>()
 			{
@@ -76,9 +76,9 @@ namespace WebAPI.Test
 		}
 
 		[TestMethod]
-		public void GetPlaylistByIdOk()
+		public void GetById_PlaylistFound_Fetched()
 		{
-			Playlist expectedPlaylist = GetPlaylistOkExpected();
+			Playlist expectedPlaylist = GetExpectedPlaylist();
 
 			Mock<IPlaylistLogic> mock = new Mock<IPlaylistLogic>(MockBehavior.Strict);
 			mock.Setup(m => m.GetPlaylist(expectedPlaylist.Id)).Returns(expectedPlaylist);
@@ -92,7 +92,7 @@ namespace WebAPI.Test
 			Assert.AreEqual(obtainedPlaylist, expectedPlaylist);
 		}
 
-		private Playlist GetPlaylistOkExpected()
+		private Playlist GetExpectedPlaylist()
 		{
 			return new Playlist
 			{
@@ -116,7 +116,7 @@ namespace WebAPI.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void GetPlaylistByIdNotFound()
+		public void GetById_PlaylistNotFound_ExceptionThrown()
 		{
 			int expectedPlaylistId = 1;
 
@@ -131,9 +131,9 @@ namespace WebAPI.Test
 		}
 
 		[TestMethod]
-		public void GetContentsByPlaylistOk()
+		public void GetByPlaylist_PlaylistFound_Fetched()
 		{
-			List<Content> expectedContents = GetContentsByPlaylistExpectedContents();
+			List<Content> expectedContents = GetByPlaylistExpectedContents();
 			Playlist expectedPlaylist = expectedContents.First().PlayLists.First();
 
 			Mock<IPlaylistLogic> playlistLogicMock = new Mock<IPlaylistLogic>(MockBehavior.Strict);
@@ -156,7 +156,7 @@ namespace WebAPI.Test
 				new ContentBasicInfoComparer());
 		}
 
-		private static List<Content> GetContentsByPlaylistExpectedContents()
+		private static List<Content> GetByPlaylistExpectedContents()
 		{
 			Category rock = new Category()
 			{

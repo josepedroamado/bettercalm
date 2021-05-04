@@ -17,9 +17,9 @@ namespace WebAPI.Test
     public class CategoriesControllerTest
     {
         [TestMethod]
-        public void GetAllCategories()
+        public void Get_CategoriesExist_Fetched()
         {
-			List<Category> expectedCategories = GetCategoriesOkExpected();
+			List<Category> expectedCategories = GetExpectedCategories();
 
 			Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
 			mock.Setup(m => m.GetCategories()).Returns(expectedCategories);
@@ -33,7 +33,7 @@ namespace WebAPI.Test
 			Assert.IsTrue(expectedCategories.SequenceEqual(obtainedCategories));
 		}
 
-        private List<Category> GetCategoriesOkExpected()
+        private List<Category> GetExpectedCategories()
         {
             return new List<Category>()
             {
@@ -108,9 +108,9 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void GetCategoryById()
+        public void GetById_CategoryFound_Fetched()
         {
-            Category expectedCategory = GetCategoryOkExpected();
+            Category expectedCategory = GetExpectedCategory();
             Mock<ICategoryLogic> mock = new Mock<ICategoryLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetCategory(expectedCategory.Id)).Returns(expectedCategory);
             CategoriesController controller = new CategoriesController(mock.Object, It.IsAny<IContentLogic>(), It.IsAny<IPlaylistLogic>());
@@ -122,7 +122,7 @@ namespace WebAPI.Test
             Assert.AreEqual(expectedCategory, obtainedCategory);
         }
 
-        private Category GetCategoryOkExpected()
+        private Category GetExpectedCategory()
         {
             return new Category()
             {
@@ -165,7 +165,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetCategoryByIdNotFound()
+        public void GetById_CategoryNotFound_ExceptionThrown()
         {
             int expectedCategoryId = 1;
 
@@ -180,9 +180,9 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void GetContentsByCategoryOk()
+        public void GetContentsByCategory_CategoryAndContentsExist_Fetched()
         {
-            List<Content> expectedContents = GetContentsByCategoryExpectedContents();
+            List<Content> expectedContents = GetExpectedContentsByCategory();
             Category expectedCategory = expectedContents.First().Categories.First();
 
             Mock<ICategoryLogic> categoryLogic = new Mock<ICategoryLogic>(MockBehavior.Strict);
@@ -205,7 +205,7 @@ namespace WebAPI.Test
                 new ContentBasicInfoComparer());
         }
 
-        private static List<Content> GetContentsByCategoryExpectedContents()
+        private static List<Content> GetExpectedContentsByCategory()
         {
             Category rock = new Category()
             {
@@ -251,9 +251,9 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void GetPlaylistsByCategoryOk()
+        public void GetPlaylistsByCategory_CategoryAndPlaylistsExist_Fetched()
         {         
-            List<Playlist> expectedPlaylists = GetPlaylistsByCategoryOkExpected();
+            List<Playlist> expectedPlaylists = GetExpectedPlaylistsByCategory();
             Category expectedCategory = expectedPlaylists.First().Categories.First();
             Mock<IPlaylistLogic> playlistLogicMock = new Mock<IPlaylistLogic>(MockBehavior.Strict);
             playlistLogicMock.Setup(m => m.GetPlaylists(expectedCategory)).Returns(expectedPlaylists);
@@ -272,7 +272,7 @@ namespace WebAPI.Test
                 new PlaylistBasicInfoComparer());
         }
 
-        private List<Playlist> GetPlaylistsByCategoryOkExpected()
+        private List<Playlist> GetExpectedPlaylistsByCategory()
         {
             Category rock = new Category()
             {

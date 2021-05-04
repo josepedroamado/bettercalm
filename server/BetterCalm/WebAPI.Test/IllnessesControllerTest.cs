@@ -15,9 +15,9 @@ namespace WebAPI.Test
     public class IllnessesControllerTest
     {
         [TestMethod]
-        public void GetOk()
+        public void Get_IllnessesExist_Fetched()
         {
-            List<Illness> expectedIllnesses = GetAllOkExpected();
+            List<Illness> expectedIllnesses = GetAllExpected();
             List<IllnessModel> expectedIllnessesConvertedToModel = expectedIllnesses.Select(illness => new IllnessModel(illness)).ToList();
 
             Mock<IIllnessLogic> mock = new Mock<IIllnessLogic>(MockBehavior.Strict);
@@ -32,7 +32,7 @@ namespace WebAPI.Test
             Assert.IsTrue(expectedIllnessesConvertedToModel.SequenceEqual(obtainedIllnesses));
         }
 
-        private List<Illness> GetAllOkExpected()
+        private List<Illness> GetAllExpected()
         {
             Illness depression = new Illness()
             {

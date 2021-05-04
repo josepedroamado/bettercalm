@@ -12,7 +12,7 @@ namespace WebAPI.Test
 	public class SessionsControllerTest
 	{
 		[TestMethod]
-		public void LoginOk()
+		public void Login_ValidCredentials_LoggedIn()
 		{
 			UserCredentialsModel credentialsParameters = new UserCredentialsModel()
 			{
@@ -36,7 +36,7 @@ namespace WebAPI.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidCredentialsException))]
-		public void LoginFailedUserNotFound()
+		public void Login_UserNotFound_ExceptionThrown()
 		{
 			UserCredentialsModel credentialsParameters = new UserCredentialsModel()
 			{
@@ -60,7 +60,7 @@ namespace WebAPI.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidCredentialsException))]
-		public void LoginFailedWrongPassword()
+		public void Login_InvalidPassword_ExceptionThrown()
 		{
 			UserCredentialsModel credentialsParameters = new UserCredentialsModel()
 			{
@@ -83,7 +83,7 @@ namespace WebAPI.Test
 		}
 
 		[TestMethod]
-		public void LogoutOk()
+		public void Logout_ValidCredentialsSessionFound_LoggedOut()
 		{
 			UserCredentialsModel credentialsParameters = new UserCredentialsModel()
 			{
