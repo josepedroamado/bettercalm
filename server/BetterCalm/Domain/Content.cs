@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +18,19 @@ namespace Domain
 
 		public bool Validate()
 		{
-			throw new NotImplementedException();
+			bool isValid = true;
+			if (string.IsNullOrEmpty(this.ArtistName))
+				throw new InvalidInputException("Artist name is required");
+			if (string.IsNullOrEmpty(this.AudioUrl))
+				throw new InvalidInputException("Audio Url is required");
+			if (string.IsNullOrEmpty(this.Name))
+				throw new InvalidInputException("Name is required");
+			if (this.ContentLength == TimeSpan.Zero)
+				throw new InvalidInputException("Content length is required");
+			if (this.PlayLists != null)
+				isValid = !this.PlayLists.Any(playlist => !playlist.Validate());
+
+			return isValid;
 		}
 
 		public void UpdateFromContent(Content content)
