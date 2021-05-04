@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Exceptions;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -10,5 +11,15 @@ namespace Domain
 		public string ImageUrl { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
 		public IEnumerable<Content> Contents { get; set; }
+
+		public bool Validate()
+		{
+			if (string.IsNullOrEmpty(this.Name))
+				throw new InvalidInputException("Playlist name is required");
+			if (string.IsNullOrEmpty(this.Description))
+				throw new InvalidInputException("Playlist description is required");
+
+			return true;
+		}
 	}
 }

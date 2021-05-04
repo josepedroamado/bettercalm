@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Domain.Exceptions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
@@ -37,6 +38,139 @@ namespace Domain.Test
 
 			empty.UpdateFromContent(source);
 			Assert.AreEqual(empty, source);
+		}
+
+		[TestMethod]
+		public void ValidatePlaylist()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "artist name",
+				AudioUrl = "http://www.images.com/image.jpg",
+				ContentLength = TimeSpan.Parse("00:01:30"),
+				Name = "content name",
+				PlayLists = new List<Playlist>()
+				{
+					new Playlist()
+					{
+						Id = 1,
+						Name = "playlist name",
+						Description = "playlist description"
+					}
+				}
+			};
+
+			Assert.IsTrue(content.Validate());
+		}
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void ValidateWithoutArtistName()
+		{
+			Content content = new Content()
+			{
+				AudioUrl = "http://www.images.com/image.jpg",
+				ContentLength = TimeSpan.Parse("00:01:30"),
+				Name = "content name",
+				PlayLists = new List<Playlist>()
+				{
+					new Playlist()
+					{
+						Id = 1,
+						Name = "playlist name",
+						Description = "playlist description"
+					}
+				}
+			};
+
+			Assert.IsFalse(content.Validate());
+		}
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void ValidateWithoutAudioUrl()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "artist name",
+				ContentLength = TimeSpan.Parse("00:01:30"),
+				Name = "content name",
+				PlayLists = new List<Playlist>()
+				{
+					new Playlist()
+					{
+						Id = 1,
+						Name = "playlist name",
+						Description = "playlist description"
+					}
+				}
+			};
+
+			Assert.IsFalse(content.Validate());
+		}
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void ValidateWithoutContentLength()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "artist name",
+				AudioUrl = "http://www.images.com/image.jpg",
+				Name = "content name",
+				PlayLists = new List<Playlist>()
+				{
+					new Playlist()
+					{
+						Id = 1,
+						Name = "playlist name",
+						Description = "playlist description"
+					}
+				}
+			};
+
+			Assert.IsFalse(content.Validate());
+		}
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void ValidateWithoutName()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "artist name",
+				AudioUrl = "http://www.images.com/image.jpg",
+				ContentLength = TimeSpan.Parse("00:01:30"),
+				PlayLists = new List<Playlist>()
+				{
+					new Playlist()
+					{
+						Id = 1,
+						Name = "playlist name",
+						Description = "playlist description"
+					}
+				}
+			};
+
+			Assert.IsFalse(content.Validate());
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void ValidatePlaylists()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "artist name",
+				AudioUrl = "http://www.images.com/image.jpg",
+				ContentLength = TimeSpan.Parse("00:01:30"),
+				PlayLists = new List<Playlist>()
+				{
+					new Playlist()
+					{
+						Id = 1,
+						Name = "playlist name"
+					}
+				}
+			};
+
+			Assert.IsFalse(content.Validate());
 		}
 	}
 }
