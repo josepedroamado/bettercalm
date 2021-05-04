@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,7 +25,13 @@ namespace Domain
 
 		public bool Validate()
 		{
-			throw new NotImplementedException();
+			if (string.IsNullOrEmpty(this.Address))
+				throw new InvalidInputException("Address is required");
+			if (string.IsNullOrEmpty(this.FirstName))
+				throw new InvalidInputException("FirstName is required");
+			if (string.IsNullOrEmpty(this.LastName))
+				throw new InvalidInputException("LastName is required");
+			return true;
 		}
 
 		public Schedule GetLast()
