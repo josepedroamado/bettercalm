@@ -38,7 +38,11 @@ namespace BL
 
 		public void UpdateUser(User user)
 		{
-			this.userRepository.Update(user);
+			User currentUser = this.userRepository.Get(user.Id);
+			if (currentUser == null)
+				return;
+			currentUser.UpdateFromUser(user);
+			this.userRepository.Update(currentUser);
 		}
 
 		public void DeleteUser(int id)
