@@ -26,19 +26,17 @@ namespace BL.Utils
 
 		public static DateTime CalculateAppointmentDate(Psychologist candidate, int limitOfAppointmentsPerDay)
 		{
-			DateTime date = DateTime.Now.Date;
+			DateTime today = DateTime.Now.Date;
 			Schedule last = candidate.GetLast();
 			if (last != null)
 			{
 				if (last.GetScheduleDate() <= DateTime.Now.Date)
-				{
-					return CalculateNextWorkDay(date);
-				}
+					return CalculateNextWorkDay(today.AddDays(1));
 				if (last.Appointments.Count() < limitOfAppointmentsPerDay)
 					return last.GetScheduleDate();
 				return CalculateNextWorkDay(last.GetScheduleDate().AddDays(1));
 			}
-			return CalculateNextWorkDay(date.AddDays(1));
+			return CalculateNextWorkDay(today.AddDays(1));
 		}
 	}
 }
