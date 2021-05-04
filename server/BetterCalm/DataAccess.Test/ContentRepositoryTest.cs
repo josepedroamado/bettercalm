@@ -134,6 +134,15 @@ namespace DataAccess.Test
 
 			Playlist bestOfBonJovi = new Playlist() { };
 
+			bestOfBonJovi = new Playlist()
+			{
+				Id = 1,
+				Name = "Best of Bon Jovi",
+				Description = "The Best songs by Bon Jovi",
+				ImageUrl = "http://www.images.com/image.jpg",
+				Categories = new List<Category>() { rock }
+			};
+
 			Content itsMyLife = new Content()
 			{
 				ArtistName = "Bon Jovi",
@@ -156,15 +165,7 @@ namespace DataAccess.Test
 				ImageUrl = "http://www.images.com/image.jpg"
 			};
 
-			bestOfBonJovi = new Playlist()
-			{
-				Id = 1,
-				Name = "Best of Bon Jovi",
-				Description = "The Best songs by Bon Jovi",
-				ImageUrl = "http://www.images.com/image.jpg",
-				Categories = new List<Category>() { rock },
-				Contents = new List<Content>() { itsMyLife, livinOnAPrayer }
-			};
+			bestOfBonJovi.Contents = new List<Content>() { itsMyLife, livinOnAPrayer };
 
 			List<Content> expectedContent = new List<Content>();
 			foreach (Content song in bestOfBonJovi.Contents)
@@ -327,7 +328,8 @@ namespace DataAccess.Test
 					new Playlist()
 					{
 						Id = 1,
-						Name = "Besto of Bon Jovi"
+						Name = "Besto of Bon Jovi",
+						Description = "Playlist description"
 					}
 				},
 				Id = 1,
@@ -359,7 +361,8 @@ namespace DataAccess.Test
 			Playlist playlist = new Playlist()
 			{
 				Id = 1,
-				Name = "Besto of Bon Jovi"
+				Name = "Besto of Bon Jovi",
+				Description = "Playlist description"
 			};
 			this.context.Add(playlist);
 
@@ -469,7 +472,8 @@ namespace DataAccess.Test
 			Playlist playlist = new Playlist()
 			{
 				Id = 1,
-				Name = "Best of Bon Jovi"
+				Name = "Best of Bon Jovi",
+				Description = "Playlist description"
 			};
 			this.context.Add(playlist);
 
@@ -494,7 +498,8 @@ namespace DataAccess.Test
 			Playlist newPlaylist = new Playlist()
 			{
 				Id = 2,
-				Name = "Trend Jovi"
+				Name = "Trend Jovi",
+				Description = "Playlist description"
 			};
 			this.context.Add(newPlaylist);
 			this.context.SaveChanges();
@@ -533,7 +538,8 @@ namespace DataAccess.Test
 					new Playlist()
 					{
 						Id = 1,
-						Name = "Best of Bon Jovi"
+						Name = "Best of Bon Jovi",
+						Description = "Playlist description"
 					}
 				},
 				Id = 1,
@@ -575,7 +581,8 @@ namespace DataAccess.Test
 					new Playlist()
 					{
 						Id = 1,
-						Name = "Best of Bon Jovi"
+						Name = "Best of Bon Jovi",
+						Description = "Playlist description"
 					}
 				},
 				Id = 1,
@@ -620,7 +627,8 @@ namespace DataAccess.Test
 			Playlist playlist = new Playlist()
 			{
 				Id = 1,
-				Name = "Best of Bon Jovi"
+				Name = "Best of Bon Jovi",
+				Description = "Playlist description"
 			};
 			this.context.Add(playlist);
 
@@ -651,7 +659,8 @@ namespace DataAccess.Test
 			Playlist newPlaylist = new Playlist()
 			{
 				Id = 2,
-				Name = "Playlist2"
+				Name = "Playlist2",
+				Description = "Playlist description"
 			};
 			this.context.Add(newPlaylist);
 			this.context.SaveChanges();
