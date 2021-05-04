@@ -18,22 +18,19 @@ namespace Model
 
 		public Content ToEntity()
 		{
+			TimeSpan timeSpan = ContentLength == null ? 
+				TimeSpan.Zero : TimeSpan.Parse(ContentLength);
 			return new Content()
 			{
 				ArtistName = ArtistName,
 				AudioUrl = AudioUrl,
 				Categories = Categories?.Select(category =>
 					new Category() { Id = category }).ToList(),
-				ContentLength = TimeSpan.Parse(ContentLength),
+				ContentLength = timeSpan,
 				Id = Id,
 				ImageUrl = ImageUrl,
 				Name = Name,
-				PlayLists = Playlists?.Select(playlist =>
-					new Playlist()
-					{
-						Id = playlist.Id,
-						Name = playlist.Name
-					}).ToList(),
+				PlayLists = Playlists?.Select(playlist => playlist.ToEntity())
 			};
 		}
 	}
