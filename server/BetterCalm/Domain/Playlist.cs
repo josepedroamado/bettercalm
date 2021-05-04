@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -10,5 +11,10 @@ namespace Domain
 		public string ImageUrl { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
 		public IEnumerable<Content> Contents { get; set; }
+
+		public bool Validate()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
