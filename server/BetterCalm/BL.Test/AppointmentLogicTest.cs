@@ -4,6 +4,7 @@ using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Collections.Generic;
 
 namespace BL.Test
 {
@@ -220,7 +221,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(CollectionEmptyException))]
-		public void CreateAppointment_PsychologistsNotFound_ExceptionThrown()
+		public void CreateAppointment_NoPsychologistsExist_ExceptionThrown()
 		{
 			Patient patient = new Patient()
 			{
@@ -258,6 +259,56 @@ namespace BL.Test
 
 			Mock<IPsychologistRepository> mockPsychologist = new Mock<IPsychologistRepository>(MockBehavior.Strict);
 			mockPsychologist.Setup(m => m.Get(illness, It.IsAny<DateTime>(), 5)).Throws(new CollectionEmptyException("Psychologists"));
+			mockPsychologist.Setup(m => m.Update(psychologist));
+
+			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness);
+
+			mockIllness.VerifyAll();
+			mockPatient.VerifyAll();
+			mockPsychologist.VerifyAll();
+
+			Assert.IsNull(appointment);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(CollectionEmptyException))]
+		public void CreateAppointment_NoIllnessesExist_ExceptionThrown()
+		{
+			Patient patient = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				EMail = "patient@gmail.com",
+				FirstName = "Patient",
+				LastName = "Perez",
+				Id = 1,
+				Phone = "091569874"
+			};
+
+			Illness illness = new Illness()
+			{
+				Id = 1,
+				Name = "Depresion"
+			};
+
+			Psychologist psychologist = new Psychologist()
+			{
+				Id = 1,
+				FirstName = "Juan",
+				LastName = "Sartori",
+				Address = "Calle 1234",
+				Format = Format.Remote,
+				CreatedDate = DateTime.Today.AddMonths(-3)
+			};
+
+			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
+			mockPatient.Setup(m => m.Get(patient.EMail)).Returns(patient);
+
+			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
+			mockIllness.Setup(m => m.Get(illness.Id)).Throws(new CollectionEmptyException("Illnesses"));
+
+			Mock<IPsychologistRepository> mockPsychologist = new Mock<IPsychologistRepository>(MockBehavior.Strict);
+			mockPsychologist.Setup(m => m.Get(illness, It.IsAny<DateTime>(), 5)).Throws(new CollectionEmptyException("Illnesses"));
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object);
