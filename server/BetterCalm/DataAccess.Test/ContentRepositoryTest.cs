@@ -822,6 +822,7 @@ namespace DataAccess.Test
 			repository.Add(content);
 
 			content.Name = string.Empty;
+			repository.Update(content);
 
 			Content obtained = repository.Get(content.Id);
 
@@ -846,6 +847,7 @@ namespace DataAccess.Test
 			repository.Add(content);
 
 			content.ArtistName = string.Empty;
+			repository.Update(content);
 
 			Content obtained = repository.Get(content.Id);
 
@@ -870,6 +872,7 @@ namespace DataAccess.Test
 			repository.Add(content);
 
 			content.AudioUrl = string.Empty;
+			repository.Update(content);
 
 			Content obtained = repository.Get(content.Id);
 
@@ -894,6 +897,7 @@ namespace DataAccess.Test
 			repository.Add(content);
 
 			content.ContentLength = TimeSpan.Zero;
+			repository.Update(content);
 
 			Content obtained = repository.Get(content.Id);
 
@@ -926,9 +930,11 @@ namespace DataAccess.Test
 				}
 			};
 
+			repository.Update(content);
+
 			Content obtained = repository.Get(content.Id);
 
-			Assert.AreNotEqual(content.PlayLists, obtained.PlayLists);
+			CollectionAssert.AreNotEqual(content.PlayLists.ToList(), obtained.PlayLists.ToList());
 		}
 	}
 }
