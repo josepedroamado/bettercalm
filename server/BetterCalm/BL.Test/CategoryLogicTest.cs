@@ -13,9 +13,9 @@ namespace BL.Test
 	public class CategoryLogicTest
 	{
         [TestMethod]
-        public void GetCategoriesOk()
+        public void GetAll_CategoriesExist_CategoriesFetched()
         {
-            List<Category> expectedCategories = GetCategoriesOkExpected();
+            List<Category> expectedCategories = GetExpectedCategories();
             Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
             categoryRepositoryMock.Setup(m => m.GetAll()).Returns(expectedCategories);
 
@@ -26,7 +26,7 @@ namespace BL.Test
             Assert.IsTrue(obtainedCategories.SequenceEqual(expectedCategories));
         }
 
-        private List<Category> GetCategoriesOkExpected()
+        private List<Category> GetExpectedCategories()
         {
             return new List<Category>()
             {
@@ -101,9 +101,9 @@ namespace BL.Test
         }
 
         [TestMethod]
-        public void GetCategoryOk()
+        public void Get_CategoryExists_CategoryFetched()
         {
-            Category expectedCategory = GetCategoryOkExpected();
+            Category expectedCategory = GetExpectedCategory();
             Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
             categoryRepositoryMock.Setup(m => m.Get(expectedCategory.Id)).Returns(expectedCategory);
             CategoryLogic categoryLogic = new CategoryLogic(categoryRepositoryMock.Object);
@@ -115,7 +115,7 @@ namespace BL.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetCategoryNotFound()
+        public void Get_CategoryNotFound_ExceptionThrown()
         {
             int expectedCategoryId = 1;
             Mock<ICategoryRepository> categoryRepositoryMock = new Mock<ICategoryRepository>(MockBehavior.Strict);
@@ -127,7 +127,7 @@ namespace BL.Test
             Assert.IsNull(obtainedCategory);
         }
 
-        private Category GetCategoryOkExpected()
+        private Category GetExpectedCategory()
         {
             return new Category()
             {
