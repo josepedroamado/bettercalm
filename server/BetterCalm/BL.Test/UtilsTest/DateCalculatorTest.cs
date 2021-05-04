@@ -1,6 +1,8 @@
 ﻿using BL.Utils;
+using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace BL.Test.UtilsTest
 {
@@ -76,6 +78,106 @@ namespace BL.Test.UtilsTest
             DateTime sunday = new DateTime(2021, 5, 9);
             DateTime expectedDate = new DateTime(2021, 5, 10);
             DateTime calculatedDate = DateCalculator.CalculateNextWorkDay(sunday);
+            Assert.AreEqual(expectedDate, calculatedDate);
+        }
+
+        [TestMethod]
+        public void CalculateAppointmentDate_PsychologistEmptySchedule_Ok()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Hannibal",
+                LastName = "Lecter",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = new DateTime(1990, 5, 10),
+                ScheduleDays = new List<Schedule>()
+            };
+            DateTime expectedDate = DateCalculator.CalculateNextWorkDay(DateTime.Now.Date.AddDays(1));
+            DateTime calculatedDate = DateCalculator.CalculateAppointmentDate(psychologist, 5);
+            Assert.AreEqual(expectedDate, calculatedDate);
+        }
+
+        [TestMethod]
+        public void CalculateAppointmentDate_PsychologistLastAppointmentDateIsOlder_Ok()
+        {
+            DateTime date = DateCalculator.CalculateNextWorkDay(DateTime.Now.Date.AddDays(-1));
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Hannibal",
+                LastName = "Lecter",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = new DateTime(1990, 5, 10),
+                ScheduleDays = new List<Schedule>()
+                {
+                    new Schedule()
+                    {
+                        Id = 1,
+                        Date = date
+                    }
+                }
+            };
+            DateTime expectedDate = DateCalculator.CalculateNextWorkDay(DateTime.Now.Date.AddDays(1));
+            DateTime calculatedDate = DateCalculator.CalculateAppointmentDate(psychologist, 5);
+            Assert.AreEqual(expectedDate, calculatedDate);
+        }
+
+        [TestMethod]
+        public void CalculateAppointmentDate_PsychologistLastAppointmentDateIsGreaterAndCountIsBelowLimit_Ok()
+        {
+            DateTime date = DateCalculator.CalculateNextWorkDay(DateTime.Now.Date.AddDays(2));
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Hannibal",
+                LastName = "Lecter",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = new DateTime(1990, 5, 10),
+                ScheduleDays = new List<Schedule>()
+                {
+                    new Schedule()
+                    {
+                        Id = 1,
+                        Date = date
+                    },
+                }
+            };
+            DateTime expectedDate = date;
+            DateTime calculatedDate = DateCalculator.CalculateAppointmentDate(psychologist, 5);
+            Assert.AreEqual(expectedDate, calculatedDate);
+        }
+
+        [TestMethod]
+        public void CalculateAppointmentDate_PsychologistLastAppointmentDateIsGreaterAndCountIsAboveLimit_Ok()
+        {
+            DateTime date = DateCalculator.CalculateNextWorkDay(DateTime.Now.Date.AddDays(2));
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Hannibal",
+                LastName = "Lecter",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = new DateTime(1990, 5, 10),
+                ScheduleDays = new List<Schedule>()
+                {
+                    new Schedule()
+                    {
+                        Id = 1,
+                        Date = date,
+                        Appointments = new List<Appointment>()
+                        {
+                            new Appointment()
+                        }
+                    },
+                }
+            };
+            DateTime expectedDate = DateCalculator.CalculateNextWorkDay(date.AddDays(1));
+            DateTime calculatedDate = DateCalculator.CalculateAppointmentDate(psychologist, 1);
             Assert.AreEqual(expectedDate, calculatedDate);
         }
     }
