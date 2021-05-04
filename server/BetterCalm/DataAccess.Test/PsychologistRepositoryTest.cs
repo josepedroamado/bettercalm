@@ -1156,5 +1156,80 @@ namespace DataAccess.Test
 
             Assert.IsNull(obtainedPsychologist);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Update_NoAddress_ExceptionThrown()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                Address = "Address of Sartori",
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(psychologist);
+
+            psychologist.Address = string.Empty;
+            repository.Update(psychologist);
+            
+            Psychologist obtainedPsychologist = repository.Get(psychologist.Id);
+
+            Assert.AreNotEqual(psychologist.Address, obtainedPsychologist.Address);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Update_NoFirstName_ExceptionThrown()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                Address = "Address of Sartori",
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(psychologist);
+
+            psychologist.FirstName = string.Empty;
+            repository.Update(psychologist);
+            
+            Psychologist obtainedPsychologist = repository.Get(psychologist.Id);
+
+            Assert.AreNotEqual(psychologist.FirstName, obtainedPsychologist.FirstName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Update_NoLastName_ExceptionThrown()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                Address = "Address of Sartori",
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(psychologist);
+
+            psychologist.LastName = string.Empty;
+            repository.Update(psychologist);
+            
+            Psychologist obtainedPsychologist = repository.Get(psychologist.Id);
+
+            Assert.AreNotEqual(psychologist.LastName, obtainedPsychologist.LastName);
+        }
     }
 }
