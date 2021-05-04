@@ -41,7 +41,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetAllOk()
+        public void GetAll_PsychologistsExist_Fetched()
         {
             List<Psychologist> expectedPsychologists = GetAllExpectedPsychologists();
             expectedPsychologists.ForEach(psychologist => this.context.Add(psychologist));
@@ -56,7 +56,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(CollectionEmptyException))]
-        public void GetAllNoPsychologists()
+        public void GetAll_NoPsychologists_ExceptionThrown()
         {
             PsychologistRepository repository = new PsychologistRepository(this.context);
             IEnumerable<Psychologist> obtainedPsychologists = repository.GetAll();
@@ -88,7 +88,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetOk()
+        public void Get_PsychologistFound_Fetched()
         {
             Psychologist expectedPsychologist = new Psychologist()
             {
@@ -112,7 +112,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetNotFound()
+        public void Get_PsychologistNotFound_ExceptionThrown()
         {
             int expectedPsychologistId = 1;
 
@@ -124,7 +124,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void AddOk()
+        public void Add_DataIsCorrect_Added()
         {
             Psychologist expectedPsychologist = new Psychologist()
             {
@@ -146,7 +146,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(AlreadyExistsException))]
-        public void AddAlreadyExists()
+        public void Add_AlreadyExists_ExceptionThrown()
         {
             Psychologist expectedPsychologist = new Psychologist()
             {
@@ -947,7 +947,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(CollectionEmptyException))]
-        public void GetWithIllnessEmptyCollection()
+        public void GetWithIllness_NoPsychologists_ExceptionThrown()
         {
             Illness estres = new Illness()
             {
@@ -964,7 +964,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void UpdateOk()
+        public void Update_DataIsCorrect_Updated()
         {
             Psychologist psychologist = new Psychologist()
             {
@@ -1009,7 +1009,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void UpdateFullPropertiesOk()
+        public void Update_UpdateAllProperties_Updated()
         {
             Psychologist psychologist = new Psychologist()
             {
@@ -1073,7 +1073,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void DeleteOk()
+        public void Delete_PsychologistFound_Deleted()
         {
             Psychologist psychologistToDelete = new Psychologist()
             {

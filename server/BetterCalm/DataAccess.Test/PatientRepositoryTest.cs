@@ -40,7 +40,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void GetPatientOk()
+		public void Get_PatientFound_Fetched()
 		{
 			Patient patient = new Patient()
 			{
@@ -61,7 +61,7 @@ namespace DataAccess.Test
 		
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void GetPatientNotFound()
+		public void Get_PatientNotFound_ExceptionThrown()
 		{
 			Patient patient = new Patient()
 			{

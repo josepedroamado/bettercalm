@@ -38,7 +38,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetByEmailOk()
+        public void GetByEmail_SessionFound_Fetched()
 		{
             Session expectedSession = new Session()
             {
@@ -64,7 +64,7 @@ namespace DataAccess.Test
 		}
 
         [TestMethod]
-        public void GetByEmailNotFound()
+        public void GetByEmail_SessionNotFound_ReturnsNull()
 		{
             string expectedSessionEMail = "a@a.com";
             SessionRepository repository = new SessionRepository(this.context);
@@ -75,7 +75,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetByTokenOk()
+        public void GetByToken_SessionFound_Fetched()
         {
             Session expectedSession = new Session()
             {
@@ -101,7 +101,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetByTokenNotFound()
+        public void GetByToken_SessionNotFound_ReturnsNull()
         {
             string expectedToken = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4";
             SessionRepository repository = new SessionRepository(this.context);
@@ -112,7 +112,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void AddOk()
+        public void Add_DataIsCorrect_Added()
 		{
             Session session = new Session()
             {
@@ -136,7 +136,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void DeleteOk()
+        public void Delete_SessionFound_Deleted()
         {
             Session session = new Session()
             {

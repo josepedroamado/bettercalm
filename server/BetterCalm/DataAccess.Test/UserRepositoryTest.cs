@@ -40,7 +40,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetOk()
+        public void Get_UserFound_Fetched()
 		{
             User expectedUser = new User()
             {
@@ -63,7 +63,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetNotFound()
+        public void Get_UserNotFound_ExceptionThrown()
         {
             string expectedUserEmail = "a@a.com";
 
@@ -75,7 +75,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetByIdOk()
+        public void GetById_UserFound_Fetched()
 		{
             User expectedUser = new User()
             {
@@ -98,7 +98,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetByIdNotFound()
+        public void GetById_UserNotFound_ExceptionThrown()
         {
             int expectedUserId = 1;
 
@@ -110,7 +110,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void AddOk()
+        public void Add_DataIsCorrect_Added()
 		{
             User user = new User()
             {
@@ -137,7 +137,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(AlreadyExistsException))]
-        public void AddAlreadyExists()
+        public void Add_AlreadyExists_ExceptionThrown()
         {
             User user = new User()
             {
@@ -166,7 +166,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidInputException))]
-        public void AddWithoutName()
+        public void Add_NoNameEntered_ExceptionThrown()
         {
             User user = new User()
             {
@@ -193,7 +193,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidInputException))]
-        public void AddWithoutEmail()
+        public void Add_NoEmailEntered_ExceptionThrown()
         {
             User user = new User()
             {
@@ -220,7 +220,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidInputException))]
-        public void AddWithoutPassword()
+        public void Add_NoPasswordEntered_ExceptionThrown()
         {
             User user = new User()
             {
@@ -247,7 +247,7 @@ namespace DataAccess.Test
 
 
         [TestMethod]
-        public void UpdateOk()
+        public void Update_DataIsCorrect_Updated()
         {
             User user = new User()
             {
@@ -278,7 +278,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidInputException))]
-        public void UpdateWithoutEmail()
+        public void Update_NoEmailEntered_ExceptionThrown()
         {
             User user = new User()
             {
@@ -309,7 +309,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidInputException))]
-        public void UpdateWithoutPassword()
+        public void Update_NoPasswordEntered_ExceptionThrown()
         {
             User user = new User()
             {
@@ -340,7 +340,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidInputException))]
-        public void UpdateWithoutName()
+        public void Update_NoNameEntered_ExceptionThrown()
         {
             User user = new User()
             {
@@ -371,7 +371,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void UpdateNotFound()
+        public void Update_UserNotFound_ExceptionThrown()
         {
             User user = new User()
             {
@@ -401,7 +401,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void DeleteOk()
+        public void Delete_UserFound_Deleted()
         {
             User expectedUser = new User()
             {
