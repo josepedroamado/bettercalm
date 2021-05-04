@@ -7,5 +7,10 @@ namespace Domain
 		public DateTime BirthDate { get; set; }
 		public string EMail { get; set; }
 		public string Phone { get; set; }
+
+		public bool Validate()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
