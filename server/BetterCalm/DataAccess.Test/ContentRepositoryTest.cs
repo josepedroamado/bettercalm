@@ -70,7 +70,8 @@ namespace DataAccess.Test
 					Id = 1,
 					ContentLength = new TimeSpan(0, 2, 30),
 					Name = "It's My Life",
-					ImageUrl = "http://www.images.com/image.jpg"
+					ImageUrl = "http://www.images.com/image.jpg",
+					AudioUrl = "http://www.audios.com/audio.mp3"
 				},
 				new Content()
 				{
@@ -85,7 +86,8 @@ namespace DataAccess.Test
 					Id = 2,
 					ContentLength = new TimeSpan(0, 2, 30),
 					Name = "La vida es un carnaval",
-					ImageUrl = "http://www.images.com/image2.jpg"
+					ImageUrl = "http://www.images.com/image2.jpg",
+					AudioUrl = "http://www.audios.com/audio.mp3"
 				}
 			};
 		}
@@ -151,7 +153,8 @@ namespace DataAccess.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Content livinOnAPrayer = new Content()
@@ -162,7 +165,8 @@ namespace DataAccess.Test
 				Id = 2,
 				ContentLength = new TimeSpan(0, 4, 10),
 				Name = "Livin' On A Prayer",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			bestOfBonJovi.Contents = new List<Content>() { itsMyLife, livinOnAPrayer };
@@ -217,7 +221,8 @@ namespace DataAccess.Test
 				Id = 1,
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Content livinOnAPrayer = new Content()
@@ -228,7 +233,8 @@ namespace DataAccess.Test
 				Id = 2,
 				ContentLength = new TimeSpan(0, 4, 10),
 				Name = "Livin' On A Prayer",
-				ImageUrl = "http://www.images.com/image.jpg"
+				ImageUrl = "http://www.images.com/image.jpg",
+				AudioUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			rock = new Category()
