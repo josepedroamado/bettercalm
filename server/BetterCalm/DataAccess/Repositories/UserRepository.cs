@@ -47,7 +47,6 @@ namespace DataAccess.Repositories
 		public User Get(int id)
 		{
 			User user = this.users.
-				AsNoTracking().
 				FirstOrDefault(user => user.Id == id);
 			if (user == null)
 				throw new NotFoundException(id.ToString());
