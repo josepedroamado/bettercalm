@@ -14,11 +14,11 @@ namespace Domain
 
 		public bool Validate()
 		{
-			if (string.IsNullOrWhiteSpace(EMail))
+			if (string.IsNullOrEmpty(EMail))
 				throw new InvalidInputException("EMail is required");
-			if (string.IsNullOrWhiteSpace(Password))
+			if (string.IsNullOrEmpty(Password))
 				throw new InvalidInputException("Password is required");
-			if (string.IsNullOrWhiteSpace(Name))
+			if (string.IsNullOrEmpty(Name))
 				throw new InvalidInputException("Name is required");
 
 			return true;
