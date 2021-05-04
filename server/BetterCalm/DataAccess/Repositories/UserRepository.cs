@@ -20,15 +20,18 @@ namespace DataAccess.Repositories
 
 		public void Add(User user)
 		{
-			try
+			if (user.Validate())
 			{
-				if (Get(user.EMail) != null)
-					throw new AlreadyExistsException(user.EMail);
-			}
-			catch (NotFoundException)
-			{
-				this.users.Add(user);
-				this.context.SaveChanges();
+				try
+				{
+					if (Get(user.EMail) != null)
+						throw new AlreadyExistsException(user.EMail);
+				}
+				catch (NotFoundException)
+				{
+					this.users.Add(user);
+					this.context.SaveChanges();
+				}
 			}
 		}
 
@@ -53,8 +56,7 @@ namespace DataAccess.Repositories
 
 		public void Update(User user)
 		{
-			User storedUser = Get(user.Id);
-			if (storedUser != null)
+			if (user.Validate() && Get(user.Id) != null)
 			{
 				this.users.Update(user);
 				this.context.SaveChanges();

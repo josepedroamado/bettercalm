@@ -42,6 +42,9 @@ namespace DataAccess.Context
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>().HasIndex(prop => prop.EMail).IsUnique();
+            modelBuilder.Entity<User>().Property(prop => prop.Name).IsRequired();
+            modelBuilder.Entity<User>().Property(prop => prop.Password).IsRequired();
         }
 	}
 }
