@@ -242,6 +242,99 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void UpdateWithoutEmail()
+        {
+            User user = new User()
+            {
+                Id = 1,
+                EMail = "test@test.com",
+                Password = "test1234",
+                Name = "test",
+                Roles = new List<Role>()
+                {
+                    new Role()
+                    {
+                        Id = 1,
+                        Name = "Administrator"
+                    }
+                }
+            };
+
+            UserRepository repository = new UserRepository(this.context);
+            repository.Add(user);
+
+            user.EMail = string.Empty;
+            repository.Update(user);
+
+            User obtainedUser = repository.Get(user.EMail);
+
+            Assert.AreNotEqual(user.EMail, obtainedUser.EMail);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void UpdateWithoutPassword()
+        {
+            User user = new User()
+            {
+                Id = 1,
+                EMail = "test@test.com",
+                Password = "test1234",
+                Name = "test",
+                Roles = new List<Role>()
+                {
+                    new Role()
+                    {
+                        Id = 1,
+                        Name = "Administrator"
+                    }
+                }
+            };
+
+            UserRepository repository = new UserRepository(this.context);
+            repository.Add(user);
+
+            user.Password = string.Empty;
+            repository.Update(user);
+
+            User obtainedUser = repository.Get(user.EMail);
+
+            Assert.AreNotEqual(user.Password, obtainedUser.Password);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void UpdateWithoutName()
+        {
+            User user = new User()
+            {
+                Id = 1,
+                EMail = "test@test.com",
+                Password = "test1234",
+                Name = "test",
+                Roles = new List<Role>()
+                {
+                    new Role()
+                    {
+                        Id = 1,
+                        Name = "Administrator"
+                    }
+                }
+            };
+
+            UserRepository repository = new UserRepository(this.context);
+            repository.Add(user);
+
+            user.Name = string.Empty;
+            repository.Update(user);
+
+            User obtainedUser = repository.Get(user.EMail);
+
+            Assert.AreNotEqual(user.Name, obtainedUser.Name);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
         public void UpdateNotFound()
         {
