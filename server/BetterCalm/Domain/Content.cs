@@ -15,6 +15,11 @@ namespace Domain
 		public IEnumerable<Category> Categories { get; set; }
 		public IEnumerable<Playlist> PlayLists { get; set; }
 
+		public bool Validate()
+		{
+			throw new NotImplementedException();
+		}
+
 		public void UpdateFromContent(Content content)
 		{
 			this.Id = content.Id;
