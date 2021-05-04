@@ -82,7 +82,7 @@ namespace Domain.Test
 				}
 			};
 
-			Assert.IsTrue(content.Validate());
+			Assert.IsFalse(content.Validate());
 		}
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
@@ -104,7 +104,7 @@ namespace Domain.Test
 				}
 			};
 
-			Assert.IsTrue(content.Validate());
+			Assert.IsFalse(content.Validate());
 		}
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
@@ -126,7 +126,7 @@ namespace Domain.Test
 				}
 			};
 
-			Assert.IsTrue(content.Validate());
+			Assert.IsFalse(content.Validate());
 		}
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
@@ -148,7 +148,7 @@ namespace Domain.Test
 				}
 			};
 
-			Assert.IsTrue(content.Validate());
+			Assert.IsFalse(content.Validate());
 		}
 
 		[TestMethod]
@@ -170,7 +170,7 @@ namespace Domain.Test
 				}
 			};
 
-			Assert.IsTrue(content.Validate());
+			Assert.IsFalse(content.Validate());
 		}
 	}
 }
