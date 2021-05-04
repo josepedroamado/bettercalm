@@ -9,7 +9,7 @@ namespace Domain.Test
 	public class ContentTest
 	{
 		[TestMethod]
-		public void UpdateFromContentOk()
+		public void UpdateFromContent_DataIsValid_Updated()
 		{
 			Content empty = new Content();
 			Content source = new Content()
@@ -41,7 +41,7 @@ namespace Domain.Test
 		}
 
 		[TestMethod]
-		public void ValidatePlaylist()
+		public void ValidatePlaylist_DataIsCorrect_Validated()
 		{
 			Content content = new Content()
 			{
@@ -64,7 +64,7 @@ namespace Domain.Test
 		}
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void ValidateWithoutArtistName()
+		public void Validate_NoArtistName_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -86,7 +86,7 @@ namespace Domain.Test
 		}
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void ValidateWithoutAudioUrl()
+		public void Validate_NoAudioUrl_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -108,7 +108,7 @@ namespace Domain.Test
 		}
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void ValidateWithoutContentLength()
+		public void Validate_NoContentLength_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -130,7 +130,7 @@ namespace Domain.Test
 		}
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void ValidateWithoutName()
+		public void Validate_NoName_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -153,7 +153,7 @@ namespace Domain.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void ValidatePlaylists()
+		public void Validate_InvalidPlaylists_ExceptionThrown()
 		{
 			Content content = new Content()
 			{

@@ -60,11 +60,44 @@ namespace BL
 
 		}
 
-		private bool ShouldAddAppointment(Schedule scheduleDay, Appointment appointment)
+		private Patient GetPatient(Patient patient)
 		{
-			return scheduleDay != null &&
-				scheduleDay.GetScheduleDate() == appointment.Date.Date &&
-				scheduleDay.GetAppointmentsCount() < LimitOfAppointmentsPerDay;
+			Patient obtainedPatient;
+			try
+			{
+				obtainedPatient = this.patientRepository.Get(patient.EMail);
+			}
+			catch (NotFoundException)
+			{
+				obtainedPatient = patient;
+			}
+			return obtainedPatient;
+		}
+
+		private Psychologist GetCandidate(Illness illness)
+		{
+			Psychologist candidate = null;
+			DateTime until = DateTime.Now;
+			while (candidate == null)
+			{
+				until = GetUntilDate(until);
+				candidate = this.psychologistRepository.Get(illness, until, LimitOfAppointmentsPerDay);
+			}
+			return candidate;
+		}
+
+		private DateTime GetUntilDate(DateTime since)
+		{
+			int daysUntilFriday = (DayOfWeek.Friday - since.DayOfWeek + 7) % 7;
+			since = since.AddDays(daysUntilFriday);
+			return since.Date;
+		}
+
+		private string CalculateAddress(Psychologist candidate)
+		{
+			if (candidate.Format == Format.OnSite)
+				return candidate.Address;
+			return string.Concat(BetterCalmUrl, Guid.NewGuid().ToString());
 		}
 
 		private DateTime CalculateAppointmentDate(Psychologist candidate)
@@ -97,44 +130,11 @@ namespace BL
 			return date.Date;
 		}
 
-		private string CalculateAddress(Psychologist candidate)
+		private bool ShouldAddAppointment(Schedule scheduleDay, Appointment appointment)
 		{
-			if (candidate.Format == Format.OnSite)
-				return candidate.Address;
-			return string.Concat(BetterCalmUrl, Guid.NewGuid().ToString());
-		}
-
-		private Psychologist GetCandidate(Illness illness)
-		{
-			Psychologist candidate = null;
-			DateTime until = DateTime.Now;
-			while (candidate == null)
-			{
-				until = GetUntilDate(until);
-				candidate = this.psychologistRepository.Get(illness, until, LimitOfAppointmentsPerDay);
-			}
-			return candidate;
-		}
-
-		private Patient GetPatient(Patient patient)
-		{
-			Patient obtainedPatient;
-			try
-			{
-				obtainedPatient = this.patientRepository.Get(patient.EMail);
-			}
-			catch (NotFoundException)
-			{
-				obtainedPatient = patient;
-			}
-			return obtainedPatient;
-		}
-
-		private DateTime GetUntilDate(DateTime since)
-		{
-			int daysUntilFriday = (DayOfWeek.Friday - since.DayOfWeek + 7) % 7;
-			since = since.AddDays(daysUntilFriday);
-			return since.Date;
+			return scheduleDay != null &&
+				scheduleDay.GetScheduleDate() == appointment.Date.Date &&
+				scheduleDay.GetAppointmentsCount() < LimitOfAppointmentsPerDay;
 		}
 	}
 }

@@ -40,7 +40,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetOk()
+        public void Get_IllnessFound_Fetched()
         {
             Illness expectedIllness = new Illness { Id = 1, Name = "Stress" };
             this.context.Add(expectedIllness);
@@ -55,7 +55,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetNotFound()
+        public void Get_IllnessNotFound_ExceptionThrown()
         {
             int expectedIllnessId = 1;
 
@@ -67,9 +67,9 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetAllOk()
+        public void GetAll_IllnessesExists_Fetched()
         {
-            List<Illness> expectedIllnesses = GetAllOkExpected();
+            List<Illness> expectedIllnesses = GetAllExpectedIllnesses();
             foreach (Illness illness in expectedIllnesses)
             {
                 this.context.Add(illness);
@@ -83,7 +83,7 @@ namespace DataAccess.Test
             Assert.IsTrue(expectedIllnesses.SequenceEqual(obtainedIllnesses));
         }
 
-        private List<Illness> GetAllOkExpected()
+        private List<Illness> GetAllExpectedIllnesses()
         {
             Illness depression = new Illness()
             {
@@ -101,7 +101,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(CollectionEmptyException))]
-        public void GetAllWithoutIllnesses()
+        public void GetAll_NoIllnesses_ExceptionThrown()
         {
             IllnessRepository repository = new IllnessRepository(this.context);
             IEnumerable<Illness> obtainedIllnesses = repository.GetAll();

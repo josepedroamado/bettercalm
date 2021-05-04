@@ -41,9 +41,9 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetAllOk()
+        public void GetAll_CategoriesExist_Fetched()
         {
-            List<Category> expectedCategories = GetAllCategoriesOkExpected();
+            List<Category> expectedCategories = GetAllExpectedCategories();
             
             foreach(Category category in expectedCategories)
             {
@@ -56,7 +56,7 @@ namespace DataAccess.Test
             Assert.IsTrue(expectedCategories.SequenceEqual(obtainedCategories));
         }
 
-        private List<Category> GetAllCategoriesOkExpected()
+        private List<Category> GetAllExpectedCategories()
         {
             return new List<Category>()
             {
@@ -132,7 +132,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(CollectionEmptyException))]
-        public void GetAllWithoutCategories()
+        public void GetAll_NoCategories_ExceptionThrown()
         {
             CategoryRepository categoryRepository = new CategoryRepository(this.context);
             IEnumerable<Category> obtainedCategories = categoryRepository.GetAll();
@@ -140,9 +140,9 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetOk()
+        public void Get_CategoryExists_Fetched()
         {
-            Category expectedCategory = GetCategoryOkExpected();
+            Category expectedCategory = GetExpectedCategory();
             this.context.Add(expectedCategory);
             this.context.SaveChanges();
             CategoryRepository categoryRepository = new CategoryRepository(this.context);
@@ -152,7 +152,7 @@ namespace DataAccess.Test
             Assert.AreEqual(expectedCategory, obtainedCategory);
         }
 
-        private Category GetCategoryOkExpected()
+        private Category GetExpectedCategory()
         {
             return new Category()
             {
@@ -195,9 +195,9 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetNotFound()
+        public void Get_CategoryNotFound_ExceptionThrown()
         {
-            Category expectedCategory = GetCategoryOkExpected();
+            Category expectedCategory = GetExpectedCategory();
             CategoryRepository categoryRepository = new CategoryRepository(this.context);
 
             Category obtainedCategory = categoryRepository.Get(expectedCategory.Id);

@@ -41,7 +41,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void GetAllOk()
+		public void GetAll_ContentsExist_Fetched()
 		{
 			List<Content> expectedContents = GetExpectedContents();
 
@@ -94,7 +94,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(CollectionEmptyException))]
-		public void GetAllWithoutContents()
+		public void GetAll_NoContentsExist_ExceptionThrown()
 		{
 			ContentRepository repository = new ContentRepository(this.context);
 			IEnumerable<Content> obtainedContents = repository.GetAll();
@@ -102,7 +102,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void GetAllByPlaylistOk()
+		public void GetAllByPlaylist_ContentsAndPlaylistExist_Fetched()
 		{
 			List<Content> expectedContents = GetAllByPlaylistExpectedContents();
 
@@ -117,7 +117,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(CollectionEmptyException))]
-		public void GetAllByPlaylistWithoutContents()
+		public void GetAllByPlaylist_NoContentExistsPlaylistExists_ExceptionThrown()
 		{
 			List<Content> expectedContents = GetAllByPlaylistExpectedContents();
 			ContentRepository repository = new ContentRepository(this.context);
@@ -181,7 +181,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void GetAllByCategoryOk()
+		public void GetAllByCategory_ContentsAndCategoryExist_Fetched()
 		{
 			List<Content> expectedContents = GetAllByCategoryExpectedContents();
 
@@ -196,7 +196,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(CollectionEmptyException))]
-		public void GetAllByCategoryWithoutContents()
+		public void GetAllByCategory_NoContentsExistsCategoryExists_ExceptionThrown()
 		{
 			List<Content> expectedContents = GetAllByCategoryExpectedContents();
 			ContentRepository repository = new ContentRepository(this.context);
@@ -253,7 +253,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void GetContentOk()
+		public void Get_ContentFound_Fetched()
 		{
 			Content expectedContent = new Content()
 			{
@@ -283,7 +283,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void GetContentNotFound()
+		public void Get_ContentNotFound_ExceptionThrown()
 		{
 			Content toSaveContent = new Content()
 			{
@@ -314,7 +314,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void AddContentOkWithNewPlaylist()
+		public void Add_DataIsCorrectToNewPlaylist_Added()
 		{
 			Category music = new Category()
 			{
@@ -355,7 +355,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void AddContentOkWithExistentPlaylist()
+		public void Add_DataIsCorrect_Added()
 		{
 			Category music = new Category()
 			{
@@ -399,7 +399,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void AddContentOkWithoutPlaylist()
+		public void Add_DataIsCorrectNoPlaylist_Added()
 		{
 			Category music = new Category()
 			{
@@ -432,7 +432,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void AddContentWithoutName()
+		public void Add_NoNameEntered_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -452,7 +452,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void AddContentWithoutArtistName()
+		public void Add_NoArtistNameEntered_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -472,7 +472,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void AddContentWithoutAudioUrl()
+		public void Add_NoAudioUrlEntered_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -492,7 +492,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void AddContentWithoutContentLength()
+		public void Add_NoContentLengthEntered_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -512,7 +512,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void AddContentWithoutValidPlaylist()
+		public void Add_NoValidPlaylistEntered_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -541,7 +541,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void DeleteContentOk()
+		public void Delete_ContentFound_Deleted()
 		{
 			Category music = new Category()
 			{
@@ -575,7 +575,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void UpdateContentOkWithExistentPlaylist()
+		public void Update_DataIsValid_Updated()
 		{
 			Category music = new Category()
 			{
@@ -633,7 +633,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void UpdateContentOkWithoutPlaylist()
+		public void Update_DataIsValidNoPlaylist_Updated()
 		{
 			Category music = new Category()
 			{
@@ -676,7 +676,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void UpdateContentOkWithAddCategory()
+		public void Update_DataIsValidAddCategory_Updated()
 		{
 			Category music = new Category()
 			{
@@ -730,7 +730,7 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void UpdateContentOkWithFullProperties()
+		public void Update_DataIsValidUpdateAllProperties_Updated()
 		{
 			Category music = new Category()
 			{
@@ -806,7 +806,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void UpdateContentWithoutName()
+		public void Update_NoNameEntered_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -831,7 +831,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void UpdateContentWithoutArtistName()
+		public void Update_NoArtistNameEntered_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -856,7 +856,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void UpdateContentWithoutAudioUrl()
+		public void Update_NoAudioUrlEntered_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -881,7 +881,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void UpdateContentWithoutContentLength()
+		public void Update_NoContentLengthEntered_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
@@ -906,7 +906,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void UpdateContentWithoutValidPlaylist()
+		public void Update_InvalidPlaylistEntered_ExceptionThrown()
 		{
 			Content content = new Content()
 			{

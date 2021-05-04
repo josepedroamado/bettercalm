@@ -11,9 +11,9 @@ namespace BL.Test
     public class IllnessesLogicTest
     {
         [TestMethod]
-        public void GetAllOk()
+        public void GetAll_IllnessesExist_IllnessesFetched()
         {
-            List<Illness> expectedIllnesses = GetAllOkExpected();
+            List<Illness> expectedIllnesses = GetExpectedIllnesses();
             Mock<IIllnessRepository> illnessRepositoryMock = new Mock<IIllnessRepository>(MockBehavior.Strict);
             illnessRepositoryMock.Setup(m => m.GetAll()).Returns(expectedIllnesses);
 
@@ -25,7 +25,7 @@ namespace BL.Test
             Assert.IsTrue(obtainedIllnesses.SequenceEqual(expectedIllnesses));
         }
 
-        private List<Illness> GetAllOkExpected()
+        private List<Illness> GetExpectedIllnesses()
         {
             Illness depression = new Illness()
             {

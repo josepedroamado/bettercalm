@@ -15,7 +15,7 @@ namespace WebAPI.Test
     public class PsychologistsControllerTest
     {
         [TestMethod]
-        public void GetOk()
+        public void Get_PsychologistsExist_Fetched()
         {
             List<PsychologistModel> expectedPsychologistModels = GetAllExpectedPsychologistModels();
             List<Psychologist> expectedPsychologists = new List<Psychologist>();
@@ -38,7 +38,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(CollectionEmptyException))]
-        public void GetWhenNoPsychologistsExist()
+        public void Get_NoPsychologistsExist_ExpectedException()
         {
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistLogicMock.Setup(m => m.GetAll()).Throws(new CollectionEmptyException("Psychologists"));
@@ -77,7 +77,7 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void GetByIdOk()
+        public void GetById_PsychologistFound_Fetched()
         {
             PsychologistModel expectedPsychologistModel = new PsychologistModel()
             {
@@ -102,7 +102,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetByIdNotFound()
+        public void GetById_PsychologistNotFound_ExceptionThrown()
         {
             PsychologistModel expectedPsychologistModel = new PsychologistModel()
             {
@@ -126,7 +126,7 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void PostOk()
+        public void Post_DataIsCorrect_Created()
         {
             PsychologistModel expectedPsychologistModel = new PsychologistModel()
             {
@@ -151,7 +151,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(AlreadyExistsException))]
-        public void PostAlreadyExists()
+        public void Post_AlreadyExists_ExceptionThrown()
         {
             PsychologistModel expectedPsychologistModel = new PsychologistModel()
             {
@@ -175,7 +175,7 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void PatchOk()
+        public void Patch_DataIsCorrect_Updated()
         {
             PsychologistModel originalPsychologistModel = new PsychologistModel()
             {
@@ -211,7 +211,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void DeleteOk()
+        public void Delete_PsychologistFound_Deleted()
         {
             PsychologistModel psychologistToDelete = new PsychologistModel()
             {

@@ -9,7 +9,7 @@ namespace Domain.Test
 	public class PsychologistTest
 	{
 		[TestMethod]
-		public void GetLastOk()
+		public void GetLast_HasSchedule_Fetched()
 		{
             Schedule schedule = new Schedule()
             {
@@ -35,7 +35,7 @@ namespace Domain.Test
         }
 
         [TestMethod]
-        public void GetLastFailed()
+        public void GetLast_DoesNotHaveSchedule_NotEquals()
         {
             Schedule schedule = new Schedule()
             {
@@ -57,7 +57,7 @@ namespace Domain.Test
         }
 
         [TestMethod]
-        public void GetFullNameOk()
+        public void GetFullName_HasFirstAndLastName_Fetched()
         {
 
             Psychologist psychologist = new Psychologist()
@@ -78,7 +78,7 @@ namespace Domain.Test
 
 
         [TestMethod]
-        public void GetUpdateFullOk()
+        public void UpdateData_DataIsCorrectAllProperties_Updated()
         {
             Illness stress = new Illness() { Id = 1, Name = "Stress" };
             Illness depression = new Illness() { Id = 2, Name = "Depression" };
@@ -114,7 +114,7 @@ namespace Domain.Test
         }
 
         [TestMethod]
-        public void GetUpdateWithNullOrEmptyOk()
+        public void UpdateData_DataHasNullOrEmpty_EmptyOrNullDataNotUpdated()
         {
             Illness stress = new Illness() { Id = 1, Name = "Stress" };
             Illness depression = new Illness() { Id = 2, Name = "Depression" };

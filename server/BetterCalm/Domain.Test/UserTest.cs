@@ -11,7 +11,7 @@ namespace Domain.Test
 	public class UserTest
 	{
 		[TestMethod]
-		public void TestValidateOk()
+		public void Validate_DataIsCorrect_Validated()
 		{
 			User user = new User()
 			{
@@ -25,7 +25,7 @@ namespace Domain.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void TestValidateWithoutEMail()
+		public void Validate_NoEMail_ExceptionThrown()
 		{
 			User user = new User()
 			{
@@ -38,7 +38,7 @@ namespace Domain.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void TestValidateWithoutName()
+		public void Validate_NoName_ExceptionThrown()
 		{
 			User user = new User()
 			{
@@ -51,7 +51,7 @@ namespace Domain.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void TestValidateWithoutPassword()
+		public void Validate_NoPassword_ExceptionThrown()
 		{
 			User user = new User()
 			{
@@ -63,7 +63,7 @@ namespace Domain.Test
 		}
 
 		[TestMethod]
-		public void TestUpdateFromUserOk()
+		public void UpdateFromUser_DataIsCorrect_Updated()
 		{
 			User toUpdate = new User();
 			User user = new User()

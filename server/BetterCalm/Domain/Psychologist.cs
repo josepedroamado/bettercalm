@@ -25,7 +25,7 @@ namespace Domain
 		public Schedule GetLast()
 		{
 			if (ScheduleDays.Count() > 0)
-				return ScheduleDays.Last();
+				return ScheduleDays.OrderBy(schedule => schedule.Date).Last();
 			return null;
 		}
 

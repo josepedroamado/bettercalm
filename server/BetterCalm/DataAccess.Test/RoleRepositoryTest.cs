@@ -40,7 +40,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetRoleOk()
+        public void Get_RoleFound_Fetched()
 		{
             Role role = new Role()
             {
@@ -61,7 +61,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetRoleNotFound()
+        public void Get_RoleNotFound_ExceptionThrown()
         {
             Role role = new Role()
             {
@@ -81,7 +81,7 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
-        public void GetUsersByRole()
+        public void GetUsersByRole_UsersAndRolesExist_Fetched()
         {
             string roleName = "Administrator";
             Role role = new Role()

@@ -4,16 +4,14 @@ using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BL.Test
 {
-	[TestClass]
+    [TestClass]
 	public class AppointmentLogicTest
 	{
 		[TestMethod]
-		public void CreateAppointmentOnSiteOk()
+		public void CreateAppointment_PatientExistsFormatOnSite_AppointmentCreated()
 		{
 			Patient patient = new Patient()
 			{
@@ -65,7 +63,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void CreateAppointmentRemoteOk()
+		public void CreateAppointment_PatientExistsFormatRemote_AppointmentCreated()
 		{
 			Patient patient = new Patient()
 			{
@@ -117,7 +115,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void CreateAppointmentNewPatientOk()
+		public void CreateAppointment_NewPatient_AppointmentCreated()
 		{
 			Patient patient = new Patient()
 			{
@@ -170,7 +168,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void CreateAppointmentIllnessNotFound()
+		public void CreateAppointment_IllnessNotFound_ExceptionThrown()
 		{
 			Patient patient = new Patient()
 			{
@@ -222,7 +220,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(CollectionEmptyException))]
-		public void CreateAppointmentPsychologistsNotFound()
+		public void CreateAppointment_PsychologistsNotFound_ExceptionThrown()
 		{
 			Patient patient = new Patient()
 			{

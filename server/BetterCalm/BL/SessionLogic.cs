@@ -17,7 +17,7 @@ namespace BL
 			this.userRepository = userRepository;
 		}
 
-		public bool IsValidToken(string token)
+		public bool IsTokenValid(string token)
 		{
 			return this.sessionRepository.GetByToken(token) != null;
 		}

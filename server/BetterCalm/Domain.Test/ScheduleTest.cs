@@ -8,7 +8,7 @@ namespace Domain.Test
 	public class ScheduleTest
 	{
 		[TestMethod]
-		public void GetDateOk()
+		public void GetDate_ScheduleHasDate_Fetched()
 		{
 			DateTime date = DateTime.Now;
 			Schedule schedule = new Schedule()
@@ -21,7 +21,7 @@ namespace Domain.Test
 		}
 
 		[TestMethod]
-		public void GetAppointmentsCountOk()
+		public void GetAppointmentsCount_HasAppointments_Fetched()
 		{
 			DateTime date = DateTime.Now;
 			Schedule schedule = new Schedule()

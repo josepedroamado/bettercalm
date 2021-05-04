@@ -14,7 +14,7 @@ namespace WebAPI.Test
 	public class AppointmentControllerTest
 	{
 		[TestMethod]
-		public void PostOk()
+		public void Post_DataIsCorrect_Created()
 		{
 			AppointmentInputModel input = new AppointmentInputModel()
 			{
@@ -59,7 +59,7 @@ namespace WebAPI.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(CollectionEmptyException))]
-		public void PostFailedNoPsychologists()
+		public void Post_NoPsychologistsEntered_ExceptionThrown()
 		{
 			AppointmentInputModel input = new AppointmentInputModel()
 			{
@@ -87,7 +87,7 @@ namespace WebAPI.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void PostNotFoundIllness()
+		public void Post_IllnessNotFound_ExceptionThrown()
 		{
 			AppointmentInputModel input = new AppointmentInputModel()
 			{

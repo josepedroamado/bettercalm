@@ -13,7 +13,7 @@ namespace BL.Test
     public class PsychologistLogicTest
     {
         [TestMethod]
-        public void GetAllOk()
+        public void GetAll_PsychologistsExist_Fetched()
         {
             List<Psychologist> expectedPsychologists = GetAllExpectedPsychologists();
 
@@ -29,7 +29,7 @@ namespace BL.Test
 
         [TestMethod]
         [ExpectedException(typeof(CollectionEmptyException))]
-        public void GetAllNoPsychologists()
+        public void GetAll_NoPsychologistsExists_ExceptionThrown()
         {
             Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
             psychologistRepositoryMock.Setup(m => m.GetAll()).Throws(new CollectionEmptyException("Psychologists"));
@@ -64,7 +64,7 @@ namespace BL.Test
         }
 
         [TestMethod]
-        public void GetOk()
+        public void Get_PsychologistFound_Fetched()
         {
             Psychologist expectedPsychologist = new Psychologist()
             {
@@ -88,7 +88,7 @@ namespace BL.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetNotFound()
+        public void Get_PsychologistNotFound_ExceptionThrown()
         {
             Psychologist expectedPsychologist = new Psychologist()
             {
@@ -111,7 +111,7 @@ namespace BL.Test
         }
 
         [TestMethod]
-        public void AddOk()
+        public void Add_DataIsCorrect_Added()
         {
             Illness stress = new Illness { Id = 1, Name = "Stress" };
             Illness depression = new Illness { Id = 2, Name = "Depression" };
@@ -143,7 +143,7 @@ namespace BL.Test
         }
 
         [TestMethod]
-        public void AddWithNoIllnessesOk()
+        public void Add_NoIllnesses_Added()
         {
             Illness stress = new Illness { Id = 1, Name = "Stress" };
             Illness depression = new Illness { Id = 2, Name = "Depression" };
@@ -175,7 +175,7 @@ namespace BL.Test
 
         [TestMethod]
         [ExpectedException(typeof(AlreadyExistsException))]
-        public void AddAlreadyExists()
+        public void Add_AlreadyExists_ExceptionThrown()
         {
             Illness stress = new Illness { Id = 1, Name = "Stress" };
             Illness depression = new Illness { Id = 2, Name = "Depression" };
@@ -208,7 +208,7 @@ namespace BL.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void AddWithNonExistingIllnessFails()
+        public void Add_NonExistingIllness_ExceptionThrown()
         {
             Illness stress = new Illness { Id = 1, Name = "Stress" };
             Psychologist expectedPsychologist = new Psychologist()
@@ -239,7 +239,7 @@ namespace BL.Test
 
         [TestMethod]
         [ExpectedException(typeof(ExceedingNumberOfIllnessesException))]
-        public void AddWithMoreThanThreeIllnessesFails()
+        public void Add_MoreThanThreeIllnesses_ExceptionThrown()
         {
             Illness stress = new Illness { Id = 1, Name = "Stress" };
             Illness depression = new Illness { Id = 2, Name = "Depression" };
@@ -273,7 +273,7 @@ namespace BL.Test
         }
 
         [TestMethod]
-        public void UpdateOk()
+        public void Update_DataIsCorrect_Updated()
         {
             Illness stress = new Illness { Id = 1, Name = "Stress" };
             Illness depression = new Illness { Id = 2, Name = "Depression" };
@@ -317,7 +317,7 @@ namespace BL.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void DeleteOk()
+        public void Delete_PsychologistExists_Deleted()
         {
             Psychologist psychologistToDelete = new Psychologist()
             {

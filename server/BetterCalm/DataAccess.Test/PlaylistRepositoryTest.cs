@@ -41,9 +41,9 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void GetPlaylistsOk()
+		public void GetAll_PlaylistsExist_Fetched()
 		{
-			List<Playlist> expectedPlaylists = GetPlaylistsOkExpected();
+			List<Playlist> expectedPlaylists = GetAllExpectedPlaylists();
 			expectedPlaylists.ForEach(playlist => this.context.Add(playlist));
 			this.context.SaveChanges();
 			PlaylistRepository repository = new PlaylistRepository(this.context);
@@ -54,14 +54,14 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(CollectionEmptyException))]
-		public void GetPlaylistsWhenNoPlaylistsExist()
+		public void GetAll_NoPlaylistsExist_ExceptionThrown()
 		{
 			PlaylistRepository repository = new PlaylistRepository(this.context);
 			IEnumerable<Playlist> obtainedPlaylists = repository.GetAll();
 			Assert.IsNull(obtainedPlaylists);
 		}
 
-		private List<Playlist> GetPlaylistsOkExpected()
+		private List<Playlist> GetAllExpectedPlaylists()
 		{
 			return new List<Playlist>()
 			{
@@ -102,9 +102,9 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void GetPlaylistsByCategoryOk()
+		public void GetAllByCategory_CategoryExists_Fetched()
 		{
-			List<Playlist> expectedPlaylists = GetPlaylistsByCategoryOkExpected();
+			List<Playlist> expectedPlaylists = GetAllExpectedPlaylistsByCategory();
 			expectedPlaylists.ForEach(playlist => this.context.Add(playlist));
 			this.context.SaveChanges();
 			PlaylistRepository repository = new PlaylistRepository(this.context);
@@ -115,15 +115,15 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(CollectionEmptyException))]
-		public void GetPlaylistsByCategoryWhenNoPlaylistsExist()
+		public void GetAllByCategory_NoPlaylistsExist_ExceptionThrown()
 		{
-			List<Playlist> expectedPlaylists = GetPlaylistsByCategoryOkExpected();
+			List<Playlist> expectedPlaylists = GetAllExpectedPlaylistsByCategory();
 			PlaylistRepository repository = new PlaylistRepository(this.context);
 			IEnumerable<Playlist> obtainedPlaylists = repository.GetAll(expectedPlaylists.First().Categories.First());
 			Assert.IsNull(obtainedPlaylists);
 		}
 
-		private List<Playlist> GetPlaylistsByCategoryOkExpected()
+		private List<Playlist> GetAllExpectedPlaylistsByCategory()
 		{
 			Category rock = new Category()
 			{
@@ -167,9 +167,9 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
-		public void GetPlaylistOk()
+		public void Get_PlaylistFound_Fetched()
 		{
-			Playlist expectedPlaylist = GetPlaylistOkExpected();
+			Playlist expectedPlaylist = GetExpectedPlaylist();
 			this.context.Add(expectedPlaylist);
 			this.context.SaveChanges();
 			PlaylistRepository repository = new PlaylistRepository(this.context);
@@ -180,9 +180,9 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void GetPlaylistNotFound()
+		public void Get_PlaylistNotFound_ExceptionThrown()
 		{
-			Playlist expectedPlaylist = GetPlaylistOkExpected();
+			Playlist expectedPlaylist = GetExpectedPlaylist();
 			PlaylistRepository repository = new PlaylistRepository(this.context);
 
 			Playlist obtainedPlaylist = repository.Get(expectedPlaylist.Id);
@@ -190,7 +190,7 @@ namespace DataAccess.Test
 			Assert.IsNull(obtainedPlaylist);
 		}
 
-		private Playlist GetPlaylistOkExpected()
+		private Playlist GetExpectedPlaylist()
 		{
 			return new Playlist
 			{

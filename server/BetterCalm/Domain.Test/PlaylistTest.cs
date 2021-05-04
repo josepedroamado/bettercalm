@@ -10,7 +10,7 @@ namespace Domain.Test
 	public class PlaylistTest
 	{
 		[TestMethod]
-		public void PlaylistValidateOk()
+		public void Playlist_DataIsCorrect_Validated()
 		{
 			Playlist playlist = new Playlist()
 			{
@@ -24,7 +24,7 @@ namespace Domain.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void PlaylistWithoutDescription()
+		public void Playlist_NoDescription_ExceptionThrown()
 		{
 			Playlist playlist = new Playlist()
 			{
@@ -37,7 +37,7 @@ namespace Domain.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
-		public void PlaylistWithoutName()
+		public void Playlist_NoName_ExceptionThrown()
 		{
 			Playlist playlist = new Playlist()
 			{

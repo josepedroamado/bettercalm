@@ -16,7 +16,7 @@ namespace WebAPI.Test
 	public class ContentsControllerTest
 	{
 		[TestMethod]
-		public void GetContentsOk()
+		public void Get_ContentsExist_Fetched()
 		{
             List<Content> expectedContents = GetExpectedContents();
 
@@ -77,7 +77,7 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void GetContentOk()
+        public void Get_ContentFound_Fetched()
         {
             Content expectedContent = new Content()
             {
@@ -111,7 +111,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void GetContentNotFound()
+        public void Get_ContentNotFound_ExceptionThrown()
         {
             int toGetContentId = 1;
 
@@ -128,7 +128,7 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void PostContentOk()
+        public void Post_DataIsCorrect_Created()
         {
             ContentModel contentModel = new ContentModel()
             {
@@ -164,7 +164,7 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void PostContentWithoutPlaylistOk()
+        public void Post_NoPlaylist_Created()
         {
             ContentModel contentModel = new ContentModel()
             {
@@ -193,7 +193,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void PostContentCategoryNotFound()
+        public void Post_CategoryNotFound_ExceptionThrown()
         {
             ContentModel contentModel = new ContentModel()
             {
@@ -230,7 +230,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(UnableToCreatePlaylistException))]
-        public void PostContentUnableToCreateNewPlaylist()
+        public void Post_NewPlaylistInvalidData_ExceptionThrown()
         {
             ContentModel contentModel = new ContentModel()
             {
@@ -266,7 +266,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(MissingCategoriesException))]
-        public void PostContentMissingCategories()
+        public void Post_NoCategories_ExceptionThrown()
         {
             ContentModel contentModel = new ContentModel()
             {
@@ -301,7 +301,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void DeleteContentOk()
+        public void Delete_ContentFound_Deleted()
         {
             int toDeleteContent = 1;
 
@@ -320,7 +320,7 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
-        public void PatchContentOk()
+        public void Patch_DataIsCorrect_Updated()
         {
             ContentModel contentModel = new ContentModel()
             {
@@ -358,7 +358,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void PatchContentCategoryNotFound()
+        public void Patch_CategoryNotFound_ExceptionThrown()
         {
             ContentModel contentModel = new ContentModel()
             {
@@ -395,7 +395,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(UnableToCreatePlaylistException))]
-        public void PatchContentUnableToCreateNewPlaylist()
+        public void Patch_NewPlaylistInvalidData_ExceptionThrown()
         {
             ContentModel contentModel = new ContentModel()
             {
@@ -431,7 +431,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(MissingCategoriesException))]
-        public void PatchContentMissingCategories()
+        public void Patch_NoCategories_ExceptionThrown()
         {
             ContentModel contentModel = new ContentModel()
             {
@@ -466,7 +466,7 @@ namespace WebAPI.Test
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
-        public void PatchContentNotFound()
+        public void Patch_ContentNotFound_ExceptionThrown()
         {
             ContentModel contentModel = new ContentModel()
             {
@@ -498,6 +498,5 @@ namespace WebAPI.Test
             ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
             Assert.IsNull(obtainedContent);
         }
-
     }
 }
