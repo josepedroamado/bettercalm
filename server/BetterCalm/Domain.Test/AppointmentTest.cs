@@ -7,7 +7,7 @@ namespace Domain.Test
 	public class AppointmentTest
 	{
 		[TestMethod]
-		public void GetDateOk()
+		public void GetDate_AppointmentHasDate_Fetched()
 		{
 			DateTime date = DateTime.Now;
 
