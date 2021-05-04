@@ -20,8 +20,11 @@ namespace DataAccess.Repositories
 
 		public void Add(Content content)
 		{
-			this.contents.Add(content);
-			this.context.SaveChanges();
+			if (content.Validate())
+			{
+				this.contents.Add(content);
+				this.context.SaveChanges();
+			}
 		}
 
 		public void Delete(int id)
