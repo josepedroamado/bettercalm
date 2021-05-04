@@ -1,4 +1,5 @@
-﻿using BLInterfaces;
+﻿using BL.Utils;
+using BLInterfaces;
 using DataAccessInterfaces;
 using Domain;
 using Domain.Exceptions;

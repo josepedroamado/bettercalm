@@ -1,14 +1,14 @@
-﻿using BLInterfaces;
+﻿using BL.Utils;
+using BLInterfaces;
 using DataAccessInterfaces;
 using Domain;
 using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BL
 {
-	public class AppointmentLogic : IAppointmentLogic
+    public class AppointmentLogic : IAppointmentLogic
 	{
 		private const int LimitOfAppointmentsPerDay = 5;
 		private const string BetterCalmUrl = "http://bettercalm.com.uy/meeting_id/";
@@ -33,7 +33,7 @@ namespace BL
 			Appointment appointment = new Appointment()
 			{
 				Address = CalculateAddress(candidate),
-				Date = CalculateAppointmentDate(candidate),
+				Date = DateCalculator.CalculateAppointmentDate(candidate, LimitOfAppointmentsPerDay),
 				Illness = obtainedIllness,
 				Patient = obtainedPatient,
 				Psychologist = candidate
@@ -80,54 +80,17 @@ namespace BL
 			DateTime until = DateTime.Now;
 			while (candidate == null)
 			{
-				until = GetUntilDate(until);
+				until = DateCalculator.CalculateUntilDate(until);
 				candidate = this.psychologistRepository.Get(illness, until, LimitOfAppointmentsPerDay);
 			}
 			return candidate;
-		}
-
-		private DateTime GetUntilDate(DateTime since)
-		{
-			int daysUntilFriday = (DayOfWeek.Friday - since.DayOfWeek + 7) % 7;
-			since = since.AddDays(daysUntilFriday);
-			return since.Date;
-		}
+		}		
 
 		private string CalculateAddress(Psychologist candidate)
 		{
 			if (candidate.Format == Format.OnSite)
 				return candidate.Address;
 			return string.Concat(BetterCalmUrl, Guid.NewGuid().ToString());
-		}
-
-		private DateTime CalculateAppointmentDate(Psychologist candidate)
-		{
-			DateTime date = DateTime.Now;
-
-			Schedule last = candidate.GetLast();
-			if (last != null)
-			{
-				if (last.GetScheduleDate() <= DateTime.Now.Date)
-				{
-					return SetNextWorkDay(date);
-				}
-				if (last.Appointments.Count() < LimitOfAppointmentsPerDay)
-					return last.GetScheduleDate();
-				return SetNextWorkDay(last.GetScheduleDate().AddDays(1));
-			}
-
-			return SetNextWorkDay(date.AddDays(1));
-		}
-
-		private DateTime SetNextWorkDay(DateTime date)
-		{
-			if (date.DayOfWeek == DayOfWeek.Friday)
-				date = date.AddDays(3);
-			else if (date.DayOfWeek == DayOfWeek.Saturday)
-				date = date.AddDays(2);
-			else if (date.DayOfWeek == DayOfWeek.Sunday)
-				date = date.AddDays(1);
-			return date.Date;
 		}
 
 		private bool ShouldAddAppointment(Schedule scheduleDay, Appointment appointment)
