@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Domain.Exceptions;
 using System.Collections.Generic;
 
 namespace Domain
@@ -14,7 +14,12 @@ namespace Domain
 
 		public bool Validate()
 		{
-			throw new NotImplementedException();
+			if (string.IsNullOrEmpty(this.Name))
+				throw new InvalidInputException("Playlist name is required");
+			if (string.IsNullOrEmpty(this.Description))
+				throw new InvalidInputException("Playlist description is required");
+
+			return true;
 		}
 	}
 }
