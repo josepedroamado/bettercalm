@@ -14,11 +14,11 @@ namespace Domain
 
 		public bool Validate()
 		{
-			if (string.IsNullOrEmpty(EMail))
+			if (string.IsNullOrWhiteSpace(EMail))
 				throw new InvalidInputException("EMail is required");
-			if (string.IsNullOrEmpty(Password))
+			if (string.IsNullOrWhiteSpace(Password))
 				throw new InvalidInputException("Password is required");
-			if (string.IsNullOrEmpty(Name))
+			if (string.IsNullOrWhiteSpace(Name))
 				throw new InvalidInputException("Name is required");
 
 			return true;
@@ -26,7 +26,16 @@ namespace Domain
 
 		public void UpdateFromUser(User user)
 		{
-			throw new NotImplementedException();
+			this.Id = user.Id;
+
+			if (!string.IsNullOrEmpty(user.Name))
+				this.Name = user.Name;			
+			if (!string.IsNullOrEmpty(user.EMail))
+				this.EMail = user.EMail;			
+			if (!string.IsNullOrEmpty(user.Password))
+				this.Password = user.Password;
+			if (user.Roles != null)
+				this.Roles = user.Roles;
 		}
 	}
 }
