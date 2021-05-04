@@ -15,6 +15,17 @@ namespace BL.Utils
 			return since.Date;
 		}
 
+		public static DateTime CalculateNextWorkDay(DateTime date)
+		{
+			if (date.DayOfWeek == DayOfWeek.Friday)
+				date = date.AddDays(3);
+			else if (date.DayOfWeek == DayOfWeek.Saturday)
+				date = date.AddDays(2);
+			else if (date.DayOfWeek == DayOfWeek.Sunday)
+				date = date.AddDays(1);
+			return date.Date;
+		}
+
 		public static DateTime CalculateAppointmentDate(Psychologist candidate, int limitOfAppointmentsPerDay)
 		{
 			DateTime date = DateTime.Now.Date;
@@ -30,17 +41,6 @@ namespace BL.Utils
 				return CalculateNextWorkDay(last.GetScheduleDate().AddDays(1));
 			}
 			return CalculateNextWorkDay(date.AddDays(1));
-		}
-
-		public static DateTime CalculateNextWorkDay(DateTime date)
-		{
-			if (date.DayOfWeek == DayOfWeek.Friday)
-				date = date.AddDays(3);
-			else if (date.DayOfWeek == DayOfWeek.Saturday)
-				date = date.AddDays(2);
-			else if (date.DayOfWeek == DayOfWeek.Sunday)
-				date = date.AddDays(1);
-			return date.Date;
 		}
 	}
 }
