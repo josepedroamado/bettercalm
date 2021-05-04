@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Domain.Test
 {
@@ -59,6 +60,33 @@ namespace Domain.Test
 			};
 
 			Assert.IsFalse(user.Validate());
+		}
+
+		[TestMethod]
+		public void TestUpdateFromUserOk()
+		{
+			User toUpdate = new User();
+			User user = new User()
+			{
+				EMail = "a@a.com",
+				Name = "name",
+				Password = "password",
+				Roles = new List<Role>()
+				{
+					new Role()
+					{
+						Id = 1,
+						Description = "Administrator"
+					}
+				}
+			};
+
+			toUpdate.UpdateFromUser(user);
+
+			Assert.IsTrue(Equals(user.EMail, toUpdate.EMail) &&
+				Equals(user.Name, toUpdate.Name) &&
+				Equals(user.Password, toUpdate.Password) &&
+				user.Roles.SequenceEqual(toUpdate.Roles));
 		}
 	}
 }
