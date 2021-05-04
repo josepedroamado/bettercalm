@@ -41,7 +41,7 @@ namespace BL
 
 			Schedule scheduleDay = candidate.GetLast();
 			
-			if (ShouldAddAppointment(scheduleDay, appointment))
+			if (scheduleDay != null && scheduleDay.GetScheduleDate() == appointment.Date.Date)
 				scheduleDay.Appointments.Add(appointment);
 			else
 				candidate.ScheduleDays.Add(
@@ -91,13 +91,6 @@ namespace BL
 			if (candidate.Format == Format.OnSite)
 				return candidate.Address;
 			return string.Concat(BetterCalmUrl, Guid.NewGuid().ToString());
-		}
-
-		private bool ShouldAddAppointment(Schedule scheduleDay, Appointment appointment)
-		{
-			return scheduleDay != null &&
-				scheduleDay.GetScheduleDate() == appointment.Date.Date &&
-				scheduleDay.GetAppointmentsCount() < LimitOfAppointmentsPerDay;
 		}
 	}
 }
