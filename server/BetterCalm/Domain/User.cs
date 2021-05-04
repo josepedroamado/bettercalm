@@ -1,4 +1,5 @@
 ﻿using Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 
 namespace Domain
@@ -21,6 +22,11 @@ namespace Domain
 				throw new InvalidInputException("Name is required");
 
 			return true;
+		}
+
+		public void UpdateFromUser(User user)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
