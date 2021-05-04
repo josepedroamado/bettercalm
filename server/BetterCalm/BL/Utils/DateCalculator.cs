@@ -17,9 +17,7 @@ namespace BL.Utils
 
 		public static DateTime CalculateNextWorkDay(DateTime date)
 		{
-			if (date.DayOfWeek == DayOfWeek.Friday)
-				date = date.AddDays(3);
-			else if (date.DayOfWeek == DayOfWeek.Saturday)
+			if (date.DayOfWeek == DayOfWeek.Saturday)
 				date = date.AddDays(2);
 			else if (date.DayOfWeek == DayOfWeek.Sunday)
 				date = date.AddDays(1);
