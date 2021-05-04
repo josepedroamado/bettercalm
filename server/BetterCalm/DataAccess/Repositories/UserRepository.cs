@@ -44,7 +44,7 @@ namespace DataAccess.Repositories
 			return user;
 		}
 
-		private User Get(int id)
+		public User Get(int id)
 		{
 			User user = this.users.
 				AsNoTracking().
