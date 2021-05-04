@@ -13,7 +13,7 @@ namespace BL.Test
 	public class ContentLogicTest
 	{
         [TestMethod]
-        public void GetContentsOk()
+        public void GetAll_ContentsExist_ContentsFetched()
 		{
             List<Content> expectedContents = GetExpectedContents();
             Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
@@ -69,9 +69,9 @@ namespace BL.Test
         }
 
 		[TestMethod]
-		public void GetContentsByPlaylistOk()
+		public void GetAllByPlaylist_PlaylistFound_ContentsForPlaylistFetched()
 		{
-			List<Content> expectedContents = GetContentsByPlaylistExpectedContents();
+			List<Content> expectedContents = GetExpectedPlaylistContents();
 			Playlist expectedPlaylist = expectedContents.First().PlayLists.First();
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
 			contentRepositoryMock.Setup(m => m.GetAll(expectedPlaylist)).Returns(expectedContents);
@@ -84,7 +84,7 @@ namespace BL.Test
 			Assert.IsTrue(expectedContents.SequenceEqual(obtainedContents));
 		}
 
-		private static List<Content> GetContentsByPlaylistExpectedContents()
+		private static List<Content> GetExpectedPlaylistContents()
 		{
 			Category rock = new Category()
 			{
@@ -138,9 +138,9 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void GetContentsByCategoryOk()
+		public void GetAllByCategory_CategoryExists_ContentsForCategoryFetched()
 		{
-			List<Content> expectedContents = GetContentsByCategoryExpectedContents();
+			List<Content> expectedContents = GetExpectedCategoryContents();
 			Category expectedCategory = expectedContents.First().Categories.First();
 			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
 			contentRepositoryMock.Setup(m => m.GetAll(expectedCategory)).Returns(expectedContents);
@@ -153,7 +153,7 @@ namespace BL.Test
 			Assert.IsTrue(expectedContents.SequenceEqual(obtainedContents));
 		}
 
-		private static List<Content> GetContentsByCategoryExpectedContents()
+		private static List<Content> GetExpectedCategoryContents()
 		{
 			Category rock = new Category()
 			{
@@ -199,7 +199,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void GetContentOk()
+		public void Get_ContentExists_ContentFetched()
 		{
 			Content expectedContent = new Content()
 			{
@@ -233,7 +233,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void GetContentNotFound()
+		public void Get_ContentNotFound_ExceptionThrown()
 		{
 			int testContentId = 1;
 
@@ -251,7 +251,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void CreateContentWithNewPlaylist()
+		public void CreateContent_NewPlaylist_ContentAndPlaylistCreated()
 		{
 			Category music = new Category()
 			{
@@ -302,7 +302,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void CreateContentWithExistentPlaylist()
+		public void CreateContent_ExistingPlaylist_ContentCreated()
 		{
 			Category music = new Category()
 			{
@@ -353,7 +353,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void CreateContentWithoutPlaylist()
+		public void CreateContent_WithoutPlaylist_ContentCreated()
 		{
 			Category music = new Category()
 			{
@@ -394,7 +394,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void CreateContentInvalidCategory()
+		public void CreateContent_InvalidCategory_ExceptionThrown()
 		{
 			Category music = new Category()
 			{
@@ -447,7 +447,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(UnableToCreatePlaylistException))]
-		public void CreateContentUnableToCreatePlaylist()
+		public void CreateContent_NewPlaylistMissingData_ExceptionThrown()
 		{
 			Category music = new Category()
 			{
@@ -499,7 +499,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(MissingCategoriesException))]
-		public void CreateContentMissingCategories()
+		public void CreateContent_NoCategoriesEntered_ExceptionThrown()
 		{
 			Category music = new Category()
 			{
@@ -547,7 +547,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void DeleteContentOk()
+		public void Delete_ContentExists_Deleted()
 		{
 			Category music = new Category()
 			{
@@ -584,7 +584,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void UpdateContentWithNewPlaylist()
+		public void UpdateContent_NewPlaylist_ContentUpdated()
 		{
 			Category music = new Category()
 			{
@@ -650,7 +650,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void UpdateContentWithExistentPlaylist()
+		public void UpdateContent_ExistingPlaylist_ContentUpdated()
 		{
 			Category music = new Category()
 			{
@@ -703,7 +703,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void UpdateContentWithoutPlaylist()
+		public void UpdateContent_WithoutPlaylist_ContentUpdated()
 		{
 			Category music = new Category()
 			{
@@ -753,7 +753,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void UpdateContentInvalidCategory()
+		public void UpdateContent_InvalidCategory_ExceptionThrown()
 		{
 			Category music = new Category()
 			{
@@ -819,7 +819,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(UnableToCreatePlaylistException))]
-		public void UpdateContentUnableToCreatePlaylist()
+		public void UpdateContent_NewPlaylistMissingData_ExceptionThrown()
 		{
 			Category music = new Category()
 			{
@@ -882,7 +882,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(MissingCategoriesException))]
-		public void UpdateContentMissingCategories()
+		public void UpdateContent_NoCategoriesEntered_ExceptionThrown()
 		{
 			Category music = new Category()
 			{
@@ -932,7 +932,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void UpdateContentNotFound()
+		public void UpdateContent_ContentNotFound_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
