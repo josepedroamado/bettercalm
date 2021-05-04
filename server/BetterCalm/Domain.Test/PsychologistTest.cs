@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Domain.Exceptions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.Test
 {
@@ -148,5 +148,61 @@ namespace Domain.Test
                 && Equals(psychologist.Format, newPsychologist.Format)
                 && !Equals(psychologist.Illnesses, newPsychologist.Illnesses));
         }
+
+        [TestMethod]
+        public void Validate_DataIsCorrect_Validated()
+		{
+            Psychologist psychologist = new Psychologist()
+            {
+                Address = "Address",
+                FirstName = "First name",
+                LastName = "Last name",
+                Format = Format.OnSite
+            };
+
+            Assert.IsTrue(psychologist.Validate());
+		}
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Validate_NoAddress_ExceptionThrown()
+		{
+            Psychologist psychologist = new Psychologist()
+            {
+                FirstName = "First name",
+                LastName = "Last name",
+                Format = Format.OnSite
+            };
+
+            Assert.IsFalse(psychologist.Validate());
+		}
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Validate_NoFirstName_ExceptionThrown()
+		{
+            Psychologist psychologist = new Psychologist()
+            {
+                Address = "Address",
+                LastName = "Last name",
+                Format = Format.OnSite
+            };
+
+            Assert.IsFalse(psychologist.Validate());
+		}
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Validate_NoLastName_ExceptionThrown()
+		{
+            Psychologist psychologist = new Psychologist()
+            {
+                Address = "Address",
+                FirstName = "First name",
+                Format = Format.OnSite
+            };
+
+            Assert.IsFalse(psychologist.Validate());
+		}
     }
 }

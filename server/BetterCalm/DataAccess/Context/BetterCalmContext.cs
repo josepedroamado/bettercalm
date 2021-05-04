@@ -53,6 +53,11 @@ namespace DataAccess.Context
             modelBuilder.Entity<Content>().Property(prop => prop.AudioUrl).IsRequired();
             modelBuilder.Entity<Content>().Property(prop => prop.ContentLength).IsRequired();
             modelBuilder.Entity<Content>().Property(prop => prop.Name).IsRequired();
+            
+            modelBuilder.Entity<Psychologist>().Property(prop => prop.Address).IsRequired();
+            modelBuilder.Entity<Psychologist>().Property(prop => prop.FirstName).IsRequired();
+            modelBuilder.Entity<Psychologist>().Property(prop => prop.LastName).IsRequired();
+            modelBuilder.Entity<Psychologist>().Property(prop => prop.Format).IsRequired();
         }
 	}
 }

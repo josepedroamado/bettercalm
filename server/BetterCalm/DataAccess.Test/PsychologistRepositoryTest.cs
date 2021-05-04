@@ -168,6 +168,69 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Add_NoAddress_ExceptionThrown()
+        {
+            Psychologist expectedPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(expectedPsychologist);
+
+            Psychologist obtainedPsychologist = repository.Get(expectedPsychologist.Id);
+
+            Assert.IsNull(obtainedPsychologist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Add_NoFirstName_ExceptionThrown()
+        {
+            Psychologist expectedPsychologist = new Psychologist()
+            {
+                Id = 1,
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(expectedPsychologist);
+
+            Psychologist obtainedPsychologist = repository.Get(expectedPsychologist.Id);
+
+            Assert.IsNull(obtainedPsychologist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Add_NoLastNAme_ExceptionThrown()
+        {
+            Psychologist expectedPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(expectedPsychologist);
+
+            Psychologist obtainedPsychologist = repository.Get(expectedPsychologist.Id);
+
+            Assert.IsNull(obtainedPsychologist);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(CollectionEmptyException))]
         public void GetByIllnessAndDate_NoPsychologistsExists_ExceptionThrown()
         {
@@ -1092,6 +1155,81 @@ namespace DataAccess.Test
             Psychologist obtainedPsychologist = repository.Get(psychologistToDelete.Id);
 
             Assert.IsNull(obtainedPsychologist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Update_NoAddress_ExceptionThrown()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                Address = "Address of Sartori",
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(psychologist);
+
+            psychologist.Address = string.Empty;
+            repository.Update(psychologist);
+            
+            Psychologist obtainedPsychologist = repository.Get(psychologist.Id);
+
+            Assert.AreNotEqual(psychologist.Address, obtainedPsychologist.Address);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Update_NoFirstName_ExceptionThrown()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                Address = "Address of Sartori",
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(psychologist);
+
+            psychologist.FirstName = string.Empty;
+            repository.Update(psychologist);
+            
+            Psychologist obtainedPsychologist = repository.Get(psychologist.Id);
+
+            Assert.AreNotEqual(psychologist.FirstName, obtainedPsychologist.FirstName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Update_NoLastName_ExceptionThrown()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                Address = "Address of Sartori",
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(psychologist);
+
+            psychologist.LastName = string.Empty;
+            repository.Update(psychologist);
+            
+            Psychologist obtainedPsychologist = repository.Get(psychologist.Id);
+
+            Assert.AreNotEqual(psychologist.LastName, obtainedPsychologist.LastName);
         }
     }
 }
