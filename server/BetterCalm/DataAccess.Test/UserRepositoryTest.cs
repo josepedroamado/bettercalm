@@ -75,6 +75,41 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
+        public void GetByIdOk()
+		{
+            User expectedUser = new User()
+            {
+                EMail = "a@a.com",
+                Id = 1,
+                Password = "1234Test",
+                Name = "test"
+            };
+
+            this.context.Add(expectedUser);
+            this.context.SaveChanges();
+
+            UserRepository repository = new UserRepository(this.context);
+
+            User obtainedUser = repository.Get(expectedUser.Id);
+
+            Assert.AreEqual(expectedUser, obtainedUser);
+		}
+
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void GetByIdNotFound()
+        {
+            int expectedUserId = 1;
+
+            UserRepository repository = new UserRepository(this.context);
+
+            User obtainedUser = repository.Get(expectedUserId);
+
+            Assert.IsNull(obtainedUser);
+        }
+
+        [TestMethod]
         public void AddOk()
 		{
             User user = new User()
