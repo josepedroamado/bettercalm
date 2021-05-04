@@ -803,5 +803,132 @@ namespace DataAccess.Test
 			Content obtained = repository.Get(currentContent.Id);
 			Assert.AreEqual(currentContent, obtained);
 		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void UpdateContentWithoutName()
+		{
+			Content content = new Content()
+			{
+				Id = 1,
+				Name = "name",
+				ArtistName = "artist name",
+				AudioUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:01:30")
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(content);
+
+			content.Name = string.Empty;
+
+			Content obtained = repository.Get(content.Id);
+
+			Assert.AreNotEqual(content.Name, obtained.Name);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void UpdateContentWithoutArtistName()
+		{
+			Content content = new Content()
+			{
+				Id = 1,
+				Name = "name",
+				ArtistName = "artist name",
+				AudioUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:01:30")
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(content);
+
+			content.ArtistName = string.Empty;
+
+			Content obtained = repository.Get(content.Id);
+
+			Assert.AreNotEqual(content.ArtistName, obtained.ArtistName);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void UpdateContentWithoutAudioUrl()
+		{
+			Content content = new Content()
+			{
+				Id = 1,
+				Name = "name",
+				ArtistName = "artist name",
+				AudioUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:01:30")
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(content);
+
+			content.AudioUrl = string.Empty;
+
+			Content obtained = repository.Get(content.Id);
+
+			Assert.AreNotEqual(content.AudioUrl, obtained.AudioUrl);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void UpdateContentWithoutContentLength()
+		{
+			Content content = new Content()
+			{
+				Id = 1,
+				Name = "name",
+				ArtistName = "artist name",
+				AudioUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:01:30")
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(content);
+
+			content.ContentLength = TimeSpan.Zero;
+
+			Content obtained = repository.Get(content.Id);
+
+			Assert.AreNotEqual(content.ContentLength, obtained.ContentLength);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void UpdateContentWithoutValidPlaylist()
+		{
+			Content content = new Content()
+			{
+				Id = 1,
+				Name = "name",
+				ArtistName = "artist name",
+				AudioUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:01:30")
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(content);
+
+			content.PlayLists = new List<Playlist>()
+			{
+				new Playlist()
+				{
+					Id = 1,
+					Name = "playlist name"
+				}
+			};
+
+			Content obtained = repository.Get(content.Id);
+
+			Assert.AreNotEqual(content.PlayLists, obtained.PlayLists);
+		}
 	}
 }
