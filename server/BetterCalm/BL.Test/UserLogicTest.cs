@@ -150,6 +150,7 @@ namespace BL.Test
 			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
 			userMock.Setup(m => m.Update(user));
 			userMock.Setup(m => m.Get(user.EMail)).Returns(user);
+			userMock.Setup(m => m.Get(user.Id)).Returns(user);
 
 			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
 
@@ -179,6 +180,7 @@ namespace BL.Test
 			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
 			userMock.Setup(m => m.Update(user));
 			userMock.Setup(m => m.Get(user.EMail)).Throws(new NotFoundException(user.EMail));
+			userMock.Setup(m => m.Get(user.Id)).Throws(new NotFoundException(user.Id.ToString()));
 
 			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
 

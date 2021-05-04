@@ -1,4 +1,5 @@
 ﻿using Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 
 namespace Domain
@@ -21,6 +22,20 @@ namespace Domain
 				throw new InvalidInputException("Name is required");
 
 			return true;
+		}
+
+		public void UpdateFromUser(User user)
+		{
+			this.Id = user.Id;
+
+			if (!string.IsNullOrEmpty(user.Name))
+				this.Name = user.Name;			
+			if (!string.IsNullOrEmpty(user.EMail))
+				this.EMail = user.EMail;			
+			if (!string.IsNullOrEmpty(user.Password))
+				this.Password = user.Password;
+			if (user.Roles != null)
+				this.Roles = user.Roles;
 		}
 	}
 }
