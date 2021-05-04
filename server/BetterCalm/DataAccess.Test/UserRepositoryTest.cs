@@ -130,6 +130,88 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void AddWithoutName()
+        {
+            User user = new User()
+            {
+                Id = 1,
+                EMail = "test@test.com",
+                Password = "test1234",
+                Roles = new List<Role>()
+                {
+                    new Role()
+                    {
+                        Id = 1,
+                        Name = "Administrator"
+                    }
+                }
+            };
+
+            UserRepository repository = new UserRepository(this.context);
+            repository.Add(user);
+
+            User obtainedUser = repository.Get(user.EMail);
+
+            Assert.IsNull(obtainedUser);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void AddWithoutEmail()
+        {
+            User user = new User()
+            {
+                Id = 1,
+                Name = "name",
+                Password = "test1234",
+                Roles = new List<Role>()
+                {
+                    new Role()
+                    {
+                        Id = 1,
+                        Name = "Administrator"
+                    }
+                }
+            };
+
+            UserRepository repository = new UserRepository(this.context);
+            repository.Add(user);
+
+            User obtainedUser = repository.Get(user.EMail);
+
+            Assert.IsNull(obtainedUser);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void AddWithoutPassword()
+        {
+            User user = new User()
+            {
+                Id = 1,
+                EMail = "test@test.com",
+                Name = "name",
+                Roles = new List<Role>()
+                {
+                    new Role()
+                    {
+                        Id = 1,
+                        Name = "Administrator"
+                    }
+                }
+            };
+
+            UserRepository repository = new UserRepository(this.context);
+            repository.Add(user);
+
+            User obtainedUser = repository.Get(user.EMail);
+
+            Assert.IsNull(obtainedUser);
+        }
+
+
+        [TestMethod]
         public void UpdateOk()
         {
             User user = new User()
