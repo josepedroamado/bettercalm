@@ -169,7 +169,7 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(CollectionEmptyException))]
-        public void GetByIllnessAndDate_NoPsychologistsExists()
+        public void GetByIllnessAndDate_NoPsychologistsExists_ExceptionThrown()
         {
             Illness depresion = new Illness()
             {
