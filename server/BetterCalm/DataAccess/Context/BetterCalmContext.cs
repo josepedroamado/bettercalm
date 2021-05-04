@@ -45,6 +45,9 @@ namespace DataAccess.Context
             modelBuilder.Entity<User>().HasIndex(prop => prop.EMail).IsUnique();
             modelBuilder.Entity<User>().Property(prop => prop.Name).IsRequired();
             modelBuilder.Entity<User>().Property(prop => prop.Password).IsRequired();
+
+            modelBuilder.Entity<Playlist>().Property(prop => prop.Description).IsRequired().HasMaxLength(150);
+            modelBuilder.Entity<Playlist>().Property(prop => prop.Name).IsRequired();
         }
 	}
 }
