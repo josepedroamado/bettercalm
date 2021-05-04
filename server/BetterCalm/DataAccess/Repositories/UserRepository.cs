@@ -56,8 +56,7 @@ namespace DataAccess.Repositories
 
 		public void Update(User user)
 		{
-			User storedUser = Get(user.Id);
-			if (storedUser != null)
+			if (user.Validate() && Get(user.Id) != null)
 			{
 				this.users.Update(user);
 				this.context.SaveChanges();
