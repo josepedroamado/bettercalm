@@ -31,7 +31,7 @@ namespace WebAPI.Filters
 			}
 			else
 			{
-				if (!sessionLogic.IsValidToken(token))
+				if (!sessionLogic.IsTokenValid(token))
 				{
 					context.Result = new ContentResult()
 					{

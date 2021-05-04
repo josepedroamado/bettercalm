@@ -12,7 +12,7 @@ namespace BL.Test
 	public class UserLogicTest
 	{
 		[TestMethod]
-		public void CreateUserOk()
+		public void CreateUser_DataIsCorrect_Created()
 		{
 			Role role = new Role()
 			{
@@ -53,7 +53,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(AlreadyExistsException))]
-		public void CreateUserAlreadyExists()
+		public void CreateUser_ExistingUser_ExceptionThrown()
 		{
 			Role role = new Role()
 			{
@@ -96,7 +96,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void CreateRoleNotFound()
+		public void CreateUser_RoleNotFound_ExceptionThrown()
 		{
 			Role role = new Role()
 			{
@@ -136,7 +136,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void UpdateUserOk()
+		public void UpdateUser_DatIsValid_Updated()
 		{
 
 			User user = new User()
@@ -166,7 +166,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void UpdateUserNotFound()
+		public void UpdateUser_UserNotFound_ExceptionThrown()
 		{
 
 			User user = new User()
@@ -196,7 +196,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void DeleteOk()
+		public void Delete_UserExists_Delted()
 		{
 			string eMail = "a@a.com";
 			int toDelete = 1;
@@ -218,7 +218,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void GetUsersByRole()
+		public void GetUsersByRole_RoleExists_UsersWithRoleFetched()
 		{
 			string roleName = "Administrator";
 

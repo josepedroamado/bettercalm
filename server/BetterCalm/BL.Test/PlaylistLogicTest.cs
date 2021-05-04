@@ -13,9 +13,9 @@ namespace BL.Test
 	public class PlaylistLogicTest
 	{
 		[TestMethod]
-		public void GetPlaylistsOk()
+		public void GetPlaylists_PlaylistsExist_Fetched()
 		{
-			List<Playlist> expectedPlaylists = GetPlaylistsOkExpected();
+			List<Playlist> expectedPlaylists = GetExpectedPlaylists();
 
 			Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
 			playlistRepositoryMock.Setup(m => m.GetAll()).Returns(expectedPlaylists);
@@ -27,7 +27,7 @@ namespace BL.Test
 			Assert.IsTrue(obtainedPlaylists.SequenceEqual(expectedPlaylists));
 		}
 
-		private List<Playlist> GetPlaylistsOkExpected()
+		private List<Playlist> GetExpectedPlaylists()
 		{
 			return new List<Playlist>()
 			{
@@ -67,9 +67,9 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void GetPlaylistOk()
+		public void GetPlaylist_PlaylistExists_Fetched()
 		{
-			Playlist expectedPlaylist = GetPlaylistOkExpected();
+			Playlist expectedPlaylist = GetExpectedPlaylist();
 			Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
 			playlistRepositoryMock.Setup(m => m.Get(expectedPlaylist.Id)).Returns(expectedPlaylist);
 			PlaylistLogic playlistLogic = new PlaylistLogic(playlistRepositoryMock.Object);
@@ -80,7 +80,7 @@ namespace BL.Test
 			Assert.AreEqual(expectedPlaylist, obtainedPlaylist);
 		}
 
-		private Playlist GetPlaylistOkExpected()
+		private Playlist GetExpectedPlaylist()
 		{
 			return new Playlist
 			{
@@ -103,7 +103,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
-		public void GetPlaylistNotFound()
+		public void GetPlaylist_NotFound_ExceptionThrown()
 		{
 			int expectedPlaylistId = 1;
 			Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
@@ -117,9 +117,9 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void GetPlaylistsByCategoryOk()
+		public void GetPlaylistsByCategory_CategoryExist_Fetched()
 		{
-			List<Playlist> expectedPlaylists = GetPlaylistsByCategoryOkExpected();
+			List<Playlist> expectedPlaylists = GetExpectedPlaylistsByCategory();
 			Category expectedCategory = expectedPlaylists.First().Categories.First();
 			Mock<IPlaylistRepository> playlistRepositoryMock = new Mock<IPlaylistRepository>(MockBehavior.Strict);
 			playlistRepositoryMock.Setup(m => m.GetAll(expectedCategory)).Returns(expectedPlaylists);
@@ -131,7 +131,7 @@ namespace BL.Test
 			Assert.IsTrue(obtainedPlaylists.SequenceEqual(expectedPlaylists));
 		}
 
-		private List<Playlist> GetPlaylistsByCategoryOkExpected()
+		private List<Playlist> GetExpectedPlaylistsByCategory()
 		{
 			Category rock = new Category()
 			{

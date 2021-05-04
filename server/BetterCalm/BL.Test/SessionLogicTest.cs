@@ -11,7 +11,7 @@ namespace BL.Test
 	{
 
 		[TestMethod]
-		public void LoginOk()
+		public void Login_ValidCredentialsExistingSession_LoggedIn()
 		{
 			string expectedToken = "token1234";
 			string queryEmail = "a@a.com";
@@ -46,7 +46,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void LoginOkCreatingSession()
+		public void Login_ValidCredentialsNoSession_SessionCreated()
 		{
 			string queryEmail = "a@a.com";
 			string queryPassword = "1234";
@@ -77,7 +77,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidCredentialsException))]
-		public void LoginFailedEmailNotFound()
+		public void Login_EmailNotFound_ExceptionThrown()
 		{
 			string expectedToken = "token1234";
 			string queryEmail = "a@a.com";
@@ -112,7 +112,7 @@ namespace BL.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidCredentialsException))]
-		public void LoginFailedWrongPassword()
+		public void Login_WrongPassword_ExceptionThrown()
 		{
 			string expectedToken = "token1234";
 			string queryEmail = "a@a.com";
@@ -146,7 +146,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void LogoutOk()
+		public void Logout_ExistingSession_LoggedOut()
         {
 			string expectedToken = "token1234";
 			string queryEmail = "a@a.com";
@@ -193,7 +193,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void ValidateTokenOk()
+		public void IsTokenValid_ValidExists_True()
 		{
 			;
 
@@ -217,14 +217,14 @@ namespace BL.Test
 
 			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, userRepositoryMock.Object);
 
-			bool isValidToken = sessionLogic.IsValidToken(tokenToSearch);
+			bool isValidToken = sessionLogic.IsTokenValid(tokenToSearch);
 			sessionRepositoryMock.VerifyAll();
 
 			Assert.IsTrue(isValidToken);
 		}
 
 		[TestMethod]
-		public void ValidateTokenNotFoundOk()
+		public void IsTokenValid_TokenNotFound_False()
 		{
 			;
 
@@ -237,7 +237,7 @@ namespace BL.Test
 
 			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, userRepositoryMock.Object);
 
-			bool isValidToken = sessionLogic.IsValidToken(tokenToSearch);
+			bool isValidToken = sessionLogic.IsTokenValid(tokenToSearch);
 			sessionRepositoryMock.VerifyAll();
 
 			Assert.IsFalse(isValidToken);
