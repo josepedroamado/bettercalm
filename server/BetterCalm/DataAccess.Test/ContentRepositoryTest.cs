@@ -431,6 +431,115 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void AddContentWithoutName()
+		{
+			Content content = new Content()
+			{
+				Id = 1,
+				ArtistName = "artist name",
+				AudioUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:00:01")
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(content);
+			Content obtained = repository.Get(content.Id);
+
+			Assert.IsNull(obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void AddContentWithoutArtistName()
+		{
+			Content content = new Content()
+			{
+				Id = 1,
+				Name = "name",
+				AudioUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:00:01")
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(content);
+			Content obtained = repository.Get(content.Id);
+
+			Assert.IsNull(obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void AddContentWithoutAudioUrl()
+		{
+			Content content = new Content()
+			{
+				Id = 1,
+				Name = "name",
+				ArtistName = "artist name",
+				ContentLength = TimeSpan.Parse("00:00:01")
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(content);
+			Content obtained = repository.Get(content.Id);
+
+			Assert.IsNull(obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void AddContentWithoutContentLength()
+		{
+			Content content = new Content()
+			{
+				Id = 1,
+				Name = "name",
+				ArtistName = "artist name",
+				AudioUrl = "http://audio.com/audio.mp3"
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(content);
+			Content obtained = repository.Get(content.Id);
+
+			Assert.IsNull(obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void AddContentWithoutValidPlaylist()
+		{
+			Content content = new Content()
+			{
+				Id = 1,
+				Name = "name",
+				ArtistName = "artist name",
+				AudioUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:00:01"),
+				PlayLists = new List<Playlist>()
+				{
+					new Playlist()
+					{
+						Id = 1,
+						Name = "playlist name"
+					}
+				}
+			};
+
+			ContentRepository repository = new ContentRepository(this.context);
+
+			repository.Add(content);
+			Content obtained = repository.Get(content.Id);
+
+			Assert.IsNull(obtained);
+		}
+
+		[TestMethod]
 		[ExpectedException(typeof(NotFoundException))]
 		public void DeleteContentOk()
 		{
