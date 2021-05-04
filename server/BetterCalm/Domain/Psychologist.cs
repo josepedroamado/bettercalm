@@ -22,6 +22,11 @@ namespace Domain
 			return string.Concat(this.FirstName, " ", this.LastName);
 		}
 
+		public bool Validate()
+		{
+			throw new NotImplementedException();
+		}
+
 		public Schedule GetLast()
 		{
 			if (ScheduleDays.Count() > 0)
