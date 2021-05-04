@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace BL
+namespace BL.Utils
 {
 	public class UserCredentialsValidator
 	{

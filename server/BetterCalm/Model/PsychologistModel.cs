@@ -25,7 +25,7 @@ namespace Model
 				Address = this.Address,
 				Format = ParseFormat(this.Format),
 				Illnesses = this.IllnessModels?.Select(illnessModel => illnessModel.ToEntity()).ToList(),
-				CreatedDate = DateTime.Today
+				CreatedDate = DateTime.Now
 			};
         }
 
