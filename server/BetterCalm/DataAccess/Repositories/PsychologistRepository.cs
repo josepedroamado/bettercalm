@@ -43,7 +43,8 @@ namespace DataAccess.Repositories
             {
                 throw new AlreadyExistsException(psychologistToAdd.Id.ToString());
             }
-            else
+            
+            if (psychologist.Validate())
             {
                 this.psychologists.Add(psychologist);
                 this.context.SaveChanges();
