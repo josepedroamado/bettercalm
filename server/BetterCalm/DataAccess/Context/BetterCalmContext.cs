@@ -48,6 +48,11 @@ namespace DataAccess.Context
 
             modelBuilder.Entity<Playlist>().Property(prop => prop.Description).IsRequired().HasMaxLength(150);
             modelBuilder.Entity<Playlist>().Property(prop => prop.Name).IsRequired();
+
+            modelBuilder.Entity<Content>().Property(prop => prop.ArtistName).IsRequired();
+            modelBuilder.Entity<Content>().Property(prop => prop.AudioUrl).IsRequired();
+            modelBuilder.Entity<Content>().Property(prop => prop.ContentLength).IsRequired();
+            modelBuilder.Entity<Content>().Property(prop => prop.Name).IsRequired();
         }
 	}
 }
