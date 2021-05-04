@@ -168,6 +168,69 @@ namespace DataAccess.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Add_NoAddress_ExceptionThrown()
+        {
+            Psychologist expectedPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(expectedPsychologist);
+
+            Psychologist obtainedPsychologist = repository.Get(expectedPsychologist.Id);
+
+            Assert.IsNull(obtainedPsychologist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Add_NoFirstName_ExceptionThrown()
+        {
+            Psychologist expectedPsychologist = new Psychologist()
+            {
+                Id = 1,
+                LastName = "Sartori",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(expectedPsychologist);
+
+            Psychologist obtainedPsychologist = repository.Get(expectedPsychologist.Id);
+
+            Assert.IsNull(obtainedPsychologist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Add_NoLastNAme_ExceptionThrown()
+        {
+            Psychologist expectedPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(expectedPsychologist);
+
+            Psychologist obtainedPsychologist = repository.Get(expectedPsychologist.Id);
+
+            Assert.IsNull(obtainedPsychologist);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(CollectionEmptyException))]
         public void GetByIllnessAndDate_NoPsychologistsExists_ExceptionThrown()
         {
