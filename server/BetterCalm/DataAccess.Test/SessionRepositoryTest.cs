@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 
 namespace DataAccess.Test
 {
@@ -158,6 +159,68 @@ namespace DataAccess.Test
             Session obtainedSession = repository.GetByEmail(session.GetSessionEmail());
 
             Assert.IsNull(obtainedSession);
+        }
+
+        [TestMethod]
+        public void GetRoles_HasRole_Fetched()
+		{
+            string targetRole = "Administrator";
+            Session session = new Session()
+            {
+                Id = 1,
+                Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
+                User = new User()
+                {
+                    Id = 1,
+                    EMail = "a@a.com",
+                    Password = "1234",
+                    Name = "test",
+                    Roles = new List<Role>()
+					{
+                        new Role()
+						{
+                            Id = 1,
+                            Name = targetRole
+                        }
+					}
+                }
+            };
+
+            SessionRepository repository = new SessionRepository(this.context);
+            repository.Add(session);
+
+            Assert.IsTrue(repository.GetRoles(session.Token).Any(role => role.Name.Equals(targetRole)));
+        }
+
+        [TestMethod]
+        public void GetRoles_NoHasRole_Fetched()
+        {
+            string targetRole = "Administrator";
+            Session session = new Session()
+            {
+                Id = 1,
+                Token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4",
+                User = new User()
+                {
+                    Id = 1,
+                    EMail = "a@a.com",
+                    Password = "1234",
+                    Name = "test",
+                    Roles = new List<Role>()
+                    {
+                        new Role()
+                        {
+                            Id = 1,
+                            Name = "AnotherRole"
+                        }
+                    }
+                }
+            };
+
+            SessionRepository repository = new SessionRepository(this.context);
+            repository.Add(session);
+
+            Assert.IsFalse(repository.GetRoles(session.Token).Any(role => role.Name.Equals(targetRole)));
         }
     }
 }
