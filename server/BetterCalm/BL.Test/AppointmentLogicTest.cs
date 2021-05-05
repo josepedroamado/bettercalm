@@ -44,7 +44,6 @@ namespace BL.Test
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
 			mockPatient.Setup(m => m.Get(patient.EMail)).Returns(patient);
-			mockPatient.Setup(m => m.Add(patient));
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
 			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
@@ -97,7 +96,6 @@ namespace BL.Test
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
 			mockPatient.Setup(m => m.Get(patient.EMail)).Returns(patient);
-			mockPatient.Setup(m => m.Add(patient));
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
 			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
