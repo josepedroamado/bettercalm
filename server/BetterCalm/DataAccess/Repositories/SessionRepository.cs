@@ -48,7 +48,13 @@ namespace DataAccess.Repositories
 
 		public IEnumerable<Role> GetRoles(string token)
 		{
-			throw new System.NotImplementedException();
+			return this.sessions.
+				Include("User").
+				Include("User.Roles").
+				FirstOrDefault(session => session.Token.Equals(token))?.
+				User?.
+				Roles;
+
 		}
 	}
 }
