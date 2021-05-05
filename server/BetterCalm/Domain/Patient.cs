@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Exceptions;
+using System;
 
 namespace Domain
 {
@@ -8,9 +9,15 @@ namespace Domain
 		public string EMail { get; set; }
 		public string Phone { get; set; }
 
-		public bool Validate()
+		public override bool Validate()
 		{
-			throw new NotImplementedException();
+			if (BirthDate == DateTime.MinValue)
+				throw new InvalidInputException("BirthDate is required");
+			if (string.IsNullOrEmpty(this.EMail))
+				throw new InvalidInputException("EMail is required");
+			if (string.IsNullOrEmpty(this.Phone))
+				throw new InvalidInputException("Phone is required");
+			return base.Validate();
 		}
 	}
 }

@@ -23,15 +23,11 @@ namespace Domain
 			return string.Concat(this.FirstName, " ", this.LastName);
 		}
 
-		public bool Validate()
+		public override bool Validate()
 		{
 			if (string.IsNullOrEmpty(this.Address))
 				throw new InvalidInputException("Address is required");
-			if (string.IsNullOrEmpty(this.FirstName))
-				throw new InvalidInputException("FirstName is required");
-			if (string.IsNullOrEmpty(this.LastName))
-				throw new InvalidInputException("LastName is required");
-			return true;
+			return base.Validate();
 		}
 
 		public Schedule GetLast()
