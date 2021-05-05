@@ -17,6 +17,11 @@ namespace DataAccess.Repositories
 			this.patients = context.Set<Patient>();
 		}
 
+		public void Add(Patient patient)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public Patient Get(string eMail)
 		{
 			Patient patient = this.patients.FirstOrDefault(patient => patient.EMail.Equals(eMail));
