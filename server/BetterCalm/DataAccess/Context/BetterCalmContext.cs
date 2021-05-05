@@ -58,6 +58,12 @@ namespace DataAccess.Context
             modelBuilder.Entity<Psychologist>().Property(prop => prop.FirstName).IsRequired();
             modelBuilder.Entity<Psychologist>().Property(prop => prop.LastName).IsRequired();
             modelBuilder.Entity<Psychologist>().Property(prop => prop.Format).IsRequired();
+
+            modelBuilder.Entity<Patient>().Property(prop => prop.FirstName).IsRequired();
+            modelBuilder.Entity<Patient>().Property(prop => prop.LastName).IsRequired();
+            modelBuilder.Entity<Patient>().Property(prop => prop.BirthDate).IsRequired();
+            modelBuilder.Entity<Patient>().Property(prop => prop.EMail).IsRequired();
+            modelBuilder.Entity<Patient>().Property(prop => prop.Phone).IsRequired();
         }
 	}
 }

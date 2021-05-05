@@ -17,6 +17,31 @@ namespace DataAccess.Repositories
 			this.patients = context.Set<Patient>();
 		}
 
+		public void Add(Patient patient)
+		{
+
+			if (patient.Validate())
+			{
+				if (Exists(patient))
+					throw new AlreadyExistsException(patient.EMail);
+
+				this.patients.Add(patient);
+				this.context.SaveChanges();
+			}
+		}
+
+		private bool Exists(Patient patient)
+		{
+			try
+			{
+				return Get(patient.EMail) != null;
+			}
+			catch (NotFoundException)
+			{
+				return false;
+			}
+		}
+
 		public Patient Get(string eMail)
 		{
 			Patient patient = this.patients.FirstOrDefault(patient => patient.EMail.Equals(eMail));
