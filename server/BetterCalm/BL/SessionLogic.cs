@@ -4,6 +4,7 @@ using DataAccessInterfaces;
 using Domain;
 using Domain.Exceptions;
 using System;
+using System.Linq;
 
 namespace BL
 {
@@ -20,7 +21,8 @@ namespace BL
 
 		public bool TokenHasRole(string token, string role)
 		{
-			throw new NotImplementedException();
+			return this.sessionRepository.GetRoles(token).
+				Any(role => role.Name.Equals(role));
 		}
 
 		public bool IsTokenValid(string token)
