@@ -79,5 +79,147 @@ namespace DataAccess.Test
 			Patient obtained = repository.Get("notFoundEmail@fail.com");
 			Assert.AreNotEqual(obtained, patient);
 		}
+
+		[TestMethod]
+		public void Add_DataIsCorrect_Added()
+		{
+			Patient patient = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1990, 1, 1),
+				EMail = "a@a.com",
+				FirstName = "first name",
+				LastName = "last name",
+				Phone = "099099099"
+			};
+
+			PatientRepository repository = new PatientRepository(this.context);
+			repository.Add(patient);
+			Patient obtained = repository.Get(patient.EMail);
+
+			Assert.AreEqual(patient, obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(AlreadyExistsException))]
+		public void Add_AlreadyExists_ExceptionThrown()
+		{
+			Patient patient = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1990, 1, 1),
+				EMail = "a@a.com",
+				FirstName = "first name",
+				LastName = "last name",
+				Phone = "099099099"
+			};
+
+			PatientRepository repository = new PatientRepository(this.context);
+			repository.Add(patient);
+			repository.Add(patient);
+			Patient obtained = repository.Get(patient.EMail);
+
+			Assert.AreEqual(patient, obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void Add_NoBirthDate_ExceptionThrown()
+		{
+			Patient patient = new Patient()
+			{
+				Id = 1,
+				EMail = "a@a.com",
+				FirstName = "first name",
+				LastName = "last name",
+				Phone = "099099099"
+			};
+
+			PatientRepository repository = new PatientRepository(this.context);
+			repository.Add(patient);
+			Patient obtained = repository.Get(patient.EMail);
+
+			Assert.IsNull(obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void Add_NoEMail_ExceptionThrown()
+		{
+			Patient patient = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1990, 1, 1),
+				FirstName = "first name",
+				LastName = "last name",
+				Phone = "099099099"
+			};
+
+			PatientRepository repository = new PatientRepository(this.context);
+			repository.Add(patient);
+			Patient obtained = repository.Get(patient.EMail);
+
+			Assert.IsNull(obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void Add_NoFirstName_ExceptionThrown()
+		{
+			Patient patient = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1990, 1, 1),
+				EMail = "a@a.com",
+				LastName = "last name",
+				Phone = "099099099"
+			};
+
+			PatientRepository repository = new PatientRepository(this.context);
+			repository.Add(patient);
+			Patient obtained = repository.Get(patient.EMail);
+
+			Assert.IsNull(obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void Add_NoLastName_ExceptionThrown()
+		{
+			Patient patient = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1990, 1, 1),
+				EMail = "a@a.com",
+				FirstName = "first name",
+				Phone = "099099099"
+			};
+
+			PatientRepository repository = new PatientRepository(this.context);
+			repository.Add(patient);
+			Patient obtained = repository.Get(patient.EMail);
+
+			Assert.IsNull(obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void Add_NoPhone_ExceptionThrown()
+		{
+			Patient patient = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1990, 1, 1),
+				EMail = "a@a.com",
+				FirstName = "first name",
+				LastName = "last name"
+			};
+
+			PatientRepository repository = new PatientRepository(this.context);
+			repository.Add(patient);
+			Patient obtained = repository.Get(patient.EMail);
+
+			Assert.IsNull(obtained);
+		}
 	}
 }
