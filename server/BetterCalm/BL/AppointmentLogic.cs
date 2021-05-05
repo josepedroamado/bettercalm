@@ -62,16 +62,15 @@ namespace BL
 
 		private Patient GetPatient(Patient patient)
 		{
-			Patient obtainedPatient;
 			try
 			{
-				obtainedPatient = this.patientRepository.Get(patient.EMail);
+				this.patientRepository.Add(patient);
 			}
-			catch (NotFoundException)
+			catch (AlreadyExistsException) 
 			{
-				obtainedPatient = patient;
+				patient = this.patientRepository.Get(patient.EMail);
 			}
-			return obtainedPatient;
+			return patient;
 		}
 
 		private Psychologist GetCandidate(Illness illness)
