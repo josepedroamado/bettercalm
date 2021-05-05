@@ -1,4 +1,6 @@
 ﻿using Domain;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Model
 {
@@ -8,6 +10,7 @@ namespace Model
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public string ImageUrl { get; set; }
+		public int[] Categories { get; set; }
 
 		public PlaylistBasicInfo() {}
 
@@ -17,16 +20,22 @@ namespace Model
 			this.Name = playlist.Name;
 			this.Description = playlist.Description;
 			this.ImageUrl = playlist.ImageUrl;
+			this.Categories = playlist.Categories?.Select(category => category.Id).ToArray();
 		}
 
 		public Playlist ToEntity()
 		{
+			List<Category> categories = new List<Category>();
+			if (this.Categories != null)
+				categories = this.Categories.Select(id => new Category() { Id = id }).ToList();
+			
 			return new Playlist()
 			{
 				Id = this.Id,
 				Name = this.Name,
 				Description = this.Description,
-				ImageUrl = this.ImageUrl
+				ImageUrl = this.ImageUrl,
+				Categories = categories
 			};
 		}
 	}
