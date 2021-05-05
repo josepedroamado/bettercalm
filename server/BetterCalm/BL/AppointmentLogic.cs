@@ -64,11 +64,11 @@ namespace BL
 		{
 			try
 			{
-				this.patientRepository.Add(patient);
-			}
-			catch (AlreadyExistsException) 
-			{
 				patient = this.patientRepository.Get(patient.EMail);
+			}
+			catch (NotFoundException) 
+			{
+				this.patientRepository.Add(patient);
 			}
 			return patient;
 		}
