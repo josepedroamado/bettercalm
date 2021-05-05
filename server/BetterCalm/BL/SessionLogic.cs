@@ -22,7 +22,7 @@ namespace BL
 		public bool TokenHasRole(string token, string role)
 		{
 			return this.sessionRepository.GetRoles(token).
-				Any(role => role.Name.Equals(role));
+				Any(tokenRole => tokenRole.Name.Equals(role));
 		}
 
 		public bool IsTokenValid(string token)
