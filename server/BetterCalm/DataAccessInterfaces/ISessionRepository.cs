@@ -1,4 +1,5 @@
 ﻿using Domain;
+using System.Collections.Generic;
 
 namespace DataAccessInterfaces
 {
@@ -8,5 +9,6 @@ namespace DataAccessInterfaces
 		Session GetByToken(string token);
 		void Add(Session session);
 		void Delete(Session session);
+		IEnumerable<Role> GetRoles(string token);
 	}
 }

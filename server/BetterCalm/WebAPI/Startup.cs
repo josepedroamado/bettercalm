@@ -21,7 +21,6 @@ namespace WebAPI
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers(options => options.Filters.Add(typeof(ExceptionFilter)));
-			services.AddScoped<AuthorizationAttributeFilter>();
 			ServicesInjector servicesInjector = new ServicesInjector(services);
 			servicesInjector.AddBLServices();
 			servicesInjector.AddContextServices();

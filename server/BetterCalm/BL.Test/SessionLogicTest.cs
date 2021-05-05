@@ -3,6 +3,7 @@ using Domain;
 using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Collections.Generic;
 
 namespace BL.Test
 {
@@ -195,8 +196,6 @@ namespace BL.Test
 		[TestMethod]
 		public void IsTokenValid_ValidExists_True()
 		{
-			;
-
 			string tokenToSearch = "token1234";
 			Session expectedSession = new Session()
 			{
@@ -224,23 +223,55 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void IsTokenValid_TokenNotFound_False()
+		public void TokenHasRole_HasRole_True()
 		{
-			;
-
-			string tokenToSearch = "token1234";
-			Session expectedSession = null;
+			string targetRole = "Administrator";
+			List<Role> expectedRoles = new List<Role>()
+			{
+				new Role()
+				{
+					Id = 1,
+					Name = targetRole
+				}
+			};
+			string token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4";
 
 			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
-			sessionRepositoryMock.Setup(m => m.GetByToken(tokenToSearch)).Returns(expectedSession);
+			sessionRepositoryMock.Setup(m => m.GetRoles(token)).Returns(expectedRoles);
 			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
 
 			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, userRepositoryMock.Object);
 
-			bool isValidToken = sessionLogic.IsTokenValid(tokenToSearch);
+			bool hasRole = sessionLogic.TokenHasRole(token, targetRole);
 			sessionRepositoryMock.VerifyAll();
 
-			Assert.IsFalse(isValidToken);
+			Assert.IsTrue(hasRole);
+		}
+
+		[TestMethod]
+		public void TokenHasRole_NoHasRole_False()
+		{
+			string targetRole = "Administrator";
+			List<Role> expectedRoles = new List<Role>()
+			{
+				new Role()
+				{
+					Id = 1,
+					Name = "AnotherRole"
+				}
+			};
+			string token = "B75928B9 - 601A - 438C - 9B0F - C14E56A7BBD4";
+
+			Mock<ISessionRepository> sessionRepositoryMock = new Mock<ISessionRepository>(MockBehavior.Strict);
+			sessionRepositoryMock.Setup(m => m.GetRoles(token)).Returns(expectedRoles);
+			Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>(MockBehavior.Strict);
+
+			SessionLogic sessionLogic = new SessionLogic(sessionRepositoryMock.Object, userRepositoryMock.Object);
+
+			bool hasRole = sessionLogic.TokenHasRole(token, targetRole);
+			sessionRepositoryMock.VerifyAll();
+
+			Assert.IsFalse(hasRole);
 		}
 	}
 }
