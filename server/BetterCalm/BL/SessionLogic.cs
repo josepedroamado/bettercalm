@@ -18,6 +18,11 @@ namespace BL
 			this.userRepository = userRepository;
 		}
 
+		public bool TokenHasRole(string token, string role)
+		{
+			throw new NotImplementedException();
+		}
+
 		public bool IsTokenValid(string token)
 		{
 			return this.sessionRepository.GetByToken(token) != null;
