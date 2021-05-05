@@ -24,6 +24,9 @@ namespace BL
 
 		public void CreateContent(Content content)
 		{
+			if (content.Categories == null || content.Categories.Count() == 0)
+				throw new MissingCategoriesException();
+
 			content.Categories = GetStoredCategories(content.Categories);
 			content.PlayLists = GetStoredPlaylists(content.PlayLists);
 						
@@ -32,16 +35,18 @@ namespace BL
 
 		private List<Category> GetStoredCategories(IEnumerable<Category> inMemoryCategories)
 		{
-			if (inMemoryCategories == null || inMemoryCategories.Count() == 0)
-				throw new MissingCategoriesException();
+			List<Category> storedCategories = new List<Category>();
 
-			List<Category> storedCategories = inMemoryCategories.Select(category =>
+			if (inMemoryCategories != null)
 			{
-				Category stored = this.categoryRepository.Get(category.Id);
-				if (stored != null)
-					return stored;
-				throw new NotFoundException(category.Id.ToString());
-			}).ToList();
+				storedCategories = inMemoryCategories.Select(category =>
+				{
+					Category stored = this.categoryRepository.Get(category.Id);
+					if (stored != null)
+						return stored;
+					throw new NotFoundException(category.Id.ToString());
+				}).ToList();
+			}
 			
 			return storedCategories;
 		}
@@ -64,9 +69,16 @@ namespace BL
 					}
 
 					if (stored != null)
+					{
+						stored.Categories = GetStoredCategories(stored.Categories);
 						return stored;
+					}
+						
 					if (!string.IsNullOrEmpty(playlist.Name))
+					{
+						playlist.Categories = GetStoredCategories(playlist.Categories);
 						return playlist;
+					}	
 
 					throw new UnableToCreatePlaylistException();
 				}).ToList();
@@ -105,6 +117,10 @@ namespace BL
 			if (currentContent == null)
 				return;
 			currentContent.UpdateFromContent(content);
+
+			if (currentContent.Categories == null || currentContent.Categories.Count() == 0)
+				throw new MissingCategoriesException();
+
 			currentContent.PlayLists = GetStoredPlaylists(currentContent.PlayLists);
 			currentContent.Categories = GetStoredCategories(currentContent.Categories);
 
