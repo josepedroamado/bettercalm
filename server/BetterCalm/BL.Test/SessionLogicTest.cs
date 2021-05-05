@@ -245,7 +245,7 @@ namespace BL.Test
 			bool hasRole = sessionLogic.TokenHasRole(token, targetRole);
 			sessionRepositoryMock.VerifyAll();
 
-			Assert.IsFalse(hasRole);
+			Assert.IsTrue(hasRole);
 		}
 
 		[TestMethod]
