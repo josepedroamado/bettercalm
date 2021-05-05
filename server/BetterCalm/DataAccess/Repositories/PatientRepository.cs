@@ -19,7 +19,27 @@ namespace DataAccess.Repositories
 
 		public void Add(Patient patient)
 		{
-			throw new System.NotImplementedException();
+
+			if (patient.Validate())
+			{
+				if (Exists(patient))
+					throw new AlreadyExistsException(patient.EMail);
+
+				this.patients.Add(patient);
+				this.context.SaveChanges();
+			}
+		}
+
+		private bool Exists(Patient patient)
+		{
+			try
+			{
+				return Get(patient.EMail) != null;
+			}
+			catch (NotFoundException)
+			{
+				return false;
+			}
 		}
 
 		public Patient Get(string eMail)
