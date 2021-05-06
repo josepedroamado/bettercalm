@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BLInterfaces;
+using Domain;
+using Microsoft.AspNetCore.Mvc;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using WebAPI.Filters;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,36 +15,51 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class ContentsController : ControllerBase
 	{
-		// GET: api/<ContentsController>
+		private readonly IContentLogic contentLogic;
+
+		public ContentsController(IContentLogic contentLogic)
+		{
+			this.contentLogic = contentLogic;
+		}
+
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public IActionResult Get()
 		{
-			return new string[] { "value1", "value2" };
+			IEnumerable<ContentBasicInfo> contents =
+				this.contentLogic.GetContents().
+				Select(content => new ContentBasicInfo(content));
+
+			return Ok(contents);
 		}
 
-		// GET api/<ContentsController>/5
 		[HttpGet("{id}")]
-		public string Get(int id)
+		public IActionResult Get(int id)
 		{
-			return "value";
+			Content content = this.contentLogic.GetContent(id);
+			return Ok(new ContentBasicInfo(content));
 		}
 
-		// POST api/<ContentsController>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		[AuthorizationFilter("Administrator")]
+		public IActionResult Post([FromBody] ContentModel contentModel)
 		{
+			this.contentLogic.CreateContent(contentModel.ToEntity());
+			return Ok();
 		}
 
-		// PUT api/<ContentsController>/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
-		{
-		}
-
-		// DELETE api/<ContentsController>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		[AuthorizationFilter("Administrator")]
+		public IActionResult Delete(int id)
 		{
+			this.contentLogic.DeleteContent(id);
+			return Ok();
+		}
+
+		[HttpPatch]
+		public IActionResult Patch([FromBody] ContentModel contentModel)
+		{
+			this.contentLogic.UpdateContent(contentModel.ToEntity());
+			return Ok();
 		}
 	}
 }

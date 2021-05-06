@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
+using Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -11,5 +9,28 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class SessionsController : ControllerBase
 	{
-	}
+		private readonly ISessionLogic sessionLogic;
+
+		public SessionsController(ISessionLogic sessionLogic)
+		{
+			this.sessionLogic = sessionLogic;
+		}
+
+		[HttpPost]
+		public IActionResult Post([FromBody] UserCredentialsModel userCredentialsModel)
+		{
+			string token = this.sessionLogic.Login(userCredentialsModel.EMail, userCredentialsModel.Password);
+			SessionInfoModel sessionInfo = new SessionInfoModel()
+			{
+				Token = token
+			};
+			return Ok(sessionInfo);
+		}
+
+		[HttpDelete]
+		public void Delete([FromBody] string expectedToken)
+        {
+			this.sessionLogic.Logout(expectedToken);
+		}
+    }
 }

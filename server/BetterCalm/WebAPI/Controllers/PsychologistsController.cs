@@ -1,47 +1,59 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
+using Model;
+using BLInterfaces;
+using WebAPI.Filters;
 using System.Linq;
-using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
+	[AuthorizationFilter("Administrator")]
 	public class PsychologistsController : ControllerBase
 	{
-		// GET: api/<PsychologistsController>
+
+		private readonly IPsychologistLogic psychologistLogic;
+
+        public PsychologistsController(IPsychologistLogic psychologistLogic)
+        {
+			this.psychologistLogic = psychologistLogic;
+        }
+
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public IActionResult Get()
 		{
-			return new string[] { "value1", "value2" };
+			IEnumerable<PsychologistModel> models =
+				   this.psychologistLogic.GetAll().
+				   Select(psychologist => new PsychologistModel(psychologist));
+			return Ok(models);
 		}
 
-		// GET api/<PsychologistsController>/5
 		[HttpGet("{id}")]
-		public string Get(int id)
+		public IActionResult Get(int id)
 		{
-			return "value";
+			PsychologistModel psychologistModel = new PsychologistModel(this.psychologistLogic.Get(id));
+			return Ok(psychologistModel);
 		}
 
-		// POST api/<PsychologistsController>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public IActionResult Post([FromBody] PsychologistModel psychologistModel)
 		{
+			this.psychologistLogic.Add(psychologistModel.ToEntity());
+			return Ok();
 		}
 
-		// PUT api/<PsychologistsController>/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		[HttpPatch]
+		public void Patch([FromBody] PsychologistModel psychologistModel)
 		{
+			this.psychologistLogic.Update(psychologistModel.ToEntity());
 		}
 
-		// DELETE api/<PsychologistsController>/5
-		[HttpDelete("{id}")]
-		public void Delete(int id)
+		[HttpDelete]
+		public void Delete([FromBody] int id)
 		{
+			this.psychologistLogic.Delete(id);
 		}
 	}
 }

@@ -1,47 +1,53 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using BLInterfaces;
+using Microsoft.AspNetCore.Mvc;
+using Model;
 using System.Linq;
-using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using WebAPI.Filters;
 
 namespace WebAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[AuthorizationFilter("Administrator")]
 	public class AdministratorsController : ControllerBase
 	{
-		// GET: api/<AdministratorsController>
-		[HttpGet]
-		public IEnumerable<string> Get()
-		{
-			return new string[] { "value1", "value2" };
-		}
+		private readonly IUserLogic userLogic;
+		private const string AdministratorRole = "Administrator";
 
-		// GET api/<AdministratorsController>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		public AdministratorsController(IUserLogic userLogic)
 		{
-			return "value";
+			this.userLogic = userLogic;
 		}
 
 		// POST api/<AdministratorsController>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public IActionResult Post([FromBody] AdministratorInputModel model)
 		{
+			this.userLogic.CreateUser(model.ToEntityWithRole());
+			return Ok();
 		}
 
-		// PUT api/<AdministratorsController>/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		[HttpPatch]
+		public IActionResult Patch([FromBody] AdministratorInputModel model)
 		{
+			this.userLogic.UpdateUser(model.ToEntity());
+			return new StatusCodeResult(204);
 		}
 
-		// DELETE api/<AdministratorsController>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public IActionResult Delete(int id)
 		{
+			this.userLogic.DeleteUser(id);
+			return new StatusCodeResult(204);
+		}
+
+		[HttpGet]
+		public IActionResult Get()
+		{
+			return new OkObjectResult(
+				this.userLogic.GetUsersByRole(AdministratorRole).
+					Select(user => new AdministratorOutputModel(user)).
+					ToList());
 		}
 	}
 }
