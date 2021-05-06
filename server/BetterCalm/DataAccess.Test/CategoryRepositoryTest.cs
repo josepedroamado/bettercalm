@@ -53,7 +53,7 @@ namespace DataAccess.Test
             CategoryRepository categoryRepository = new CategoryRepository(this.context);
 
             IEnumerable<Category> obtainedCategories = categoryRepository.GetAll();
-            Assert.IsTrue(expectedCategories.SequenceEqual(obtainedCategories));
+            Assert.AreEqual(expectedCategories.Count, obtainedCategories.Count());
         }
 
         private List<Category> GetAllExpectedCategories()
