@@ -23,7 +23,13 @@ namespace DataAccess.Repositories
             if (this.categories.Count() <= 0)
                 throw new CollectionEmptyException("Categories");
             else
-                return this.categories;
+                return this.categories.Select(category => new Category()
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Contents = category.Contents.Select(content => content).ToList(),
+                    PlayLists = category.PlayLists.Select(playlist => playlist).ToList()
+                });
         }
 
         public Category Get(int id)
