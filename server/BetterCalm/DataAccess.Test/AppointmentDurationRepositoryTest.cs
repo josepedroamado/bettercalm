@@ -79,5 +79,14 @@ namespace DataAccess.Test
             };
             return durations;
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(CollectionEmptyException))]
+        public void GetAll_NoDurations_ExceptionThrown()
+        {
+            AppointmentDurationRepository appointmentDurationRepository = new AppointmentDurationRepository(this.context);
+            IEnumerable<AppointmentDuration> obtainedDurations = appointmentDurationRepository.GetAll();
+            Assert.IsNull(obtainedDurations);
+        }
     }
 }
