@@ -20,7 +20,11 @@ namespace DataAccess.Repositories
         }
 
        public IEnumerable<AppointmentDuration> GetAll(){
-           throw new NotImplementedException();
+            return this.durations.Select(duration => new AppointmentDuration()
+            {
+                Id = duration.Id,
+                Duration = duration.Duration,
+            });
        }
     }
 }
