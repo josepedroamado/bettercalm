@@ -21,7 +21,10 @@ namespace DataAccess.Repositories
 
         public AppointmentDuration Get(int id)
         {
-            return this.durations.FirstOrDefault(duration => duration.Id == id);
+            AppointmentDuration duration =  this.durations.FirstOrDefault(duration => duration.Id == id);
+            if (duration == null)
+                throw new NotFoundException(id.ToString());
+            return duration;
         }
 
         public IEnumerable<AppointmentDuration> GetAll(){
