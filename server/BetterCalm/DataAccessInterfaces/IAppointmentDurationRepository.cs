@@ -6,5 +6,7 @@ namespace DataAccessInterfaces
     public interface IAppointmentDurationRepository
     {
         IEnumerable<AppointmentDuration> GetAll();
+
+        AppointmentDuration Get(int id);
     }
 }

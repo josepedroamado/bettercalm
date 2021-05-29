@@ -88,5 +88,27 @@ namespace DataAccess.Test
             IEnumerable<AppointmentDuration> obtainedDurations = appointmentDurationRepository.GetAll();
             Assert.IsNull(obtainedDurations);
         }
+
+        [TestMethod]
+        public void Get_DurationExists_Fetched()
+        {
+            AppointmentDuration expectedDuration = GetExpectedDuration();
+            this.context.Add(expectedDuration);
+            this.context.SaveChanges();
+            AppointmentDurationRepository appointmentDurationRepository = new AppointmentDurationRepository(this.context);
+            
+            AppointmentDuration obtainedDuration = appointmentDurationRepository.Get(expectedDuration.Id);
+            
+            Assert.AreEqual(expectedDuration, obtainedDuration);
+        }
+
+        private AppointmentDuration GetExpectedDuration()
+        {
+            return new AppointmentDuration()
+            {
+                Id = 1,
+                Duration = new TimeSpan(1, 0, 0)
+            };
+        }
     }
 }

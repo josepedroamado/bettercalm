@@ -19,7 +19,12 @@ namespace DataAccess.Repositories
             this.durations = context.Set<AppointmentDuration>();
         }
 
-       public IEnumerable<AppointmentDuration> GetAll(){
+        public AppointmentDuration Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<AppointmentDuration> GetAll(){
             if (this.durations.Count() <= 0)
                 throw new CollectionEmptyException("Appointment Durations");
             else
