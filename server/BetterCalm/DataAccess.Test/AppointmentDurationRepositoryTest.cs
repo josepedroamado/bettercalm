@@ -110,5 +110,17 @@ namespace DataAccess.Test
                 Duration = new TimeSpan(1, 0, 0)
             };
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void Get_DurationNotFound_ExceptionThrown()
+        {
+            AppointmentDuration expectedDuration = GetExpectedDuration();
+            AppointmentDurationRepository appointmentDurationRepository = new AppointmentDurationRepository(this.context);
+
+            AppointmentDuration obtainedDuration = appointmentDurationRepository.Get(expectedDuration.Id);
+
+            Assert.IsNull(obtainedDuration);
+        }
     }
 }
