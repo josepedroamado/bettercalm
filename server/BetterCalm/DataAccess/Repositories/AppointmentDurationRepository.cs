@@ -21,7 +21,7 @@ namespace DataAccess.Repositories
 
         public AppointmentDuration Get(int id)
         {
-            throw new NotImplementedException();
+            return this.durations.FirstOrDefault(duration => duration.Id == id);
         }
 
         public IEnumerable<AppointmentDuration> GetAll(){
