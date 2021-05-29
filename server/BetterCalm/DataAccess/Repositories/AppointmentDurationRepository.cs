@@ -20,11 +20,14 @@ namespace DataAccess.Repositories
         }
 
        public IEnumerable<AppointmentDuration> GetAll(){
-            return this.durations.Select(duration => new AppointmentDuration()
-            {
-                Id = duration.Id,
-                Duration = duration.Duration,
-            });
+            if (this.durations.Count() <= 0)
+                throw new CollectionEmptyException("Appointment Durations");
+            else
+                return this.durations.Select(duration => new AppointmentDuration()
+                {
+                    Id = duration.Id,
+                    Duration = duration.Duration,
+                });
        }
     }
 }
