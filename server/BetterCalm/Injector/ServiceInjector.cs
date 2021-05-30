@@ -40,6 +40,7 @@ namespace Injector
 			services.AddScoped<IPsychologistRepository, PsychologistRepository>();
 			services.AddScoped<IPatientRepository, PatientRepository>();
 			services.AddScoped<IRoleRepository, RoleRepository>();
+			services.AddScoped<IContentTypeRepository, ContentTypeRepository>();
 		}
 
 		public void AddContextServices()
