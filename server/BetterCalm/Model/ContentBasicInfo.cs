@@ -19,7 +19,7 @@ namespace Model
 			this.ContentLength = content.ContentLength;
 			this.ArtistName = content.ArtistName;
 			this.ImageUrl = content.ImageUrl;
-			this.AudioUrl = content.AudioUrl;
+			this.AudioUrl = content.ContentUrl;
 		}
 	}
 }

@@ -55,7 +55,7 @@ namespace WebAPI.Test
                     ContentLength = new TimeSpan(0, 2, 30),
                     Name = "It's My Life",
                     ImageUrl = "http://www.images.com/image.jpg",
-                    AudioUrl = "http://www.audios.com/audio.mp3"
+                    ContentUrl = "http://www.audios.com/audio.mp3"
                 },
                 new Content()
                 {
@@ -71,7 +71,7 @@ namespace WebAPI.Test
                     ContentLength = new TimeSpan(0, 2, 30),
                     Name = "La vida es un carnaval",
                     ImageUrl = "http://www.images.com/image2.jpg",
-                    AudioUrl = "http://www.audios.com/audio.mp3"
+                    ContentUrl = "http://www.audios.com/audio.mp3"
                 }
             };
         }
@@ -93,7 +93,7 @@ namespace WebAPI.Test
                 ContentLength = new TimeSpan(0, 2, 30),
                 Name = "It's My Life",
                 ImageUrl = "http://www.images.com/image.jpg",
-                AudioUrl = "http://www.audios.com/audio.mp3"
+                ContentUrl = "http://www.audios.com/audio.mp3"
             };
 
             Mock<IContentLogic> mock = new Mock<IContentLogic>(MockBehavior.Strict);

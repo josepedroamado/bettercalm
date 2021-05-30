@@ -12,7 +12,7 @@ namespace Domain
 		public TimeSpan ContentLength { get; set; }
 		public string ArtistName { get; set; }
 		public string ImageUrl { get; set; }
-		public string AudioUrl { get; set; }
+		public string ContentUrl { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
 		public IEnumerable<Playlist> PlayLists { get; set; }
 
@@ -21,8 +21,8 @@ namespace Domain
 			bool isValid = true;
 			if (string.IsNullOrEmpty(this.ArtistName))
 				throw new InvalidInputException("Artist name is required");
-			if (string.IsNullOrEmpty(this.AudioUrl))
-				throw new InvalidInputException("Audio Url is required");
+			if (string.IsNullOrEmpty(this.ContentUrl))
+				throw new InvalidInputException("Content Url is required");
 			if (string.IsNullOrEmpty(this.Name))
 				throw new InvalidInputException("Name is required");
 			if (this.ContentLength == TimeSpan.Zero)
@@ -39,8 +39,8 @@ namespace Domain
 
 			if (!string.IsNullOrEmpty(content.ArtistName))
 				this.ArtistName = content.ArtistName;
-			if (!string.IsNullOrEmpty(content.AudioUrl))
-				this.AudioUrl = content.AudioUrl;
+			if (!string.IsNullOrEmpty(content.ContentUrl))
+				this.ContentUrl = content.ContentUrl;
 			if (content.Categories != null)
 				this.Categories = content.Categories;
 			if (content.ContentLength != null)
@@ -70,7 +70,7 @@ namespace Domain
 					equalsCategories = true;
 
 				return Equals(this.ArtistName, yContent.ArtistName) &&
-					Equals(this.AudioUrl, yContent.AudioUrl) &&
+					Equals(this.ContentUrl, yContent.ContentUrl) &&
 					Equals(ContentLength, yContent.ContentLength) &&
 					this.Id == yContent.Id &&
 					Equals(this.ImageUrl, yContent.ImageUrl) &&
@@ -83,7 +83,7 @@ namespace Domain
 		public override int GetHashCode()
 		{
 			return HashCode.Combine(this.ArtistName, 
-				this.AudioUrl, 
+				this.ContentUrl, 
 				this.Categories, 
 				this.ContentLength, 
 				this.Id, 

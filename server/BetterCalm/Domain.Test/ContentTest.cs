@@ -15,7 +15,7 @@ namespace Domain.Test
 			Content source = new Content()
 			{
 				ArtistName = "ArtistName",
-				AudioUrl = "http://audio.com/audio.mp3",
+				ContentUrl = "http://audio.com/audio.mp3",
 				Categories = new List<Category>()
 				{
 					new Category()
@@ -46,7 +46,7 @@ namespace Domain.Test
 			Content content = new Content()
 			{
 				ArtistName = "artist name",
-				AudioUrl = "http://www.images.com/image.jpg",
+				ContentUrl = "http://www.images.com/image.jpg",
 				ContentLength = TimeSpan.Parse("00:01:30"),
 				Name = "content name",
 				PlayLists = new List<Playlist>()
@@ -68,7 +68,7 @@ namespace Domain.Test
 		{
 			Content content = new Content()
 			{
-				AudioUrl = "http://www.images.com/image.jpg",
+				ContentUrl = "http://www.images.com/image.jpg",
 				ContentLength = TimeSpan.Parse("00:01:30"),
 				Name = "content name",
 				PlayLists = new List<Playlist>()
@@ -113,7 +113,7 @@ namespace Domain.Test
 			Content content = new Content()
 			{
 				ArtistName = "artist name",
-				AudioUrl = "http://www.images.com/image.jpg",
+				ContentUrl = "http://www.images.com/image.jpg",
 				Name = "content name",
 				PlayLists = new List<Playlist>()
 				{
@@ -135,7 +135,7 @@ namespace Domain.Test
 			Content content = new Content()
 			{
 				ArtistName = "artist name",
-				AudioUrl = "http://www.images.com/image.jpg",
+				ContentUrl = "http://www.images.com/image.jpg",
 				ContentLength = TimeSpan.Parse("00:01:30"),
 				PlayLists = new List<Playlist>()
 				{
@@ -158,7 +158,7 @@ namespace Domain.Test
 			Content content = new Content()
 			{
 				ArtistName = "artist name",
-				AudioUrl = "http://www.images.com/image.jpg",
+				ContentUrl = "http://www.images.com/image.jpg",
 				ContentLength = TimeSpan.Parse("00:01:30"),
 				PlayLists = new List<Playlist>()
 				{

@@ -53,7 +53,7 @@ namespace WebAPI.Test
 							ArtistName = "Jhon Doe",
 							Name = "Rocking",
 							ImageUrl = "http://myrockurl.com/rock.jpg",
-							AudioUrl = "http://www.audios.com/audio.mp3"
+							ContentUrl = "http://www.audios.com/audio.mp3"
 						}
 					}
 				},
@@ -108,7 +108,7 @@ namespace WebAPI.Test
 						ArtistName = "Jhon Doe",
 						Name = "Rocking",
 						ImageUrl = "http://myrockurl.com/rock.jpg",
-						AudioUrl = "http://www.audios.com/audio.mp3"
+						ContentUrl = "http://www.audios.com/audio.mp3"
 					}
 				}
 			};
@@ -175,7 +175,7 @@ namespace WebAPI.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Content livinOnAPrayer = new Content()
@@ -187,7 +187,7 @@ namespace WebAPI.Test
 				ContentLength = new TimeSpan(0, 4, 10),
 				Name = "Livin' On A Prayer",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			bestOfBonJovi = new Playlist()
