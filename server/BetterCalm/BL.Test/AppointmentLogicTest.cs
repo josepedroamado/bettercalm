@@ -4,7 +4,6 @@ using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using System.Collections.Generic;
 
 namespace BL.Test
 {
@@ -57,10 +56,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();
@@ -116,10 +115,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();
@@ -176,10 +175,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();
@@ -236,10 +235,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();
@@ -296,10 +295,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();
@@ -354,10 +353,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();
@@ -412,10 +411,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();
@@ -470,10 +469,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();
@@ -528,10 +527,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();
@@ -586,10 +585,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();
@@ -644,10 +643,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();
@@ -703,10 +702,10 @@ namespace BL.Test
 			mockPsychologist.Setup(m => m.Update(psychologist));
 
 			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
-			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Throws(new NotFoundException(appointmentDuration.Duration.ToString()));
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Throws(new NotFoundException(appointmentDuration.Duration.ToString()));
 
 			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
-			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
 
 			mockIllness.VerifyAll();
 			mockPatient.VerifyAll();

@@ -5,6 +5,6 @@ namespace BLInterfaces
 {
 	public interface IAppointmentLogic
 	{
-		Appointment CreateAppointment(Patient patient, Illness illness, TimeSpan duration);
+		Appointment CreateAppointment(Patient patient, Illness illness, string duration);
 	}
 }

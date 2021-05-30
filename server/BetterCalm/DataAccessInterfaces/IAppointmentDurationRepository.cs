@@ -8,6 +8,6 @@ namespace DataAccessInterfaces
     {
         IEnumerable<AppointmentDuration> GetAll();
 
-        AppointmentDuration Get(TimeSpan duration);
+        AppointmentDuration Get(string duration);
     }
 }

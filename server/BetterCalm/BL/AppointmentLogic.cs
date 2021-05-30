@@ -30,7 +30,7 @@ namespace BL
 			this.appointmentDurationRepository = appointmentDurationRepository;
 		}
 
-		public Appointment CreateAppointment(Patient patient, Illness illness, TimeSpan duration)
+		public Appointment CreateAppointment(Patient patient, Illness illness, string duration)
 		{
 			Illness obtainedIllness = this.illnessRepository.Get(illness.Id);
 			Patient obtainedPatient = GetPatient(patient);

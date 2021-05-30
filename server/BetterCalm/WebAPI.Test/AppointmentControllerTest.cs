@@ -24,7 +24,7 @@ namespace WebAPI.Test
 				LastName = "aUser",
 				Name = "aName",
 				Phone = "09368574",
-				Duration = new TimeSpan(1, 0, 0)
+				Duration = "01:00:00"
 			};
 
 			Appointment appointment = input.ToEntity();
@@ -45,7 +45,7 @@ namespace WebAPI.Test
 			};
 
 			Mock<IAppointmentLogic> logicMock = new Mock<IAppointmentLogic>(MockBehavior.Strict);
-			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Patient>(), It.IsAny<Illness>(), It.IsAny<TimeSpan>()))
+			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Patient>(), It.IsAny<Illness>(), It.IsAny<string>()))
 				.Returns(appointment);
 
 			AppointmentsController controller = new AppointmentsController(logicMock.Object);
@@ -70,11 +70,11 @@ namespace WebAPI.Test
 				LastName = "aUser",
 				Name = "aName",
 				Phone = "09368574",
-				Duration = new TimeSpan(1, 0, 0)
+				Duration = "01:00:00"
 			};
 
 			Mock<IAppointmentLogic> logicMock = new Mock<IAppointmentLogic>(MockBehavior.Strict);
-			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Patient>(), It.IsAny<Illness>(), It.IsAny<TimeSpan>()))
+			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Patient>(), It.IsAny<Illness>(), It.IsAny<string>()))
 				.Throws(new CollectionEmptyException("Psychologists"));
 
 			AppointmentsController controller = new AppointmentsController(logicMock.Object);
@@ -99,11 +99,11 @@ namespace WebAPI.Test
 				LastName = "aUser",
 				Name = "aName",
 				Phone = "09368574",
-				Duration = new TimeSpan(1, 0, 0)
+				Duration = "01:00:00"
 			};
 
 			Mock<IAppointmentLogic> logicMock = new Mock<IAppointmentLogic>(MockBehavior.Strict);
-			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Patient>(), It.IsAny<Illness>(), It.IsAny<TimeSpan>()))
+			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Patient>(), It.IsAny<Illness>(), It.IsAny<string>()))
 				.Throws(new NotFoundException(input.IllnessId.ToString()));
 
 			AppointmentsController controller = new AppointmentsController(logicMock.Object);
