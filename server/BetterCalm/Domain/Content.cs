@@ -54,6 +54,8 @@ namespace Domain
 				this.Name = content.Name;
 			if (content.PlayLists != null)
 				this.PlayLists = content.PlayLists;
+			if (content.ContentType != null)
+				this.ContentType = content.ContentType;
 		}
 
 		public override bool Equals(object obj)
@@ -78,6 +80,7 @@ namespace Domain
 					this.Id == yContent.Id &&
 					Equals(this.ImageUrl, yContent.ImageUrl) &&
 					Equals(this.Name, yContent.Name) &&
+					Equals(this.ContentType, yContent.ContentType) &&
 					equalsPlaylist && equalsCategories;
 			}
 			return false;
