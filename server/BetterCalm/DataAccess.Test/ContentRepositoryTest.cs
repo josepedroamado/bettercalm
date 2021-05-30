@@ -985,5 +985,76 @@ namespace DataAccess.Test
 
 			CollectionAssert.AreNotEqual(content.PlayLists.ToList(), obtained.PlayLists.ToList());
 		}
+
+		[TestMethod]
+		public void GetAll_ContentsByContentType_Fetched()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						new Category()
+						{
+							Id = 1,
+							Name = "Rock"
+						}
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ContentUrl = "http://www.audios.com/video.mp4",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "video"
+				}
+			};
+
+			this.context.Add(content);
+			this.context.SaveChanges();
+
+			List<Content> expectedContents = new List<Content>()
+			{
+				content
+			};
+			ContentRepository repository = new ContentRepository(this.context);
+
+			IEnumerable<Content> obtainedContents = repository.GetAll(content.ContentType.Name);
+			Assert.IsTrue(expectedContents.SequenceEqual(obtainedContents));
+		}
+
+		[TestMethod]
+		public void GetAll_ContentsByContentTypeNoContent_Fetched()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						new Category()
+						{
+							Id = 1,
+							Name = "Rock"
+						}
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ContentUrl = "http://www.audios.com/video.mp4",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "video"
+				}
+			};
+
+			List<Content> expectedContents = new List<Content>()
+			{
+				content
+			};
+			ContentRepository repository = new ContentRepository(this.context);
+
+			IEnumerable<Content> obtainedContents = repository.GetAll(content.ContentType.Name);
+			Assert.IsFalse(expectedContents.SequenceEqual(obtainedContents));
+		}
 	}
 }
