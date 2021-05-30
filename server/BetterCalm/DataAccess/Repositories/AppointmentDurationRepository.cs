@@ -19,12 +19,12 @@ namespace DataAccess.Repositories
             this.durations = context.Set<AppointmentDuration>();
         }
 
-        public AppointmentDuration Get(int id)
+        public AppointmentDuration Get(TimeSpan duration)
         {
-            AppointmentDuration duration =  this.durations.FirstOrDefault(duration => duration.Id == id);
-            if (duration == null)
-                throw new NotFoundException(id.ToString());
-            return duration;
+            AppointmentDuration appointmentDuration =  this.durations.FirstOrDefault(stored => stored.Duration == duration);
+            if (appointmentDuration == null)
+                throw new NotFoundException(duration.ToString());
+            return appointmentDuration;
         }
 
         public IEnumerable<AppointmentDuration> GetAll(){

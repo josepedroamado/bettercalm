@@ -97,7 +97,7 @@ namespace DataAccess.Test
             this.context.SaveChanges();
             AppointmentDurationRepository appointmentDurationRepository = new AppointmentDurationRepository(this.context);
             
-            AppointmentDuration obtainedDuration = appointmentDurationRepository.Get(expectedDuration.Id);
+            AppointmentDuration obtainedDuration = appointmentDurationRepository.Get(expectedDuration.Duration);
             
             Assert.AreEqual(expectedDuration, obtainedDuration);
         }
@@ -118,7 +118,7 @@ namespace DataAccess.Test
             AppointmentDuration expectedDuration = GetExpectedDuration();
             AppointmentDurationRepository appointmentDurationRepository = new AppointmentDurationRepository(this.context);
 
-            AppointmentDuration obtainedDuration = appointmentDurationRepository.Get(expectedDuration.Id);
+            AppointmentDuration obtainedDuration = appointmentDurationRepository.Get(expectedDuration.Duration);
 
             Assert.IsNull(obtainedDuration);
         }

@@ -1,4 +1,5 @@
 using Domain;
+using System;
 using System.Collections.Generic;
 
 namespace DataAccessInterfaces
@@ -7,6 +8,6 @@ namespace DataAccessInterfaces
     {
         IEnumerable<AppointmentDuration> GetAll();
 
-        AppointmentDuration Get(int id);
+        AppointmentDuration Get(TimeSpan duration);
     }
 }
