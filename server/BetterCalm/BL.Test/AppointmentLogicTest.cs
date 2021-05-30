@@ -713,5 +713,60 @@ namespace BL.Test
 
 			Assert.IsNull(appointment);
 		}
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void CreateAppointment_NoDuration_ExceptionThrown()
+		{
+			Patient patient = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				EMail = "patient@gmail.com",
+				FirstName = "Patient",
+				LastName = "Perez",
+				Id = 1,
+				Phone = "091569874"
+			};
+
+
+			Illness illness = new Illness()
+			{
+				Id = 1,
+				Name = "Depresion"
+			};
+
+			Psychologist psychologist = new Psychologist()
+			{
+				Id = 1,
+				FirstName = "Juan",
+				LastName = "Sartori",
+				Address = "Calle 1234",
+				Format = Format.Remote,
+				CreatedDate = DateTime.Today.AddMonths(-3)
+			};
+
+			string appointmentDuration = "  ";
+
+			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
+			mockPatient.Setup(m => m.Get(patient.EMail)).Returns(patient);
+
+			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
+			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
+
+			Mock<IPsychologistRepository> mockPsychologist = new Mock<IPsychologistRepository>(MockBehavior.Strict);
+			mockPsychologist.Setup(m => m.Get(illness, It.IsAny<DateTime>(), 5)).Returns(psychologist);
+			mockPsychologist.Setup(m => m.Update(psychologist));
+
+			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
+			mockDuration.Setup(m => m.Get(appointmentDuration)).Throws(new InvalidInputException("Appointment Duration"));
+
+			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration);
+
+			mockIllness.VerifyAll();
+			mockPatient.VerifyAll();
+			mockPsychologist.VerifyAll();
+
+			Assert.IsNull(appointment);
+		}
 	}
 }

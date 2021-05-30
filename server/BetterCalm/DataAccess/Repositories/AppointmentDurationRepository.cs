@@ -24,7 +24,7 @@ namespace DataAccess.Repositories
 			TimeSpan timeSpan = duration == null ? TimeSpan.Zero : TimeSpan.Parse(duration);
             AppointmentDuration appointmentDuration =  this.durations.FirstOrDefault(stored => stored.Duration == timeSpan);
             if (appointmentDuration == null)
-                throw new NotFoundException(duration.ToString());
+                throw new NotFoundException("Appointment Duration");
             return appointmentDuration;
         }
 

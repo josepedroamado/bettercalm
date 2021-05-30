@@ -31,44 +31,52 @@ namespace BL
 		}
 
 		public Appointment CreateAppointment(Patient patient, Illness illness, string duration)
-		{
-			Illness obtainedIllness = this.illnessRepository.Get(illness.Id);
-			Patient obtainedPatient = GetPatient(patient);
-			Psychologist candidate = GetCandidate(obtainedIllness);
-			AppointmentDuration appointmentDuration = this.appointmentDurationRepository.Get(duration);
+        {
+            Illness obtainedIllness = this.illnessRepository.Get(illness.Id);
+            Patient obtainedPatient = GetPatient(patient);
+            Psychologist candidate = GetCandidate(obtainedIllness);
+            AppointmentDuration appointmentDuration = GetAppointmentDuration(duration);
 
-			Appointment appointment = new Appointment()
-			{
-				Address = CalculateAddress(candidate),
-				Date = DateCalculator.CalculateAppointmentDate(candidate, LimitOfAppointmentsPerDay),
-				Illness = obtainedIllness,
-				Patient = obtainedPatient,
-				Psychologist = candidate,
-				Duration = appointmentDuration
-			};
+            Appointment appointment = new Appointment()
+            {
+                Address = CalculateAddress(candidate),
+                Date = DateCalculator.CalculateAppointmentDate(candidate, LimitOfAppointmentsPerDay),
+                Illness = obtainedIllness,
+                Patient = obtainedPatient,
+                Psychologist = candidate,
+                Duration = appointmentDuration
+            };
 
-			Schedule scheduleDay = candidate.GetLast();
-			
-			if (scheduleDay != null && scheduleDay.GetScheduleDate() == appointment.Date.Date)
-				scheduleDay.Appointments.Add(appointment);
-			else
-				candidate.ScheduleDays.Add(
-					new Schedule()
-					{
-						Appointments = new List<Appointment>()
-						{
-							appointment
-						},
-						Date = appointment.GetDate(),
-						Psychologist = candidate
-					});
+            Schedule scheduleDay = candidate.GetLast();
 
-			this.psychologistRepository.Update(candidate);
-			return appointment;
+            if (scheduleDay != null && scheduleDay.GetScheduleDate() == appointment.Date.Date)
+                scheduleDay.Appointments.Add(appointment);
+            else
+                candidate.ScheduleDays.Add(
+                    new Schedule()
+                    {
+                        Appointments = new List<Appointment>()
+                        {
+                            appointment
+                        },
+                        Date = appointment.GetDate(),
+                        Psychologist = candidate
+                    });
 
-		}
+            this.psychologistRepository.Update(candidate);
+            return appointment;
 
-		private Patient GetPatient(Patient patient)
+        }
+
+        private AppointmentDuration GetAppointmentDuration(string duration)
+        {
+			if (String.IsNullOrWhiteSpace(duration)){
+				throw new InvalidInputException("Appointment Duration is required.");
+			}
+            return this.appointmentDurationRepository.Get(duration);
+        }
+
+        private Patient GetPatient(Patient patient)
 		{
 			try
 			{
