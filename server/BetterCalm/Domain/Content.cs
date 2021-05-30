@@ -15,6 +15,7 @@ namespace Domain
 		public string ContentUrl { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
 		public IEnumerable<Playlist> PlayLists { get; set; }
+		public ContentType ContentType { get; set; }
 
 		public bool Validate()
 		{
