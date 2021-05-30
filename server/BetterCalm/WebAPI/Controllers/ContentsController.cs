@@ -39,6 +39,13 @@ namespace WebAPI.Controllers
 			return Ok(new ContentBasicInfo(content));
 		}
 
+
+		[HttpGet("{contentType}")]
+		public IActionResult Get(string contentType)
+		{
+			throw new NotImplementedException();
+		}
+
 		[HttpPost]
 		[AuthorizationFilter("Administrator")]
 		public IActionResult Post([FromBody] ContentModel contentModel)
