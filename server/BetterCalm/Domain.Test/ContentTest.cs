@@ -33,6 +33,11 @@ namespace Domain.Test
 					{
 						Id = 1
 					}
+				},
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
 				}
 			};
 
