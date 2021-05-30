@@ -533,7 +533,7 @@ namespace WebAPI.Test
             mock.Setup(m => m.GetContents(content.ContentType.Name)).Returns(expectedContents);
             ContentsController controller = new ContentsController(mock.Object);
 
-            IActionResult result = controller.Get();
+            IActionResult result = controller.Get(content.ContentType.Name);
             OkObjectResult objectResult = result as OkObjectResult;
             IEnumerable<ContentBasicInfo> obtainedContents = objectResult.Value as IEnumerable<ContentBasicInfo>;
 
