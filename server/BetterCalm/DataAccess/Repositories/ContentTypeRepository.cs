@@ -1,7 +1,8 @@
 ﻿using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -18,7 +19,10 @@ namespace DataAccess.Repositories
 
 		public ContentType Get(string name)
 		{
-			throw new NotImplementedException();
+			ContentType contentType = this.contentTypes.FirstOrDefault(type => type.Name.Equals(name));
+			if (contentType == null)
+				throw new NotFoundException(name);
+			return contentType;
 		}
 	}
 }
