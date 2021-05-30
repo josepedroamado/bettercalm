@@ -20,9 +20,10 @@ namespace DataAccess.Repositories
 
 		public void Add(Content content)
 		{
-			ContentTypeRepository typesRepository = new ContentTypeRepository(this.context);
-			if (content.Validate() && typesRepository.Get(content.ContentType.Name) != null)
+			if (content.Validate())
 			{
+				ContentTypeRepository typesRepository = new ContentTypeRepository(this.context);
+				content.ContentType = typesRepository.Get(content.ContentType.Name);
 				this.contents.Add(content);
 				this.context.SaveChanges();
 			}
