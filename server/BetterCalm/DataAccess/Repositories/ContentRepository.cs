@@ -78,6 +78,11 @@ namespace DataAccess.Repositories
 				return this.contents.Where(content => content.Categories.Contains(category));
 		}
 
+		public IEnumerable<Content> GetAll(string contentType)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public void Update(Content content)
 		{
 			if (content.Validate())
