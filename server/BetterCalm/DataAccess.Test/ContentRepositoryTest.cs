@@ -342,7 +342,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				ContentUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 			this.context.SaveChanges();
 
@@ -386,7 +391,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				ContentUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 			this.context.SaveChanges();
 
@@ -418,7 +428,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				ContentUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 			this.context.SaveChanges();
 
@@ -561,7 +576,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				ContentUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 
 			ContentRepository repository = new ContentRepository(this.context);
@@ -606,7 +626,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				ContentUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 			this.context.Add(currentContent);
 
@@ -661,7 +686,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				ContentUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 			this.context.Add(currentContent);
 			this.context.SaveChanges();
@@ -704,7 +734,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				ContentUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 			this.context.Add(currentContent);
 
@@ -761,7 +796,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				ContentUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 			this.context.Add(currentContent);
 
