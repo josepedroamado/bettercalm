@@ -323,6 +323,13 @@ namespace DataAccess.Test
 			};
 			this.context.Add(music);
 
+			ContentType contentType = new ContentType()
+			{
+				Id = 1,
+				Name = "audio"
+			};
+			this.context.Add(contentType);
+
 			Content toSaveContent = new Content()
 			{
 				ArtistName = "Bon Jovi",
@@ -343,11 +350,7 @@ namespace DataAccess.Test
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
 				ContentUrl = "http://www.audios.com/audio.mp3",
-				ContentType = new ContentType()
-				{
-					Id = 1,
-					Name = "audio"
-				}
+				ContentType = contentType
 			};
 			this.context.SaveChanges();
 
@@ -368,6 +371,13 @@ namespace DataAccess.Test
 				Name = "Musica"
 			};
 			this.context.Add(music);
+
+			ContentType contentType = new ContentType()
+			{
+				Id = 1,
+				Name = "audio"
+			};
+			this.context.Add(contentType);
 
 			Playlist playlist = new Playlist()
 			{
@@ -392,11 +402,7 @@ namespace DataAccess.Test
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
 				ContentUrl = "http://www.audios.com/audio.mp3",
-				ContentType = new ContentType()
-				{
-					Id = 1,
-					Name = "audio"
-				}
+				ContentType = contentType
 			};
 			this.context.SaveChanges();
 
@@ -418,6 +424,13 @@ namespace DataAccess.Test
 			};
 			this.context.Add(music);
 
+			ContentType contentType = new ContentType()
+			{
+				Id = 1,
+				Name = "audio"
+			};
+			this.context.Add(contentType);
+
 			Content toSaveContent = new Content()
 			{
 				ArtistName = "Bon Jovi",
@@ -429,11 +442,7 @@ namespace DataAccess.Test
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
 				ContentUrl = "http://www.audios.com/audio.mp3",
-				ContentType = new ContentType()
-				{
-					Id = 1,
-					Name = "audio"
-				}
+				ContentType = contentType
 			};
 			this.context.SaveChanges();
 
