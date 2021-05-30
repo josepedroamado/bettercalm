@@ -953,5 +953,89 @@ namespace BL.Test
 			contentRepositoryMock.VerifyAll();
 			Assert.IsNull(obtainedContent);
 		}
+
+		[TestMethod]
+		public void GetAll_ContentsByContentTypeExist_ContentsFetched()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						new Category()
+						{
+							Id = 1,
+							Name = "Rock"
+						}
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ContentUrl = "http://www.audios.com/video.mp4",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "video"
+				}
+			};
+
+			List<Content> expectedContents = new List<Content>()
+			{
+				content
+			};
+
+			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
+			contentRepositoryMock.Setup(m => m.GetAll(content.ContentType.Name)).Returns(expectedContents);
+
+			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
+			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
+
+			IEnumerable<Content> obtainedContents = contentLogic.GetContents();
+
+			contentRepositoryMock.VerifyAll();
+			Assert.IsTrue(obtainedContents.SequenceEqual(expectedContents));
+		}
+
+		[TestMethod]
+		public void GetAll_ContentsByContentTypeNotExist_ContentsFetched()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						new Category()
+						{
+							Id = 1,
+							Name = "Rock"
+						}
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ContentUrl = "http://www.audios.com/video.mp4",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "video"
+				}
+			};
+
+			List<Content> expectedContents = new List<Content>()
+			{
+				content
+			};
+
+			Mock<IContentRepository> contentRepositoryMock = new Mock<IContentRepository>(MockBehavior.Strict);
+			contentRepositoryMock.Setup(m => m.GetAll(content.ContentType.Name)).Returns(new List<Content>());
+
+			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
+			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
+			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
+
+			IEnumerable<Content> obtainedContents = contentLogic.GetContents();
+
+			contentRepositoryMock.VerifyAll();
+			Assert.IsFalse(obtainedContents.SequenceEqual(expectedContents));
+		}
 	}
 }
