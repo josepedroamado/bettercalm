@@ -129,7 +129,7 @@ namespace BL
 
 		public IEnumerable<Content> GetContents(string contentType)
 		{
-			throw new System.NotImplementedException();
+			return this.contentRepository.GetAll(contentType);
 		}
 	}
 }
