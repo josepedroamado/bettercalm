@@ -8,12 +8,12 @@ namespace DataAccess.Repositories
 	public class ContentTypeRepository : IContentTypeRepository
 	{
 		private DbContext context;
-		private DbSet<Content> contents;
+		private DbSet<ContentType> contentTypes;
 
 		public ContentTypeRepository(DbContext context)
 		{
 			this.context = context;
-			this.contents = context.Set<Content>();
+			this.contentTypes = context.Set<ContentType>();
 		}
 
 		public ContentType Get(string name)
