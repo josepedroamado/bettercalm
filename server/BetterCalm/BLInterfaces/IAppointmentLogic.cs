@@ -1,9 +1,10 @@
-﻿using Domain;
+﻿using System;
+using Domain;
 
 namespace BLInterfaces
 {
 	public interface IAppointmentLogic
 	{
-		Appointment CreateAppointment(Patient patient, Illness illness);
+		Appointment CreateAppointment(Patient patient, Illness illness, string duration);
 	}
 }

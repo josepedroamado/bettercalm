@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
 		public IActionResult Post([FromBody] AppointmentInputModel model)
 		{
 			return Ok(new AppointmentOutputModel(
-				this.appointmentLogic.CreateAppointment(model.ToEntity().Patient, model.ToEntity().Illness)
+				this.appointmentLogic.CreateAppointment(model.ToEntity().Patient, model.ToEntity().Illness, model.Duration)
 				));
 		}
 	}

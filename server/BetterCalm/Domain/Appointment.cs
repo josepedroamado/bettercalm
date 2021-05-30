@@ -10,7 +10,7 @@ namespace Domain
 		public Psychologist Psychologist { get; set; }
 		public Illness Illness { get; set; }
 		public string Address { get; set; }
-
+		public AppointmentDuration Duration { get; set; }
 		public DateTime GetDate()
 		{
 			return Date.Date;

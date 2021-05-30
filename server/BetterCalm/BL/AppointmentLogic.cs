@@ -17,50 +17,66 @@ namespace BL
 		private readonly IIllnessRepository illnessRepository;
 		private readonly IPatientRepository patientRepository;
 
-		public AppointmentLogic(IPsychologistRepository psychologistRepository, IIllnessRepository illnessRepository, IPatientRepository patientRepository)
+		private readonly IAppointmentDurationRepository appointmentDurationRepository;
+
+		public AppointmentLogic(IPsychologistRepository psychologistRepository, 
+								IIllnessRepository illnessRepository, 
+								IPatientRepository patientRepository, 
+								IAppointmentDurationRepository appointmentDurationRepository)
 		{
 			this.psychologistRepository = psychologistRepository;
 			this.illnessRepository = illnessRepository;
 			this.patientRepository = patientRepository;
+			this.appointmentDurationRepository = appointmentDurationRepository;
 		}
 
-		public Appointment CreateAppointment(Patient patient, Illness illness)
-		{
-			Illness obtainedIllness = this.illnessRepository.Get(illness.Id);
-			Patient obtainedPatient = GetPatient(patient);
-			Psychologist candidate = GetCandidate(obtainedIllness);
+		public Appointment CreateAppointment(Patient patient, Illness illness, string duration)
+        {
+            Illness obtainedIllness = this.illnessRepository.Get(illness.Id);
+            Patient obtainedPatient = GetPatient(patient);
+            Psychologist candidate = GetCandidate(obtainedIllness);
+            AppointmentDuration appointmentDuration = GetAppointmentDuration(duration);
 
-			Appointment appointment = new Appointment()
-			{
-				Address = CalculateAddress(candidate),
-				Date = DateCalculator.CalculateAppointmentDate(candidate, LimitOfAppointmentsPerDay),
-				Illness = obtainedIllness,
-				Patient = obtainedPatient,
-				Psychologist = candidate
-			};
+            Appointment appointment = new Appointment()
+            {
+                Address = CalculateAddress(candidate),
+                Date = DateCalculator.CalculateAppointmentDate(candidate, LimitOfAppointmentsPerDay),
+                Illness = obtainedIllness,
+                Patient = obtainedPatient,
+                Psychologist = candidate,
+                Duration = appointmentDuration
+            };
 
-			Schedule scheduleDay = candidate.GetLast();
-			
-			if (scheduleDay != null && scheduleDay.GetScheduleDate() == appointment.Date.Date)
-				scheduleDay.Appointments.Add(appointment);
-			else
-				candidate.ScheduleDays.Add(
-					new Schedule()
-					{
-						Appointments = new List<Appointment>()
-						{
-							appointment
-						},
-						Date = appointment.GetDate(),
-						Psychologist = candidate
-					});
+            Schedule scheduleDay = candidate.GetLast();
 
-			this.psychologistRepository.Update(candidate);
-			return appointment;
+            if (scheduleDay != null && scheduleDay.GetScheduleDate() == appointment.Date.Date)
+                scheduleDay.Appointments.Add(appointment);
+            else
+                candidate.ScheduleDays.Add(
+                    new Schedule()
+                    {
+                        Appointments = new List<Appointment>()
+                        {
+                            appointment
+                        },
+                        Date = appointment.GetDate(),
+                        Psychologist = candidate
+                    });
 
-		}
+            this.psychologistRepository.Update(candidate);
+            return appointment;
 
-		private Patient GetPatient(Patient patient)
+        }
+
+        private AppointmentDuration GetAppointmentDuration(string duration)
+        {
+			if (String.IsNullOrWhiteSpace(duration)){
+				throw new InvalidInputException("Appointment Duration is required.");
+			}
+            return this.appointmentDurationRepository.Get(duration);
+        }
+
+        private Patient GetPatient(Patient patient)
 		{
 			try
 			{
@@ -83,7 +99,7 @@ namespace BL
 				candidate = this.psychologistRepository.Get(illness, until, LimitOfAppointmentsPerDay);
 			}
 			return candidate;
-		}		
+		}
 
 		private string CalculateAddress(Psychologist candidate)
 		{
@@ -91,5 +107,5 @@ namespace BL
 				return candidate.Address;
 			return string.Concat(BetterCalmUrl, Guid.NewGuid().ToString());
 		}
-	}
+    }
 }
