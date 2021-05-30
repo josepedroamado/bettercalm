@@ -2,7 +2,7 @@
 
 namespace DataAccessInterfaces
 {
-	public interface IContentTypesRepository
+	public interface IContentTypeRepository
 	{
 		ContentType Get(string name);
 	}
