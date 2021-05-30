@@ -30,6 +30,8 @@ namespace Domain
 				throw new InvalidInputException("Content length is required");
 			if (this.PlayLists != null)
 				isValid = !this.PlayLists.Any(playlist => !playlist.Validate());
+			if(this.ContentType == null)
+				throw new InvalidInputException("Content type is required");
 
 			return isValid;
 		}
