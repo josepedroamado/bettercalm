@@ -12,8 +12,9 @@ namespace Model
 		public string ContentLength { get; set; }
 		public string ArtistName { get; set; }
 		public string ImageUrl { get; set; }
-		public string AudioUrl { get; set; }
+		public string ContentUrl { get; set; }
 		public int[] Categories { get; set; }
+		public string ContentType { get; set; }
 		public IEnumerable<PlaylistBasicInfo> Playlists {get; set;}
 
 		public Content ToEntity()
@@ -23,14 +24,18 @@ namespace Model
 			return new Content()
 			{
 				ArtistName = ArtistName,
-				ContentUrl = AudioUrl,
+				ContentUrl = ContentUrl,
 				Categories = Categories?.Select(category =>
 					new Category() { Id = category }).ToList(),
 				ContentLength = timeSpan,
 				Id = Id,
 				ImageUrl = ImageUrl,
 				Name = Name,
-				PlayLists = Playlists?.Select(playlist => playlist.ToEntity())
+				PlayLists = Playlists?.Select(playlist => playlist.ToEntity()),
+				ContentType = new ContentType()
+				{
+					Name = ContentType
+				}
 			};
 		}
 	}
