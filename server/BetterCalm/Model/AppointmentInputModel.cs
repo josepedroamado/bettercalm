@@ -11,6 +11,7 @@ namespace Model
 		public DateTime BirthDate { get; set; } 
 		public string EMail { get; set; }
 		public string Phone { get; set; }
+		public TimeSpan Duration{ get; set; }
 
 		public Appointment ToEntity()
 		{

@@ -17,14 +17,20 @@ namespace BL
 		private readonly IIllnessRepository illnessRepository;
 		private readonly IPatientRepository patientRepository;
 
-		public AppointmentLogic(IPsychologistRepository psychologistRepository, IIllnessRepository illnessRepository, IPatientRepository patientRepository)
+		private readonly IAppointmentDurationRepository appointmentDurationRepository;
+
+		public AppointmentLogic(IPsychologistRepository psychologistRepository, 
+								IIllnessRepository illnessRepository, 
+								IPatientRepository patientRepository, 
+								IAppointmentDurationRepository appointmentDurationRepository)
 		{
 			this.psychologistRepository = psychologistRepository;
 			this.illnessRepository = illnessRepository;
 			this.patientRepository = patientRepository;
+			this.appointmentDurationRepository = appointmentDurationRepository;
 		}
 
-		public Appointment CreateAppointment(Patient patient, Illness illness)
+		public Appointment CreateAppointment(Patient patient, Illness illness, TimeSpan duration)
 		{
 			Illness obtainedIllness = this.illnessRepository.Get(illness.Id);
 			Patient obtainedPatient = GetPatient(patient);
@@ -83,7 +89,7 @@ namespace BL
 				candidate = this.psychologistRepository.Get(illness, until, LimitOfAppointmentsPerDay);
 			}
 			return candidate;
-		}		
+		}
 
 		private string CalculateAddress(Psychologist candidate)
 		{
@@ -91,5 +97,5 @@ namespace BL
 				return candidate.Address;
 			return string.Concat(BetterCalmUrl, Guid.NewGuid().ToString());
 		}
-	}
+    }
 }
