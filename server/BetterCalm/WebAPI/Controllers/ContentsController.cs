@@ -43,7 +43,11 @@ namespace WebAPI.Controllers
 		[HttpGet("{contentType}")]
 		public IActionResult Get(string contentType)
 		{
-			throw new NotImplementedException();
+			IEnumerable<ContentBasicInfo> contents =
+				this.contentLogic.GetContents(contentType).
+				Select(content => new ContentBasicInfo(content));
+
+			return Ok(contents);
 		}
 
 		[HttpPost]
