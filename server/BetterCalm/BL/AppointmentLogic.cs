@@ -35,6 +35,7 @@ namespace BL
 			Illness obtainedIllness = this.illnessRepository.Get(illness.Id);
 			Patient obtainedPatient = GetPatient(patient);
 			Psychologist candidate = GetCandidate(obtainedIllness);
+			AppointmentDuration appointmentDuration = this.appointmentDurationRepository.Get(duration);
 
 			Appointment appointment = new Appointment()
 			{
@@ -42,7 +43,8 @@ namespace BL
 				Date = DateCalculator.CalculateAppointmentDate(candidate, LimitOfAppointmentsPerDay),
 				Illness = obtainedIllness,
 				Patient = obtainedPatient,
-				Psychologist = candidate
+				Psychologist = candidate,
+				Duration = appointmentDuration
 			};
 
 			Schedule scheduleDay = candidate.GetLast();
