@@ -21,6 +21,13 @@ namespace Model
 		{
 			TimeSpan timeSpan = ContentLength == null ? 
 				TimeSpan.Zero : TimeSpan.Parse(ContentLength);
+			ContentType contentType = !string.IsNullOrEmpty(ContentType) ? 
+				new ContentType()
+				{
+					Name = ContentType
+				} :
+				null;
+
 			return new Content()
 			{
 				ArtistName = ArtistName,
@@ -32,10 +39,7 @@ namespace Model
 				ImageUrl = ImageUrl,
 				Name = Name,
 				PlayLists = Playlists?.Select(playlist => playlist.ToEntity()),
-				ContentType = new ContentType()
-				{
-					Name = ContentType
-				}
+				ContentType = contentType
 			};
 		}
 	}
