@@ -990,7 +990,7 @@ namespace BL.Test
 			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
 			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
 
-			IEnumerable<Content> obtainedContents = contentLogic.GetContents();
+			IEnumerable<Content> obtainedContents = contentLogic.GetContents(content.ContentType.Name);
 
 			contentRepositoryMock.VerifyAll();
 			Assert.IsTrue(obtainedContents.SequenceEqual(expectedContents));
@@ -1032,7 +1032,7 @@ namespace BL.Test
 			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
 			ContentLogic contentLogic = new ContentLogic(contentRepositoryMock.Object, playlistRepository.Object, categoryRepository.Object);
 
-			IEnumerable<Content> obtainedContents = contentLogic.GetContents();
+			IEnumerable<Content> obtainedContents = contentLogic.GetContents(content.ContentType.Name);
 
 			contentRepositoryMock.VerifyAll();
 			Assert.IsFalse(obtainedContents.SequenceEqual(expectedContents));
