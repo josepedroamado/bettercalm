@@ -55,7 +55,12 @@ namespace WebAPI.Test
                     ContentLength = new TimeSpan(0, 2, 30),
                     Name = "It's My Life",
                     ImageUrl = "http://www.images.com/image.jpg",
-                    ContentUrl = "http://www.audios.com/audio.mp3"
+                    ContentUrl = "http://www.audios.com/audio.mp3",
+                    ContentType = new ContentType()
+					{
+                        Id = 1,
+                        Name = "audio"
+					}
                 },
                 new Content()
                 {
@@ -71,7 +76,12 @@ namespace WebAPI.Test
                     ContentLength = new TimeSpan(0, 2, 30),
                     Name = "La vida es un carnaval",
                     ImageUrl = "http://www.images.com/image2.jpg",
-                    ContentUrl = "http://www.audios.com/audio.mp3"
+                    ContentUrl = "http://www.audios.com/audio.mp3",
+                    ContentType = new ContentType()
+                    {
+                        Id = 1,
+                        Name = "audio"
+                    }
                 }
             };
         }
@@ -93,7 +103,12 @@ namespace WebAPI.Test
                 ContentLength = new TimeSpan(0, 2, 30),
                 Name = "It's My Life",
                 ImageUrl = "http://www.images.com/image.jpg",
-                ContentUrl = "http://www.audios.com/audio.mp3"
+                ContentUrl = "http://www.audios.com/audio.mp3",
+                ContentType = new ContentType()
+                {
+                    Id = 1,
+                    Name = "audio"
+                }
             };
 
             Mock<IContentLogic> mock = new Mock<IContentLogic>(MockBehavior.Strict);
@@ -146,7 +161,8 @@ namespace WebAPI.Test
                 ContentLength = "00:01:30",
                 Name = "It's My Life",
                 ImageUrl = "http://www.images.com/image.jpg",
-                ContentUrl = "http://www.audios.com/audio.mp3"
+                ContentUrl = "http://www.audios.com/audio.mp3",
+                ContentType = "audio"
             };
             Content contentEntity = contentModel.ToEntity();
 
@@ -174,7 +190,8 @@ namespace WebAPI.Test
                 ContentLength = "00:01:30",
                 Name = "It's My Life",
                 ImageUrl = "http://www.images.com/image.jpg",
-                ContentUrl = "http://www.audios.com/audio.mp3"
+                ContentUrl = "http://www.audios.com/audio.mp3",
+                ContentType = "audio"
             };
             Content contentEntity = contentModel.ToEntity();
 
@@ -338,7 +355,8 @@ namespace WebAPI.Test
                 ContentLength = "00:01:30",
                 Name = "It's My Life",
                 ImageUrl = "http://www.images.com/image.jpg",
-                ContentUrl = "http://www.audios.com/audio.mp3"
+                ContentUrl = "http://www.audios.com/audio.mp3",
+                ContentType = "audio"
             };
             Content contentEntity = contentModel.ToEntity();
 

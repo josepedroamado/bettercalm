@@ -221,7 +221,12 @@ namespace WebAPI.Test
                 Id = 1,
                 ContentLength = new TimeSpan(0, 2, 30),
                 Name = "It's My Life",
-                ImageUrl = "http://www.images.com/image.jpg"
+                ImageUrl = "http://www.images.com/image.jpg",
+                ContentType = new ContentType()
+                {
+                    Id = 1,
+                    Name = "audio"
+                }
             };
 
             Content livinOnAPrayer = new Content()
@@ -232,7 +237,12 @@ namespace WebAPI.Test
                 Id = 2,
                 ContentLength = new TimeSpan(0, 4, 10),
                 Name = "Livin' On A Prayer",
-                ImageUrl = "http://www.images.com/image.jpg"
+                ImageUrl = "http://www.images.com/image.jpg",
+                ContentType = new ContentType()
+                {
+                    Id = 1,
+                    Name = "audio"
+                }
             };
 
             rock = new Category()
