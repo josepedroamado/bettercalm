@@ -80,7 +80,7 @@ namespace DataAccess.Repositories
 
 		public IEnumerable<Content> GetAll(string contentType)
 		{
-			throw new System.NotImplementedException();
+			return this.contents.Where(content => content.ContentType.Name.Equals(contentType));
 		}
 
 		public void Update(Content content)
