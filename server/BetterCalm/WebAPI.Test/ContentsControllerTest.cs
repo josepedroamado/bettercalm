@@ -498,5 +498,51 @@ namespace WebAPI.Test
             ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
             Assert.IsNull(obtainedContent);
         }
+
+        [TestMethod]
+        public void Get_ContentsByContentTypeExist_Fetched()
+        {
+            Content content = new Content()
+            {
+                ArtistName = "Bon Jovi",
+                Categories = new List<Category>(){
+                        new Category()
+                        {
+                            Id = 1,
+                            Name = "Rock"
+                        }
+                    },
+                Id = 1,
+                ContentLength = new TimeSpan(0, 2, 30),
+                Name = "It's My Life",
+                ImageUrl = "http://www.images.com/image.jpg",
+                ContentUrl = "http://www.audios.com/audio.mp3",
+                ContentType = new ContentType()
+                {
+                    Id = 1,
+                    Name = "audio"
+                }
+            };
+
+            List<Content> expectedContents = new List<Content>()
+            {
+                content
+            };
+
+            Mock<IContentLogic> mock = new Mock<IContentLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetContents(content.ContentType.Name)).Returns(expectedContents);
+            ContentsController controller = new ContentsController(mock.Object);
+
+            IActionResult result = controller.Get();
+            OkObjectResult objectResult = result as OkObjectResult;
+            IEnumerable<ContentBasicInfo> obtainedContents = objectResult.Value as IEnumerable<ContentBasicInfo>;
+
+            mock.VerifyAll();
+            CollectionAssert.AreEqual(expectedContents.
+                Select(content => new ContentBasicInfo(content)).
+                ToList(),
+                obtainedContents.ToList(),
+                new ContentBasicInfoComparer());
+        }
     }
 }
