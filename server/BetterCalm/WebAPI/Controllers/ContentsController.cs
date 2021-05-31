@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
 		}
 
 
-		[HttpGet("{contentType}")]
+		[HttpGet("contentType/{contentType}")]
 		public IActionResult Get(string contentType)
 		{
 			IEnumerable<ContentBasicInfo> contents =
