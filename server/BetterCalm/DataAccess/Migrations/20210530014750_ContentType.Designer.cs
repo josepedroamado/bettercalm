@@ -4,14 +4,16 @@ using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(BetterCalmContext))]
-    partial class BetterCalmContextModelSnapshot : ModelSnapshot
+    [Migration("20210530014750_ContentType")]
+    partial class ContentType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,9 +79,6 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DurationId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("IllnessId")
                         .HasColumnType("int");
 
@@ -94,8 +93,6 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DurationId");
-
                     b.HasIndex("IllnessId");
 
                     b.HasIndex("PatientId");
@@ -105,21 +102,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("ScheduleId");
 
                     b.ToTable("Appointments");
-                });
-
-            modelBuilder.Entity("Domain.AppointmentDuration", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppointmentDuration");
                 });
 
             modelBuilder.Entity("Domain.Category", b =>
@@ -449,10 +431,6 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Appointment", b =>
                 {
-                    b.HasOne("Domain.AppointmentDuration", "Duration")
-                        .WithMany()
-                        .HasForeignKey("DurationId");
-
                     b.HasOne("Domain.Illness", "Illness")
                         .WithMany()
                         .HasForeignKey("IllnessId");
@@ -468,8 +446,6 @@ namespace DataAccess.Migrations
                     b.HasOne("Domain.Schedule", null)
                         .WithMany("Appointments")
                         .HasForeignKey("ScheduleId");
-
-                    b.Navigation("Duration");
 
                     b.Navigation("Illness");
 

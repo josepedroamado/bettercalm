@@ -126,5 +126,10 @@ namespace BL
 
 			this.contentRepository.Update(currentContent);
 		}
+
+		public IEnumerable<Content> GetContents(string contentType)
+		{
+			return this.contentRepository.GetAll(contentType);
+		}
 	}
 }

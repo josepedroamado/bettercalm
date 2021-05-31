@@ -18,6 +18,7 @@ namespace DataAccess.Context
         public DbSet<Session> Sessions { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<User> Roles { get; set; }
+        public DbSet<ContentType> ContentTypes { get; set; }
 
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options) { }
@@ -50,7 +51,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<Playlist>().Property(prop => prop.Name).IsRequired();
 
             modelBuilder.Entity<Content>().Property(prop => prop.ArtistName).IsRequired();
-            modelBuilder.Entity<Content>().Property(prop => prop.AudioUrl).IsRequired();
+            modelBuilder.Entity<Content>().Property(prop => prop.ContentUrl).IsRequired();
             modelBuilder.Entity<Content>().Property(prop => prop.ContentLength).IsRequired();
             modelBuilder.Entity<Content>().Property(prop => prop.Name).IsRequired();
             

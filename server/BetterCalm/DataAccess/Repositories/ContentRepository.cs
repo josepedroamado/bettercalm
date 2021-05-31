@@ -22,6 +22,8 @@ namespace DataAccess.Repositories
 		{
 			if (content.Validate())
 			{
+				ContentTypeRepository typesRepository = new ContentTypeRepository(this.context);
+				content.ContentType = typesRepository.Get(content.ContentType.Name);
 				this.contents.Add(content);
 				this.context.SaveChanges();
 			}
@@ -46,6 +48,7 @@ namespace DataAccess.Repositories
 			Content content = this.contents
 				.Include("PlayLists")
 				.Include("Categories")
+				.Include("ContentType")
 				.FirstOrDefault(cont => cont.Id == id);
 			if (content == null)
 				throw new NotFoundException(id.ToString());
@@ -57,7 +60,7 @@ namespace DataAccess.Repositories
 			if (this.contents.Count() <= 0)
 				throw new CollectionEmptyException("Contents");
 			else
-				return this.contents;
+				return this.contents.Include("ContentType");
 		}
 
         public IEnumerable<Content> GetAll(Playlist playlist)
@@ -65,7 +68,8 @@ namespace DataAccess.Repositories
 			if (this.contents.Count() <= 0)
 				throw new CollectionEmptyException("Contents");
 			else
-				return this.contents.Where(content => content.PlayLists.Contains(playlist));
+				return this.contents.Include("ContentType")
+					.Where(content => content.PlayLists.Contains(playlist));
 		}
 
         public IEnumerable<Content> GetAll(Category category)
@@ -73,7 +77,14 @@ namespace DataAccess.Repositories
 			if (this.contents.Count() <= 0)
 				throw new CollectionEmptyException("Contents");
 			else
-				return this.contents.Where(content => content.Categories.Contains(category));
+				return this.contents.Include("ContentType")
+					.Where(content => content.Categories.Contains(category));
+		}
+
+		public IEnumerable<Content> GetAll(string contentType)
+		{
+			return this.contents.Include("ContentType")
+				.Where(content => content.ContentType.Name.Equals(contentType));
 		}
 
 		public void Update(Content content)

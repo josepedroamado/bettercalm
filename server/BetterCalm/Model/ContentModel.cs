@@ -12,25 +12,34 @@ namespace Model
 		public string ContentLength { get; set; }
 		public string ArtistName { get; set; }
 		public string ImageUrl { get; set; }
-		public string AudioUrl { get; set; }
+		public string ContentUrl { get; set; }
 		public int[] Categories { get; set; }
+		public string ContentType { get; set; }
 		public IEnumerable<PlaylistBasicInfo> Playlists {get; set;}
 
 		public Content ToEntity()
 		{
 			TimeSpan timeSpan = ContentLength == null ? 
 				TimeSpan.Zero : TimeSpan.Parse(ContentLength);
+			ContentType contentType = !string.IsNullOrEmpty(ContentType) ? 
+				new ContentType()
+				{
+					Name = ContentType
+				} :
+				null;
+
 			return new Content()
 			{
 				ArtistName = ArtistName,
-				AudioUrl = AudioUrl,
+				ContentUrl = ContentUrl,
 				Categories = Categories?.Select(category =>
 					new Category() { Id = category }).ToList(),
 				ContentLength = timeSpan,
 				Id = Id,
 				ImageUrl = ImageUrl,
 				Name = Name,
-				PlayLists = Playlists?.Select(playlist => playlist.ToEntity())
+				PlayLists = Playlists?.Select(playlist => playlist.ToEntity()),
+				ContentType = contentType
 			};
 		}
 	}

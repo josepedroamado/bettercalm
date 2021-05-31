@@ -80,7 +80,7 @@ namespace DataAccess.Test
                                     ArtistName = "AmbienceOne",
                                     Name = "Rain",
                                     ImageUrl = "http://myimageurl.com/image.jpg",
-                                    AudioUrl = "http://www.audios.com/audio.mp3"
+                                    ContentUrl = "http://www.audios.com/audio.mp3"
                                 }
                             }
                         }
@@ -93,7 +93,7 @@ namespace DataAccess.Test
                             ArtistName = "AmbienceOne",
                             Name = "Campfire",
                             ImageUrl = "http://myimageurl.com/image.jpg",
-                            AudioUrl = "http://www.audios.com/audio.mp3"
+                            ContentUrl = "http://www.audios.com/audio.mp3"
                         }
                     }
                 },
@@ -117,7 +117,7 @@ namespace DataAccess.Test
                                     ArtistName = "Mantrastic",
                                     Name = "Indian Mantra",
                                     ImageUrl = "http://myimageurl.com/image.jpg",
-                                    AudioUrl = "http://www.audios.com/audio.mp3"
+                                    ContentUrl = "http://www.audios.com/audio.mp3"
                                 }
                             }
                         }
@@ -174,7 +174,7 @@ namespace DataAccess.Test
                                     ArtistName = "AmbienceOne",
                                     Name = "Rain",
                                     ImageUrl = "http://myimageurl.com/image.jpg",
-                                    AudioUrl = "http://www.audios.com/audio.mp3"
+                                    ContentUrl = "http://www.audios.com/audio.mp3"
                                 }
                             }
                         }
@@ -187,7 +187,7 @@ namespace DataAccess.Test
                             ArtistName = "AmbienceOne",
                             Name = "Campfire",
                             ImageUrl = "http://myimageurl.com/image.jpg",
-                            AudioUrl = "http://www.audios.com/audio.mp3"
+                            ContentUrl = "http://www.audios.com/audio.mp3"
                         }
                     }
             };

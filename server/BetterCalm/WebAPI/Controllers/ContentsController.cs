@@ -39,6 +39,17 @@ namespace WebAPI.Controllers
 			return Ok(new ContentBasicInfo(content));
 		}
 
+
+		[HttpGet("contentType/{contentType}")]
+		public IActionResult Get(string contentType)
+		{
+			IEnumerable<ContentBasicInfo> contents =
+				this.contentLogic.GetContents(contentType).
+				Select(content => new ContentBasicInfo(content));
+
+			return Ok(contents);
+		}
+
 		[HttpPost]
 		[AuthorizationFilter("Administrator")]
 		public IActionResult Post([FromBody] ContentModel contentModel)
