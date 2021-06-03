@@ -36,6 +36,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterInterfaces", "Impor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterModel", "ImporterModel\ImporterModel.csproj", "{0DC0671D-7C29-4B7A-A63A-0856CEFEF0E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterJSON", "ImporterJSON\ImporterJSON.csproj", "{F6E1836E-3AAE-4319-B822-043C93DF08A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterJSON.Test", "ImporterJSON.Test\ImporterJSON.Test.csproj", "{FA7F7D15-1E13-4338-A4C1-378AF567866B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,6 +102,14 @@ Global
 		{0DC0671D-7C29-4B7A-A63A-0856CEFEF0E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DC0671D-7C29-4B7A-A63A-0856CEFEF0E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DC0671D-7C29-4B7A-A63A-0856CEFEF0E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6E1836E-3AAE-4319-B822-043C93DF08A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6E1836E-3AAE-4319-B822-043C93DF08A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6E1836E-3AAE-4319-B822-043C93DF08A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6E1836E-3AAE-4319-B822-043C93DF08A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA7F7D15-1E13-4338-A4C1-378AF567866B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA7F7D15-1E13-4338-A4C1-378AF567866B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA7F7D15-1E13-4338-A4C1-378AF567866B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA7F7D15-1E13-4338-A4C1-378AF567866B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
