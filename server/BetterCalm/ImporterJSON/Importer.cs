@@ -1,6 +1,7 @@
 ﻿using ImporterInterfaces;
 using ImporterModel;
 using System;
+using System.Collections.Generic;
 
 namespace ImporterJSON
 {
@@ -11,7 +12,7 @@ namespace ImporterJSON
 			throw new NotImplementedException();
 		}
 
-		public ContentImport Import(string filePath)
+		IEnumerable<ContentImport> IImporter.Import(string filePath)
 		{
 			throw new NotImplementedException();
 		}

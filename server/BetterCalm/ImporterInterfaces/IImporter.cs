@@ -1,11 +1,12 @@
 ﻿using ImporterModel;
+using System.Collections.Generic;
 
 namespace ImporterInterfaces
 {
 	public interface IImporter
 	{
 		string GetId();
-		ContentImport Import(string filePath);
+		IEnumerable<ContentImport> Import(string filePath);
 
 	}
 }
