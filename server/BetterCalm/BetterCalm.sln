@@ -40,6 +40,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterJSON", "ImporterJSO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterJSON.Test", "ImporterJSON.Test\ImporterJSON.Test.csproj", "{FA7F7D15-1E13-4338-A4C1-378AF567866B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterXML.Test", "ImporterXML.Test\ImporterXML.Test.csproj", "{E9E132DF-051B-4F06-BCAD-2C26ABD30D66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImprterXML", "ImprterXML\ImprterXML.csproj", "{AEFE2EA8-5CD9-49C8-9EFD-04E3CB7EE310}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +114,14 @@ Global
 		{FA7F7D15-1E13-4338-A4C1-378AF567866B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA7F7D15-1E13-4338-A4C1-378AF567866B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA7F7D15-1E13-4338-A4C1-378AF567866B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9E132DF-051B-4F06-BCAD-2C26ABD30D66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9E132DF-051B-4F06-BCAD-2C26ABD30D66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9E132DF-051B-4F06-BCAD-2C26ABD30D66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9E132DF-051B-4F06-BCAD-2C26ABD30D66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEFE2EA8-5CD9-49C8-9EFD-04E3CB7EE310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEFE2EA8-5CD9-49C8-9EFD-04E3CB7EE310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEFE2EA8-5CD9-49C8-9EFD-04E3CB7EE310}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEFE2EA8-5CD9-49C8-9EFD-04E3CB7EE310}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
