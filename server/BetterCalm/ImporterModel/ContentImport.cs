@@ -22,6 +22,7 @@ namespace ImporterModel
 			{
 				return Equals(this.ArtistName, contentImportObject.ArtistName) &&
 					this.Categories.SequenceEqual(contentImportObject.Categories) &&
+					Equals(this.ContentLength, contentImportObject.ContentLength) &&
 					Equals(this.ContentType, contentImportObject.ContentType) &&
 					Equals(this.ContentUrl, contentImportObject.ContentUrl) &&
 					Equals(this.Id, contentImportObject.Id) &&
