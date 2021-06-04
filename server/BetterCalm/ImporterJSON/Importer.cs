@@ -16,11 +16,11 @@ namespace ImporterJSON
 			return ID;
 		}
 
-		IEnumerable<ContentImport> IImporter.Import(string filePath)
+		IEnumerable<Content> IImporter.Import(string filePath)
 		{
 			if (File.Exists(filePath))
 			{
-				return JsonConvert.DeserializeObject<IEnumerable<ContentImport>>(File.ReadAllText(filePath));
+				return JsonConvert.DeserializeObject<IEnumerable<Content>>(File.ReadAllText(filePath));
 			}
 			else
 			{

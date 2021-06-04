@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ImporterModel
 {
-	public class PlaylistImport
+	public class Playlist
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
@@ -13,7 +13,7 @@ namespace ImporterModel
 
 		public override bool Equals(object obj)
 		{
-			if (obj is PlaylistImport playlistImportObject)
+			if (obj is Playlist playlistImportObject)
 			{
 				return Equals(Id, playlistImportObject.Id) &&
 					Equals(Name, playlistImportObject.Name) &&

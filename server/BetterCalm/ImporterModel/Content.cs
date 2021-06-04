@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ImporterModel
 {
-	public class ContentImport
+	public class Content
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
@@ -14,11 +14,11 @@ namespace ImporterModel
 		public string ContentUrl { get; set; }
 		public int[] Categories { get; set; }
 		public string ContentType { get; set; }
-		public IEnumerable<PlaylistImport> Playlists { get; set; }
+		public Playlist[] Playlists { get; set; }
 
 		public override bool Equals(object obj)
 		{
-			if (obj is ContentImport contentImportObject)
+			if (obj is Content contentImportObject)
 			{
 				return Equals(this.ArtistName, contentImportObject.ArtistName) &&
 					this.Categories.SequenceEqual(contentImportObject.Categories) &&

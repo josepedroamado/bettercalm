@@ -6,7 +6,7 @@ namespace ImporterInterfaces
 	public interface IImporter
 	{
 		string GetId();
-		IEnumerable<ContentImport> Import(string filePath);
+		IEnumerable<Content> Import(string filePath);
 
 	}
 }

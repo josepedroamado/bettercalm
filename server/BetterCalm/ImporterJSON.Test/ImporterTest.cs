@@ -21,13 +21,13 @@ namespace ImporterJSON.Test
 		[TestMethod]
 		public void Import_IsOk_Fetched()
 		{
-			PlaylistImport playlist = new PlaylistImport()
+			Playlist playlist = new Playlist()
 			{
 				Name = "Trending",
 				Description = "Trending music",
 				Categories = new int[] { 1002 }
 			};
-			ContentImport content = new ContentImport()
+			Content content = new Content()
 			{
 				Name = "Beat It extended",
 				ContentLength = "00:06:30",
@@ -36,9 +36,9 @@ namespace ImporterJSON.Test
 				ContentUrl = "http://audio.com/audio3.mp3",
 				Categories = new int[] { 1002 },
 				ContentType = "audio",
-				Playlists = new PlaylistImport[] { playlist }
+				Playlists = new Playlist[] { playlist }
 			};
-			List<ContentImport> expectedContents = new List<ContentImport>()
+			List<Content> expectedContents = new List<Content>()
 			{
 				content
 			};
@@ -46,7 +46,7 @@ namespace ImporterJSON.Test
 			string filePath = Path.Combine(basePath, "importTest.json");
 
 			IImporter importer = new Importer();
-			IEnumerable<ContentImport> imported = importer.Import(filePath);
+			IEnumerable<Content> imported = importer.Import(filePath);
 
 			Assert.IsTrue(imported.SequenceEqual(expectedContents));
 		}
@@ -55,13 +55,13 @@ namespace ImporterJSON.Test
 		[ExpectedException(typeof(FileNotFoundException))]
 		public void Import_FileNotFound_Failed()
 		{
-			PlaylistImport playlist = new PlaylistImport()
+			Playlist playlist = new Playlist()
 			{
 				Name = "Trending",
 				Description = "Trending music",
 				Categories = new int[] { 1002 }
 			};
-			ContentImport content = new ContentImport()
+			Content content = new Content()
 			{
 				Name = "Beat It extended",
 				ContentLength = "00:06:30",
@@ -70,9 +70,9 @@ namespace ImporterJSON.Test
 				ContentUrl = "http://audio.com/audio3.mp3",
 				Categories = new int[] { 1002 },
 				ContentType = "audio",
-				Playlists = new PlaylistImport[] { playlist }
+				Playlists = new Playlist[] { playlist }
 			};
-			List<ContentImport> expectedContents = new List<ContentImport>()
+			List<Content> expectedContents = new List<Content>()
 			{
 				content
 			};
@@ -80,7 +80,7 @@ namespace ImporterJSON.Test
 			string filePath = Path.Combine(basePath, "notfound.json");
 
 			IImporter importer = new Importer();
-			IEnumerable<ContentImport> imported = importer.Import(filePath);
+			IEnumerable<Content> imported = importer.Import(filePath);
 
 			Assert.IsFalse(imported.SequenceEqual(expectedContents));
 		}
