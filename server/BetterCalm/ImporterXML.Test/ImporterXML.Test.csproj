@@ -15,7 +15,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ImporterModel\ImporterModel.csproj" />
-    <ProjectReference Include="..\ImprterXML\ImprterXML.csproj" />
+    <ProjectReference Include="..\ImprterXML\ImporterXML.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="importTest.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
