@@ -7,9 +7,11 @@ namespace ImporterJSON
 {
 	public class Importer : IImporter
 	{
+		private const string ID = "JSON";
+
 		public string GetId()
 		{
-			throw new NotImplementedException();
+			return ID;
 		}
 
 		IEnumerable<ContentImport> IImporter.Import(string filePath)
