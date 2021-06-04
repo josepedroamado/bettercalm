@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ImporterModel
 {
@@ -13,5 +15,33 @@ namespace ImporterModel
 		public int[] Categories { get; set; }
 		public string ContentType { get; set; }
 		public IEnumerable<PlaylistImport> Playlists { get; set; }
+
+		public override bool Equals(object obj)
+		{
+			if (obj is ContentImport contentImportObject)
+			{
+				return Equals(this.ArtistName, contentImportObject.ArtistName) &&
+					this.Categories.SequenceEqual(contentImportObject.Categories) &&
+					Equals(this.ContentType, contentImportObject.ContentType) &&
+					Equals(this.ContentUrl, contentImportObject.ContentUrl) &&
+					Equals(this.Id, contentImportObject.Id) &&
+					Equals(this.ImageUrl, contentImportObject.ImageUrl) &&
+					Equals(this.Name, contentImportObject.Name) &&
+					this.Playlists.SequenceEqual(contentImportObject.Playlists);
+			}
+			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(this.ArtistName,
+				this.ContentLength,
+				this.ContentType,
+				this.ContentUrl,
+				this.Id,
+				this.ImageUrl,
+				this.Name,
+				this.Playlists);
+		}
 	}
 }
