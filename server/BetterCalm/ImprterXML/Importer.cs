@@ -3,7 +3,7 @@ using ImporterModel;
 using System;
 using System.Collections.Generic;
 
-namespace ImprterXML
+namespace ImporterXML
 {
 	public class Importer : IImporter
 	{
