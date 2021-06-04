@@ -7,9 +7,11 @@ namespace ImporterXML
 {
 	public class Importer : IImporter
 	{
+		private const string ID = "XML";
+
 		public string GetId()
 		{
-			throw new NotImplementedException();
+			return ID;
 		}
 
 		public IEnumerable<ContentImport> Import(string filePath)
