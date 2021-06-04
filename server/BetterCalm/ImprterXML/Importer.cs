@@ -1,7 +1,9 @@
 ﻿using ImporterInterfaces;
 using ImporterModel;
-using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace ImporterXML
 {
@@ -14,9 +16,25 @@ namespace ImporterXML
 			return ID;
 		}
 
-		public IEnumerable<ContentImport> Import(string filePath)
+		public IEnumerable<Content> Import(string filePath)
 		{
-			throw new NotImplementedException();
+			if (File.Exists(filePath))
+			{
+				XmlSerializer serializer = new XmlSerializer(typeof(Contents));
+
+				Contents contents;
+
+				using (XmlReader reader = XmlReader.Create(filePath))
+				{
+					contents = serializer.Deserialize(reader) as Contents;
+				}
+
+				return contents;
+			}
+			else
+			{
+				throw new FileNotFoundException(filePath);
+			}
 		}
 	}
 }
