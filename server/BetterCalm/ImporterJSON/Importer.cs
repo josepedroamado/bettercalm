@@ -1,7 +1,9 @@
 ﻿using ImporterInterfaces;
 using ImporterModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ImporterJSON
 {
@@ -16,7 +18,14 @@ namespace ImporterJSON
 
 		IEnumerable<ContentImport> IImporter.Import(string filePath)
 		{
-			throw new NotImplementedException();
+			if (File.Exists(filePath))
+			{
+				return JsonConvert.DeserializeObject<IEnumerable<ContentImport>>(File.ReadAllText(filePath));
+			}
+			else
+			{
+				throw new FileNotFoundException(filePath);
+			}
 		}
 	}
 }
