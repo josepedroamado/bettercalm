@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
         }
 
 		[HttpGet]
-		public IActionResult Post()
+		public IActionResult Post([FromBody] ImporterInputModel  importerModel)
 		{
 			throw new NotImplementedException();
 		}
