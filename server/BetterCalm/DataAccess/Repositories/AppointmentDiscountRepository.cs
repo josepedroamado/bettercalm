@@ -24,7 +24,7 @@ namespace DataAccess.Repositories
 
         public IEnumerable<AppointmentDiscount> GetAll()
         {
-            throw new NotImplementedException();
+            return this.discounts;
         }
     }
 }
