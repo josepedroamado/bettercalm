@@ -17,6 +17,7 @@ namespace Domain
 			get => scheduleDays;
 			set => scheduleDays = value;
 		}
+		public PsychologistRate Rate { get; set; }
 
 		public string GetFullName()
 		{
@@ -25,8 +26,10 @@ namespace Domain
 
 		public override bool Validate()
 		{
-			if (string.IsNullOrEmpty(this.Address))
+			if (string.IsNullOrWhiteSpace(this.Address))
+			{
 				throw new InvalidInputException("Address is required");
+			}
 			return base.Validate();
 		}
 
@@ -39,15 +42,27 @@ namespace Domain
 
 		public void UpdateData(Psychologist psychologist)
 		{
-			if (!string.IsNullOrEmpty(psychologist.FirstName))
+			if (!string.IsNullOrWhiteSpace(psychologist.FirstName))
+			{
 				this.FirstName = psychologist.FirstName;
-			if (!string.IsNullOrEmpty(psychologist.LastName))
-				this.LastName = psychologist.LastName;
-			if (!string.IsNullOrEmpty(psychologist.Address))
+			}
+			if (!string.IsNullOrWhiteSpace(psychologist.LastName))
+			{
+				this.LastName = psychologist.LastName; 
+			}
+			if (!string.IsNullOrWhiteSpace(psychologist.Address))
+            {
 				this.Address = psychologist.Address;
+			}
 			this.Format = psychologist.Format;
 			if (psychologist.Illnesses != null)
+			{
 				this.Illnesses = psychologist.Illnesses;
+			}
+            if (psychologist.Rate != null)
+            {
+				this.Rate = psychologist.Rate;
+            }
 		}
 
 		public override bool Equals(object obj)
