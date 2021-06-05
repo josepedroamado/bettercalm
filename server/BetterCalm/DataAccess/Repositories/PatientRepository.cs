@@ -55,6 +55,10 @@ namespace DataAccess.Repositories
 
         public IEnumerable<Patient> GetAll()
         {
+            if (this.patients.Count() <= 0)
+            {
+				throw new CollectionEmptyException("Patients");
+            }
 			return this.patients;
         }
 
