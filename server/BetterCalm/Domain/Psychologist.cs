@@ -30,6 +30,10 @@ namespace Domain
 			{
 				throw new InvalidInputException("Address is required");
 			}
+			if (this.Rate == null)
+			{
+				throw new InvalidInputException("Rate is required");
+			}
 			return base.Validate();
 		}
 
@@ -88,7 +92,6 @@ namespace Domain
 					Equals(this.CreatedDate, psychologist.CreatedDate) &&
 					Equals(this.FirstName, psychologist.FirstName) &&
 					Equals(this.LastName, psychologist.LastName);
-
 			}
 			return false;
 		}
