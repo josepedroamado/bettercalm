@@ -19,7 +19,7 @@ namespace DataAccess.Repositories
             this.discounts = context.Set<AppointmentDiscount>();
         }
 
-        public AppointmentDiscount Get(int? discount)
+        public AppointmentDiscount Get(double? discount)
         {
             throw new NotImplementedException();
         }
