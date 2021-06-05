@@ -88,5 +88,23 @@ namespace DataAccess.Test
             IEnumerable<AppointmentDiscount> obtainedDiscounts = appointmentDiscountRepository.GetAll();
             Assert.IsNull(obtainedDiscounts);
         }
+
+        [TestMethod]
+        public void Get_DiscountExists_Fetched()
+        {
+            AppointmentDiscount expectedDiscount = GetExpectedDiscount();
+            this.context.Add(expectedDiscount);
+            this.context.SaveChanges();
+            AppointmentDiscountRepository appointmentDiscountRepository = new AppointmentDiscountRepository(this.context);
+
+            AppointmentDiscount obtainedDiscount = appointmentDiscountRepository.Get(expectedDiscount.Discount);
+
+            Assert.AreEqual(expectedDiscount, obtainedDiscount);
+        }
+
+        private AppointmentDiscount GetExpectedDiscount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
