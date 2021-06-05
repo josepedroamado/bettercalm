@@ -20,5 +20,10 @@ namespace Domain
 				throw new InvalidInputException("Phone is required");
 			return base.Validate();
 		}
+
+		public void UpdateFromPatient(Patient patient)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
