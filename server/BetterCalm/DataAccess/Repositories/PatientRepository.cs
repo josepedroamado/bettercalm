@@ -62,9 +62,19 @@ namespace DataAccess.Repositories
 			return this.patients;
         }
 
-        public void Update(Patient patient)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
+		public void Update(Patient patient)
+		{
+			Patient original = Get(patient.Email);
+			if (original == null)
+			{
+				throw new NotFoundException("Patient");
+			}
+			if (patient.Validate())
+			{
+				original.UpdateFromPatient(patient);
+				this.patients.Update(original);
+				this.context.SaveChanges();
+			}
+		}
+	}
 }
