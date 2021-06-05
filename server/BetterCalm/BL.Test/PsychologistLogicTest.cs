@@ -47,7 +47,8 @@ namespace BL.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Psychologist secondPsychologist = new Psychologist()
@@ -57,7 +58,8 @@ namespace BL.Test
                 LastName = "Lecter",
                 Address = "14th Street",
                 Format = Format.Remote,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 2000 }
             };
             List<Psychologist> expectedPsychologists = new List<Psychologist>() { firstPsychologist, secondPsychologist };
             return expectedPsychologists;
@@ -73,7 +75,8 @@ namespace BL.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
@@ -97,7 +100,8 @@ namespace BL.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
@@ -123,7 +127,8 @@ namespace BL.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 Illnesses = new List<Illness>(){ stress, depression },
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
@@ -154,7 +159,8 @@ namespace BL.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
@@ -187,7 +193,8 @@ namespace BL.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 Illnesses = new List<Illness>() { stress, depression },
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
@@ -219,7 +226,8 @@ namespace BL.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 Illnesses = new List<Illness>() { stress },
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
@@ -253,7 +261,8 @@ namespace BL.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 Illnesses = new List<Illness>() { stress, depression, anxiety, rage },
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
@@ -285,7 +294,8 @@ namespace BL.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 Illnesses = new List<Illness>() { stress, depression },
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Psychologist newPsychologist = new Psychologist()
@@ -296,7 +306,8 @@ namespace BL.Test
                 Address = "General Paz 1234",
                 Format = Format.Remote,
                 Illnesses = new List<Illness>() { stress },
-                CreatedDate = DateTime.Today.AddMonths(-2)
+                CreatedDate = DateTime.Today.AddMonths(-2),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
@@ -326,7 +337,8 @@ namespace BL.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
