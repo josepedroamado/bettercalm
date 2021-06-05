@@ -1,8 +1,10 @@
 ﻿using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -24,7 +26,10 @@ namespace DataAccess.Repositories
 
         public IEnumerable<PsychologistRate> GetAll()
         {
-            throw new NotImplementedException();
+            if (this.rates.Count() <= 0)
+                throw new CollectionEmptyException("Psychologist Rates");
+            else
+                return this.rates;
         }
     }
 }
