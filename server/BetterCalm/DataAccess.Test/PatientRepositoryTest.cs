@@ -290,6 +290,7 @@ namespace DataAccess.Test
 			{
 				Id = 1,
 				BirthDate = new DateTime(1950, 1, 1),
+				Email = "john.doe@gmail.com",
 				FirstName = "Arthur",
 				LastName = "Morgan",
 				Phone = "8885551234"
@@ -301,6 +302,27 @@ namespace DataAccess.Test
 			Patient obtained = repository.Get(original.Email);
 
 			Assert.AreEqual(original, obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void Update_PatientNotFound_ExceptionThrown()
+		{
+			Patient updated = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1950, 1, 1),
+				Email = "john.doe@gmail.com",
+				FirstName = "Arthur",
+				LastName = "Morgan",
+				Phone = "8885551234"
+			};
+
+			PatientRepository repository = new PatientRepository(this.context);
+			repository.Update(updated);
+			Patient obtained = repository.Get(updated.Email);
+
+			Assert.IsNull(obtained);
 		}
 	}
 }
