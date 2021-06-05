@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ImporterModel\ImporterModel.csproj" />
-    <ProjectReference Include="..\ImprterXML\ImporterXML.csproj" />
+    <ProjectReference Include="..\ImporterXML\ImporterXML.csproj" />
   </ItemGroup>
 
   <ItemGroup>
