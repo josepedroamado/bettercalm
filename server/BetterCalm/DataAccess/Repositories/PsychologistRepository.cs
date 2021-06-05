@@ -57,8 +57,8 @@ namespace DataAccess.Repositories
                 throw new CollectionEmptyException("Psychologists");
 
             Psychologist candidate = this.psychologists
-                .Include("ScheduleDays")
-                .Include("ScheduleDays.Appointments")
+                .Include(psychologist => psychologist.ScheduleDays).ThenInclude(scheduleDays => scheduleDays.Appointments)
+                .Include(psychologist => psychologist.Rate)
                 .Where(psychologist =>
                     psychologist.Illnesses.Contains(illness) &&
                     (psychologist.ScheduleDays.Count() == 0 ||
@@ -72,8 +72,8 @@ namespace DataAccess.Repositories
             if (candidate == null)
             {
                 candidate = this.psychologists
-                   .Include("ScheduleDays")
-                   .Include("ScheduleDays.Appointments")
+                   .Include(psychologist => psychologist.ScheduleDays).ThenInclude(scheduleDays => scheduleDays.Appointments)
+                   .Include(psychologist => psychologist.Rate)
                    .Where(psychologist =>
                        psychologist.ScheduleDays.Count() == 0 ||
                        (psychologist.ScheduleDays.OrderBy(schedule => schedule.Date).Last().Date < until ||
