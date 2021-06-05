@@ -45,7 +45,7 @@ namespace DataAccess.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -55,7 +55,7 @@ namespace DataAccess.Test
 			this.context.SaveChanges();
 
 			PatientRepository repository = new PatientRepository(this.context);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 			Assert.AreEqual(obtained, patient);
 		}
 		
@@ -66,7 +66,7 @@ namespace DataAccess.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -87,7 +87,7 @@ namespace DataAccess.Test
 			{
 				Id = 1,
 				BirthDate = new DateTime(1990, 1, 1),
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				FirstName = "first name",
 				LastName = "last name",
 				Phone = "099099099"
@@ -95,7 +95,7 @@ namespace DataAccess.Test
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.AreEqual(patient, obtained);
 		}
@@ -108,7 +108,7 @@ namespace DataAccess.Test
 			{
 				Id = 1,
 				BirthDate = new DateTime(1990, 1, 1),
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				FirstName = "first name",
 				LastName = "last name",
 				Phone = "099099099"
@@ -117,7 +117,7 @@ namespace DataAccess.Test
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.AreEqual(patient, obtained);
 		}
@@ -129,7 +129,7 @@ namespace DataAccess.Test
 			Patient patient = new Patient()
 			{
 				Id = 1,
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				FirstName = "first name",
 				LastName = "last name",
 				Phone = "099099099"
@@ -137,7 +137,7 @@ namespace DataAccess.Test
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.IsNull(obtained);
 		}
@@ -157,7 +157,7 @@ namespace DataAccess.Test
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.IsNull(obtained);
 		}
@@ -170,14 +170,14 @@ namespace DataAccess.Test
 			{
 				Id = 1,
 				BirthDate = new DateTime(1990, 1, 1),
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				LastName = "last name",
 				Phone = "099099099"
 			};
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.IsNull(obtained);
 		}
@@ -190,14 +190,14 @@ namespace DataAccess.Test
 			{
 				Id = 1,
 				BirthDate = new DateTime(1990, 1, 1),
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				FirstName = "first name",
 				Phone = "099099099"
 			};
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.IsNull(obtained);
 		}
@@ -210,14 +210,14 @@ namespace DataAccess.Test
 			{
 				Id = 1,
 				BirthDate = new DateTime(1990, 1, 1),
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				FirstName = "first name",
 				LastName = "last name"
 			};
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.IsNull(obtained);
 		}

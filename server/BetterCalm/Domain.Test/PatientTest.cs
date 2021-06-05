@@ -17,7 +17,7 @@ namespace Domain.Test
 				Id = 1,
 				FirstName = "first name",
 				LastName = "last name",
-				EMail = "email",
+				Email = "email",
 				BirthDate = new DateTime(1990, 1, 1),
 				Phone = "099099099"
 			};
@@ -33,7 +33,7 @@ namespace Domain.Test
 			{
 				Id = 1,
 				LastName = "last name",
-				EMail = "email",
+				Email = "email",
 				BirthDate = new DateTime(1990, 1, 1),
 				Phone = "099099099"
 			};
@@ -49,7 +49,7 @@ namespace Domain.Test
 			{
 				Id = 1,
 				FirstName = "first name",
-				EMail = "email",
+				Email = "email",
 				BirthDate = new DateTime(1990, 1, 1),
 				Phone = "099099099"
 			};
@@ -82,7 +82,7 @@ namespace Domain.Test
 				Id = 1,
 				FirstName = "first name",
 				LastName = "last name",
-				EMail = "email",
+				Email = "email",
 				Phone = "099099099"
 			};
 
@@ -98,7 +98,7 @@ namespace Domain.Test
 				Id = 1,
 				FirstName = "first name",
 				LastName = "last name",
-				EMail = "email",
+				Email = "email",
 				BirthDate = new DateTime(1990, 1, 1),
 			};
 

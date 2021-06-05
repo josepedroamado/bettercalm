@@ -24,7 +24,7 @@ namespace Model
 				Patient = new Patient()
 				{
 					BirthDate = this.BirthDate,
-					EMail = this.EMail,
+					Email = this.EMail,
 					FirstName = this.Name,
 					LastName = this.LastName,
 					Phone = this.Phone

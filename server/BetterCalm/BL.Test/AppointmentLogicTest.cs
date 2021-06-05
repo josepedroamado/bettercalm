@@ -16,7 +16,7 @@ namespace BL.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -46,7 +46,7 @@ namespace BL.Test
 
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Returns(patient);
+			mockPatient.Setup(m => m.Get(patient.Email)).Returns(patient);
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
 			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
@@ -75,7 +75,7 @@ namespace BL.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -105,7 +105,7 @@ namespace BL.Test
 
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Returns(patient);
+			mockPatient.Setup(m => m.Get(patient.Email)).Returns(patient);
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
 			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
@@ -134,7 +134,7 @@ namespace BL.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -164,7 +164,7 @@ namespace BL.Test
 
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Throws(new NotFoundException(patient.EMail));
+			mockPatient.Setup(m => m.Get(patient.Email)).Throws(new NotFoundException(patient.Email));
 			mockPatient.Setup(m => m.Add(patient));
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
@@ -195,7 +195,7 @@ namespace BL.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -225,7 +225,7 @@ namespace BL.Test
 
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Returns(patient);
+			mockPatient.Setup(m => m.Get(patient.Email)).Returns(patient);
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
 			mockIllness.Setup(m => m.Get(illness.Id)).Throws(new NotFoundException(illness.Id.ToString()));
@@ -254,7 +254,7 @@ namespace BL.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -284,7 +284,7 @@ namespace BL.Test
 
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Returns(patient);
+			mockPatient.Setup(m => m.Get(patient.Email)).Returns(patient);
 			mockPatient.Setup(m => m.Add(patient));
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
@@ -314,7 +314,7 @@ namespace BL.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -343,7 +343,7 @@ namespace BL.Test
 			};
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Returns(patient);
+			mockPatient.Setup(m => m.Get(patient.Email)).Returns(patient);
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
 			mockIllness.Setup(m => m.Get(illness.Id)).Throws(new CollectionEmptyException("Illnesses"));
@@ -371,7 +371,7 @@ namespace BL.Test
 		{
 			Patient patient = new Patient()
 			{
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -400,7 +400,7 @@ namespace BL.Test
 			};
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Throws(new NotFoundException(patient.EMail));
+			mockPatient.Setup(m => m.Get(patient.Email)).Throws(new NotFoundException(patient.Email));
 			mockPatient.Setup(m => m.Add(patient)).Throws(new InvalidInputException("BirthDate is required"));
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
@@ -458,7 +458,7 @@ namespace BL.Test
 			};
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Throws(new NotFoundException(patient.EMail));
+			mockPatient.Setup(m => m.Get(patient.Email)).Throws(new NotFoundException(patient.Email));
 			mockPatient.Setup(m => m.Add(patient)).Throws(new InvalidInputException("EMail is required"));
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
@@ -488,7 +488,7 @@ namespace BL.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				LastName = "Perez",
 				Id = 1,
 				Phone = "091569874"
@@ -516,7 +516,7 @@ namespace BL.Test
 			};
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Throws(new NotFoundException(patient.EMail));
+			mockPatient.Setup(m => m.Get(patient.Email)).Throws(new NotFoundException(patient.Email));
 			mockPatient.Setup(m => m.Add(patient)).Throws(new InvalidInputException("FirstName is required"));
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
@@ -546,7 +546,7 @@ namespace BL.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				Id = 1,
 				Phone = "091569874"
@@ -574,7 +574,7 @@ namespace BL.Test
 			};
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Throws(new NotFoundException(patient.EMail));
+			mockPatient.Setup(m => m.Get(patient.Email)).Throws(new NotFoundException(patient.Email));
 			mockPatient.Setup(m => m.Add(patient)).Throws(new InvalidInputException("LastName is required"));
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
@@ -604,7 +604,7 @@ namespace BL.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1
@@ -632,7 +632,7 @@ namespace BL.Test
 			};
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Throws(new NotFoundException(patient.EMail));
+			mockPatient.Setup(m => m.Get(patient.Email)).Throws(new NotFoundException(patient.Email));
 			mockPatient.Setup(m => m.Add(patient)).Throws(new InvalidInputException("Phone is required"));
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
@@ -662,7 +662,7 @@ namespace BL.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -692,7 +692,7 @@ namespace BL.Test
 			};
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Returns(patient);
+			mockPatient.Setup(m => m.Get(patient.Email)).Returns(patient);
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
 			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
@@ -720,7 +720,7 @@ namespace BL.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -747,7 +747,7 @@ namespace BL.Test
 			string appointmentDuration = "  ";
 
 			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
-			mockPatient.Setup(m => m.Get(patient.EMail)).Returns(patient);
+			mockPatient.Setup(m => m.Get(patient.Email)).Returns(patient);
 
 			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
 			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);

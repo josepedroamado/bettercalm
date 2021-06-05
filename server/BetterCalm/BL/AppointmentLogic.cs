@@ -80,7 +80,7 @@ namespace BL
 		{
 			try
 			{
-				patient = this.patientRepository.Get(patient.EMail);
+				patient = this.patientRepository.Get(patient.Email);
 			}
 			catch (NotFoundException) 
 			{
