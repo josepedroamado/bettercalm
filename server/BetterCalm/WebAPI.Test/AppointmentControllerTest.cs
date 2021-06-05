@@ -19,7 +19,7 @@ namespace WebAPI.Test
 			AppointmentInputModel input = new AppointmentInputModel()
 			{
 				BirthDate = DateTime.Now,
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				IllnessId = 1,
 				LastName = "aUser",
 				Name = "aName",
@@ -65,7 +65,7 @@ namespace WebAPI.Test
 			AppointmentInputModel input = new AppointmentInputModel()
 			{
 				BirthDate = DateTime.Now,
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				IllnessId = 1,
 				LastName = "aUser",
 				Name = "aName",
@@ -94,7 +94,7 @@ namespace WebAPI.Test
 			AppointmentInputModel input = new AppointmentInputModel()
 			{
 				BirthDate = DateTime.Now,
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				IllnessId = 1589,
 				LastName = "aUser",
 				Name = "aName",
