@@ -104,7 +104,12 @@ namespace DataAccess.Test
 
         private AppointmentDiscount GetExpectedDiscount()
         {
-            throw new NotImplementedException();
+            AppointmentDiscount discount = new AppointmentDiscount()
+            {
+                Id = 1,
+                Discount = 15
+            };
+            return discount;
         }
     }
 }
