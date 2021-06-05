@@ -21,7 +21,7 @@ namespace DataAccess.Repositories
 
         public AppointmentDiscount Get(double? discount)
         {
-            throw new NotImplementedException();
+            return this.discounts.FirstOrDefault(stored => stored.Discount == discount);
         }
 
         public IEnumerable<AppointmentDiscount> GetAll()
