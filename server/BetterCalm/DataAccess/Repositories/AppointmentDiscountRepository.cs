@@ -21,7 +21,10 @@ namespace DataAccess.Repositories
 
         public AppointmentDiscount Get(double? discount)
         {
-            return this.discounts.FirstOrDefault(stored => stored.Discount == discount);
+            AppointmentDiscount appointmentDiscount = this.discounts.FirstOrDefault(stored => stored.Discount == discount);
+            if (appointmentDiscount == null)
+                throw new NotFoundException("Appointment Discount");
+            return appointmentDiscount;
         }
 
         public IEnumerable<AppointmentDiscount> GetAll()
