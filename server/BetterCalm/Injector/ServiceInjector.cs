@@ -27,6 +27,7 @@ namespace Injector
 			services.AddScoped<IPsychologistLogic, PsychologistLogic>();
 			services.AddScoped<IAppointmentLogic, AppointmentLogic>();
 			services.AddScoped<IUserLogic, UserLogic>();
+			services.AddScoped<IImporterLogic, ImporterLogic>();
 		}
 
 		public void AddDataAccessServices()
