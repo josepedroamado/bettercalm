@@ -23,7 +23,15 @@ namespace Domain
 
 		public void UpdateFromPatient(Patient patient)
 		{
-			throw new NotImplementedException();
+			this.Id = patient.Id;
+			this.AppointmentDiscount = patient.AppointmentDiscount;
+			this.BirthDate = patient.BirthDate;
+			if (!string.IsNullOrWhiteSpace(patient.FirstName))
+				this.FirstName = patient.FirstName;
+			if (!string.IsNullOrWhiteSpace(patient.LastName))
+				this.LastName = patient.LastName;
+			if (!string.IsNullOrWhiteSpace(patient.Phone))
+				this.Phone = patient.Phone;
 		}
 	}
 }
