@@ -21,7 +21,10 @@ namespace DataAccess.Repositories
 
         public PsychologistRate Get(int rate)
         {
-            throw new NotImplementedException();
+            PsychologistRate storedRate = this.rates.FirstOrDefault(stored => stored.HourlyRate == rate);
+            if (storedRate == null)
+                throw new NotFoundException("Psychologist Rate");
+            return storedRate;
         }
 
         public IEnumerable<PsychologistRate> GetAll()
