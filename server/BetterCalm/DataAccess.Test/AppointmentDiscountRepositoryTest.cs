@@ -1,6 +1,7 @@
 ﻿using DataAccess.Context;
 using DataAccess.Repositories;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -77,6 +78,15 @@ namespace DataAccess.Test
                 fifteen, twentyFive, fifty
             };
             return discounts;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CollectionEmptyException))]
+        public void GetAll_NoDiscounts_ExceptionThrown()
+        {
+            AppointmentDiscountRepository appointmentDiscountRepository = new AppointmentDiscountRepository(this.context);
+            IEnumerable<AppointmentDiscount> obtainedDiscounts = appointmentDiscountRepository.GetAll();
+            Assert.IsNull(obtainedDiscounts);
         }
     }
 }
