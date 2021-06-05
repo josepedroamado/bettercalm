@@ -55,7 +55,7 @@ namespace DataAccess.Repositories
 
         public IEnumerable<Patient> GetAll()
         {
-            throw new System.NotImplementedException();
+			return this.patients;
         }
 
         public void Update(Patient patient)
