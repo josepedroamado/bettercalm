@@ -6,7 +6,9 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 
 namespace DataAccess.Test
 {
@@ -81,6 +83,45 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
+		public void GetAll_PatientsExist_Fetched()
+		{
+			List<Patient> expectedPatients = GetAllExpectedPatients();
+
+			foreach (Patient patient in expectedPatients)
+			{
+				this.context.Add(patient);
+			}
+			this.context.SaveChanges();
+			PatientRepository patientRepository = new PatientRepository(this.context);
+
+			IEnumerable<Patient> obtainedPatients = patientRepository.GetAll();
+			Assert.IsTrue(expectedPatients.SequenceEqual(obtainedPatients));
+		}
+
+        private List<Patient> GetAllExpectedPatients()
+        {
+			Patient johnDoe = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "john.doe@gmail.com",
+				FirstName = "John",
+				LastName = "Doe",
+				Id = 1,
+				Phone = "46465551256"
+			};
+			Patient janeDoe = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "jane.doe@gmail.com",
+				FirstName = "Jane",
+				LastName = "Doe",
+				Id = 2,
+				Phone = "36325551478"
+			};
+			return new List<Patient>() { johnDoe, janeDoe };
+		}
+
+        [TestMethod]
 		public void Add_DataIsCorrect_Added()
 		{
 			Patient patient = new Patient()
