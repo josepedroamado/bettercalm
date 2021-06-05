@@ -19,4 +19,13 @@
     <ProjectReference Include="..\DataAccessInterfaces\DataAccessInterfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="importTest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="importTest.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
