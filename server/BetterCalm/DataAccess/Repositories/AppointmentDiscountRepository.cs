@@ -1,8 +1,10 @@
 ﻿using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
@@ -24,7 +26,10 @@ namespace DataAccess.Repositories
 
         public IEnumerable<AppointmentDiscount> GetAll()
         {
-            return this.discounts;
+            if (this.discounts.Count() <= 0)
+                throw new CollectionEmptyException("Appointment Discounts");
+            else
+                return this.discounts;
         }
     }
 }
