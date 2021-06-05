@@ -272,5 +272,35 @@ namespace DataAccess.Test
 
 			Assert.IsNull(obtained);
 		}
+
+		[TestMethod]
+		public void Update_DataIsCorrect_Added()
+		{
+			Patient original = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1990, 1, 1),
+				Email = "john.doe@gmail.com",
+				FirstName = "John",
+				LastName = "Doe",
+				Phone = "14785559632"
+			};
+
+			Patient updated = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1950, 1, 1),
+				FirstName = "Arthur",
+				LastName = "Morgan",
+				Phone = "8885551234"
+			};
+
+			PatientRepository repository = new PatientRepository(this.context);
+			repository.Add(original);
+			repository.Update(updated);
+			Patient obtained = repository.Get(original.Email);
+
+			Assert.AreEqual(original, obtained);
+		}
 	}
 }
