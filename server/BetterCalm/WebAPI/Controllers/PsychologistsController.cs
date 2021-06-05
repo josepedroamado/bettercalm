@@ -4,7 +4,6 @@ using Model;
 using BLInterfaces;
 using WebAPI.Filters;
 using System.Linq;
-using System;
 
 namespace WebAPI.Controllers
 {
@@ -24,9 +23,7 @@ namespace WebAPI.Controllers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			IEnumerable<PsychologistModel> models =
-				   this.psychologistLogic.GetAll().
-				   Select(psychologist => new PsychologistModel(psychologist));
+			IEnumerable<PsychologistModel> models = this.psychologistLogic.GetAll().Select(psychologist => new PsychologistModel(psychologist));
 			return Ok(models);
 		}
 
@@ -40,7 +37,7 @@ namespace WebAPI.Controllers
 		[HttpPost]
 		public IActionResult Post([FromBody] PsychologistModel psychologistModel)
 		{
-			this.psychologistLogic.Add(psychologistModel.ToEntity());
+			this.psychologistLogic.Add(psychologistModel.ToEntity(), psychologistModel.Rate);
 			return Ok();
 		}
 

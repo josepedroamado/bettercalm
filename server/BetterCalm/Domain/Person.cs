@@ -10,10 +10,14 @@ namespace Domain
 
 		public virtual bool Validate()
 		{
-			if (string.IsNullOrEmpty(this.FirstName))
+			if (string.IsNullOrWhiteSpace(this.FirstName))
+			{
 				throw new InvalidInputException("FirstName is required");
-			if (string.IsNullOrEmpty(this.LastName))
+			}
+			if (string.IsNullOrWhiteSpace(this.LastName))
+			{
 				throw new InvalidInputException("LastName is required");
+			}
 			return true;
 		}
 	}

@@ -11,11 +11,13 @@ namespace BL
     {
         private IPsychologistRepository psychologistRepository;
         private IIllnessRepository illnessRepository;
+        private IPsychologistRateRepository psychologistRateRepository;
 
-        public PsychologistLogic(IPsychologistRepository psychologistRepository, IIllnessRepository illnessRepository)
+        public PsychologistLogic(IPsychologistRepository psychologistRepository, IIllnessRepository illnessRepository, IPsychologistRateRepository psychologistRateRepository)
         {
             this.psychologistRepository = psychologistRepository;
             this.illnessRepository = illnessRepository;
+            this.psychologistRateRepository = psychologistRateRepository;
         }
 
         public IEnumerable<Psychologist> GetAll()
@@ -28,9 +30,14 @@ namespace BL
             return this.psychologistRepository.Get(id);
         }
 
-        public void Add(Psychologist psychologist)
+        public void Add(Psychologist psychologist, int? rate)
         {
             psychologist.Illnesses = GetStoredIlnesses(psychologist.Illnesses);
+            if (rate == null)
+            {
+                throw new InvalidInputException("Psychologist Rate is required.");
+            }
+            psychologist.Rate = this.psychologistRateRepository.Get(rate.GetValueOrDefault());
             this.psychologistRepository.Add(psychologist);
         }
 
