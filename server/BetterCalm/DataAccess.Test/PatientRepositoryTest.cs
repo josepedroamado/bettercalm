@@ -121,7 +121,17 @@ namespace DataAccess.Test
 			return new List<Patient>() { johnDoe, janeDoe };
 		}
 
-        [TestMethod]
+		[TestMethod]
+		[ExpectedException(typeof(CollectionEmptyException))]
+		public void GetAll_NoPatientsExist_ExceptionThrown()
+		{
+			PatientRepository patientRepository = new PatientRepository(this.context);
+
+			IEnumerable<Patient> obtainedPatients = patientRepository.GetAll();
+			Assert.IsNull(obtainedPatients);
+		}
+
+		[TestMethod]
 		public void Add_DataIsCorrect_Added()
 		{
 			Patient patient = new Patient()
