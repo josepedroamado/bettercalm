@@ -53,7 +53,7 @@ namespace DataAccess.Test
             AppointmentDurationRepository appointmentDurationRepository = new AppointmentDurationRepository(this.context);
 
             IEnumerable<AppointmentDuration> obtainedDurations = appointmentDurationRepository.GetAll();
-            Assert.AreEqual(expectedDurations.Count, obtainedDurations.Count());
+            Assert.IsTrue(expectedDurations.SequenceEqual(obtainedDurations));
         }
 
         private List<AppointmentDuration> GetAllExpectedDurations()
