@@ -111,5 +111,17 @@ namespace DataAccess.Test
             };
             return discount;
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void Get_DiscountNotFound_ExceptionThrown()
+        {
+            AppointmentDiscount expectedDiscount = GetExpectedDiscount();
+            AppointmentDiscountRepository appointmentDiscountRepository = new AppointmentDiscountRepository(this.context);
+
+            AppointmentDiscount obtainedDiscount = appointmentDiscountRepository.Get(expectedDiscount.Discount);
+
+            Assert.IsNull(obtainedDiscount);
+        }
     }
 }
