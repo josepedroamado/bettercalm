@@ -160,7 +160,7 @@ namespace DataAccess.Test
 				Email = "mike.noappointments@gmail.com",
 				FirstName = "Mike",
 				LastName = "Noappointments",
-				Id = 3,
+				Id = 4,
 				Phone = "46465557777",
 				AppointmentQuantity = 0
 			};
