@@ -46,7 +46,7 @@ namespace BL.Utils
 			List<Playlist> domainPlaylists = new List<Playlist>();
 
 			playlists.ToList().ForEach(playlist =>
-				domainPlaylists.Append(new Playlist()
+				domainPlaylists.Add(new Playlist()
 				{
 					Id = playlist.Id,
 					Categories = GetDomainCategories(playlist.Categories),
