@@ -36,7 +36,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.OnSite,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -95,7 +96,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -154,7 +156,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -215,7 +218,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -274,7 +278,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -334,7 +339,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -391,7 +397,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -449,7 +456,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -507,7 +515,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -565,7 +574,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -623,7 +633,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -683,7 +694,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			AppointmentDuration appointmentDuration = new AppointmentDuration(){
@@ -741,7 +753,8 @@ namespace BL.Test
 				LastName = "Sartori",
 				Address = "Calle 1234",
 				Format = Format.Remote,
-				CreatedDate = DateTime.Today.AddMonths(-3)
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
 			};
 
 			string appointmentDuration = "  ";
