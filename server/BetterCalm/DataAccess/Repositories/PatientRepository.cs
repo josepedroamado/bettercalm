@@ -65,7 +65,14 @@ namespace DataAccess.Repositories
 
 		public IEnumerable<Patient> GetAllWithoutDiscount(int numberOfAppointments)
 		{
-			return this.patients.Where(patient => patient.AppointmentDiscount == null && patient.AppointmentQuantity >= numberOfAppointments);
+            if (this.patients.Count() > 0)
+            {
+				return this.patients.Where(patient => patient.AppointmentDiscount == null && patient.AppointmentQuantity >= numberOfAppointments);
+			}
+            else
+            {
+				throw new CollectionEmptyException("Patients");
+            }	
 		}
 
 		public void Update(Patient patient)
