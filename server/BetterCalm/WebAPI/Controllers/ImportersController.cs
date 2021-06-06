@@ -20,7 +20,8 @@ namespace WebAPI.Controllers
 		[HttpGet]
 		public IActionResult Post([FromBody] ImporterInputModel  importerModel)
 		{
-			throw new NotImplementedException();
+			importerLogic.Import(importerModel.Type, importerModel.FilePath);
+			return NoContent();
 		}
 	}
 }

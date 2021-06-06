@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
+using System.IO;
 
 namespace WebAPI.Filters
 {
@@ -82,6 +83,22 @@ namespace WebAPI.Filters
 				context.Result = new ContentResult()
 				{
 					StatusCode = 400,
+					Content = ex.Message
+				};
+			}
+			catch (FileNotFoundException ex)
+			{
+				context.Result = new ContentResult()
+				{
+					StatusCode = 400,
+					Content = ex.Message
+				};
+			}
+			catch (ImporterNotFoundException ex)
+			{
+				context.Result = new ContentResult()
+				{
+					StatusCode = 500,
 					Content = ex.Message
 				};
 			}
