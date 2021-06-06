@@ -28,6 +28,11 @@ namespace Model
 					FirstName = this.Name,
 					LastName = this.LastName,
 					Phone = this.Phone
+				},
+				Duration = new AppointmentDuration()
+                {
+					Id = 1,
+					Duration = Duration == null ? TimeSpan.Zero : TimeSpan.Parse(Duration)
 				}
 			};
 		}

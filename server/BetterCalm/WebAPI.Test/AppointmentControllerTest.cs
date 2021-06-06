@@ -45,7 +45,7 @@ namespace WebAPI.Test
 			};
 
 			Mock<IAppointmentLogic> logicMock = new Mock<IAppointmentLogic>(MockBehavior.Strict);
-			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Patient>(), It.IsAny<Illness>(), It.IsAny<string>()))
+			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Appointment>()))
 				.Returns(appointment);
 
 			AppointmentsController controller = new AppointmentsController(logicMock.Object);
@@ -74,7 +74,7 @@ namespace WebAPI.Test
 			};
 
 			Mock<IAppointmentLogic> logicMock = new Mock<IAppointmentLogic>(MockBehavior.Strict);
-			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Patient>(), It.IsAny<Illness>(), It.IsAny<string>()))
+			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Appointment>()))
 				.Throws(new CollectionEmptyException("Psychologists"));
 
 			AppointmentsController controller = new AppointmentsController(logicMock.Object);
@@ -103,7 +103,7 @@ namespace WebAPI.Test
 			};
 
 			Mock<IAppointmentLogic> logicMock = new Mock<IAppointmentLogic>(MockBehavior.Strict);
-			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Patient>(), It.IsAny<Illness>(), It.IsAny<string>()))
+			logicMock.Setup(m => m.CreateAppointment(It.IsAny<Appointment>()))
 				.Throws(new NotFoundException(input.IllnessId.ToString()));
 
 			AppointmentsController controller = new AppointmentsController(logicMock.Object);
