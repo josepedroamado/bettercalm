@@ -35,7 +35,7 @@ namespace BL
 			string path = GetImportersFolderFullPath();
 			foreach(string assembly in Directory.GetFiles(path, assemblyTypeFilter))
 			{
-				Assembly loadedAssembly = Assembly.LoadFile(assembly);
+				Assembly loadedAssembly = Assembly.LoadFrom(assembly);
 				IEnumerable<Type> types = GetTypesInAssembly<IImporter>(loadedAssembly);
 				foreach(Type type in types)
 				{
