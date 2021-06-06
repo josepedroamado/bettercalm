@@ -63,7 +63,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<Patient>().Property(prop => prop.FirstName).IsRequired();
             modelBuilder.Entity<Patient>().Property(prop => prop.LastName).IsRequired();
             modelBuilder.Entity<Patient>().Property(prop => prop.BirthDate).IsRequired();
-            modelBuilder.Entity<Patient>().Property(prop => prop.EMail).IsRequired();
+            modelBuilder.Entity<Patient>().Property(prop => prop.Email).IsRequired();
             modelBuilder.Entity<Patient>().Property(prop => prop.Phone).IsRequired();
         }
 	}

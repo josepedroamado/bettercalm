@@ -9,9 +9,9 @@ namespace Model
 		public string Name { get; set; }
 		public string LastName { get; set; }
 		public DateTime BirthDate { get; set; } 
-		public string EMail { get; set; }
+		public string Email { get; set; }
 		public string Phone { get; set; }
-		public string Duration{ get; set; }
+		public string Duration { get; set; }
 
 		public Appointment ToEntity()
 		{
@@ -24,10 +24,15 @@ namespace Model
 				Patient = new Patient()
 				{
 					BirthDate = this.BirthDate,
-					EMail = this.EMail,
+					Email = this.Email,
 					FirstName = this.Name,
 					LastName = this.LastName,
 					Phone = this.Phone
+				},
+				Duration = new AppointmentDuration()
+                {
+					Id = 1,
+					Duration = Duration == null ? TimeSpan.Zero : TimeSpan.Parse(Duration)
 				}
 			};
 		}

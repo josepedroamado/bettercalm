@@ -30,12 +30,12 @@ namespace BL
 			this.appointmentDurationRepository = appointmentDurationRepository;
 		}
 
-		public Appointment CreateAppointment(Patient patient, Illness illness, string duration)
+		public Appointment CreateAppointment(Appointment newAppointment)
         {
-            Illness obtainedIllness = this.illnessRepository.Get(illness.Id);
-            Patient obtainedPatient = GetPatient(patient);
+            Illness obtainedIllness = this.illnessRepository.Get(newAppointment.Illness.Id);
+            Patient obtainedPatient = GetPatient(newAppointment.Patient);
             Psychologist candidate = GetCandidate(obtainedIllness);
-            AppointmentDuration appointmentDuration = GetAppointmentDuration(duration);
+            AppointmentDuration appointmentDuration = this.appointmentDurationRepository.Get(newAppointment.Duration.Duration);
 
             Appointment appointment = new Appointment()
             {
@@ -44,7 +44,8 @@ namespace BL
                 Illness = obtainedIllness,
                 Patient = obtainedPatient,
                 Psychologist = candidate,
-                Duration = appointmentDuration
+                Duration = appointmentDuration,
+				Discount = obtainedPatient.AppointmentDiscount
             };
 
             Schedule scheduleDay = candidate.GetLast();
@@ -62,25 +63,20 @@ namespace BL
                         Date = appointment.GetDate(),
                         Psychologist = candidate
                     });
-
-            this.psychologistRepository.Update(candidate);
+			appointment.TotalCost = CostCalculator.CalculateTotalCost(obtainedPatient.AppointmentDiscount, candidate.Rate.HourlyRate, appointmentDuration.Duration.TotalHours);
+            if (obtainedPatient.AppointmentDiscount != null)
+            {
+				obtainedPatient.AppointmentDiscount = null;
+            }
+			this.psychologistRepository.Update(candidate);
             return appointment;
-
-        }
-
-        private AppointmentDuration GetAppointmentDuration(string duration)
-        {
-			if (String.IsNullOrWhiteSpace(duration)){
-				throw new InvalidInputException("Appointment Duration is required.");
-			}
-            return this.appointmentDurationRepository.Get(duration);
         }
 
         private Patient GetPatient(Patient patient)
 		{
 			try
 			{
-				patient = this.patientRepository.Get(patient.EMail);
+				patient = this.patientRepository.Get(patient.Email);
 			}
 			catch (NotFoundException) 
 			{
