@@ -144,7 +144,7 @@ namespace BL.Test
             rateRepositoryMock.Setup(m => m.Get(expectedPsychologist.Rate.HourlyRate)).Returns(expectedPsychologist.Rate);
 
             PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, illnessRepositoryMock.Object, rateRepositoryMock.Object);
-            psychologistLogic.Add(expectedPsychologist, rate.HourlyRate);
+            psychologistLogic.Add(expectedPsychologist);
 
             Psychologist obtainedPsychologist = psychologistLogic.Get(expectedPsychologist.Id);
 
@@ -180,7 +180,7 @@ namespace BL.Test
             rateRepositoryMock.Setup(m => m.Get(expectedPsychologist.Rate.HourlyRate)).Returns(expectedPsychologist.Rate);
 
             PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, illnessRepositoryMock.Object, rateRepositoryMock.Object);
-            psychologistLogic.Add(expectedPsychologist, rate.HourlyRate);
+            psychologistLogic.Add(expectedPsychologist);
 
             Psychologist obtainedPsychologist = psychologistLogic.Get(expectedPsychologist.Id);
 
@@ -218,7 +218,7 @@ namespace BL.Test
             rateRepositoryMock.Setup(m => m.Get(expectedPsychologist.Rate.HourlyRate)).Returns(expectedPsychologist.Rate);
 
             PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, illnessRepositoryMock.Object, rateRepositoryMock.Object);
-            psychologistLogic.Add(expectedPsychologist, rate.HourlyRate);
+            psychologistLogic.Add(expectedPsychologist);
 
             Psychologist obtainedPsychologist = psychologistLogic.Get(expectedPsychologist.Id);
 
@@ -254,7 +254,7 @@ namespace BL.Test
             rateRepositoryMock.Setup(m => m.Get(expectedPsychologist.Rate.HourlyRate)).Returns(expectedPsychologist.Rate);
 
             PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, illnessRepositoryMock.Object, rateRepositoryMock.Object);
-            psychologistLogic.Add(expectedPsychologist, rate.HourlyRate);
+            psychologistLogic.Add(expectedPsychologist);
 
             Psychologist obtainedPsychologist = psychologistLogic.Get(expectedPsychologist.Id);
 
@@ -294,7 +294,7 @@ namespace BL.Test
             rateRepositoryMock.Setup(m => m.Get(expectedPsychologist.Rate.HourlyRate)).Returns(expectedPsychologist.Rate);
 
             PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, illnessRepositoryMock.Object, rateRepositoryMock.Object);
-            psychologistLogic.Add(expectedPsychologist, rate.HourlyRate);
+            psychologistLogic.Add(expectedPsychologist);
 
             Psychologist obtainedPsychologist = psychologistLogic.Get(expectedPsychologist.Id);
 
@@ -306,6 +306,7 @@ namespace BL.Test
         {
             Illness stress = new Illness { Id = 1, Name = "Stress" };
             Illness depression = new Illness { Id = 2, Name = "Depression" };
+            PsychologistRate rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 };
             Psychologist originalPsychologist = new Psychologist()
             {
                 Id = 1,
@@ -315,7 +316,7 @@ namespace BL.Test
                 Format = Format.OnSite,
                 Illnesses = new List<Illness>() { stress, depression },
                 CreatedDate = DateTime.Today.AddMonths(-3),
-                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
+                Rate = rate
             };
 
             Psychologist newPsychologist = new Psychologist()
@@ -327,7 +328,7 @@ namespace BL.Test
                 Format = Format.Remote,
                 Illnesses = new List<Illness>() { stress },
                 CreatedDate = DateTime.Today.AddMonths(-2),
-                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
+                Rate = rate
             };
 
             Mock<IPsychologistRepository> psychologistRepositoryMock = new Mock<IPsychologistRepository>(MockBehavior.Strict);
@@ -338,7 +339,10 @@ namespace BL.Test
             illnessRepositoryMock.Setup(m => m.Get(stress.Id)).Returns(stress);
             illnessRepositoryMock.Setup(m => m.Get(depression.Id)).Returns(depression);
 
-            PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, illnessRepositoryMock.Object, It.IsAny<IPsychologistRateRepository>());
+            Mock<IPsychologistRateRepository> rateRepositoryMock = new Mock<IPsychologistRateRepository>(MockBehavior.Strict);
+            rateRepositoryMock.Setup(m => m.Get(rate.HourlyRate)).Returns(rate);
+
+            PsychologistLogic psychologistLogic = new PsychologistLogic(psychologistRepositoryMock.Object, illnessRepositoryMock.Object, rateRepositoryMock.Object);
             psychologistLogic.Update(originalPsychologist);
 
             Psychologist obtainedPsychologist = psychologistLogic.Get(originalPsychologist.Id);

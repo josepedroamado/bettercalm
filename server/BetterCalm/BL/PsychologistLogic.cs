@@ -30,14 +30,10 @@ namespace BL
             return this.psychologistRepository.Get(id);
         }
 
-        public void Add(Psychologist psychologist, int? rate)
+        public void Add(Psychologist psychologist)
         {
             psychologist.Illnesses = GetStoredIlnesses(psychologist.Illnesses);
-            if (rate == null)
-            {
-                throw new InvalidInputException("Psychologist Rate is required.");
-            }
-            psychologist.Rate = this.psychologistRateRepository.Get(rate.GetValueOrDefault());
+            psychologist.Rate = this.psychologistRateRepository.Get(psychologist.Rate.HourlyRate);
             this.psychologistRepository.Add(psychologist);
         }
 
@@ -72,6 +68,7 @@ namespace BL
                 }
             }
             psychologist.Illnesses = illnesses;
+            psychologist.Rate = this.psychologistRateRepository.Get(psychologist.Rate.HourlyRate);
             toUpdate.UpdateData(psychologist);
             this.psychologistRepository.Update(toUpdate);
         }

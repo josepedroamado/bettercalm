@@ -163,7 +163,7 @@ namespace WebAPI.Test
             PsychologistModel expectedPsychologistModel = new PsychologistModel(expectedPsychologist);
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
-            psychologistLogicMock.Setup(m => m.Add(It.IsAny<Psychologist>(), It.IsAny<int>()));
+            psychologistLogicMock.Setup(m => m.Add(It.IsAny<Psychologist>()));
             psychologistLogicMock.Setup(m => m.Get(expectedPsychologist.Id)).Returns(expectedPsychologist);
             PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
             psychologistsController.Post(expectedPsychologistModel);
@@ -189,7 +189,7 @@ namespace WebAPI.Test
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
-            psychologistLogicMock.Setup(p => p.Add(It.IsAny<Psychologist>(), It.IsAny<int>())).Throws(new AlreadyExistsException(expectedPsychologistModel.Id.ToString()));
+            psychologistLogicMock.Setup(p => p.Add(It.IsAny<Psychologist>())).Throws(new AlreadyExistsException(expectedPsychologistModel.Id.ToString()));
 
             PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
             psychologistsController.Post(expectedPsychologistModel);
