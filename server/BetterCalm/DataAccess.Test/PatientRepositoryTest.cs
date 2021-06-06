@@ -132,6 +132,73 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
+		public void GetAllWithoutDiscount_PatientsExist_Fetched()
+		{
+			List<Patient> expectedPatients = GetAllWithoutDiscountExpectedPatients();
+
+			foreach (Patient patient in expectedPatients)
+			{
+				this.context.Add(patient);
+			}
+
+			Patient discountBob = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "robert.discount@gmail.com",
+				FirstName = "Bob",
+				LastName = "Discount",
+				Id = 3,
+				Phone = "46465559999",
+				AppointmentQuantity = 5,
+				AppointmentDiscount = new AppointmentDiscount() { Id = 1, Discount = 50}
+			};
+			this.context.Add(discountBob);
+
+			Patient noAppointmentsMike = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "mike.noappointments@gmail.com",
+				FirstName = "Mike",
+				LastName = "Noappointments",
+				Id = 3,
+				Phone = "46465557777",
+				AppointmentQuantity = 0
+			};
+			this.context.Add(noAppointmentsMike);
+
+			this.context.SaveChanges();
+			PatientRepository patientRepository = new PatientRepository(this.context);
+
+			IEnumerable<Patient> obtainedPatients = patientRepository.GetAllWithoutDiscount(1);
+			Assert.IsTrue(expectedPatients.SequenceEqual(obtainedPatients));
+		}
+
+		private List<Patient> GetAllWithoutDiscountExpectedPatients()
+		{
+			Patient johnDoe = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "john.doe@gmail.com",
+				FirstName = "John",
+				LastName = "Doe",
+				Id = 1,
+				Phone = "46465551256",
+				AppointmentQuantity = 1
+			};
+			Patient janeDoe = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "jane.doe@gmail.com",
+				FirstName = "Jane",
+				LastName = "Doe",
+				Id = 2,
+				Phone = "36325551478",
+				AppointmentQuantity = 4
+			};
+			return new List<Patient>() { johnDoe, janeDoe };
+		}
+
+		[TestMethod]
 		public void Add_DataIsCorrect_Added()
 		{
 			Patient patient = new Patient()

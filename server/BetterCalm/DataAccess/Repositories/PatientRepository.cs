@@ -2,6 +2,7 @@
 using Domain;
 using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -61,6 +62,11 @@ namespace DataAccess.Repositories
             }
 			return this.patients;
         }
+
+		public IEnumerable<Patient> GetAllWithoutDiscount(int numberOfAppointments)
+		{
+			throw new NotImplementedException();
+		}
 
 		public void Update(Patient patient)
 		{
