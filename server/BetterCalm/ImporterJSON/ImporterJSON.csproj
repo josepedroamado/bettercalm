@@ -5,8 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BLInterfaces\BLInterfaces.csproj" />
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ImporterInterfaces\ImporterInterfaces.csproj" />
     <ProjectReference Include="..\ImporterModel\ImporterModel.csproj" />
   </ItemGroup>
