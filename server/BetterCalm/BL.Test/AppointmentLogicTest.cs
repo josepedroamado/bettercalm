@@ -878,7 +878,7 @@ namespace BL.Test
 		}
 
 		[TestMethod]
-		public void CreateAppointment_PatientExistsFormatOnSiteDiscountFiftyPercent_AppointmentCreatedAndDiscountApplied()
+		public void CreateAppointment_PatientExistsFormatOnSiteDiscountFiftyPercent_CreatedAndDiscountAppliedAndDiscountRemovedFromPatientAndQuantityReset()
 		{
 			Patient patient = new Patient()
 			{
@@ -888,7 +888,8 @@ namespace BL.Test
 				LastName = "Perez",
 				Id = 1,
 				Phone = "091569874",
-				AppointmentDiscount = new AppointmentDiscount() { Id = 1, Discount = 50 }
+				AppointmentDiscount = new AppointmentDiscount() { Id = 1, Discount = 50 },
+				AppointmentQuantity = 3
 			};
 
 			Illness illness = new Illness()
@@ -942,7 +943,75 @@ namespace BL.Test
 			mockPatient.VerifyAll();
 			mockPsychologist.VerifyAll();
 
-			Assert.AreEqual(2000, appointment.TotalCost);
+			Assert.IsTrue(appointment.TotalCost == 2000 && appointment.Patient.AppointmentQuantity == 0);
+		}
+
+		[TestMethod]
+		public void CreateAppointment_PatientExistsFormatOnSiteNoDiscount_CreatedAndQuantityIncreasedForPatient()
+		{
+			Patient patient = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "patient@gmail.com",
+				FirstName = "Patient",
+				LastName = "Perez",
+				Id = 1,
+				Phone = "091569874",
+				AppointmentQuantity = 3
+			};
+
+			Illness illness = new Illness()
+			{
+				Id = 1,
+				Name = "Depresion"
+			};
+
+			Psychologist psychologist = new Psychologist()
+			{
+				Id = 1,
+				FirstName = "Juan",
+				LastName = "Sartori",
+				Address = "Calle 1234",
+				Format = Format.OnSite,
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
+			};
+
+			AppointmentDuration appointmentDuration = new AppointmentDuration()
+			{
+				Id = 1,
+				Duration = new TimeSpan(4, 0, 0)
+			};
+
+
+			Appointment newAppointment = new Appointment()
+			{
+				Illness = illness,
+				Patient = patient,
+				Duration = appointmentDuration
+			};
+
+			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
+			mockPatient.Setup(m => m.Get(patient.Email)).Returns(patient);
+
+			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
+			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
+
+			Mock<IPsychologistRepository> mockPsychologist = new Mock<IPsychologistRepository>(MockBehavior.Strict);
+			mockPsychologist.Setup(m => m.Get(illness, It.IsAny<DateTime>(), 5)).Returns(psychologist);
+			mockPsychologist.Setup(m => m.Update(psychologist));
+
+			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration)).Returns(appointmentDuration);
+
+			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
+			Appointment appointment = appointmentLogic.CreateAppointment(newAppointment);
+
+			mockIllness.VerifyAll();
+			mockPatient.VerifyAll();
+			mockPsychologist.VerifyAll();
+
+			Assert.IsTrue(appointment.TotalCost == 4000 && appointment.Patient.AppointmentQuantity == 4);
 		}
 	}
 }
