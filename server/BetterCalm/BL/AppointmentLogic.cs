@@ -44,7 +44,8 @@ namespace BL
                 Illness = obtainedIllness,
                 Patient = obtainedPatient,
                 Psychologist = candidate,
-                Duration = appointmentDuration
+                Duration = appointmentDuration,
+				Discount = obtainedPatient.AppointmentDiscount
             };
 
             Schedule scheduleDay = candidate.GetLast();
@@ -62,10 +63,13 @@ namespace BL
                         Date = appointment.GetDate(),
                         Psychologist = candidate
                     });
-
-            this.psychologistRepository.Update(candidate);
+			appointment.TotalCost = CostCalculator.CalculateTotalCost(patient.AppointmentDiscount, candidate.Rate.HourlyRate, appointmentDuration.Duration.TotalHours);
+            if (patient.AppointmentDiscount != null)
+            {
+				patient.AppointmentDiscount = null;
+            }
+			this.psychologistRepository.Update(candidate);
             return appointment;
-
         }
 
         private AppointmentDuration GetAppointmentDuration(string duration)
