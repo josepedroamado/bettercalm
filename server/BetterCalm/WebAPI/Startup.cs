@@ -10,6 +10,7 @@ namespace WebAPI
 {
 	public class Startup
 	{
+		private const string AddCorsOrigins = "Cors";
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -25,6 +26,18 @@ namespace WebAPI
 			servicesInjector.AddBLServices();
 			servicesInjector.AddContextServices();
 			servicesInjector.AddDataAccessServices();
+
+			services.AddCors(options =>
+			{
+				options.AddPolicy(name: AddCorsOrigins,
+								  builder =>
+								  {
+									  builder
+										  .AllowAnyOrigin()
+										  .AllowAnyHeader()
+										  .AllowAnyMethod();
+								  });
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +58,8 @@ namespace WebAPI
 			{
 				endpoints.MapControllers();
 			});
+
+			app.UseCors(AddCorsOrigins);
 		}
 	}
 }
