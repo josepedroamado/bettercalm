@@ -725,6 +725,7 @@ namespace BL.Test
 
 			Assert.IsNull(appointment);
 		}
+
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
 		public void CreateAppointment_NoDuration_ExceptionThrown()
@@ -780,6 +781,67 @@ namespace BL.Test
 			mockPsychologist.VerifyAll();
 
 			Assert.IsNull(appointment);
+		}
+
+		[TestMethod]
+		public void CreateAppointment_PatientExistsFormatOnSiteDiscountFiftyPercent_AppointmentCreatedAndDiscountApplied()
+		{
+			Patient patient = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "patient@gmail.com",
+				FirstName = "Patient",
+				LastName = "Perez",
+				Id = 1,
+				Phone = "091569874",
+				AppointmentDiscount = new AppointmentDiscount() { Id = 1, Discount = 50 }
+			};
+
+			Illness illness = new Illness()
+			{
+				Id = 1,
+				Name = "Depresion"
+			};
+
+			Psychologist psychologist = new Psychologist()
+			{
+				Id = 1,
+				FirstName = "Juan",
+				LastName = "Sartori",
+				Address = "Calle 1234",
+				Format = Format.OnSite,
+				CreatedDate = DateTime.Today.AddMonths(-3),
+				Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
+			};
+
+			AppointmentDuration appointmentDuration = new AppointmentDuration()
+			{
+				Id = 1,
+				Duration = new TimeSpan(4, 0, 0)
+			};
+
+
+			Mock<IPatientRepository> mockPatient = new Mock<IPatientRepository>(MockBehavior.Strict);
+			mockPatient.Setup(m => m.Get(patient.Email)).Returns(patient);
+
+			Mock<IIllnessRepository> mockIllness = new Mock<IIllnessRepository>(MockBehavior.Strict);
+			mockIllness.Setup(m => m.Get(illness.Id)).Returns(illness);
+
+			Mock<IPsychologistRepository> mockPsychologist = new Mock<IPsychologistRepository>(MockBehavior.Strict);
+			mockPsychologist.Setup(m => m.Get(illness, It.IsAny<DateTime>(), 5)).Returns(psychologist);
+			mockPsychologist.Setup(m => m.Update(psychologist));
+
+			Mock<IAppointmentDurationRepository> mockDuration = new Mock<IAppointmentDurationRepository>(MockBehavior.Strict);
+			mockDuration.Setup(m => m.Get(appointmentDuration.Duration.ToString())).Returns(appointmentDuration);
+
+			AppointmentLogic appointmentLogic = new AppointmentLogic(mockPsychologist.Object, mockIllness.Object, mockPatient.Object, mockDuration.Object);
+			Appointment appointment = appointmentLogic.CreateAppointment(patient, illness, appointmentDuration.Duration.ToString());
+
+			mockIllness.VerifyAll();
+			mockPatient.VerifyAll();
+			mockPsychologist.VerifyAll();
+
+			Assert.AreEqual(2000, appointment.TotalCost);
 		}
 	}
 }
