@@ -17,7 +17,7 @@ namespace WebAPI.Controllers
 			this.importerLogic = importerLogic;
         }
 
-		[HttpGet]
+		[HttpPost]
 		public IActionResult Post([FromBody] ImporterInputModel  importerModel)
 		{
 			importerLogic.Import(importerModel.Type, importerModel.FilePath);
