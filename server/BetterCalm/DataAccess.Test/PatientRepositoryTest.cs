@@ -199,6 +199,16 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
+		[ExpectedException(typeof(CollectionEmptyException))]
+		public void GetAllWithoutDiscount_NoPatientsExist_Fetched()
+		{
+			PatientRepository patientRepository = new PatientRepository(this.context);
+
+			IEnumerable<Patient> obtainedPatients = patientRepository.GetAllWithoutDiscount(1);
+			Assert.IsNull(obtainedPatients);
+		}
+
+		[TestMethod]
 		public void Add_DataIsCorrect_Added()
 		{
 			Patient patient = new Patient()
