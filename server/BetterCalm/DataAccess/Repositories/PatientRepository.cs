@@ -65,7 +65,7 @@ namespace DataAccess.Repositories
 
 		public IEnumerable<Patient> GetAllWithoutDiscount(int numberOfAppointments)
 		{
-			throw new NotImplementedException();
+			return this.patients.Where(patient => patient.AppointmentDiscount == null && patient.AppointmentQuantity >= numberOfAppointments);
 		}
 
 		public void Update(Patient patient)
