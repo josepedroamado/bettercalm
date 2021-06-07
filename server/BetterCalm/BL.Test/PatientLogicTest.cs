@@ -148,8 +148,33 @@ namespace BL.Test
 			patientRepoMock.Setup(m => m.Get(updated.Email)).Returns(updated);
 			Patient obtainedPatient = patientLogic.Get(updated.Email);
 
-
 			Assert.AreEqual(updated, obtainedPatient);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void Update_PatientNotFound_ExceptionThrown()
+		{
+			Patient updated = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1950, 1, 1),
+				Email = "john.doe@gmail.com",
+				FirstName = "Arthur",
+				LastName = "Morgan",
+				Phone = "8885551234"
+			};
+
+			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
+			patientRepoMock.Setup(m => m.Get(updated.Email)).Throws(new NotFoundException("Patient"));
+			patientRepoMock.Setup(m => m.Update(updated));
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+
+			patientLogic.Update(updated);
+			Patient obtainedPatient = patientLogic.Get(updated.Email);
+
+			patientRepoMock.VerifyAll();
+			Assert.IsNull(obtainedPatient);
 		}
 	}
 }
