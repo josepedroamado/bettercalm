@@ -107,7 +107,7 @@ namespace WebAPI.Test
 
             IActionResult result = controller.Get(patient.Email);
             OkObjectResult objectResult = result as OkObjectResult;
-            IEnumerable<Patient> obtainedPatient = objectResult.Value as IEnumerable<Patient>;
+            Patient obtainedPatient = (objectResult.Value as Patient);
 
             mock.VerifyAll();
             Assert.AreEqual(patient, obtainedPatient);
@@ -132,7 +132,7 @@ namespace WebAPI.Test
 
             IActionResult result = controller.Get("notFoundEmail@fail.com");
             OkObjectResult objectResult = result as OkObjectResult;
-            IEnumerable<Patient> obtainedPatient = objectResult.Value as IEnumerable<Patient>;
+            Patient obtainedPatient = (objectResult.Value as Patient);
 
             mock.VerifyAll();
             Assert.IsNull(obtainedPatient);
@@ -171,9 +171,10 @@ namespace WebAPI.Test
 
             controller.Patch(updated);
 
+            mock.Setup(m => m.Get(updated.Email)).Returns(updated);
             IActionResult result = controller.Get(updated.Email);
             OkObjectResult objectResult = result as OkObjectResult;
-            IEnumerable<Patient> obtainedPatient = objectResult.Value as IEnumerable<Patient>;
+            Patient obtainedPatient = (objectResult.Value as Patient);
 
             mock.VerifyAll();
             Assert.AreEqual(updated, obtainedPatient);
@@ -203,7 +204,7 @@ namespace WebAPI.Test
 
             IActionResult result = controller.Get(updated.Email);
             OkObjectResult objectResult = result as OkObjectResult;
-            IEnumerable<Patient> obtainedPatient = objectResult.Value as IEnumerable<Patient>;
+            Patient obtainedPatient = (objectResult.Value as Patient);
 
             mock.VerifyAll();
             Assert.IsNull(obtainedPatient);
