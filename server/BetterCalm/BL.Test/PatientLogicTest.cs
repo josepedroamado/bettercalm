@@ -1,5 +1,6 @@
 ﻿using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -47,6 +48,33 @@ namespace BL.Test
 				AppointmentQuantity = 4
 			};
 			return new List<Patient>() { johnDoe, janeDoe };
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(CollectionEmptyException))]
+		public void GetAllWithoutDiscountAndRequiredAppointmentQuantity_NoPatientsExist_ExceptionThrown()
+		{
+			IEnumerable<Patient> expectedPatients = GetAllWithoutDiscountExpectedPatientsAndRequiredAppointmentQuantity();
+			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
+			patientRepoMock.Setup(m => m.GetAllWithoutDiscount(It.IsAny<int>())).Throws(new CollectionEmptyException("Patients"));
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+
+			IEnumerable<Patient> obtainedPatients = patientLogic.GetAllWithoutDiscountAndRequiredAppointmentQuantity();
+
+			Assert.IsNull(obtainedPatients);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NoPatientsMeetCriteriaException))]
+		public void GetAllWithoutDiscountAndRequiredAppointmentQuantity_NoPatientsMeetCriteria_ExceptionThrown()
+		{
+			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
+			patientRepoMock.Setup(m => m.GetAllWithoutDiscount(It.IsAny<int>())).Returns(new List<Patient>());
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+
+			IEnumerable<Patient> obtainedPatients = patientLogic.GetAllWithoutDiscountAndRequiredAppointmentQuantity();
+
+			Assert.IsNull(obtainedPatients);
 		}
 	}
 }

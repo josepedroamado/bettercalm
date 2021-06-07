@@ -200,7 +200,7 @@ namespace DataAccess.Test
 
 		[TestMethod]
 		[ExpectedException(typeof(CollectionEmptyException))]
-		public void GetAllWithoutDiscount_NoPatientsExist_Fetched()
+		public void GetAllWithoutDiscount_NoPatientsExist_ExceptionThrown()
 		{
 			PatientRepository patientRepository = new PatientRepository(this.context);
 
