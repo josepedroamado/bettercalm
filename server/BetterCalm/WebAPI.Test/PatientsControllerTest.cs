@@ -88,5 +88,76 @@ namespace WebAPI.Test
             mock.VerifyAll();
             Assert.IsNull(obtainedPatients);
         }
+
+        [TestMethod]
+        public void Patch_DataIsCorrect_Updated()
+        {
+            Patient original = new Patient()
+            {
+                BirthDate = new DateTime(1993, 11, 15),
+                Email = "john.doe@gmail.com",
+                FirstName = "John",
+                LastName = "Doe",
+                Id = 1,
+                Phone = "46465551256",
+                AppointmentQuantity = 5,
+                AppointmentDiscount = new AppointmentDiscount() { Id = 1, Discount = 50 }
+            };
+
+            Patient updated = new Patient()
+            {
+                BirthDate = new DateTime(1993, 11, 15),
+                Email = "john.doe@gmail.com",
+                FirstName = "John",
+                LastName = "Doe",
+                Id = 1,
+                Phone = "46465551256",
+                AppointmentQuantity = 0,
+                AppointmentDiscount = null
+            };
+            Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(updated));
+            mock.Setup(m => m.Get(updated.Email)).Returns(original);
+            PatientsController controller = new PatientsController(mock.Object);
+
+            controller.Patch(updated);
+
+            IActionResult result = controller.Get(updated.Email);
+            OkObjectResult objectResult = result as OkObjectResult;
+            IEnumerable<Patient> obtainedPatient = objectResult.Value as IEnumerable<Patient>;
+
+            mock.VerifyAll();
+            Assert.AreEqual(updated, obtainedPatient);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void Update_PatientNotFound_ExceptionThrown()
+        {
+            Patient updated = new Patient()
+            {
+                BirthDate = new DateTime(1993, 11, 15),
+                Email = "john.doe@gmail.com",
+                FirstName = "John",
+                LastName = "Doe",
+                Id = 1,
+                Phone = "46465551256",
+                AppointmentQuantity = 0,
+                AppointmentDiscount = null
+            };
+            Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Update(updated));
+            mock.Setup(m => m.Get(updated.Email)).Throws(new NotFoundException("Patient"));
+            PatientsController controller = new PatientsController(mock.Object);
+
+            controller.Patch(updated);
+
+            IActionResult result = controller.Get(updated.Email);
+            OkObjectResult objectResult = result as OkObjectResult;
+            IEnumerable<Patient> obtainedPatient = objectResult.Value as IEnumerable<Patient>;
+
+            mock.VerifyAll();
+            Assert.IsNull(obtainedPatient);
+        }
     }
 }
