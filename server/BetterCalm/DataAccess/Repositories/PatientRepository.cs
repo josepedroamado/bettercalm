@@ -49,7 +49,7 @@ namespace DataAccess.Repositories
 			Patient patient = this.patients.FirstOrDefault(patient => patient.Email.Equals(email));
 			if (patient == null)
 			{
-				throw new NotFoundException(email);
+				throw new NotFoundException("Patient");
 			}
 			return patient;
 		}

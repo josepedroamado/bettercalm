@@ -25,7 +25,6 @@ namespace Domain
 		public void UpdateFromPatient(Patient patient)
 		{
 			this.Id = patient.Id;
-			this.AppointmentDiscount = patient.AppointmentDiscount;
 			this.BirthDate = patient.BirthDate;
 			if (!string.IsNullOrWhiteSpace(patient.FirstName))
 				this.FirstName = patient.FirstName;

@@ -142,8 +142,7 @@ namespace Domain.Test
 				&& Equals(original.FirstName, updated.FirstName)
 				&& Equals(original.LastName, updated.LastName)
 				&& Equals(original.Phone, updated.Phone)
-				&& Equals(original.BirthDate, updated.BirthDate)
-				&& Equals(original.AppointmentDiscount, updated.AppointmentDiscount));
+				&& Equals(original.BirthDate, updated.BirthDate));
 		}
 	}
 }
