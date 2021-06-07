@@ -1,7 +1,9 @@
 ﻿using BLInterfaces;
 using DataAccessInterfaces;
 using Domain;
+using Domain.Exceptions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BL
 {
@@ -17,7 +19,12 @@ namespace BL
 
         public IEnumerable<Patient> GetAllWithoutDiscountAndRequiredAppointmentQuantity()
         {
-            return this.patientRepository.GetAllWithoutDiscount(RequiredAppointmentQuantity);
+            IEnumerable<Patient> patients = this.patientRepository.GetAllWithoutDiscount(RequiredAppointmentQuantity);
+            if (patients.Count() == 0)
+            {
+                throw new NoPatientsMeetCriteriaException();
+            }
+            return patients;
         }
     }
 }
