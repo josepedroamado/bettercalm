@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
             this.patientLogic = patientLogic;
         }
 
-        [HttpGet("/approvediscounts")]
+        [HttpGet("approvediscounts")]
         public IActionResult Get()
         {       
             return Ok(this.patientLogic.GetAllWithoutDiscountAndRequiredAppointmentQuantity());

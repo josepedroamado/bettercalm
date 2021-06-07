@@ -5,6 +5,6 @@ namespace Domain.Exceptions
     public class NoPatientsMeetCriteriaException : Exception
     {
         public NoPatientsMeetCriteriaException()
-            : base("No patient that meets the requirements for a discount was found.") { }
+            : base("No patients meet the requirements for a discount.") { }
     }
 }
