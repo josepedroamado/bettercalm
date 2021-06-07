@@ -34,7 +34,7 @@ namespace BL
 
         public Patient Get(string email)
         {
-            throw new System.NotImplementedException();
+            return this.patientRepository.Get(email);
         }
     }
 }
