@@ -29,7 +29,7 @@ namespace BL
 
         public void Update(Patient patient)
         {
-            throw new System.NotImplementedException();
+            this.patientRepository.Update(patient);
         }
 
         public Patient Get(string email)
