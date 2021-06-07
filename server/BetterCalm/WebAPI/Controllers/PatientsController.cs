@@ -27,13 +27,13 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(string email)
         {
-            throw new NotImplementedException();
+            return Ok(this.patientLogic.Get(email));
         }
 
         [HttpPatch]
         public void Patch([FromBody] Patient patient)
         {
-            throw new NotImplementedException();
+            this.patientLogic.Update(patient);
         }
     }
 }
