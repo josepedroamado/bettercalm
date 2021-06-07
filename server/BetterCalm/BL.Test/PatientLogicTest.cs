@@ -17,7 +17,7 @@ namespace BL.Test
 			IEnumerable<Patient> expectedPatients = GetAllWithoutDiscountExpectedPatientsAndRequiredAppointmentQuantity();
 			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
             patientRepoMock.Setup(m => m.GetAllWithoutDiscount(It.IsAny<int>())).Returns(expectedPatients);
-			PatientLogic patientLogic = new PatientLogic();
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
 
 			IEnumerable<Patient> obtainedPatients = patientLogic.GetAllWithoutDiscountAndRequiredAppointmentQuantity();
 
