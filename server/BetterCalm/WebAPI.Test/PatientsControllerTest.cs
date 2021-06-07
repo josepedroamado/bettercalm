@@ -1,5 +1,6 @@
 ﻿using BLInterfaces;
 using Domain;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -52,6 +53,40 @@ namespace WebAPI.Test
                 AppointmentQuantity = 4
             };
             return new List<Patient>() { johnDoe, janeDoe };
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CollectionEmptyException))]
+        public void GetApproveDiscounts_NoPatientsExist_ExceptionThrown()
+        {         
+            IEnumerable<Patient> expectedPatients = GetApproveDiscountsExpectedPatients();
+            Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAllWithoutDiscountAndRequiredAppointmentQuantity()).Throws(new CollectionEmptyException("Patients"));
+            PatientsController controller = new PatientsController(mock.Object);
+
+            IActionResult result = controller.Get();
+            OkObjectResult objectResult = result as OkObjectResult;
+            IEnumerable<Patient> obtainedPatients = objectResult.Value as IEnumerable<Patient>;
+
+            mock.VerifyAll();
+            Assert.IsNull(obtainedPatients);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NoPatientsMeetCriteriaException))]
+        public void GetApproveDiscounts_NoPatientsMeetCriteria_ExceptionThrown()
+        {
+            IEnumerable<Patient> expectedPatients = GetApproveDiscountsExpectedPatients();
+            Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetAllWithoutDiscountAndRequiredAppointmentQuantity()).Throws(new NoPatientsMeetCriteriaException());
+            PatientsController controller = new PatientsController(mock.Object);
+
+            IActionResult result = controller.Get();
+            OkObjectResult objectResult = result as OkObjectResult;
+            IEnumerable<Patient> obtainedPatients = objectResult.Value as IEnumerable<Patient>;
+
+            mock.VerifyAll();
+            Assert.IsNull(obtainedPatients);
         }
     }
 }
