@@ -90,6 +90,55 @@ namespace WebAPI.Test
         }
 
         [TestMethod]
+        public void Get_PatientFound_Fetched()
+        {
+            Patient patient = new Patient()
+            {
+                BirthDate = new DateTime(1993, 11, 15),
+                Email = "patient@gmail.com",
+                FirstName = "Patient",
+                LastName = "Perez",
+                Id = 1,
+                Phone = "091569874"
+            };
+            Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Get(patient.Email)).Returns(patient);
+            PatientsController controller = new PatientsController(mock.Object);
+
+            IActionResult result = controller.Get(patient.Email);
+            OkObjectResult objectResult = result as OkObjectResult;
+            IEnumerable<Patient> obtainedPatient = objectResult.Value as IEnumerable<Patient>;
+
+            mock.VerifyAll();
+            Assert.AreEqual(patient, obtainedPatient);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundException))]
+        public void Get_PatientNotFound_ExceptionThrown()
+        {
+            Patient patient = new Patient()
+            {
+                BirthDate = new DateTime(1993, 11, 15),
+                Email = "patient@gmail.com",
+                FirstName = "Patient",
+                LastName = "Perez",
+                Id = 1,
+                Phone = "091569874"
+            };
+            Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.Get("notFoundEmail@fail.com")).Throws(new NotFoundException("Patient"));
+            PatientsController controller = new PatientsController(mock.Object);
+
+            IActionResult result = controller.Get("notFoundEmail@fail.com");
+            OkObjectResult objectResult = result as OkObjectResult;
+            IEnumerable<Patient> obtainedPatient = objectResult.Value as IEnumerable<Patient>;
+
+            mock.VerifyAll();
+            Assert.IsNull(obtainedPatient);
+        }
+
+        [TestMethod]
         public void Patch_DataIsCorrect_Updated()
         {
             Patient original = new Patient()
