@@ -7,6 +7,7 @@ namespace DataAccessInterfaces
 	{
 		Patient Get(string email);
 		IEnumerable<Patient> GetAll();
+		IEnumerable<Patient> GetAllWithoutDiscount(int numberOfAppointments);
 		void Add(Patient patient);
 		void Update(Patient patient);
 	}

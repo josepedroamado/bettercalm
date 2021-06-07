@@ -102,6 +102,14 @@ namespace WebAPI.Filters
 					Content = ex.Message
 				};
 			}
+			catch (NoPatientsMeetCriteriaException ex)
+            {
+				context.Result = new ContentResult()
+				{
+					StatusCode = 500,
+					Content = ex.Message
+				};
+            }
 			catch (Exception)
 			{
 				context.Result = new ContentResult()

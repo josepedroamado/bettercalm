@@ -63,11 +63,16 @@ namespace BL
                         Date = appointment.GetDate(),
                         Psychologist = candidate
                     });
-			appointment.TotalCost = CostCalculator.CalculateTotalCost(obtainedPatient.AppointmentDiscount, candidate.Rate.HourlyRate, appointmentDuration.Duration.TotalHours);
+			appointment.TotalCost = CostCalculator.CalculateTotalCost(obtainedPatient.AppointmentDiscount, candidate.Rate.HourlyRate, appointmentDuration.Duration.TotalHours);			
             if (obtainedPatient.AppointmentDiscount != null)
             {
 				obtainedPatient.AppointmentDiscount = null;
+				obtainedPatient.AppointmentQuantity = 0;
             }
+            else
+            {
+				obtainedPatient.AppointmentQuantity++;
+			}
 			this.psychologistRepository.Update(candidate);
             return appointment;
         }

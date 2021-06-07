@@ -2,6 +2,7 @@
 using Domain;
 using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -48,7 +49,7 @@ namespace DataAccess.Repositories
 			Patient patient = this.patients.FirstOrDefault(patient => patient.Email.Equals(email));
 			if (patient == null)
 			{
-				throw new NotFoundException(email);
+				throw new NotFoundException("Patient");
 			}
 			return patient;
 		}
@@ -61,6 +62,18 @@ namespace DataAccess.Repositories
             }
 			return this.patients;
         }
+
+		public IEnumerable<Patient> GetAllWithoutDiscount(int numberOfAppointments)
+		{
+            if (this.patients.Count() > 0)
+            {
+				return this.patients.Where(patient => patient.AppointmentDiscount == null && patient.AppointmentQuantity >= numberOfAppointments);
+			}
+            else
+            {
+				throw new CollectionEmptyException("Patients");
+            }	
+		}
 
 		public void Update(Patient patient)
 		{

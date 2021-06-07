@@ -9,6 +9,7 @@ namespace Domain
 		public string Email { get; set; }
 		public string Phone { get; set; }
 		public AppointmentDiscount AppointmentDiscount { get; set; }
+		public int AppointmentQuantity { get; set; }
 
 		public override bool Validate()
 		{
@@ -24,7 +25,6 @@ namespace Domain
 		public void UpdateFromPatient(Patient patient)
 		{
 			this.Id = patient.Id;
-			this.AppointmentDiscount = patient.AppointmentDiscount;
 			this.BirthDate = patient.BirthDate;
 			if (!string.IsNullOrWhiteSpace(patient.FirstName))
 				this.FirstName = patient.FirstName;
@@ -32,6 +32,7 @@ namespace Domain
 				this.LastName = patient.LastName;
 			if (!string.IsNullOrWhiteSpace(patient.Phone))
 				this.Phone = patient.Phone;
+			this.AppointmentDiscount = patient.AppointmentDiscount;
 		}
 	}
 }

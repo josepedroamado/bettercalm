@@ -1,12 +1,10 @@
 ﻿using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.Test
 {
-	[TestClass]
+    [TestClass]
 	public class PatientTest
 	{
 		[TestMethod]
@@ -142,8 +140,7 @@ namespace Domain.Test
 				&& Equals(original.FirstName, updated.FirstName)
 				&& Equals(original.LastName, updated.LastName)
 				&& Equals(original.Phone, updated.Phone)
-				&& Equals(original.BirthDate, updated.BirthDate)
-				&& Equals(original.AppointmentDiscount, updated.AppointmentDiscount));
+				&& Equals(original.BirthDate, updated.BirthDate));
 		}
 	}
 }
