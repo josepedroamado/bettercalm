@@ -45,6 +45,7 @@ namespace Injector
 			services.AddScoped<IContentTypeRepository, ContentTypeRepository>();
 			services.AddScoped<IAppointmentDurationRepository, AppointmentDurationRepository>();
 			services.AddScoped<IPsychologistRateRepository, PsychologistRateRepository>();
+			services.AddScoped<IAppointmentDiscountRepository, AppointmentDiscountRepository>();
 		}
 
 		public void AddContextServices()

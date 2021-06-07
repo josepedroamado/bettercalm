@@ -94,7 +94,7 @@ namespace WebAPI.Test
         [TestMethod]
         public void Get_PatientFound_Fetched()
         {
-            Patient patient = new Patient()
+            PatientModel patient = new PatientModel()
             {
                 BirthDate = new DateTime(1993, 11, 15),
                 Email = "patient@gmail.com",
@@ -104,7 +104,7 @@ namespace WebAPI.Test
                 Phone = "091569874"
             };
             Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Get(patient.Email)).Returns(patient);
+            mock.Setup(m => m.Get(patient.Email)).Returns(patient.ToEntity());
             PatientsController controller = new PatientsController(mock.Object);
 
             IActionResult result = controller.Get(patient.Email);
@@ -112,7 +112,7 @@ namespace WebAPI.Test
             PatientModel obtainedPatient = (objectResult.Value as PatientModel);
 
             mock.VerifyAll();
-            Assert.AreEqual(new PatientModel(patient), obtainedPatient);
+            Assert.AreEqual(patient, obtainedPatient);
         }
 
         [TestMethod]
@@ -146,7 +146,7 @@ namespace WebAPI.Test
                 AppointmentDiscount = new AppointmentDiscount() { Id = 1, Discount = 50 }
             };
 
-            Patient updated = new Patient()
+            PatientModel updated = new PatientModel()
             {
                 BirthDate = new DateTime(1993, 11, 15),
                 Email = "john.doe@gmail.com",
@@ -154,30 +154,29 @@ namespace WebAPI.Test
                 LastName = "Doe",
                 Id = 1,
                 Phone = "46465551256",
-                AppointmentQuantity = 0,
-                AppointmentDiscount = null
+                AppointmentQuantity = 0
             };
             Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(updated));
+            mock.Setup(m => m.Update(It.IsAny<Patient>()));
             mock.Setup(m => m.Get(updated.Email)).Returns(original);
             PatientsController controller = new PatientsController(mock.Object);
 
             controller.Patch(updated);
 
-            mock.Setup(m => m.Get(updated.Email)).Returns(updated);
+            mock.Setup(m => m.Get(updated.Email)).Returns(updated.ToEntity());
             IActionResult result = controller.Get(updated.Email);
             OkObjectResult objectResult = result as OkObjectResult;
             PatientModel obtainedPatient = (objectResult.Value as PatientModel);
 
             mock.VerifyAll();
-            Assert.AreEqual(new PatientModel(updated), obtainedPatient);
+            Assert.AreEqual(updated, obtainedPatient);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
         public void Update_PatientNotFound_ExceptionThrown()
         {
-            Patient updated = new Patient()
+            PatientModel updated = new PatientModel()
             {
                 BirthDate = new DateTime(1993, 11, 15),
                 Email = "john.doe@gmail.com",
@@ -185,11 +184,10 @@ namespace WebAPI.Test
                 LastName = "Doe",
                 Id = 1,
                 Phone = "46465551256",
-                AppointmentQuantity = 0,
-                AppointmentDiscount = null
+                AppointmentQuantity = 0
             };
             Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Update(updated));
+            mock.Setup(m => m.Update(It.IsAny<Patient>()));
             mock.Setup(m => m.Get(updated.Email)).Throws(new NotFoundException("Patient"));
             PatientsController controller = new PatientsController(mock.Object);
 

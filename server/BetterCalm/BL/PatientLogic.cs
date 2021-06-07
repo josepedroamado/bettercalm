@@ -10,12 +10,14 @@ namespace BL
     public class PatientLogic : IPatientLogic
     {
         private readonly IPatientRepository patientRepository;
+        private readonly IAppointmentDiscountRepository discountRepository;
         private const int RequiredAppointmentQuantity = 5;
 
-        public PatientLogic(IPatientRepository patientRepository)
+        public PatientLogic(IPatientRepository patientRepository, IAppointmentDiscountRepository discountRepository)
         {
             this.patientRepository = patientRepository;
-        }
+            this.discountRepository = discountRepository;
+    }
 
         public IEnumerable<Patient> GetAllWithoutDiscountAndRequiredAppointmentQuantity()
         {
@@ -29,6 +31,7 @@ namespace BL
 
         public void Update(Patient patient)
         {
+            patient.AppointmentDiscount = this.discountRepository.Get(patient.AppointmentDiscount.Discount);
             this.patientRepository.Update(patient);
         }
 

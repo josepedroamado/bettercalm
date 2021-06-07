@@ -32,8 +32,7 @@ namespace Domain
 				this.LastName = patient.LastName;
 			if (!string.IsNullOrWhiteSpace(patient.Phone))
 				this.Phone = patient.Phone;
-			if (patient.AppointmentQuantity >= 0)
-				this.AppointmentQuantity = patient.AppointmentQuantity;
+			this.AppointmentDiscount = patient.AppointmentDiscount;
 		}
 	}
 }

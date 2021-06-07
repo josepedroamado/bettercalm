@@ -1,7 +1,9 @@
 ﻿using BLInterfaces;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using Model;
+using System.Collections.Generic;
+using System.Linq;
 using WebAPI.Filters;
 
 namespace WebAPI.Controllers
@@ -20,20 +22,22 @@ namespace WebAPI.Controllers
 
         [HttpGet("approvediscounts")]
         public IActionResult Get()
-        {       
-            return Ok(this.patientLogic.GetAllWithoutDiscountAndRequiredAppointmentQuantity());
+        {
+            IEnumerable<PatientModel> patientModels = this.patientLogic.GetAllWithoutDiscountAndRequiredAppointmentQuantity().Select(patient => new PatientModel(patient));
+            return Ok(patientModels);
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(string email)
         {
-            return Ok(this.patientLogic.Get(email));
+            PatientModel obtainedPatientModel = new PatientModel(this.patientLogic.Get(email));
+            return Ok(obtainedPatientModel);
         }
 
         [HttpPatch]
-        public void Patch([FromBody] Patient patient)
+        public void Patch([FromBody] PatientModel patient)
         {
-            this.patientLogic.Update(patient);
+            this.patientLogic.Update(patient.ToEntity());
         }
     }
 }

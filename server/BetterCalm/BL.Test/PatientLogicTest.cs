@@ -18,7 +18,7 @@ namespace BL.Test
 			IEnumerable<Patient> expectedPatients = GetAllWithoutDiscountExpectedPatientsAndRequiredAppointmentQuantity();
 			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
             patientRepoMock.Setup(m => m.GetAllWithoutDiscount(It.IsAny<int>())).Returns(expectedPatients);
-			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object, It.IsAny<IAppointmentDiscountRepository>());
 
 			IEnumerable<Patient> obtainedPatients = patientLogic.GetAllWithoutDiscountAndRequiredAppointmentQuantity();
 
@@ -57,7 +57,7 @@ namespace BL.Test
 			IEnumerable<Patient> expectedPatients = GetAllWithoutDiscountExpectedPatientsAndRequiredAppointmentQuantity();
 			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
 			patientRepoMock.Setup(m => m.GetAllWithoutDiscount(It.IsAny<int>())).Throws(new CollectionEmptyException("Patients"));
-			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object, It.IsAny<IAppointmentDiscountRepository>());
 
 			IEnumerable<Patient> obtainedPatients = patientLogic.GetAllWithoutDiscountAndRequiredAppointmentQuantity();
 
@@ -70,7 +70,7 @@ namespace BL.Test
 		{
 			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
 			patientRepoMock.Setup(m => m.GetAllWithoutDiscount(It.IsAny<int>())).Returns(new List<Patient>());
-			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object, It.IsAny<IAppointmentDiscountRepository>());
 
 			IEnumerable<Patient> obtainedPatients = patientLogic.GetAllWithoutDiscountAndRequiredAppointmentQuantity();
 
@@ -92,7 +92,7 @@ namespace BL.Test
 
 			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
 			patientRepoMock.Setup(m => m.Get(patient.Email)).Returns(patient);
-			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object, It.IsAny<IAppointmentDiscountRepository>());
 
 			Patient obtainedPatient = patientLogic.Get(patient.Email);
 
@@ -105,7 +105,7 @@ namespace BL.Test
 		{
 			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
 			patientRepoMock.Setup(m => m.Get("notFoundEmail@fail.com")).Throws(new NotFoundException("Patient"));
-			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object, It.IsAny<IAppointmentDiscountRepository>());
 
 			Patient obtainedPatient = patientLogic.Get("notFoundEmail@fail.com");
 
@@ -115,6 +115,12 @@ namespace BL.Test
 		[TestMethod]
 		public void Update_DataIsCorrect_Updated()
         {
+			AppointmentDiscount discount = new AppointmentDiscount()
+			{
+				Id = 1,
+				Discount = 50
+			};
+
 			Patient original = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
@@ -123,8 +129,7 @@ namespace BL.Test
 				LastName = "Doe",
 				Id = 1,
 				Phone = "46465551256",
-				AppointmentQuantity = 5,
-				AppointmentDiscount = new AppointmentDiscount() { Id = 1, Discount = 50}
+				AppointmentQuantity = 5
 			};
 
 			Patient updated = new Patient()
@@ -136,13 +141,17 @@ namespace BL.Test
 				Id = 1,
 				Phone = "46465551256",
 				AppointmentQuantity = 0,
-				AppointmentDiscount = null
+				AppointmentDiscount = discount
 			};
 
 			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
 			patientRepoMock.Setup(m => m.Get(updated.Email)).Returns(original);
 			patientRepoMock.Setup(m => m.Update(updated));
-			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+
+			Mock<IAppointmentDiscountRepository> discountRepoMock = new Mock<IAppointmentDiscountRepository>(MockBehavior.Strict);
+			discountRepoMock.Setup(m => m.Get(updated.AppointmentDiscount.Discount)).Returns(discount);
+
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object, discountRepoMock.Object);
 
 			patientLogic.Update(updated);
 			patientRepoMock.Setup(m => m.Get(updated.Email)).Returns(updated);
@@ -155,6 +164,12 @@ namespace BL.Test
 		[ExpectedException(typeof(NotFoundException))]
 		public void Update_PatientNotFound_ExceptionThrown()
 		{
+			AppointmentDiscount discount = new AppointmentDiscount()
+			{
+				Id = 1,
+				Discount = 50
+			};
+
 			Patient updated = new Patient()
 			{
 				Id = 1,
@@ -162,13 +177,18 @@ namespace BL.Test
 				Email = "john.doe@gmail.com",
 				FirstName = "Arthur",
 				LastName = "Morgan",
-				Phone = "8885551234"
+				Phone = "8885551234",
+				AppointmentDiscount = discount
 			};
 
 			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
 			patientRepoMock.Setup(m => m.Get(updated.Email)).Throws(new NotFoundException("Patient"));
 			patientRepoMock.Setup(m => m.Update(updated));
-			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+
+			Mock<IAppointmentDiscountRepository> discountRepoMock = new Mock<IAppointmentDiscountRepository>(MockBehavior.Strict);
+			discountRepoMock.Setup(m => m.Get(updated.AppointmentDiscount.Discount)).Returns(discount);
+
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object, discountRepoMock.Object);
 
 			patientLogic.Update(updated);
 			Patient obtainedPatient = patientLogic.Get(updated.Email);
