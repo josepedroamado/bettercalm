@@ -3,6 +3,7 @@ using Domain;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Model;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -17,22 +18,23 @@ namespace WebAPI.Test
         [TestMethod]
         public void GetApproveDiscounts_PatientsExistAndMeetRequirements_Fetched()
         {
-            IEnumerable<Patient> expectedPatients = GetApproveDiscountsExpectedPatients();
+            IEnumerable<PatientModel> expectedPatientModels = GetApproveDiscountsExpectedPatientModels();
+            IEnumerable<Patient> expectedPatients = expectedPatientModels.Select(patient => patient.ToEntity());
             Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetAllWithoutDiscountAndRequiredAppointmentQuantity()).Returns(expectedPatients);
             PatientsController controller = new PatientsController(mock.Object);
 
             IActionResult result = controller.Get();
             OkObjectResult objectResult = result as OkObjectResult;
-            IEnumerable<Patient> obtainedPatients = objectResult.Value as IEnumerable<Patient>;
+            IEnumerable<PatientModel> obtainedPatients = objectResult.Value as IEnumerable<PatientModel>;
 
             mock.VerifyAll();
-            Assert.IsTrue(expectedPatients.SequenceEqual(obtainedPatients));
+            Assert.IsTrue(expectedPatientModels.SequenceEqual(obtainedPatients));
         }
 
-        private List<Patient> GetApproveDiscountsExpectedPatients()
+        private List<PatientModel> GetApproveDiscountsExpectedPatientModels()
         {
-            Patient johnDoe = new Patient()
+            PatientModel johnDoe = new PatientModel()
             {
                 BirthDate = new DateTime(1993, 11, 15),
                 Email = "john.doe@gmail.com",
@@ -42,7 +44,7 @@ namespace WebAPI.Test
                 Phone = "46465551256",
                 AppointmentQuantity = 1
             };
-            Patient janeDoe = new Patient()
+            PatientModel janeDoe = new PatientModel()
             {
                 BirthDate = new DateTime(1993, 11, 15),
                 Email = "jane.doe@gmail.com",
@@ -52,21 +54,21 @@ namespace WebAPI.Test
                 Phone = "36325551478",
                 AppointmentQuantity = 4
             };
-            return new List<Patient>() { johnDoe, janeDoe };
+            return new List<PatientModel>() { johnDoe, janeDoe };
         }
 
         [TestMethod]
         [ExpectedException(typeof(CollectionEmptyException))]
         public void GetApproveDiscounts_NoPatientsExist_ExceptionThrown()
         {         
-            IEnumerable<Patient> expectedPatients = GetApproveDiscountsExpectedPatients();
+            IEnumerable<PatientModel> expectedPatients = GetApproveDiscountsExpectedPatientModels();
             Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetAllWithoutDiscountAndRequiredAppointmentQuantity()).Throws(new CollectionEmptyException("Patients"));
             PatientsController controller = new PatientsController(mock.Object);
 
             IActionResult result = controller.Get();
             OkObjectResult objectResult = result as OkObjectResult;
-            IEnumerable<Patient> obtainedPatients = objectResult.Value as IEnumerable<Patient>;
+            IEnumerable<PatientModel> obtainedPatients = objectResult.Value as IEnumerable<PatientModel>;
 
             mock.VerifyAll();
             Assert.IsNull(obtainedPatients);
@@ -76,14 +78,14 @@ namespace WebAPI.Test
         [ExpectedException(typeof(NoPatientsMeetCriteriaException))]
         public void GetApproveDiscounts_NoPatientsMeetCriteria_ExceptionThrown()
         {
-            IEnumerable<Patient> expectedPatients = GetApproveDiscountsExpectedPatients();
+            IEnumerable<PatientModel> expectedPatients = GetApproveDiscountsExpectedPatientModels();
             Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
             mock.Setup(m => m.GetAllWithoutDiscountAndRequiredAppointmentQuantity()).Throws(new NoPatientsMeetCriteriaException());
             PatientsController controller = new PatientsController(mock.Object);
 
             IActionResult result = controller.Get();
             OkObjectResult objectResult = result as OkObjectResult;
-            IEnumerable<Patient> obtainedPatients = objectResult.Value as IEnumerable<Patient>;
+            IEnumerable<PatientModel> obtainedPatients = objectResult.Value as IEnumerable<PatientModel>;
 
             mock.VerifyAll();
             Assert.IsNull(obtainedPatients);
@@ -107,32 +109,23 @@ namespace WebAPI.Test
 
             IActionResult result = controller.Get(patient.Email);
             OkObjectResult objectResult = result as OkObjectResult;
-            Patient obtainedPatient = (objectResult.Value as Patient);
+            PatientModel obtainedPatient = (objectResult.Value as PatientModel);
 
             mock.VerifyAll();
-            Assert.AreEqual(patient, obtainedPatient);
+            Assert.AreEqual(new PatientModel(patient), obtainedPatient);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotFoundException))]
         public void Get_PatientNotFound_ExceptionThrown()
         {
-            Patient patient = new Patient()
-            {
-                BirthDate = new DateTime(1993, 11, 15),
-                Email = "patient@gmail.com",
-                FirstName = "Patient",
-                LastName = "Perez",
-                Id = 1,
-                Phone = "091569874"
-            };
             Mock<IPatientLogic> mock = new Mock<IPatientLogic>(MockBehavior.Strict);
             mock.Setup(m => m.Get("notFoundEmail@fail.com")).Throws(new NotFoundException("Patient"));
             PatientsController controller = new PatientsController(mock.Object);
 
             IActionResult result = controller.Get("notFoundEmail@fail.com");
             OkObjectResult objectResult = result as OkObjectResult;
-            Patient obtainedPatient = (objectResult.Value as Patient);
+            PatientModel obtainedPatient = (objectResult.Value as PatientModel);
 
             mock.VerifyAll();
             Assert.IsNull(obtainedPatient);
@@ -174,10 +167,10 @@ namespace WebAPI.Test
             mock.Setup(m => m.Get(updated.Email)).Returns(updated);
             IActionResult result = controller.Get(updated.Email);
             OkObjectResult objectResult = result as OkObjectResult;
-            Patient obtainedPatient = (objectResult.Value as Patient);
+            PatientModel obtainedPatient = (objectResult.Value as PatientModel);
 
             mock.VerifyAll();
-            Assert.AreEqual(updated, obtainedPatient);
+            Assert.AreEqual(new PatientModel(updated), obtainedPatient);
         }
 
         [TestMethod]
@@ -204,7 +197,7 @@ namespace WebAPI.Test
 
             IActionResult result = controller.Get(updated.Email);
             OkObjectResult objectResult = result as OkObjectResult;
-            Patient obtainedPatient = (objectResult.Value as Patient);
+            PatientModel obtainedPatient = (objectResult.Value as PatientModel);
 
             mock.VerifyAll();
             Assert.IsNull(obtainedPatient);

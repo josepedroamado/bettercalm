@@ -1,12 +1,10 @@
 ﻿using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.Test
 {
-	[TestClass]
+    [TestClass]
 	public class PatientTest
 	{
 		[TestMethod]
