@@ -1,6 +1,5 @@
 ﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using WebAPI.Filters;
 
 namespace WebAPI.Controllers
@@ -16,10 +15,11 @@ namespace WebAPI.Controllers
         {
             this.patientLogic = patientLogic;
         }
+
         [HttpGet("/approvediscounts")]
         public IActionResult Get()
-        {
-            throw new NotImplementedException();
+        {       
+            return Ok(this.patientLogic.GetAllWithoutDiscountAndRequiredAppointmentQuantity());
         }
     }
 }
