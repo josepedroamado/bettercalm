@@ -76,5 +76,80 @@ namespace BL.Test
 
 			Assert.IsNull(obtainedPatients);
 		}
+
+		[TestMethod]
+		public void Get_PatientFound_Fetched()
+		{
+			Patient patient = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "patient@gmail.com",
+				FirstName = "Patient",
+				LastName = "Perez",
+				Id = 1,
+				Phone = "091569874"
+			};
+
+			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
+			patientRepoMock.Setup(m => m.Get(patient.Email)).Returns(patient);
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+
+			Patient obtainedPatient = patientLogic.Get(patient.Email);
+
+			Assert.AreEqual(patient, obtainedPatient);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void Get_PatientNotFound_ExceptionThrown()
+		{
+			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
+			patientRepoMock.Setup(m => m.Get("notFoundEmail@fail.com")).Throws(new NotFoundException("Patient"));
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+
+			Patient obtainedPatient = patientLogic.Get("notFoundEmail@fail.com");
+
+			Assert.IsNull(obtainedPatient);
+		}
+
+		[TestMethod]
+		public void Update_DataIsCorrect_Updated()
+        {
+			Patient original = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "john.doe@gmail.com",
+				FirstName = "John",
+				LastName = "Doe",
+				Id = 1,
+				Phone = "46465551256",
+				AppointmentQuantity = 5,
+				AppointmentDiscount = new AppointmentDiscount() { Id = 1, Discount = 50}
+			};
+
+			Patient updated = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "john.doe@gmail.com",
+				FirstName = "John",
+				LastName = "Doe",
+				Id = 1,
+				Phone = "46465551256",
+				AppointmentQuantity = 0,
+				AppointmentDiscount = null
+			};
+
+			Mock<IPatientRepository> patientRepoMock = new Mock<IPatientRepository>(MockBehavior.Strict);
+			patientRepoMock.Setup(m => m.Get(updated.Email)).Returns(original);
+			patientRepoMock.Setup(m => m.Update(updated));
+			PatientLogic patientLogic = new PatientLogic(patientRepoMock.Object);
+
+			patientLogic.Update(updated);
+			patientRepoMock.Setup(m => m.Get(updated.Email)).Returns(updated);
+			Patient obtainedPatient = patientLogic.Get(updated.Email);
+
+
+			Assert.AreEqual(updated, obtainedPatient);
+		}
 	}
 }

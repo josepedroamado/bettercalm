@@ -26,5 +26,15 @@ namespace BL
             }
             return patients;
         }
+
+        public void Update(Patient patient)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Patient Get(string email)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
