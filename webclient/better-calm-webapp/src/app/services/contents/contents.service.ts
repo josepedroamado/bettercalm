@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { Content } from 'src/app/domain/content';
+import { ContentBasicInfo } from 'src/app/model/content-basic-info';
+import { ContentBasicInfoConverter } from 'src/app/model/content-basic-info-converter';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +15,10 @@ export class ContentsService {
   
   constructor(private http: HttpClient) { }
 
-  public getAll(): Observable<any[]> {
+  public getAll(): Observable<Content[]> {
     return this.http
-      .get<any[]>(this.target_url)
-      .pipe(catchError(this.handleError));
+      .get<ContentBasicInfo[]>(this.target_url)
+      .pipe(catchError(this.handleError), map(this.convertBasicInfoContents));
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -26,5 +29,9 @@ export class ContentsService {
       return throwError(
         error.error ? error.error.message : "Server problems, try later");
     }
+  }
+
+  private convertBasicInfoContents(contentsBasicInfo:ContentBasicInfo[]):Content[]{
+    return contentsBasicInfo.map(content => ContentBasicInfoConverter.GetDomainContent(content));
   }
 }
