@@ -1,0 +1,9 @@
+<div class="card" style="width: 18rem;">
+    <img [src]="content.imageUrl" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{content.name}}</h5>
+        <p class="card-text">Artist: {{content.artistName}}</p>
+        <p class="card-text">Duration: {{content.contentLength}}</p>
+        <a [href]="playContentUri" class="btn btn-primary">Play</a>
+    </div>
+</div>
