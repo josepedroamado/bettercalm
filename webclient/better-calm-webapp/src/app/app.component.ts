@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import '@popperjs/core';
 
 @Component({
   selector: 'app-root',
