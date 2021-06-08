@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Content } from '../domain/content';
 import { ContentsService } from '../services/contents/contents.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { ContentsService } from '../services/contents/contents.service';
   styleUrls: ['./contents.component.scss']
 })
 export class ContentsComponent implements OnInit {
-  contents:any[] = [];
+  contents:Content[] = [];
   stringContents:string = "";
   constructor(private contentsService: ContentsService) { }
 
@@ -15,7 +16,7 @@ export class ContentsComponent implements OnInit {
     this.contentsService.getAll().subscribe((contents) => this.setContents(contents), console.error);
   }
 
-  private setContents(contents:any[]){
+  private setContents(contents:Content[]){
     this.contents = contents;
     this.stringContents = JSON.stringify(this.contents);
   }
