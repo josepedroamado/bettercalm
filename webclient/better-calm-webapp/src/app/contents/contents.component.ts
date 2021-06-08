@@ -9,7 +9,10 @@ import { ContentsService } from '../services/contents/contents.service';
 })
 export class ContentsComponent implements OnInit {
   contents:Content[] = [];
-  stringContents:string = "";
+  obtainedContents:Content[] = [];
+  filter:string[] = [ "audio", "video"]
+  isLoading = true;
+
   constructor(private contentsService: ContentsService) { }
 
   ngOnInit(): void {
@@ -17,7 +20,28 @@ export class ContentsComponent implements OnInit {
   }
 
   private setContents(contents:Content[]){
-    this.contents = contents;
-    this.stringContents = JSON.stringify(this.contents);
+    this.obtainedContents = contents;
+    this.setShowContents();;
+  }
+
+  private setShowContents():void{
+    this.isLoading = true;
+    this.contents = [];
+    this.obtainedContents.forEach((content) => {
+      if (this.filter.includes(content.contentType))
+        this.contents.push(content);
+    })
+    this.isLoading = false;
+  }
+
+  public toogleFilterValue(filterValue:string):void{
+    if (this.filter.includes(filterValue)){
+      let index = this.filter.indexOf(filterValue);
+      this.filter.splice(index, 1);
+    }
+    else{
+      this.filter.push(filterValue);
+    }
+    this.setShowContents();
   }
 }
