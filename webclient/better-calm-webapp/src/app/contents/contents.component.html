@@ -1,0 +1,17 @@
+<div *ngIf="isLoading" class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+</div>
+<div *ngIf="!isLoading">
+    <div class="btn-group" role="group" aria-label="Content type selector">
+        <input type="checkbox" class="btn-check" id="btnAudioType" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="btnAudioType" (click)="toogleFilterValue('audio')">Audio</label>
+      
+        <input type="checkbox" class="btn-check" id="btnVideoType" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="btnVideoType" (click)="toogleFilterValue('video')">Video</label>
+      </div>
+    <div class="container">
+        <app-content-card *ngFor="let content of contents" [content]="content" style="display: inline-block; margin:2px;"></app-content-card>
+    </div>
+</div>
+
+
