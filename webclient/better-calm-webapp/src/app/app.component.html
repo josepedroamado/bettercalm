@@ -1,27 +1,27 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-2">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Better Calm</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav ms-4 me-auto">
         <li class="nav-item active">
-          <a class="nav-link" aria-current="page" [routerLink]="['home']"> Home </a>
+          <a class="nav-link text-light" aria-current="page" [routerLink]="['home']"> Inicio </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['contents']"> Contents </a>
+          <a class="nav-link text-light" [routerLink]="['contents']"> Contenidos </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Playlists</a>
+          <a class="nav-link text-light" href="#"> Listas de Reproducción </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Appointments</a>
+          <a class="nav-link text-light" [routerLink]="['appointment']"> Solicitud de Consulta</a>
         </li>
       </ul>   
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link text-light" href="#"> Iniciar Sesión</a>
         </li>
       </ul>
     </div>
