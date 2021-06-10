@@ -1,59 +1,68 @@
-<div class="card text-dark bg-light mb-3 w-75 ms-auto me-auto">
+<div class="card text-dark bg-light mb-3 ms-auto me-auto wd-75" *ngIf="!submitted">
     <div class="card-header text-light bg-primary">
         <h5 class="card-title mt-1">Solicitud de Consulta</h5>
     </div>
     <div class="card-body">
         <p class="card-text">Para realizar una solicitud de consulta con uno de nuestros psicólogos especializados, por favor completar el siguiente formulario</p>
-        <form>
+        <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit(appointmentForm.value)">
             <div class="row mb-3">
                 <div class="col">
-                    <label for="patientFirstName" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" placeholder="Por favor ingrese su nombre" id="patientFirstName" required>
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese su nombre" id="name" formControlName="name" required>
                 </div>
                 <div class="col">
-                    <label for="patientLastName" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" placeholder="Por favor ingrese su apellido" id="patientFirstName" required>
+                    <label for="lastName" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese su apellido" id="lastName" formControlName="lastName" required>
                 </div>
             </div>
             <div class="mb-3">
-                <label for="patientBirthDate" class="form-label">Fecha de Nacimiento</label>
-                <input type="date" class="form-control" id="patientBirthDate" required>
+                <label for="birthDate" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="birthDate" formControlName="birthDate" max="{{today | date:'yyyy-MM-dd'}}" required>
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="patientEmail" class="form-label">Email</label>
-                    <input type="email" class="form-control" placeholder="Por favor ingrese su email" id="patientEmail" required>
+                    <label for="eMail" class="form-label">Email</label>
+                    <input type="eMail" class="form-control" placeholder="Por favor ingrese su email" id="eMail" formControlName="eMail" required>
                 </div>
                 <div class="col">
-                    <label for="patientPhone" class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" placeholder="Por favor ingrese su teléfono" id="patientPhone" pattern="[0-9]{3,9}" required>
+                    <label for="phone" class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" placeholder="Por favor ingrese su teléfono" id="phone" formControlName="phone" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="patientIllness" class="form-label">Seleccione su dolencia</label>
-                    <select class="form-select" id="patientIllness" required>
-                        <option selected disabled>Seleccione una dolencia del menú</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <label for="illnessId" class="form-label">Seleccione su dolencia</label>
+                    <select class="form-select" id="illnessId" formControlName="illnessId" required>
+                        <option *ngFor="let illness of illnesses" value="{{illness.id}}">{{illness.name}}</option>
                     </select>
                 </div>
                 <div class="col">
-                    <label for="patientAppointmentDuration" class="form-label">Seleccione la duración de la consulta</label>
-                    <select class="form-select" id="patientAppointmentDuration" required>
-                        <option selected disabled>Seleccione la duración de la consulta del menú</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <label for="duration" class="form-label">Seleccione la duración de la consulta</label>
+                    <select class="form-select" id="duration" formControlName="duration" required>
+                        <option value="01:00:00">1 hora</option>
+                        <option value="01:30:00">1.5 horas</option>
+                        <option value="02:00:00">2 horas</option>
                     </select>
                 </div>
             </div>
-            <div class="mb-3">
-                
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Solicitar consulta</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!appointmentForm.valid">Solicitar consulta</button>
         </form>
+    </div>
+</div>
+
+<div class="card text-dark bg-light mb-3 ms-auto me-auto wd-75" *ngIf="submitted">
+    <div class="card-header text-light bg-primary">
+        <h5 class="card-title mt-1">¡Registro de consulta exitoso!</h5>
+    </div>
+    <div class="card-body">
+        <p class="card-text text-center">Los datos de tu consulta son:</p>
+        <div class="card" style="width: 18rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Psicólogo: </strong>{{appointmentData.psychologistName}}</li>
+                <li class="list-group-item"><strong>Formato: </strong>{{appointmentData.format}}</li>
+                <li class="list-group-item"><strong>Dirección: </strong>{{appointmentData.address}}</li>
+                <li class="list-group-item"><strong>Fecha: </strong>{{appointmentData.date}}</li>
+            </ul>
+        </div>
     </div>
 </div>

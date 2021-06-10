@@ -8,6 +8,7 @@ import { ContentsComponent } from './contents/contents.component';
 import { ButtonComponent } from './button/button.component';
 import { ContentCardComponent } from './content-card/content-card.component';
 import { AppointmentComponent } from './appointment/appointment.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AppointmentComponent } from './appointment/appointment.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
