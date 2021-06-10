@@ -1,3 +1,4 @@
+import { AppointmentOut } from 'src/app/model/appointmentOut';
 import { AppointmentsService } from './../services/appointments/appointments.service';
 import { Component, OnInit } from '@angular/core';
 import { Illness } from '../model/illness';
@@ -16,7 +17,7 @@ export class AppointmentComponent implements OnInit {
   today = new Date();
   submitted = false;
   psychologistName:string = "";
-  appointmentData: AppointmentIn = { psychologistName : "", format: "", address: "", date: new Date()  };
+  appointmentData: AppointmentIn = new AppointmentIn();
 
   appointmentForm = this.formBuilder.group(
     {
@@ -43,9 +44,9 @@ export class AppointmentComponent implements OnInit {
   }
 
   onSubmit(input: any){
-    input.illnessId = +input.illnessId;
-    console.warn(input);
-    this.appointmentsService.postAppoinment(input).subscribe(
+    let newAppointment : AppointmentOut = new AppointmentOut(input.illnessId, input.name, input.lastName, input.birthDate, input.eMail, input.phone, input.duration)
+    console.warn(newAppointment);
+    this.appointmentsService.postAppoinment(newAppointment).subscribe(
       ((data : AppointmentIn) => this.showPostReturn(data)),
       ((error : any) => console.log(error))
     );
