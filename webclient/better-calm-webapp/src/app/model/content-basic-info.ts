@@ -8,4 +8,5 @@ export interface ContentBasicInfo{
     contentUrl: string;
     contentType: string;
     contentLength: TimeStamp;
+    categories: number[];
 }

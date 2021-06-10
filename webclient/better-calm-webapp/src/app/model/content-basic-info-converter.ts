@@ -11,7 +11,8 @@ export class ContentBasicInfoConverter{
             contentUrl: contentBasicInfo.contentUrl,
             id: contentBasicInfo.id,
             imageUrl: contentBasicInfo.imageUrl,
-            name: contentBasicInfo.name
+            name: contentBasicInfo.name,
+            categories: contentBasicInfo.categories
         }
         return content;
     }
