@@ -7,6 +7,9 @@ import { HomeComponent } from './home/home.component';
 import { ContentsComponent } from './contents/contents.component';
 import { ButtonComponent } from './button/button.component';
 import { ContentCardComponent } from './content-card/content-card.component';
+import { ContentDetailComponent } from './content-detail/content-detail.component';
+import { ContentDetailAudioComponent } from './content-detail-audio/content-detail-audio.component';
+import { ContentDetailVideoComponent } from './content-detail-video/content-detail-video.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { ContentCardComponent } from './content-card/content-card.component';
     HomeComponent,
     ContentsComponent,
     ButtonComponent,
-    ContentCardComponent
+    ContentCardComponent,
+    ContentDetailComponent,
+    ContentDetailAudioComponent,
+    ContentDetailVideoComponent
   ],
   imports: [
     BrowserModule,
