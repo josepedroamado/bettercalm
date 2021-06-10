@@ -10,6 +10,8 @@ import { ContentCardComponent } from './content-card/content-card.component';
 import { ContentDetailComponent } from './content-detail/content-detail.component';
 import { ContentDetailAudioComponent } from './content-detail-audio/content-detail-audio.component';
 import { ContentDetailVideoComponent } from './content-detail-video/content-detail-video.component';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,12 +22,14 @@ import { ContentDetailVideoComponent } from './content-detail-video/content-deta
     ContentCardComponent,
     ContentDetailComponent,
     ContentDetailAudioComponent,
-    ContentDetailVideoComponent
+    ContentDetailVideoComponent,
+    AppointmentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
