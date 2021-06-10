@@ -6,4 +6,5 @@ export interface Content {
     imageUrl: string;
     contentUrl: string;
     contentType: string;
+    categories: number[];
 }
