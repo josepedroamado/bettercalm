@@ -7,16 +7,28 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-4 me-auto">
         <li class="nav-item active">
-          <a class="nav-link text-light" [routerLink]="['home']"> Inicio </a>
+          <a class="nav-link text-light" [routerLink]="['home']">Inicio </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" [routerLink]="['contents']"> Contenidos </a>
+          <a class="nav-link text-light" [routerLink]="['contents']">Contenidos </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#"> Listas de Reproducción </a>
+          <a class="nav-link text-light" [routerLink]="['playlists']">Listas de Reproducción</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" [routerLink]="['appointment']"> Solicitud de Consulta</a>
+          <a class="nav-link text-light" [routerLink]="['appointment']">Solicitud de Consulta</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" *ngIf="(userLoggedIn$ | async) == true" [routerLink]="['psychologists']">Psicologos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" *ngIf="(userLoggedIn$ | async) == true" [routerLink]="['administrators']">Administradores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" *ngIf="(userLoggedIn$ | async) == true" [routerLink]="['approvediscounts']">Aprobar descuentos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" *ngIf="(userLoggedIn$ | async) == true" [routerLink]="['importers']">Importar contenidos</a>
         </li>
       </ul>   
       <ul class="navbar-nav ms-auto">

@@ -1,3 +1,8 @@
+import { AdministratorGuard } from './guards/administrator.guard';
+import { ImportersComponent } from './importers/importers.component';
+import { ApprovediscountsComponent } from './approvediscounts/approvediscounts.component';
+import { AdministratorsComponent } from './administrators/administrators.component';
+import { PsychologistsComponent } from './psychologists/psychologists.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LoginComponent } from './login/login.component';
 import { AppointmentComponent } from './appointment/appointment.component';
@@ -25,6 +30,30 @@ const routes: Routes = [
   {
     path: 'appointment',
     component: AppointmentComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'psychologists',
+    component: PsychologistsComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'administrators',
+    component: AdministratorsComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'approvediscounts',
+    component: ApprovediscountsComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'importers',
+    component: ImportersComponent,
+    canActivate: [AdministratorGuard],
     pathMatch: 'full'
   },
   {
