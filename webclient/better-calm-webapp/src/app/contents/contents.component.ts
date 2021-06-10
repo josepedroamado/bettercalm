@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Category } from '../domain/category';
 import { Content } from '../domain/content';
+import { CategoriesService } from '../services/categories/categories.service';
 import { ContentsService } from '../services/contents/contents.service';
 
 @Component({
@@ -9,14 +11,17 @@ import { ContentsService } from '../services/contents/contents.service';
 })
 export class ContentsComponent implements OnInit {
   contents:Content[] = [];
+  categories:Category[] = [];
   obtainedContents:Content[] = [];
-  filter:string[] = [ "audio", "video"]
+  typeFilters:string[] = [ "audio", "video"]
+  categoryFilters:number[] = [];
   isLoading = true;
 
-  constructor(private contentsService: ContentsService) { }
+  constructor(private contentsService: ContentsService, private categoriesService:CategoriesService) { }
 
   ngOnInit(): void {
     this.contentsService.getAll().subscribe((contents) => this.setContents(contents), console.error);
+    this.categoriesService.getAll().subscribe((categories) => this.setCategories(categories), console.error);
   }
 
   private setContents(contents:Content[]){
@@ -24,23 +29,42 @@ export class ContentsComponent implements OnInit {
     this.setShowContents();;
   }
 
+  private setCategories(categories:Category[]){
+    this.categories = categories;
+    this.categoryFilters = [];
+    this.categories.forEach((category => this.categoryFilters.push(category.id)));
+    this.setShowContents();
+  }
+
   private setShowContents():void{
     this.isLoading = true;
     this.contents = [];
     this.obtainedContents.forEach((content) => {
-      if (this.filter.includes(content.contentType))
+      if (this.typeFilters.includes(content.contentType) && 
+        content.categories?.some(category => this.categoryFilters.includes(category)))
         this.contents.push(content);
     })
     this.isLoading = false;
   }
 
-  public toogleFilterValue(filterValue:string):void{
-    if (this.filter.includes(filterValue)){
-      let index = this.filter.indexOf(filterValue);
-      this.filter.splice(index, 1);
+  public switchContentTypeValue(filterValue:string):void{
+    if (this.typeFilters.includes(filterValue)){
+      let index = this.typeFilters.indexOf(filterValue);
+      this.typeFilters.splice(index, 1);
     }
     else{
-      this.filter.push(filterValue);
+      this.typeFilters.push(filterValue);
+    }
+    this.setShowContents();
+  }
+
+  public switchCategoryValue(id:number):void{
+    if (this.categoryFilters.includes(id)){
+      let index = this.categoryFilters.indexOf(id);
+      this.categoryFilters.splice(index, 1);
+    }
+    else{
+      this.categoryFilters.push(id);
     }
     this.setShowContents();
   }
