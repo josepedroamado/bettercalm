@@ -1,3 +1,4 @@
+import { LoginComponent } from './login/login.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -23,6 +24,16 @@ const routes: Routes = [
   {
     path: 'appointment',
     component: AppointmentComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'logout',
+    component: LoginComponent,
     pathMatch: 'full'
   }
 ];

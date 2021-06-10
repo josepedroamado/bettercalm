@@ -12,6 +12,7 @@ import { ContentDetailAudioComponent } from './content-detail-audio/content-deta
 import { ContentDetailVideoComponent } from './content-detail-video/content-detail-video.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ContentDetailComponent,
     ContentDetailAudioComponent,
     ContentDetailVideoComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

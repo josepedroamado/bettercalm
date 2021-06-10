@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { SessionsService } from './services/sessions/sessions.service';
 import { Component } from '@angular/core';
 import '@popperjs/core';
 
@@ -8,4 +10,9 @@ import '@popperjs/core';
 })
 export class AppComponent {
   title = 'better-calm-webapp';
+  userLoggedIn$: Observable<boolean>;
+
+  constructor(private sessionsService: SessionsService) {
+    this.userLoggedIn$ = sessionsService.getUserLoggedIn();
+  }
 }
