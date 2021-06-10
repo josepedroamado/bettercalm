@@ -8,13 +8,18 @@ import { Content } from '../domain/content';
 })
 export class ContentCardComponent implements OnInit {
   @Input() content:Content | any= {};
-  playContentUri:string = `contents/`;
-  
-  constructor() { 
-    this.playContentUri += this.content.id;
-  }
+  detailContentUri:string = `contents/detail`;
+  showDetail:boolean = false;
+  constructor() { }
 
   ngOnInit(): void {
   }
 
+  public getDetailsUri():string{
+    return this.detailContentUri+'?id='+this.content.id;
+  }
+
+  public show():void{
+    this.showDetail = !this.showDetail;
+  }
 }
