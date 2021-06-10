@@ -13,6 +13,11 @@ export class AppComponent {
   userLoggedIn$: Observable<boolean>;
 
   constructor(private sessionsService: SessionsService) {
-    this.userLoggedIn$ = sessionsService.getUserLoggedIn();
+    this.userLoggedIn$ = this.sessionsService.getUserLoggedIn();
+  }
+
+  logout(){
+    let token = localStorage.getItem("token") ?? "";
+    this.sessionsService.logOut(token);
   }
 }

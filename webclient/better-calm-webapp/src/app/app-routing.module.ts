@@ -1,3 +1,4 @@
+import { LogoutComponent } from './logout/logout.component';
 import { LoginComponent } from './login/login.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { NgModule } from '@angular/core';
@@ -33,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: 'logout',
-    component: LoginComponent,
+    component: LogoutComponent,
     pathMatch: 'full'
   }
 ];

@@ -13,6 +13,7 @@ import { ContentDetailVideoComponent } from './content-detail-video/content-deta
 import { AppointmentComponent } from './appointment/appointment.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LoginComponent } from './login/login.component';
     ContentDetailAudioComponent,
     ContentDetailVideoComponent,
     AppointmentComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
