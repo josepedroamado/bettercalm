@@ -9,7 +9,7 @@
                     <table class="table table-hover table-striped table-bordered w-80">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Apellido</th>
                                 <th scope="col">Dirección</th>
@@ -19,37 +19,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td class="col-2">
-                                    <button type="button" class="btn btn-primary btn-sm ms-2 me-1">Editar</button>
-                                    <button type="button" class="btn btn-danger btn-sm ms-1 me-1">Eliminar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td class="col-2">
-                                    <button type="button" class="btn btn-primary btn-sm ms-2 me-1">Editar</button>
-                                    <button type="button" class="btn btn-danger btn-sm ms-1 me-1">Eliminar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>@mdo</td>
-                                <td>@twitter</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
+                            <tr *ngFor="let psychologist of psychologists">
+                                <th scope="row">{{psychologist.id}}</th>
+                                <td>{{psychologist.firstName}}</td>
+                                <td>{{psychologist.lastName}}</td>
+                                <td>{{psychologist.address}}</td>
+                                <td>{{psychologist.format}}</td>
+                                <td>${{psychologist.rate}}</td>
                                 <td class="col-2">
                                     <button type="button" class="btn btn-primary btn-sm ms-2 me-1">Editar</button>
                                     <button type="button" class="btn btn-danger btn-sm ms-1 me-1">Eliminar</button>
