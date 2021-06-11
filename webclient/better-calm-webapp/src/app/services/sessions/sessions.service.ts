@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class SessionsService extends BaseService {
   private readonly target_url:string = `${environment.api_url}/sessions`
-  @Output() sendLoggedInEvent = new EventEmitter<boolean>();
+  @Output() sendLoggedInEvent = new EventEmitter<boolean>(true);
   
   constructor(http: HttpClient, private router: Router) { 
     super(http);
