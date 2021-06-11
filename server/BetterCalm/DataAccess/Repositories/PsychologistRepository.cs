@@ -24,13 +24,12 @@ namespace DataAccess.Repositories
             if (this.psychologists.Count() <= 0)
                 throw new CollectionEmptyException("Psychologists");
             else
-                return this.psychologists;
+                return this.psychologists.Include(x => x.Rate);
         }
 
         public Psychologist Get(int id)
         {
-            Psychologist psychologist = this.psychologists.Include(psychologist => psychologist.Illnesses).
-                FirstOrDefault(psychologist => psychologist.Id == id);
+            Psychologist psychologist = this.psychologists.Include(psychologist => psychologist.Illnesses).Include(x => x.Rate).FirstOrDefault(psychologist => psychologist.Id == id);
             if (psychologist == null)
                 throw new NotFoundException(id.ToString());
             return psychologist;
