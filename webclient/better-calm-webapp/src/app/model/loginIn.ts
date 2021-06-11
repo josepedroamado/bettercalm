@@ -1,7 +1,3 @@
-export class LoginIn {
+export interface LoginIn {
     token: string;
-
-    constructor(token:string = "") {
-        this.token = token;
-    }
 }

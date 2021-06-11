@@ -17,7 +17,7 @@ export class AppointmentComponent implements OnInit {
   today = new Date();
   submitted = false;
   psychologistName:string = "";
-  appointmentData: AppointmentIn = new AppointmentIn();
+  appointmentData: AppointmentIn = {} as any;
 
   appointmentForm = this.formBuilder.group(
     {
@@ -30,7 +30,8 @@ export class AppointmentComponent implements OnInit {
       duration: ['', Validators.required],
     });
   
-  constructor(private illnessesService: IllnessesService, private formBuilder: FormBuilder, private appointmentsService: AppointmentsService) { }
+  constructor(private illnessesService: IllnessesService, private formBuilder: FormBuilder, private appointmentsService: AppointmentsService) { 
+  }
 
   ngOnInit(): void {
     this.illnessesService.getIllnesses().subscribe(
@@ -43,10 +44,9 @@ export class AppointmentComponent implements OnInit {
     this.illnesses = data;
   }
 
-  onSubmit(input: any){
-    let newAppointment : AppointmentOut = new AppointmentOut(input.illnessId, input.name, input.lastName, input.birthDate, input.eMail, input.phone, input.duration)
-    console.warn(newAppointment);
-    this.appointmentsService.postAppoinment(newAppointment).subscribe(
+  onSubmit(input: AppointmentOut){
+    input.illnessId = +input.illnessId;
+    this.appointmentsService.postAppoinment(input).subscribe(
       ((data : AppointmentIn) => this.showPostReturn(data)),
       ((error : any) => console.log(error))
     );

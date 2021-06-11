@@ -1,24 +1,22 @@
+import { BaseService } from './../common/base-service';
 import { LoginIn } from './../../model/loginIn';
 import { LoginOut } from './../../model/loginOut';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SessionsService {
+export class SessionsService extends BaseService {
   private readonly target_url:string = `${environment.api_url}/sessions`
-  private loggedIn = false;
-
-  constructor(private http: HttpClient, private router: Router) { 
-    let storedToken = localStorage.getItem('token');
-    if (storedToken != null){
-      this.loggedIn = true;
-    }
+  @Output() sendLoggedInEvent = new EventEmitter<boolean>();
+  
+  constructor(http: HttpClient, private router: Router) { 
+    super(http);
   }
 
   login(loginOut: LoginOut): Observable<LoginIn> {
@@ -26,20 +24,18 @@ export class SessionsService {
       .pipe(catchError(this.handleError), map(user => this.processLogin(user)));
   }
 
+  isLogged(){
+    return localStorage.getItem('token') != null;
+  }
+
   private processLogin(user:LoginIn){
     localStorage.setItem('token', user.token);
+    this.emitLoggedStatus(true);
     return user;
   }
 
-  private handleError(errorRequest: any) {
-    console.error(errorRequest);
-    return throwError(errorRequest.error || errorRequest.message);
-  }
-
-  getUserLoggedIn():Observable<boolean> {
-    return new Observable((observer) => {
-      observer.next(this.loggedIn);
-    });
+  emitLoggedStatus(loggedIn: boolean) {
+    this.sendLoggedInEvent.emit(loggedIn);
   }
 
   logOut(user: string): void {
@@ -58,6 +54,7 @@ export class SessionsService {
         console.log(s);
       });
     localStorage.removeItem("token");
+    this.emitLoggedStatus(false);
     this.router.navigate(['/home'])
   }
 }

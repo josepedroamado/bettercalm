@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit{
   loginForm = this.formBuilder.group(
     {
       eMail: ['', [Validators.required, Validators.email]],
@@ -18,17 +18,21 @@ export class LoginComponent implements OnInit {
     });
   loginError = false;
   errorMessage ="";
+  loggedIn = false;
 
   constructor(private formBuilder: FormBuilder, 
-              private sessionService: SessionsService,
+              private sessionsService: SessionsService,
               private router: Router) { }
 
   ngOnInit(): void {
+    this.loggedIn = this.sessionsService.isLogged();
+    if(this.loggedIn){
+      this.router.navigate(['/home']);
+    }
   }
 
   onSubmit(input: LoginOut){
-    console.warn(input);
-    this.sessionService.login(input).subscribe(
+    this.sessionsService.login(input).subscribe(
       ((data : LoginIn) => this.router.navigate(['/home'])),
       ((error : any) => this.showError(error))
     );

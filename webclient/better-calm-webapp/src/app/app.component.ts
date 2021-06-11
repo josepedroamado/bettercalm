@@ -1,6 +1,5 @@
-import { Observable } from 'rxjs';
 import { SessionsService } from './services/sessions/sessions.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import '@popperjs/core';
 
 @Component({
@@ -8,12 +7,16 @@ import '@popperjs/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'better-calm-webapp';
-  userLoggedIn$: Observable<boolean>;
+  loggedIn = false;
 
   constructor(private sessionsService: SessionsService) {
-    this.userLoggedIn$ = this.sessionsService.getUserLoggedIn();
+  }
+  
+  ngOnInit(): void {
+    this.loggedIn = this.sessionsService.isLogged();
+    this.sessionsService.sendLoggedInEvent.subscribe((data:boolean) => {this.loggedIn = data;});
   }
 
   logout(){

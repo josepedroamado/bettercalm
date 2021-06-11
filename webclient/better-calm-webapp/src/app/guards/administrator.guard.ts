@@ -7,7 +7,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 export class AdministratorGuard implements CanActivate {
   canActivate(): boolean {
     let token = localStorage.getItem("token") ?? "";
-    if (token == ""){      
+    if (token == ""){
       alert('Debe iniciar sesión para acceder a esta página.');
       this.router.navigate(['/home']);
       return false;

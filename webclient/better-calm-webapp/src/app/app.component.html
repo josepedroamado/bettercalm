@@ -7,9 +7,6 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-4 me-auto">
         <li class="nav-item active">
-          <a class="nav-link text-light" [routerLink]="['home']">Inicio </a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link text-light" [routerLink]="['contents']">Contenidos </a>
         </li>
         <li class="nav-item">
@@ -19,24 +16,24 @@
           <a class="nav-link text-light" [routerLink]="['appointment']">Solicitud de Consulta</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="(userLoggedIn$ | async) == true" [routerLink]="['psychologists']">Psicologos</a>
+          <a class="nav-link text-light" *ngIf="loggedIn" [routerLink]="['psychologists']">Psicologos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="(userLoggedIn$ | async) == true" [routerLink]="['administrators']">Administradores</a>
+          <a class="nav-link text-light" *ngIf="loggedIn" [routerLink]="['administrators']">Administradores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="(userLoggedIn$ | async) == true" [routerLink]="['approvediscounts']">Aprobar descuentos</a>
+          <a class="nav-link text-light" *ngIf="loggedIn" [routerLink]="['approvediscounts']">Aprobar descuentos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="(userLoggedIn$ | async) == true" [routerLink]="['importers']">Importar contenidos</a>
+          <a class="nav-link text-light" *ngIf="loggedIn" [routerLink]="['importers']">Importar contenidos</a>
         </li>
       </ul>   
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="(userLoggedIn$ | async) == false" [routerLink]="['login']"> Iniciar Sesión</a>
+          <a class="nav-link text-light" *ngIf="!loggedIn" [routerLink]="['login']"> Iniciar Sesión</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="(userLoggedIn$ | async) == true" [routerLink]="['logout']"> Cerrar Sesión</a>
+          <a class="nav-link text-light" *ngIf="loggedIn" [routerLink]="['logout']"> Cerrar Sesión</a>
         </li>
       </ul>
     </div>
