@@ -1,8 +1,14 @@
+import { AdministratorGuard } from './guards/administrator.guard';
+import { ImportersComponent } from './importers/importers.component';
+import { ApprovediscountsComponent } from './approvediscounts/approvediscounts.component';
+import { AdministratorsComponent } from './administrators/administrators.component';
+import { PsychologistsComponent } from './psychologists/psychologists.component';
+import { LogoutComponent } from './logout/logout.component';
+import { LoginComponent } from './login/login.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentsComponent } from './contents/contents.component';
-import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -12,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent,
+    component: ContentsComponent,
     pathMatch: 'full'
   },
   {
@@ -23,6 +29,40 @@ const routes: Routes = [
   {
     path: 'appointment',
     component: AppointmentComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'psychologists',
+    component: PsychologistsComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'administrators',
+    component: AdministratorsComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'approvediscounts',
+    component: ApprovediscountsComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'importers',
+    component: ImportersComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
     pathMatch: 'full'
   }
 ];

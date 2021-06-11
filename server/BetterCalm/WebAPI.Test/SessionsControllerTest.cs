@@ -90,21 +90,23 @@ namespace WebAPI.Test
 				EMail = "a@a.com",
 				Password = "1234"
 			};
-
-			string expectedToken = "token1234";
+			UserTokenModel expectedTokenModel = new UserTokenModel()
+			{
+				Token = "token1234"
+			}; 
 			Mock<ISessionLogic> sessionLogicMock = new Mock<ISessionLogic>(MockBehavior.Strict);
-			sessionLogicMock.Setup(m => m.Logout(expectedToken));
+			sessionLogicMock.Setup(m => m.Logout(expectedTokenModel.Token));
 			sessionLogicMock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Returns("newToken");
 
 			SessionsController controller = new SessionsController(sessionLogicMock.Object);
 
-			controller.Delete(expectedToken);
+			controller.Delete(expectedTokenModel);
 			IActionResult result = controller.Post(credentialsParameters);
 			OkObjectResult objectResult = result as OkObjectResult;
 			string obtainedToken = (objectResult.Value as SessionInfoModel).Token;
 
 			sessionLogicMock.VerifyAll();
-			Assert.AreNotEqual(expectedToken, obtainedToken);
+			Assert.AreNotEqual(expectedTokenModel.Token, obtainedToken);
 		}
 	}
 }

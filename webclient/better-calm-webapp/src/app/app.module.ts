@@ -1,3 +1,4 @@
+import { AdministratorGuard } from './guards/administrator.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'; 
@@ -12,6 +13,12 @@ import { ContentDetailAudioComponent } from './content-detail-audio/content-deta
 import { ContentDetailVideoComponent } from './content-detail-video/content-detail-video.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
+import { PsychologistsComponent } from './psychologists/psychologists.component';
+import { AdministratorsComponent } from './administrators/administrators.component';
+import { ApprovediscountsComponent } from './approvediscounts/approvediscounts.component';
+import { ImportersComponent } from './importers/importers.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +30,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     ContentDetailComponent,
     ContentDetailAudioComponent,
     ContentDetailVideoComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    LoginComponent,
+    LogoutComponent,
+    PsychologistsComponent,
+    AdministratorsComponent,
+    ApprovediscountsComponent,
+    ImportersComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +44,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AdministratorGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
