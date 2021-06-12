@@ -24,4 +24,18 @@ export class ModelContentConverter{
             playlistIds: playlistIds
         };
     }
+
+    public static GetModelContent(domainContent:Content):ModelContent{
+        return {
+            artistName: domainContent.artistName,
+            categories: domainContent.categories,
+            contentLength: domainContent.contentLength,
+            contentType: domainContent.contentType,
+            contentUrl: domainContent.contentUrl,
+            id: domainContent.id,
+            imageUrl: domainContent.imageUrl,
+            name: domainContent.name,
+            playlists: domainContent.playlists
+        };
+    }
 }

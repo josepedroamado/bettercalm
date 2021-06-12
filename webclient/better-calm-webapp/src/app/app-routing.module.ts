@@ -28,6 +28,12 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'contents/edit',
+    component: ContentEditComponent,
+    pathMatch: 'full',
+    canActivate: [AdministratorGuard]
+  },
+  {
     path: 'contents/edit/:id',
     component: ContentEditComponent,
     pathMatch: 'full',

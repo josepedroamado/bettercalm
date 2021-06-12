@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Content } from 'src/app/domain/content';
@@ -30,6 +30,20 @@ export class ContentsService extends BaseService{
     let getContentUrl:string = this.target_url+"/"+id;
     return this.http
       .get<ModelContent>(getContentUrl)
+      .pipe(catchError(this.handleError), map(this.convertModelContent));
+  }
+
+  public patch(content:Content):Observable<Content>{
+    let modelContent:ModelContent = ModelContentConverter.GetModelContent(content);
+    return this.http
+      .patch<ModelContent>(this.target_url, modelContent, this.authOptions)
+      .pipe(catchError(this.handleError), map(this.convertModelContent));
+  }
+
+  public post(content:Content):Observable<Content>{
+    let modelContent:ModelContent = ModelContentConverter.GetModelContent(content);
+    return this.http
+      .post<ModelContent>(this.target_url, modelContent, this.authOptions)
       .pipe(catchError(this.handleError), map(this.convertModelContent));
   }
 

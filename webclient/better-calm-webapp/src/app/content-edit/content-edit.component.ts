@@ -16,6 +16,7 @@ import { PlaylistsService } from '../services/playlists/playlists.service';
 export class ContentEditComponent implements OnInit {
   private static readonly urlPattern = '(http|https):\/\/.*';
   private static readonly timeSpanPattern = '[0-9][0-9]:[0-5][0-9]:[0-5][0-9]';
+  public isCreate:boolean = true;
   public content:Content = {} as any;
   public categories:Category[] = [];
   public playlists:Playlist[] = [];
@@ -26,7 +27,7 @@ export class ContentEditComponent implements OnInit {
   public errorMessage: string = "";
   public contentForm = this.formBuilder.group(
     {
-      id: ['', Validators.required],
+      id: [''],
       name: ['', Validators.required],
       contentLength: ['', [Validators.pattern(ContentEditComponent.timeSpanPattern), Validators.required]],
       artistName: ['', [Validators.required]],
@@ -34,7 +35,7 @@ export class ContentEditComponent implements OnInit {
       contentUrl: ['', [Validators.pattern(ContentEditComponent.urlPattern), Validators.required]],
       contentType: ['', Validators.required],
       categories: ['', Validators.required],
-      playlists: ['']
+      playlistIds: ['']
     });
 
   constructor(private contentsService: ContentsService,
@@ -53,6 +54,7 @@ export class ContentEditComponent implements OnInit {
     this.isLoadingContent = true;
     let id:string = this._currentRoute.snapshot.params['id'];
     if (id){
+      this.isCreate = false;
       this.contentsService.get(id).subscribe((content) => this.setContent(content), this.setError.bind(this));
     }
     else{
@@ -81,7 +83,7 @@ export class ContentEditComponent implements OnInit {
       contentUrl: content.contentUrl,
       contentType: content.contentType,
       categories: content.categories,
-      playlists: content.playlistIds
+      playlistIds: content.playlistIds
     })
     this.hasError = false;
     this.isLoadingContent = false;
@@ -102,12 +104,26 @@ export class ContentEditComponent implements OnInit {
     this.errorMessage = error;
   }
 
-  onSubmit(input: Content){
-    /*input.illnessId = +input.illnessId;
-    this.appointmentsService.postAppoinment(input).subscribe(
-      ((data : AppointmentIn) => this.showPostReturn(data)),
-      ((error : any) => console.log(error))
-    );
-    this.submitted = true;*/
+  onSubmit(content: Content){
+    content.playlists = [];
+    if (content.playlistIds?.length > 0){
+      this.playlists.map(playlist => {
+        if (content.playlistIds.includes(playlist.id)){
+          content.playlists.push(playlist);
+        }
+      })
+    }
+    
+    if (this.isCreate){
+      content.id = 0;
+      this.contentsService.post(content).subscribe(() => {}, this.setError, this.setOk);
+    }
+    else{
+      this.contentsService.patch(content).subscribe(() => {}, this.setError, this.setOk);
+    }    
+  }
+
+  private setOk():void{
+    alert("Ok!");
   }
 }
