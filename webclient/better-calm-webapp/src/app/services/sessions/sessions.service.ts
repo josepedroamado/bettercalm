@@ -50,9 +50,7 @@ export class SessionsService extends BaseService {
     
     this.http
       .delete(this.target_url, options)
-      .subscribe((s) => {
-        console.log(s);
-      });
+      .pipe(catchError(this.handleError));
     localStorage.removeItem("token");
     this.emitLoggedStatus(false);
     this.router.navigate(['/home'])

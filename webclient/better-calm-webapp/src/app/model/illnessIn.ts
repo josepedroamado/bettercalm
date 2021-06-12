@@ -1,4 +1,4 @@
-export interface Illness {
+export interface IllnessIn {
     id: number;
     name: string;
 }
