@@ -91,14 +91,12 @@ export class PsychologistAddComponent implements OnInit {
     input.rate = +input.rate;
     if(this.isAModification){
       input.id = +this.psychologistId;
-      console.warn(input);
       this.psychologistsService.patch(input).subscribe(
         (() => this.goBackToListView()),
         ((error : any) => console.log(error))
       );
     }
     else{
-      console.warn(input);
       this.psychologistsService.post(input).subscribe(
         (() => this.goBackToListView()),
         ((error : any) => console.log(error))

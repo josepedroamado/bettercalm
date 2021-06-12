@@ -47,7 +47,6 @@ export class PsychologistsService extends BaseService{
         'Authorization': localStorage.getItem("token") ?? ""
       })
     };
-    console.warn(options);
     return this.http.post<Psychologist>(this.target_url, input, options)
     .pipe(catchError(this.handleError) );
   }
@@ -63,17 +62,17 @@ export class PsychologistsService extends BaseService{
     .pipe(catchError(this.handleError) );
   }
 
-  public remove(input: Psychologist): void{
-    const options = {
+  public remove(input: number): Observable<unknown>{
+    let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem("token") ?? ""
       }),
       body: {
-        Id: input.id
+        id: input
       },
     };
-    this.http.delete(this.target_url, options)
+    return this.http.delete<any>(this.target_url, options)
     .pipe(catchError(this.handleError));
   }
 }

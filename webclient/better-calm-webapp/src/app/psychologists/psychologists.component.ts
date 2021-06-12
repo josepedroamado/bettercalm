@@ -14,9 +14,12 @@ export class PsychologistsComponent implements OnInit {
   constructor(private psychologistsService: PsychologistsService, private router: Router) { }
 
   ngOnInit(): void {
-    this.psychologistsService.getAll().subscribe((contents) => this.setPsychologists(contents), console.error);
+    this.updatePsychologists();
   }
 
+  private updatePsychologists(){
+    this.psychologistsService.getAll().subscribe((contents) => this.setPsychologists(contents), console.error);
+  }
   private setPsychologists(psychologists:Psychologist[]){
     this.psychologists = psychologists;
   }
@@ -30,8 +33,8 @@ export class PsychologistsComponent implements OnInit {
     }
   }
 
-  removePsychologist(psychologist: Psychologist){
-    this.psychologistsService.remove(psychologist);
-    this.router.navigate(['/psychologists']);
+  removePsychologist(psychologist: number){
+    this.psychologistsService.remove(psychologist).subscribe();
+    this.updatePsychologists();
   }
 }
