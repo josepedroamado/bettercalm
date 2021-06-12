@@ -117,11 +117,11 @@ namespace WebAPI.Test
 
             IActionResult result = controller.Get(expectedContent.Id);
             OkObjectResult objectResult = result as OkObjectResult;
-            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            ContentModel obtainedContent = objectResult.Value as ContentModel;
 
             mock.VerifyAll();
-            Assert.IsTrue((new ContentBasicInfoComparer()).
-               Compare(new ContentBasicInfo(expectedContent), obtainedContent) == 0);
+            Assert.IsTrue((new ContentModelComparer()).
+               Compare(new ContentModel(expectedContent), obtainedContent) == 0);
         }
 
         [TestMethod]
@@ -175,7 +175,7 @@ namespace WebAPI.Test
             controller.Post(contentModel);
             IActionResult result = controller.Get(contentEntity.Id);
             OkObjectResult objectResult = result as OkObjectResult;
-            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            ContentModel obtainedContent = objectResult.Value as ContentModel;
             Assert.IsTrue(obtainedContent.Id == contentEntity.Id);
         }
 
@@ -204,7 +204,7 @@ namespace WebAPI.Test
             controller.Post(contentModel);
             IActionResult result = controller.Get(contentEntity.Id);
             OkObjectResult objectResult = result as OkObjectResult;
-            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
+            ContentModel obtainedContent = objectResult.Value as ContentModel;
             Assert.IsTrue(obtainedContent.Id == contentEntity.Id);
         }
 
@@ -369,9 +369,9 @@ namespace WebAPI.Test
             controller.Patch(contentModel);
             IActionResult result = controller.Get(contentEntity.Id);
             OkObjectResult objectResult = result as OkObjectResult;
-            ContentBasicInfo obtainedContent = objectResult.Value as ContentBasicInfo;
-            Assert.IsTrue((new ContentBasicInfoComparer()).
-               Compare(new ContentBasicInfo(contentEntity), obtainedContent) == 0);
+            ContentModel obtainedContent = objectResult.Value as ContentModel;
+            Assert.IsTrue((new ContentModelComparer()).
+               Compare(new ContentModel(contentEntity), obtainedContent) == 0);
         }
 
         [TestMethod]
