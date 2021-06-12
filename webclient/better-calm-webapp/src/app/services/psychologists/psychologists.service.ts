@@ -28,6 +28,18 @@ export class PsychologistsService extends BaseService{
       .pipe(catchError(this.handleError));
   }
 
+  public get(id: number): Observable<Psychologist> {
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem("token") ?? ""
+      })
+    };
+    return this.http
+      .get<Psychologist>(this.target_url + '/' + id, options)
+      .pipe(catchError(this.handleError));
+  }
+
   public post(input: Psychologist): Observable<Psychologist>{
     let options = {
       headers: new HttpHeaders({

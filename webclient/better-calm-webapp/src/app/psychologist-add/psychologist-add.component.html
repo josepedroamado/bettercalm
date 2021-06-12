@@ -1,6 +1,6 @@
 <div class="card text-dark bg-light mb-3 ms-auto me-auto wd-75">
     <div class="card-header text-light bg-primary">
-        <h5 class="card-title mt-1">Agregar Psicólogo</h5>
+        <h5 class="card-title mt-1">{{title}}</h5>
     </div>
     <div class="card-body">
         <form [formGroup]="psychologistForm" (ngSubmit)="onSubmit(psychologistForm.value)">
@@ -34,7 +34,7 @@
                     <ng-select [items]="illnesses" bindLabel="name" bindValue="id" labelForId="state"
                                 [multiple]="true" placeholder="Seleccione las dolencias" clearAllText="Limpiar"
                                 [hideSelected]="true" notFoundText="No hay dolencias registradas"
-                                [maxSelectedItems]="maxItems" formControlName="illnessModels">
+                                [maxSelectedItems]="maxItems" [ngModel]="selectedIllnesses" formControlName="illnessModels">
                     </ng-select>
                 </div>
                 <div class="col">
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <button type="button" class="btn btn-primary me-3" (click)="goBackToListView()">Cancelar</button>
-            <button type="submit" class="btn btn-primary" [disabled]="!psychologistForm.valid">Agregar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!psychologistForm.valid">{{buttonText}}</button>
         </form>
     </div>
 </div>

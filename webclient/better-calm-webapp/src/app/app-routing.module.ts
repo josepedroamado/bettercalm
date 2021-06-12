@@ -45,6 +45,12 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'psychologist-add/:id',
+    component: PsychologistAddComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
     path: 'administrators',
     component: AdministratorsComponent,
     canActivate: [AdministratorGuard],

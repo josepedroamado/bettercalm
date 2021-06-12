@@ -21,8 +21,13 @@ export class PsychologistsComponent implements OnInit {
     this.psychologists = psychologists;
   }
 
-  goToAddView(){
-    this.router.navigate(['/psychologist-add'])
+  goToAddView(id: any){
+    if(id != null){
+      this.router.navigate(['/psychologist-add/'+id])
+    }
+    else{
+      this.router.navigate(['/psychologist-add']);
+    }
   }
 
   removePsychologist(psychologist: Psychologist){
