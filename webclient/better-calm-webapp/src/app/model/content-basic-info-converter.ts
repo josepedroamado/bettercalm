@@ -4,7 +4,7 @@ import { TimeStampConverter } from './time-stamp-converter';
 
 export class ContentBasicInfoConverter{
     public static GetDomainContent(contentBasicInfo:ContentBasicInfo):Content{
-        let content:Content = {
+        return {
             artistName: contentBasicInfo.artistName,
             contentLength: TimeStampConverter.GetDomainTimeStamp(contentBasicInfo.contentLength),
             contentType: contentBasicInfo.contentType,
@@ -12,8 +12,8 @@ export class ContentBasicInfoConverter{
             id: contentBasicInfo.id,
             imageUrl: contentBasicInfo.imageUrl,
             name: contentBasicInfo.name,
-            categories: contentBasicInfo.categories
+            categories: contentBasicInfo.categories,
+            playlists: []
         }
-        return content;
     }
 }
