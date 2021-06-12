@@ -1,0 +1,27 @@
+<div class="card text-dark bg-light mb-3 ms-auto me-auto wd-75">
+    <div class="card-header text-light bg-primary">
+        <h5 class="card-title mt-1">{{title}}</h5>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="administratorForm" (ngSubmit)="onSubmit(administratorForm.value)">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese el nombre" id="name" formControlName="name" required>
+                </div>
+                <div class="col">
+                    <label for="lastName" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese el apellido" id="lastName" formControlName="lastName" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="password" class="form-label">Dirección</label>
+                    <input type="password" class="form-control" placeholder="Por favor ingrese una contraseña" id="password" formControlName="password" required>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary me-3" (click)="goBackToListView()">Cancelar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!administratorForm.valid">{{buttonText}}</button>
+        </form>
+    </div>
+</div>

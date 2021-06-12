@@ -24,8 +24,13 @@ export class AdministratorsComponent implements OnInit {
     this.administrators = administrators;
   }
 
-  goToAddView(){
-    this.router.navigate(['/administrator-add'])
+  goToAddView(id: any){
+    if(id != null){
+      this.router.navigate(['/administrator-add/'+id])
+    }
+    else{
+      this.router.navigate(['/administrator-add']);
+    }
   }
 
   removeAdministrator(administrator: number){

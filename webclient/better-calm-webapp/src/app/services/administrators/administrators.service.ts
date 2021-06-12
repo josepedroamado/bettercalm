@@ -28,6 +28,18 @@ export class AdministratorsService extends BaseService{
       .pipe(catchError(this.handleError));
   }
 
+  public get(email: string): Observable<Administrator> {
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem("token") ?? ""
+      })
+    };
+    return this.http
+      .get<Administrator>(this.target_url + '/' + email, options)
+      .pipe(catchError(this.handleError));
+  }
+
   public post(input: Administrator): Observable<Administrator>{
     let options = {
       headers: new HttpHeaders({

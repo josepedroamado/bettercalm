@@ -22,6 +22,7 @@ import { ImportersComponent } from './importers/importers.component';
 import { PsychologistAddComponent } from './psychologist-add/psychologist-add.component';
 import { NgSelectModule } from '@ng-select/ng-select'; 
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
+import { AdministratorAddComponent } from './administrator-add/administrator-add.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
     AdministratorsComponent,
     ApprovediscountsComponent,
     ImportersComponent,
-    PsychologistAddComponent
+    PsychologistAddComponent,
+    AdministratorAddComponent
   ],
   imports: [
     BrowserModule,
