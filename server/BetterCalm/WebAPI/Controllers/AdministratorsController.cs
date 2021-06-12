@@ -49,5 +49,12 @@ namespace WebAPI.Controllers
 					Select(user => new AdministratorOutputModel(user)).
 					ToList());
 		}
+
+		[HttpGet("{id}")]
+		public IActionResult Get(string email)
+		{
+			AdministratorOutputModel user = new AdministratorOutputModel(this.userLogic.GetUser(email));
+			return Ok(user);
+		}
 	}
 }

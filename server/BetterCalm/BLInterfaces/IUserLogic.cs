@@ -9,5 +9,6 @@ namespace BLInterfaces
 		void UpdateUser(User user);
 		void DeleteUser(int id);
 		ICollection<User> GetUsersByRole(string roleName);
+		User GetUser(string email);
 	}
 }
