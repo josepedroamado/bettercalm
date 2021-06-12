@@ -10,6 +10,9 @@ export class ContentCardComponent implements OnInit {
   @Input() content:Content | any= {};
   detailContentUri:string = `contents/detail`;
   showDetail:boolean = false;
+  contentsBasePath = "contents/";
+  editPath = "edit";
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -21,5 +24,17 @@ export class ContentCardComponent implements OnInit {
 
   public show():void{
     this.showDetail = !this.showDetail;
+  }
+
+  public edit():void{
+    this.showDetail = !this.showDetail;
+  }
+
+  public delete():void{
+    this.showDetail = !this.showDetail;
+  }
+
+  public getEditPath():string{
+    return this.contentsBasePath+this.editPath+`?id=${this.content.id}`;
   }
 }

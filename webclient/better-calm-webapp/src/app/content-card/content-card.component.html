@@ -6,6 +6,8 @@
         <p class="card-text">Duration: {{content.contentLength}}</p>
         <p class="card-text">Type: {{content.contentType}}</p>
         <a (click)="show()" class="btn btn-primary">Show</a>
+        <a class="btn btn-primary" [routerLink]="['/contents/edit', content.id]">Edit</a>
+        <a (click)="delete()" class="btn btn-danger">Delete</a>
         <app-content-detail *ngIf="showDetail" [content]="content"></app-content-detail>
     </div>
 </div>
