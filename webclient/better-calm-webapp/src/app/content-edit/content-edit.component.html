@@ -96,7 +96,7 @@
                                                   </select>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary" [disabled]="!playlistForm.valid">Confirmar</button>
+                                        <button type="submit" class="btn btn-primary" [disabled]="!playlistForm.valid" data-bs-toggle="modal" [attr.data-bs-target]="'#addPlaylist'+content.id">Confirmar</button>
                                     </form>
                                 </div>
                             </div>
