@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { PsychologistIn as Psychologist } from 'src/app/model/psychologist';
+import { Psychologist } from 'src/app/model/psychologist';
 import { environment } from 'src/environments/environment';
 import { BaseService } from '../common/base-service';
 
@@ -35,6 +35,7 @@ export class PsychologistsService extends BaseService{
         'Authorization': localStorage.getItem("token") ?? ""
       })
     };
+    console.warn(options);
     return this.http.post<Psychologist>(this.target_url, input, options)
     .pipe(catchError(this.handleError) );
   }
@@ -48,5 +49,20 @@ export class PsychologistsService extends BaseService{
     };
     return this.http.patch<Psychologist>(this.target_url, input, options)
     .pipe(catchError(this.handleError) );
+  }
+
+  public remove(input: Psychologist): void{
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem("token") ?? ""
+      }),
+      body: {
+        Id: input.id
+      },
+    };
+    console.warn(options.headers);
+    this.http.delete(this.target_url, options)
+    .pipe(catchError(this.handleError));
   }
 }

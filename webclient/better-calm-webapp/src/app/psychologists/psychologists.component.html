@@ -19,7 +19,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let psychologist of psychologists">
+                            <tr *ngFor="let psychologist of psychologists">                                
                                 <th scope="row">{{psychologist.id}}</th>
                                 <td>{{psychologist.firstName}}</td>
                                 <td>{{psychologist.lastName}}</td>
@@ -28,7 +28,24 @@
                                 <td>${{psychologist.rate}}</td>
                                 <td class="col-2">
                                     <button type="button" class="btn btn-primary btn-sm ms-2 me-1">Editar</button>
-                                    <button type="button" class="btn btn-danger btn-sm ms-1 me-1">Eliminar</button>
+                                    <button type="button" class="btn btn-danger btn-sm ms-1 me-1" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal'+psychologist.id">Eliminar</button>
+                                    <div class="modal fade" [id]="'deleteModal'+psychologist.id" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" [id]="'deleteModalLabel'+psychologist.id">Eliminación de Usuario</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Realmente desea eliminar al usuario {{psychologist.firstName}} {{psychologist.lastName}} del sistema?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="button" class="btn btn-primary" (click)="removePsychologist(psychologist)" data-bs-dismiss="modal">Eliminar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                             
                                 </td>
                             </tr>
                         </tbody>

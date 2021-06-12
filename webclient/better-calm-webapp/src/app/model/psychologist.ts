@@ -1,6 +1,6 @@
 import { IllnessIn } from "./illnessIn";
 
-export interface PsychologistIn {
+export interface Psychologist {
     id: number;
     firstName: string;
     lastName: string;

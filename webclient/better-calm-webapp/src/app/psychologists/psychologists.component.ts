@@ -1,6 +1,6 @@
 import { PsychologistsService } from './../services/psychologists/psychologists.service';
 import { Component, OnInit } from '@angular/core';
-import { PsychologistIn } from '../model/psychologist';
+import { Psychologist } from '../model/psychologist';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./psychologists.component.scss']
 })
 export class PsychologistsComponent implements OnInit {
-  psychologists:PsychologistIn[] = [];
+  psychologists:Psychologist[] = [];
 
   constructor(private psychologistsService: PsychologistsService, private router: Router) { }
 
@@ -17,11 +17,16 @@ export class PsychologistsComponent implements OnInit {
     this.psychologistsService.getAll().subscribe((contents) => this.setPsychologists(contents), console.error);
   }
 
-  private setPsychologists(psychologists:PsychologistIn[]){
+  private setPsychologists(psychologists:Psychologist[]){
     this.psychologists = psychologists;
   }
 
   goToAddView(){
     this.router.navigate(['/psychologist-add'])
+  }
+
+  removePsychologist(psychologist: Psychologist){
+    this.psychologistsService.remove(psychologist);
+    this.router.navigate(['/psychologists']);
   }
 }
