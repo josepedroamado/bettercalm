@@ -256,13 +256,16 @@ namespace WebAPI.Test
                 Format = "OnSite",
                 Rate = 1000
             };
-
+            PsychologistDeleteModel deleteModel = new PsychologistDeleteModel()
+            {
+                Id = psychologistToDelete.Id
+            };
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistLogicMock.Setup(m => m.Delete(psychologistToDelete.Id));
             psychologistLogicMock.Setup(m => m.Get(psychologistToDelete.Id)).Returns(psychologistToDelete.ToEntity());
 
             PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
-            psychologistsController.Delete(psychologistToDelete.Id);
+            psychologistsController.Delete(deleteModel);
 
             psychologistLogicMock.Setup(m => m.Get(psychologistToDelete.Id)).Throws(new NotFoundException(psychologistToDelete.Id.ToString()));
 

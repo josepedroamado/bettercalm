@@ -48,9 +48,9 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpDelete]
-		public void Delete([FromBody] int id)
+		public void Delete([FromBody] PsychologistDeleteModel psychologist)
 		{
-			this.psychologistLogic.Delete(id);
+			this.psychologistLogic.Delete(psychologist.Id);
 		}
 	}
 }
