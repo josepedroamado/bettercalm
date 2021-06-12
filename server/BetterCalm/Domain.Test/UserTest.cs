@@ -15,7 +15,7 @@ namespace Domain.Test
 		{
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Name = "name",
 				Password = "password"
 			};
@@ -42,7 +42,7 @@ namespace Domain.Test
 		{
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Password = "password"
 			};
 
@@ -55,7 +55,7 @@ namespace Domain.Test
 		{
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Name = "name"
 			};
 
@@ -68,7 +68,7 @@ namespace Domain.Test
 			User toUpdate = new User();
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Name = "name",
 				Password = "password",
 				Roles = new List<Role>()
@@ -83,7 +83,7 @@ namespace Domain.Test
 
 			toUpdate.UpdateFromUser(user);
 
-			Assert.IsTrue(Equals(user.EMail, toUpdate.EMail) &&
+			Assert.IsTrue(Equals(user.Email, toUpdate.Email) &&
 				Equals(user.Name, toUpdate.Name) &&
 				Equals(user.Password, toUpdate.Password) &&
 				user.Roles.SequenceEqual(toUpdate.Roles));

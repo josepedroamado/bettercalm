@@ -8,7 +8,7 @@
 
 		public string GetSessionEmail()
 		{
-			return User.EMail;
+			return User.Email;
 		}
 	}
 }

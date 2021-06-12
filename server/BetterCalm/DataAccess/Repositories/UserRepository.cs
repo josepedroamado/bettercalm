@@ -24,8 +24,8 @@ namespace DataAccess.Repositories
 			{
 				try
 				{
-					if (Get(user.EMail) != null)
-						throw new AlreadyExistsException(user.EMail);
+					if (Get(user.Email) != null)
+						throw new AlreadyExistsException(user.Email);
 				}
 				catch (NotFoundException)
 				{
@@ -35,12 +35,12 @@ namespace DataAccess.Repositories
 			}
 		}
 
-		public User Get(string eMail)
+		public User Get(string email)
 		{
 			User user = this.users.
-				FirstOrDefault(user => user.EMail == eMail);
+				FirstOrDefault(user => user.Email == email);
 			if (user == null)
-				throw new NotFoundException(eMail);
+				throw new NotFoundException(email);
 			return user;
 		}
 

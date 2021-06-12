@@ -160,7 +160,7 @@ namespace WebAPI.Test
 			string roleName = "Administrator";
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Id = 1,
 				Password = "1234Test",
 				Name = "test"

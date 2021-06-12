@@ -44,7 +44,7 @@ namespace DataAccess.Test
 		{
             User expectedUser = new User()
             {
-                EMail = "a@a.com",
+                Email = "a@a.com",
                 Id = 1,
                 Password = "1234Test",
                 Name = "test"
@@ -55,7 +55,7 @@ namespace DataAccess.Test
 
             UserRepository repository = new UserRepository(this.context);
 
-            User obtainedUser = repository.Get(expectedUser.EMail);
+            User obtainedUser = repository.Get(expectedUser.Email);
 
             Assert.AreEqual(expectedUser, obtainedUser);
 		}
@@ -79,7 +79,7 @@ namespace DataAccess.Test
 		{
             User expectedUser = new User()
             {
-                EMail = "a@a.com",
+                Email = "a@a.com",
                 Id = 1,
                 Password = "1234Test",
                 Name = "test"
@@ -115,7 +115,7 @@ namespace DataAccess.Test
             User user = new User()
             {
                 Id = 1,
-                EMail = "test@test.com",
+                Email = "test@test.com",
                 Password = "test1234",
                 Name = "test",
                 Roles = new List<Role>()
@@ -130,7 +130,7 @@ namespace DataAccess.Test
 
             UserRepository repository = new UserRepository(this.context);
             repository.Add(user);
-            User obtainedUser = repository.Get(user.EMail);
+            User obtainedUser = repository.Get(user.Email);
 
             Assert.AreEqual(user, obtainedUser);
 		}
@@ -142,7 +142,7 @@ namespace DataAccess.Test
             User user = new User()
             {
                 Id = 1,
-                EMail = "test@test.com",
+                Email = "test@test.com",
                 Password = "test1234",
                 Name = "test",
                 Roles = new List<Role>()
@@ -159,7 +159,7 @@ namespace DataAccess.Test
             repository.Add(user);
             repository.Add(user);
 
-            User obtainedUser = repository.Get(user.EMail);
+            User obtainedUser = repository.Get(user.Email);
 
             Assert.AreEqual(user, obtainedUser);
         }
@@ -171,7 +171,7 @@ namespace DataAccess.Test
             User user = new User()
             {
                 Id = 1,
-                EMail = "test@test.com",
+                Email = "test@test.com",
                 Password = "test1234",
                 Roles = new List<Role>()
                 {
@@ -186,7 +186,7 @@ namespace DataAccess.Test
             UserRepository repository = new UserRepository(this.context);
             repository.Add(user);
 
-            User obtainedUser = repository.Get(user.EMail);
+            User obtainedUser = repository.Get(user.Email);
 
             Assert.IsNull(obtainedUser);
         }
@@ -213,7 +213,7 @@ namespace DataAccess.Test
             UserRepository repository = new UserRepository(this.context);
             repository.Add(user);
 
-            User obtainedUser = repository.Get(user.EMail);
+            User obtainedUser = repository.Get(user.Email);
 
             Assert.IsNull(obtainedUser);
         }
@@ -225,7 +225,7 @@ namespace DataAccess.Test
             User user = new User()
             {
                 Id = 1,
-                EMail = "test@test.com",
+                Email = "test@test.com",
                 Name = "name",
                 Roles = new List<Role>()
                 {
@@ -240,7 +240,7 @@ namespace DataAccess.Test
             UserRepository repository = new UserRepository(this.context);
             repository.Add(user);
 
-            User obtainedUser = repository.Get(user.EMail);
+            User obtainedUser = repository.Get(user.Email);
 
             Assert.IsNull(obtainedUser);
         }
@@ -252,7 +252,7 @@ namespace DataAccess.Test
             User user = new User()
             {
                 Id = 1,
-                EMail = "test@test.com",
+                Email = "test@test.com",
                 Password = "test1234",
                 Name = "test",
                 Roles = new List<Role>()
@@ -271,7 +271,7 @@ namespace DataAccess.Test
             user.Password = "test12345";
             repository.Update(user);
            
-            User obtainedUser = repository.Get(user.EMail);
+            User obtainedUser = repository.Get(user.Email);
 
             Assert.AreEqual(user.Password, obtainedUser.Password);
         }
@@ -283,7 +283,7 @@ namespace DataAccess.Test
             User user = new User()
             {
                 Id = 1,
-                EMail = "test@test.com",
+                Email = "test@test.com",
                 Password = "test1234",
                 Name = "test",
                 Roles = new List<Role>()
@@ -299,12 +299,12 @@ namespace DataAccess.Test
             UserRepository repository = new UserRepository(this.context);
             repository.Add(user);
 
-            user.EMail = string.Empty;
+            user.Email = string.Empty;
             repository.Update(user);
 
-            User obtainedUser = repository.Get(user.EMail);
+            User obtainedUser = repository.Get(user.Email);
 
-            Assert.AreNotEqual(user.EMail, obtainedUser.EMail);
+            Assert.AreNotEqual(user.Email, obtainedUser.Email);
         }
 
         [TestMethod]
@@ -314,7 +314,7 @@ namespace DataAccess.Test
             User user = new User()
             {
                 Id = 1,
-                EMail = "test@test.com",
+                Email = "test@test.com",
                 Password = "test1234",
                 Name = "test",
                 Roles = new List<Role>()
@@ -333,7 +333,7 @@ namespace DataAccess.Test
             user.Password = string.Empty;
             repository.Update(user);
 
-            User obtainedUser = repository.Get(user.EMail);
+            User obtainedUser = repository.Get(user.Email);
 
             Assert.AreNotEqual(user.Password, obtainedUser.Password);
         }
@@ -345,7 +345,7 @@ namespace DataAccess.Test
             User user = new User()
             {
                 Id = 1,
-                EMail = "test@test.com",
+                Email = "test@test.com",
                 Password = "test1234",
                 Name = "test",
                 Roles = new List<Role>()
@@ -364,7 +364,7 @@ namespace DataAccess.Test
             user.Name = string.Empty;
             repository.Update(user);
 
-            User obtainedUser = repository.Get(user.EMail);
+            User obtainedUser = repository.Get(user.Email);
 
             Assert.AreNotEqual(user.Name, obtainedUser.Name);
         }
@@ -376,7 +376,7 @@ namespace DataAccess.Test
             User user = new User()
             {
                 Id = 1,
-                EMail = "test@test.com",
+                Email = "test@test.com",
                 Password = "test1234",
                 Name = "test",
                 Roles = new List<Role>()
@@ -394,7 +394,7 @@ namespace DataAccess.Test
             user.Password = "test12345";
             repository.Update(user);
 
-            User obtainedUser = repository.Get(user.EMail);
+            User obtainedUser = repository.Get(user.Email);
 
             Assert.IsNull(obtainedUser);
         }
@@ -405,7 +405,7 @@ namespace DataAccess.Test
         {
             User expectedUser = new User()
             {
-                EMail = "a@a.com",
+                Email = "a@a.com",
                 Id = 1,
                 Password = "1234Test",
                 Name = "test"
@@ -417,7 +417,7 @@ namespace DataAccess.Test
             UserRepository repository = new UserRepository(this.context);
 
             repository.Delete(expectedUser.Id);
-            User obtainedUser = repository.Get(expectedUser.EMail);
+            User obtainedUser = repository.Get(expectedUser.Email);
 
             Assert.IsNull(obtainedUser);
         }

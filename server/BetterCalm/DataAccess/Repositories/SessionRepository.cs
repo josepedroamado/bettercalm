@@ -35,7 +35,7 @@ namespace DataAccess.Repositories
         public Session GetByEmail(string eMail)
 		{
 			Session session = this.sessions.
-				FirstOrDefault(itSession => itSession.User.EMail == eMail);
+				FirstOrDefault(itSession => itSession.User.Email == eMail);
 			return session;
 		}
 

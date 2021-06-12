@@ -48,7 +48,7 @@ namespace DataAccess.Test
                 User = new User()
 				{
                     Id = 1,
-                    EMail = "a@a.com",
+                    Email = "a@a.com",
                     Password = "1234",
                     Name = "test"
                 }
@@ -85,7 +85,7 @@ namespace DataAccess.Test
                 User = new User()
                 {
                     Id = 1,
-                    EMail = "a@a.com",
+                    Email = "a@a.com",
                     Password = "1234",
                     Name = "test"
                 }
@@ -122,7 +122,7 @@ namespace DataAccess.Test
                 User = new User()
                 {
                     Id = 1,
-                    EMail = "a@a.com",
+                    Email = "a@a.com",
                     Password = "1234",
                     Name = "test"
                 }
@@ -146,7 +146,7 @@ namespace DataAccess.Test
                 User = new User()
                 {
                     Id = 1,
-                    EMail = "a@a.com",
+                    Email = "a@a.com",
                     Password = "1234",
                     Name = "test"
                 }
@@ -172,7 +172,7 @@ namespace DataAccess.Test
                 User = new User()
                 {
                     Id = 1,
-                    EMail = "a@a.com",
+                    Email = "a@a.com",
                     Password = "1234",
                     Name = "test",
                     Roles = new List<Role>()
@@ -203,7 +203,7 @@ namespace DataAccess.Test
                 User = new User()
                 {
                     Id = 1,
-                    EMail = "a@a.com",
+                    Email = "a@a.com",
                     Password = "1234",
                     Name = "test",
                     Roles = new List<Role>()
