@@ -1,0 +1,54 @@
+<div class="card text-dark bg-light mb-3 ms-auto me-auto wd-75">
+    <div class="card-header text-light bg-primary">
+        <h5 class="card-title mt-1">Agregar Psicólogo</h5>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="psychologistForm" (ngSubmit)="onSubmit(psychologistForm.value)">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese el nombre" id="firstName" formControlName="firstName" required>
+                </div>
+                <div class="col">
+                    <label for="lastName" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese el apellido" id="lastName" formControlName="lastName" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="address" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese la dirección" id="address" formControlName="address" required>
+                </div>
+                <div class="col">
+                    <label for="format" class="form-label">Seleccione el formato de atención</label>
+                    <select class="form-select" id="format" formControlName="format" required>
+                        <option value="OnSite">Presencial</option>
+                        <option value="Remote">Remoto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                
+                <div class="col">
+                    <label for="illnessModels">Seleccione las dolencias en que es experto</label>
+                    <ng-select [items]="illnesses" bindLabel="name" bindValue="id" labelForId="state"
+                                [multiple]="true" placeholder="Seleccione las dolencias" clearAllText="Limpiar"
+                                [hideSelected]="true" notFoundText="No hay dolencias registradas"
+                                [maxSelectedItems]="maxItems" formControlName="illnessModels">
+                    </ng-select>
+                </div>
+                <div class="col">
+                    <label for="rate" class="form-label">Seleccione el costo por hora</label>
+                    <select class="form-select" id="rate" formControlName="rate" required>
+                        <option value="500">$500</option>
+                        <option value="750">$750</option>
+                        <option value="1000">$1000</option>
+                        <option value="2000">$2000</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary me-3" (click)="goBackToListView()">Cancelar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!psychologistForm.valid">Agregar</button>
+        </form>
+    </div>
+</div>

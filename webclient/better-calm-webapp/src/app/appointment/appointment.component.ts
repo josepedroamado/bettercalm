@@ -1,7 +1,7 @@
 import { AppointmentOut } from 'src/app/model/appointmentOut';
 import { AppointmentsService } from './../services/appointments/appointments.service';
 import { Component, OnInit } from '@angular/core';
-import { Illness } from '../model/illness';
+import { IllnessIn } from '../model/illnessIn';
 import { IllnessesService } from '../services/illnesses/illnesses.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AppointmentIn } from '../model/appointmentIn';
@@ -13,7 +13,7 @@ import { AppointmentIn } from '../model/appointmentIn';
   providers: [ IllnessesService ]
 })
 export class AppointmentComponent implements OnInit {
-  illnesses:Illness[] = [];
+  illnesses:IllnessIn[] = [];
   today = new Date();
   submitted = false;
   psychologistName:string = "";
@@ -35,12 +35,12 @@ export class AppointmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.illnessesService.getIllnesses().subscribe(
-        ((data : Array<Illness>) => this.setIllnesses(data)),
+        ((data : Array<IllnessIn>) => this.setIllnesses(data)),
         ((error : any) => console.log(error))
       );
   }
 
-  private setIllnesses(data: Array<Illness>):void {
+  private setIllnesses(data: Array<IllnessIn>):void {
     this.illnesses = data;
   }
 

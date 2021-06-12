@@ -1,4 +1,4 @@
-import { Illness } from '../../model/illness';
+import { IllnessIn } from '../../model/illnessIn';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -16,9 +16,9 @@ export class IllnessesService extends BaseService{
     super(http);
    }
 
-  public getIllnesses(): Observable<Illness[]> {
+  public getIllnesses(): Observable<IllnessIn[]> {
     return this.http
-      .get<Illness[]>(this.target_url)
+      .get<IllnessIn[]>(this.target_url)
       .pipe(catchError(this.handleError));
   }
 }

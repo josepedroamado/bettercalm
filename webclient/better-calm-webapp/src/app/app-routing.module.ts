@@ -1,3 +1,4 @@
+import { PsychologistAddComponent } from './psychologist-add/psychologist-add.component';
 import { AdministratorGuard } from './guards/administrator.guard';
 import { ImportersComponent } from './importers/importers.component';
 import { ApprovediscountsComponent } from './approvediscounts/approvediscounts.component';
@@ -34,6 +35,12 @@ const routes: Routes = [
   {
     path: 'psychologists',
     component: PsychologistsComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'psychologist-add',
+    component: PsychologistAddComponent,
     canActivate: [AdministratorGuard],
     pathMatch: 'full'
   },

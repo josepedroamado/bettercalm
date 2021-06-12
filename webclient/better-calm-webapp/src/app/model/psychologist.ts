@@ -1,11 +1,11 @@
-import { Illness } from "./illness";
+import { IllnessIn } from "./illnessIn";
 
-export interface Psychologist {
+export interface PsychologistIn {
     id: number;
     firstName: string;
     lastName: string;
     address: string;
     format: string;
-    illnesses:Illness[];
+    illnessModels:IllnessIn[];
     rate: number;
 }
