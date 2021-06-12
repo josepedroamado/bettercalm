@@ -1,6 +1,4 @@
-<div *ngIf="isLoading" class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
-</div>
+<app-loading *ngIf="isLoading" text="Loading contents..."></app-loading>
 <div *ngIf="!isLoading">
     <div class="container-fluid">
         <div class="btn-group" role="group" aria-label="Content type selector" style="display:inline-block">
