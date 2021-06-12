@@ -61,7 +61,6 @@ export class PsychologistsService extends BaseService{
         Id: input.id
       },
     };
-    console.warn(options.headers);
     this.http.delete(this.target_url, options)
     .pipe(catchError(this.handleError));
   }
