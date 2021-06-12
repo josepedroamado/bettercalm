@@ -9,6 +9,7 @@ import { AppointmentComponent } from './appointment/appointment.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentsComponent } from './contents/contents.component';
+import { ContentEditComponent } from './content-edit/content-edit.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,12 @@ const routes: Routes = [
     path: 'contents',
     component: ContentsComponent,
     pathMatch: 'full'
+  },
+  {
+    path: 'contents/edit/:id',
+    component: ContentEditComponent,
+    pathMatch: 'full',
+    canActivate: [AdministratorGuard]
   },
   {
     path: 'appointment',
