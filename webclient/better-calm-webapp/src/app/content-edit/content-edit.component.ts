@@ -37,6 +37,13 @@ export class ContentEditComponent implements OnInit {
       categories: ['', Validators.required],
       playlistIds: ['']
     });
+  
+  public playlistForm = this.formBuilder.group({
+    name: ['', Validators.required],
+    description: ['', Validators.required],
+    imageUrl: ['', [Validators.pattern(ContentEditComponent.urlPattern)]],
+    categories: ['', Validators.required],
+  });
 
   constructor(private contentsService: ContentsService,
     private categoriesService: CategoriesService,
@@ -121,6 +128,14 @@ export class ContentEditComponent implements OnInit {
     else{
       this.contentsService.patch(content).subscribe(() => {}, this.setError, this.setOk);
     }    
+  }
+
+  onSubmitPlaylist(playlist: Playlist){
+    playlist.id = 0;
+    this.playlists.push(playlist);
+    let currentContent = this.contentForm.value;
+    currentContent.playlistIds.push(playlist.id);
+    this.contentForm.patchValue(currentContent);
   }
 
   private setOk():void{
