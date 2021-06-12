@@ -57,7 +57,7 @@
             <div class="row mb-3">
                 <div class="col">
                     <label for="playlistIds" class="form-label">Selecciona las playlists</label>
-                    <select class="form-select" id="playlistIds" formControlName="playlistIds" multiple aria-label="multiple select example" required>
+                    <select class="form-select" id="playlistIds" formControlName="playlistIds" multiple aria-label="multiple select example">
                         <ng-container *ngFor="let playlist of playlists">
                             <option [value]="playlist.id">{{playlist.name}}</option>
                         </ng-container>
