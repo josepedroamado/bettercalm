@@ -19,6 +19,9 @@ import { PsychologistsComponent } from './psychologists/psychologists.component'
 import { AdministratorsComponent } from './administrators/administrators.component';
 import { ApprovediscountsComponent } from './approvediscounts/approvediscounts.component';
 import { ImportersComponent } from './importers/importers.component';
+import { ContentEditComponent } from './content-edit/content-edit.component';
+import { LoadingComponent } from './loading/loading.component';
+import { ShowErrorComponent } from './show-error/show-error.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { ImportersComponent } from './importers/importers.component';
     PsychologistsComponent,
     AdministratorsComponent,
     ApprovediscountsComponent,
-    ImportersComponent
+    ImportersComponent,
+    ContentEditComponent,
+    LoadingComponent,
+    ShowErrorComponent
   ],
   imports: [
     BrowserModule,
