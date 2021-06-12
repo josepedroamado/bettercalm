@@ -10,11 +10,11 @@
             <div class="row mb-3">
                 <div class="col">
                     <label for="id" class="form-label">Id</label>
-                    <input type="number" [(ngModel)]='content.id' class="form-control" placeholder="Por favor ingrese el id del contenido" id="id" formControlName="id" required>
+                    <input type="number" class="form-control" placeholder="Por favor ingrese el id del contenido" id="id" formControlName="id" required>
                 </div>
                 <div class="col">
                     <label for="contentLength" class="form-label">Duración</label>
-                    <input type="text" [(ngModel)]='content.contentLength' class="form-control" placeholder="Por favor ingrese la duración" id="contentLength" formControlName="contentLength" required>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese la duración" id="contentLength" formControlName="contentLength" required>
                 </div>
                 <div class="col">
                     <label for="contentType" class="form-label">Seleccione el tipo de contenido</label>
@@ -27,21 +27,21 @@
             <div class="row mb-3">
                 <div class="col">
                     <label for="name" class="form-label">Nombre</label>
-                    <input type="text" [(ngModel)]='content.name' class="form-control" placeholder="Por favor ingrese el nombre del contenido" id="name" formControlName="name" required>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese el nombre del contenido" id="name" formControlName="name" required>
                 </div>
                 <div class="col">
                     <label for="artistName" class="form-label">Artista</label>
-                    <input type="text" [(ngModel)]='content.artistName' class="form-control" placeholder="Por favor ingrese el nombre del artista" id="artistName" formControlName="artistName" required>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese el nombre del artista" id="artistName" formControlName="artistName" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
                     <label for="imageUrl" class="form-label">Imagen</label>
-                    <input type="url" [(ngModel)]='content.imageUrl' class="form-control" placeholder="Por favor ingrese la url de la imagen de portada" id="imageUrl" formControlName="imageUrl" required>
+                    <input type="url" class="form-control" placeholder="Por favor ingrese la url de la imagen de portada" id="imageUrl" formControlName="imageUrl" required>
                 </div>
                 <div class="col">
                     <label for="contentUrl" class="form-label">Contenido</label>
-                    <input type="url" [(ngModel)]='content.contentUrl' class="form-control" placeholder="Por favor ingrese la url del contenido" id="contentUrl" formControlName="contentUrl" required>
+                    <input type="url" class="form-control" placeholder="Por favor ingrese la url del contenido" id="contentUrl" formControlName="contentUrl" required>
                 </div>
             </div>
             <div class="row mb-3">
@@ -53,9 +53,15 @@
                         </ng-container>
                       </select>
                 </div>
+            </div>
+            <div class="row mb-3">
                 <div class="col">
-                    <label for="playlists" class="form-label">Playlists</label>
-                    <input type="text" class="form-control" placeholder="Por favor selecciona las playlists" id="playlists" formControlName="playlists">
+                    <label for="playlists" class="form-label">Selecciona las playlists</label>
+                    <select class="form-select" id="playlists" formControlName="playlists" multiple aria-label="multiple select example" required>
+                        <ng-container *ngFor="let playlist of playlists">
+                            <option [value]="playlist.id">{{playlist.name}}</option>
+                        </ng-container>
+                      </select>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" [disabled]="!contentForm.valid">Confirmar</button>

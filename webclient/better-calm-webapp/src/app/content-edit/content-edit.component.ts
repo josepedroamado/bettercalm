@@ -33,7 +33,8 @@ export class ContentEditComponent implements OnInit {
       imageUrl: ['', [Validators.pattern(ContentEditComponent.urlPattern)]],
       contentUrl: ['', [Validators.pattern(ContentEditComponent.urlPattern), Validators.required]],
       contentType: ['', Validators.required],
-      categories: ['', Validators.required]
+      categories: ['', Validators.required],
+      playlists: ['']
     });
 
   constructor(private contentsService: ContentsService,
@@ -71,6 +72,17 @@ export class ContentEditComponent implements OnInit {
 
   private setContent(content:Content):void{
     this.content = content;
+    this.contentForm.patchValue({
+      id: content.id,
+      name: content.name,
+      contentLength: content.contentLength,
+      artistName: content.artistName,
+      imageUrl: content.imageUrl,
+      contentUrl: content.contentUrl,
+      contentType: content.contentType,
+      categories: content.categories,
+      playlists: content.playlistIds
+    })
     this.hasError = false;
     this.isLoadingContent = false;
   }
