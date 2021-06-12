@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Content } from '../domain/content';
+import { ContentsService } from '../services/contents/contents.service';
 
 @Component({
   selector: 'app-content-card',
@@ -12,8 +13,9 @@ export class ContentCardComponent implements OnInit {
   showDetail:boolean = false;
   contentsBasePath = "contents/";
   editPath = "edit";
+
   
-  constructor() { }
+  constructor(private contentsService: ContentsService) { }
 
   ngOnInit(): void {
   }
@@ -26,15 +28,11 @@ export class ContentCardComponent implements OnInit {
     this.showDetail = !this.showDetail;
   }
 
-  public edit():void{
-    this.showDetail = !this.showDetail;
-  }
-
-  public delete():void{
-    this.showDetail = !this.showDetail;
-  }
-
   public getEditPath():string{
     return this.contentsBasePath+this.editPath+`?id=${this.content.id}`;
+  }
+
+  public removeContent(id:number):void{
+    this.contentsService.delete(id).subscribe();
   }
 }

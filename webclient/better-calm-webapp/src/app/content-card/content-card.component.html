@@ -6,8 +6,25 @@
         <p class="card-text">Duration: {{content.contentLength}}</p>
         <p class="card-text">Type: {{content.contentType}}</p>
         <a (click)="show()" class="btn btn-primary">Show</a>
-        <a class="btn btn-primary" [routerLink]="['/contents/edit', content.id]">Edit</a>
-        <a (click)="delete()" class="btn btn-danger">Delete</a>
+        <a class="btn btn-primary" [routerLink]="['/contents/edit', content.id]">Editar</a>
+        <a class="btn btn-danger" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal'+content.id">Eliminar</a>
+        <div class="modal fade" [id]="'deleteModal'+content.id" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" [id]="'deleteModalLabel'+content.id">Eliminación de Contenido</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        Realmente desea el contenido {{content.name}} del sistema?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" (click)="removeContent(content.id)" data-bs-dismiss="modal">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <app-content-detail *ngIf="showDetail" [content]="content"></app-content-detail>
     </div>
 </div>
