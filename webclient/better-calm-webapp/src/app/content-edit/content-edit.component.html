@@ -1,0 +1,64 @@
+<app-loading *ngIf="!hasError && (isLoadingContent || isLoadingCategories || isLoadingPlaylists)" text="Loading..."></app-loading>
+<app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
+<div *ngIf="!(isLoadingContent || isLoadingCategories || isLoadingPlaylists) && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto wd-75">
+    <div class="card-header text-light bg-primary">
+        <h5 class="card-title mt-1">Edición de contenido </h5>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Para editar el contenido, por favor complete el siguiente formulario.</p>
+        <form [formGroup]="contentForm" (ngSubmit)="onSubmit(contentForm.value)">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="id" class="form-label">Id</label>
+                    <input type="number" [(ngModel)]='content.id' class="form-control" placeholder="Por favor ingrese el id del contenido" id="id" formControlName="id" required>
+                </div>
+                <div class="col">
+                    <label for="contentLength" class="form-label">Duración</label>
+                    <input type="text" [(ngModel)]='content.contentLength' class="form-control" placeholder="Por favor ingrese la duración" id="contentLength" formControlName="contentLength" required>
+                </div>
+                <div class="col">
+                    <label for="contentType" class="form-label">Seleccione el tipo de contenido</label>
+                    <select class="form-select" id="contentType" formControlName="contentType" required>
+                        <option value="audio" selected>audio</option>
+                        <option value="video">video</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" [(ngModel)]='content.name' class="form-control" placeholder="Por favor ingrese el nombre del contenido" id="name" formControlName="name" required>
+                </div>
+                <div class="col">
+                    <label for="artistName" class="form-label">Artista</label>
+                    <input type="text" [(ngModel)]='content.artistName' class="form-control" placeholder="Por favor ingrese el nombre del artista" id="artistName" formControlName="artistName" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="imageUrl" class="form-label">Imagen</label>
+                    <input type="url" [(ngModel)]='content.imageUrl' class="form-control" placeholder="Por favor ingrese la url de la imagen de portada" id="imageUrl" formControlName="imageUrl" required>
+                </div>
+                <div class="col">
+                    <label for="contentUrl" class="form-label">Contenido</label>
+                    <input type="url" [(ngModel)]='content.contentUrl' class="form-control" placeholder="Por favor ingrese la url del contenido" id="contentUrl" formControlName="contentUrl" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="categories" class="form-label">Selecciona las categorías</label>
+                    <select class="form-select" id="categories" formControlName="categories" multiple aria-label="multiple select example" required>
+                        <ng-container *ngFor="let category of categories">
+                            <option [value]="category.id">{{category.name}}</option>
+                        </ng-container>
+                      </select>
+                </div>
+                <div class="col">
+                    <label for="playlists" class="form-label">Playlists</label>
+                    <input type="text" class="form-control" placeholder="Por favor selecciona las playlists" id="playlists" formControlName="playlists">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!contentForm.valid">Confirmar</button>
+        </form>
+    </div>
+</div>
