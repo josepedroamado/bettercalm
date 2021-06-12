@@ -24,7 +24,7 @@ namespace DataAccess.Repositories
             if (this.psychologists.Count() <= 0)
                 throw new CollectionEmptyException("Psychologists");
             else
-                return this.psychologists.Include(x => x.Rate);
+                return this.psychologists.Include(x => x.Rate).Include(p => p.Illnesses);
         }
 
         public Psychologist Get(int id)
