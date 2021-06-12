@@ -6,7 +6,6 @@ import { EventEmitter, Injectable, Output, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ export class SessionsService extends BaseService {
   private readonly target_url:string = `${environment.api_url}/sessions`
   @Output() sendLoggedInEvent = new EventEmitter<boolean>(true);
   
-  constructor(http: HttpClient, private router: Router) { 
+  constructor(http: HttpClient) { 
     super(http);
   }
 
@@ -38,7 +37,7 @@ export class SessionsService extends BaseService {
     this.sendLoggedInEvent.emit(loggedIn);
   }
 
-  logOut(user: string): void {
+  logOut(user: string): Observable<unknown> {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -46,13 +45,11 @@ export class SessionsService extends BaseService {
       body: {
         Token: user,
       },
-    };
-    
-    this.http
-      .delete(this.target_url, options)
-      .pipe(catchError(this.handleError));
+    }; 
     localStorage.removeItem("token");
     this.emitLoggedStatus(false);
-    this.router.navigate(['/home'])
+    return this.http
+      .delete(this.target_url, options)
+      .pipe(catchError(this.handleError));
   }
 }
