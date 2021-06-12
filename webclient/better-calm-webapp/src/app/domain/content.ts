@@ -9,5 +9,6 @@ export interface Content {
     contentUrl: string;
     contentType: string;
     categories: number[];
-    playlists: Playlist[]
+    playlistIds: number[];
+    playlists: Playlist[];
 }

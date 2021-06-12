@@ -13,7 +13,8 @@ export class ContentBasicInfoConverter{
             imageUrl: contentBasicInfo.imageUrl,
             name: contentBasicInfo.name,
             categories: contentBasicInfo.categories,
-            playlists: []
+            playlists: [],
+            playlistIds: []
         }
     }
 }

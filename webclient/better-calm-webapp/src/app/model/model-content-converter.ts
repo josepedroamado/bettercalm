@@ -1,9 +1,16 @@
 import { Content } from "../domain/content";
+import { Playlist } from "../domain/playlist";
 import { ModelContent } from "./model-content";
 import { PlaylistBasicInfoConverter } from "./playlist-basic-info-converter";
 
 export class ModelContentConverter{
     public static GetDomainContent(modelContent:ModelContent):Content{
+        let playlists:Playlist[] = [];
+        let playlistIds: number[] = [];
+        modelContent.playlists.map(playlist => {
+            playlists.push(PlaylistBasicInfoConverter.GetDomainPlaylist(playlist));
+            playlistIds.push(playlist.id);
+        });
         return {
             artistName: modelContent.artistName,
             categories: modelContent.categories,
@@ -13,8 +20,8 @@ export class ModelContentConverter{
             id: modelContent.id,
             imageUrl: modelContent.imageUrl,
             name: modelContent.name,
-            playlists: modelContent.playlists.map(playlist => 
-                PlaylistBasicInfoConverter.GetDomainPlaylist(playlist))
+            playlists: playlists,
+            playlistIds: playlistIds
         };
     }
 }
