@@ -1,3 +1,5 @@
+import { Playlist } from "./playlist";
+
 export interface Content {
     id: number;
     name: string;
@@ -7,4 +9,5 @@ export interface Content {
     contentUrl: string;
     contentType: string;
     categories: number[];
+    playlists: Playlist[]
 }
