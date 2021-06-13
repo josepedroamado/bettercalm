@@ -30,6 +30,36 @@ namespace BL
 			contents.ForEach(content => contentLogic.CreateContent(content));
 		}
 
+		public List<string> GetTypes()
+		{
+			List<Type> importers = GetImporters();
+			List<string> types = new List<string>();
+
+			foreach(Type importerType in importers)
+			{
+				IImporter importerInstance = (IImporter)Activator.CreateInstance(importerType);
+				string typeId = importerInstance.GetId();
+				if (!types.Contains(typeId))
+				{
+					types.Add(typeId);
+				}
+			};
+			return types;
+		}
+
+		private List<Type> GetImporters()
+		{
+			List<Type> importers = new List<Type>();
+			string path = GetImportersFolderFullPath();
+			foreach (string assembly in Directory.GetFiles(path, assemblyTypeFilter))
+			{
+				Assembly loadedAssembly = Assembly.LoadFrom(assembly);
+				IEnumerable<Type> types = GetTypesInAssembly<IImporter>(loadedAssembly);
+				importers.AddRange(types);
+			}
+			return importers;
+		}
+
 		private IImporter GetImporter(string typeId)
 		{
 			string path = GetImportersFolderFullPath();

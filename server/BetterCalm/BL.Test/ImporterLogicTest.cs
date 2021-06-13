@@ -311,5 +311,23 @@ namespace BL.Test
 				return obtainedContent.Equals(content);
 			}));
 		}
+
+		[TestMethod]
+		public void GetTypes_ExistTypes_Fetched()
+		{
+			List<string> expectedTypes = new List<string>()
+			{
+				"JSON",
+				"XML"
+			};
+
+			Mock<IContentLogic> mock = new Mock<IContentLogic>(MockBehavior.Strict);
+
+			ImporterLogic importer = new ImporterLogic(mock.Object);
+
+			List<string> receivedTypes = importer.GetTypes();
+
+			Assert.IsTrue(expectedTypes.SequenceEqual(receivedTypes));
+		}
 	}
 }

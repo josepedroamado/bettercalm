@@ -1,14 +1,13 @@
 ﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using WebAPI.Filters;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
+	[AuthorizationFilter("Administrator")]
 	public class ImportersController : ControllerBase
 	{
 		private readonly IImporterLogic importerLogic;
@@ -22,6 +21,16 @@ namespace WebAPI.Controllers
 		{
 			importerLogic.Import(importerModel.Type, importerModel.FilePath);
 			return NoContent();
+		}
+
+		[HttpGet("types")]
+		public IActionResult GetTypes()
+		{
+			ImporterTypesModel result = new ImporterTypesModel()
+			{
+				Types = importerLogic.GetTypes()
+			};
+			return Ok(result);
 		}
 	}
 }
