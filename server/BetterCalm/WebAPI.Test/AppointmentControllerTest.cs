@@ -32,16 +32,29 @@ namespace WebAPI.Test
 			{
 				FirstName = "Jhon",
 				LastName = "Doe",
-				Format = Format.OnSite
+				Format = Format.OnSite,
+				Rate = new PsychologistRate()
+                {
+					Id = 1,
+					HourlyRate = 1000
+                }
 			};
 			appointment.Address = "appointment address";
+			appointment.Discount = new AppointmentDiscount()
+			{
+				Id = 1,
+				Discount = 50
+			};
+			appointment.TotalCost = 500;
 
 			AppointmentOutputModel expectedOutput = new AppointmentOutputModel()
 			{
 				Address = appointment.Address,
 				Format = appointment.Psychologist.Format.ToString(),
 				PsychologistName = appointment.Psychologist.GetFullName(),
-				Date = appointment.Date
+				Date = appointment.Date,
+				Cost = 500,
+				Discount = 50
 			};
 
 			Mock<IAppointmentLogic> logicMock = new Mock<IAppointmentLogic>(MockBehavior.Strict);
