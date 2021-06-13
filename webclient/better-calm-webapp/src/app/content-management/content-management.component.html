@@ -1,0 +1,67 @@
+<app-loading *ngIf="isLoading" text="Loading contents..."></app-loading>
+<div *ngIf="!isLoading">
+    <div class="card text-dark bg-light mb-3 ms-auto me-auto wd-75">
+        <div class="card-header text-light bg-primary">
+            <div class="row">
+                <div class="col-4">
+                    <h5 class="card-title mt-1">Mantenimiento de Contenidos</h5>
+                </div>
+                <div class="col-3"></div>
+                <div class="col"></div>
+                <div class="col">
+                    <button type="button" class="btn btn-light me-1" [routerLink]="['/admin.contents/edit']">Agregar contenido</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="container-md">
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-hover table-striped table-bordered w-80">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Artista</th>
+                                    <th scope="col">Duracion</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col-2">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let content of contents">                                
+                                    <th scope="row">{{content.id}}</th>
+                                    <td>{{content.name}}</td>
+                                    <td>{{content.artistName}}</td>
+                                    <td>{{content.contentLength}}</td>
+                                    <td>{{content.contentType}}</td>
+                                    <td class="col-2">
+                                        <button type="button" class="btn btn-primary btn-sm ms-2 me-1" [routerLink]="['/admin.contents/edit', content.id]" >Editar</button>
+                                        <button type="button" class="btn btn-danger btn-sm ms-1 me-1" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal'+content.id">Eliminar</button>
+                                        <div class="modal fade" [id]="'deleteModal'+content.id" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" [id]="'deleteModalLabel'+content.id">Eliminación de Contenido</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Realmente desea eliminar el contenido {{content.name}} del sistema?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        <button type="button" class="btn btn-danger" (click)="removeContent(content.id)" data-bs-dismiss="modal">Eliminar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                             
+                                    </td>
+                                </tr>
+                            </tbody>                   
+                        </table>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>
+</div>

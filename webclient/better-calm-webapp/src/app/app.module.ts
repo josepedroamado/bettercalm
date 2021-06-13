@@ -29,6 +29,7 @@ import { ShowErrorComponent } from './show-error/show-error.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
 import { PatientDiscountAddComponent } from './patient-discount-add/patient-discount-add.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { ContentManagementComponent } from './content-management/content-management.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { CategoriesComponent } from './categories/categories.component';
     ShowErrorComponent,
     PlaylistsComponent,
     PatientDiscountAddComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    ContentManagementComponent
   ],
   imports: [
     BrowserModule,

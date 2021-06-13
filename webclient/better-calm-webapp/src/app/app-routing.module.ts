@@ -14,6 +14,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContentsComponent } from './contents/contents.component';
 import { ContentEditComponent } from './content-edit/content-edit.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
+import { ContentManagementComponent } from './content-management/content-management.component';
 
 const routes: Routes = [
   {
@@ -27,18 +28,24 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'admin.contents',
+    component: ContentManagementComponent,
+    pathMatch: 'full',
+    canActivate: [AdministratorGuard]
+  },
+  {
     path: 'contents',
     component: ContentsComponent,
     pathMatch: 'full'
   },
   {
-    path: 'contents/edit',
+    path: 'admin.contents/edit',
     component: ContentEditComponent,
     pathMatch: 'full',
     canActivate: [AdministratorGuard]
   },
   {
-    path: 'contents/edit/:id',
+    path: 'admin.contents/edit/:id',
     component: ContentEditComponent,
     pathMatch: 'full',
     canActivate: [AdministratorGuard]
