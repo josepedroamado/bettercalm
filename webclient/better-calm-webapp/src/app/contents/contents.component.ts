@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from '../domain/category';
 import { Content } from '../domain/content';
-import { CategoriesService } from '../services/categories/categories.service';
 import { ContentsService } from '../services/contents/contents.service';
 import { PlaylistsService } from '../services/playlists/playlists.service';
 
@@ -13,15 +12,13 @@ import { PlaylistsService } from '../services/playlists/playlists.service';
 })
 export class ContentsComponent implements OnInit {
   contents:Content[] = [];
-  categories:Category[] = [];
+  selectedCategories:number[] = [];
   obtainedContents:Content[] = [];
   typeFilters:string[] = [ "audio", "video"]
-  categoryFilters:number[] = [];
   isLoading = true;
   playlistId:number | undefined;
 
   constructor(private contentsService: ContentsService, 
-    private categoriesService:CategoriesService,
     private playlistsService:PlaylistsService, 
     private currentRoute: ActivatedRoute) { }
 
@@ -29,7 +26,6 @@ export class ContentsComponent implements OnInit {
     this.playlistId = this.currentRoute.snapshot.params['playlistId'];
     this.contentsService.contentRemoved.subscribe(() => this.getContents());
     this.getContents();
-    this.getCategories();
   }
 
   private getContents(){
@@ -41,19 +37,13 @@ export class ContentsComponent implements OnInit {
     }    
   }
 
-  private getCategories(){
-    this.categoriesService.getAll().subscribe((categories) => this.setCategories(categories), console.error);
-  }
-
   private setContents(contents:Content[]){
     this.obtainedContents = contents;
     this.setShowContents();;
   }
 
-  private setCategories(categories:Category[]){
-    this.categories = categories;
-    this.categoryFilters = [];
-    this.categories.forEach((category => this.categoryFilters.push(category.id)));
+  public changeSelectedCatagories(selectedCategories:number[]):void{
+    this.selectedCategories = selectedCategories;
     this.setShowContents();
   }
 
@@ -62,7 +52,7 @@ export class ContentsComponent implements OnInit {
     this.contents = [];
     this.obtainedContents.forEach((content) => {
       if (this.typeFilters.includes(content.contentType) && 
-        content.categories?.some(category => this.categoryFilters.includes(category)))
+        content.categories?.some(category => this.selectedCategories.includes(category)))
         this.contents.push(content);
     })
     this.isLoading = false;
@@ -77,20 +67,5 @@ export class ContentsComponent implements OnInit {
       this.typeFilters.push(filterValue);
     }
     this.setShowContents();
-  }
-
-  public switchCategoryValue(id:number):void{
-    if (this.categoryFilters.includes(id)){
-      let index = this.categoryFilters.indexOf(id);
-      this.categoryFilters.splice(index, 1);
-    }
-    else{
-      this.categoryFilters.push(id);
-    }
-    this.setShowContents();
-  }
-
-  private removeContent(id:number):void{
-
   }
 }
