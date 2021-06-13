@@ -106,11 +106,6 @@ export class ContentEditComponent implements OnInit {
     this.isLoadingPlaylists = false;
   }
 
-  private setError(error:string){
-    this.hasError = true;
-    this.errorMessage = error;
-  }
-
   onSubmit(content: Content){
     content.playlists = [];
     if (content.playlistIds?.length > 0){
@@ -123,10 +118,14 @@ export class ContentEditComponent implements OnInit {
     
     if (this.isCreate){
       content.id = 0;
-      this.contentsService.post(content).subscribe(() => {}, this.setError, this.setOk);
+      this.contentsService.post(content).subscribe(
+        () => this.setOk(), 
+        (error) => this.setError(error));
     }
     else{
-      this.contentsService.patch(content).subscribe(() => {}, this.setError, this.setOk);
+      this.contentsService.patch(content).subscribe(
+        () => this.setOk(), 
+        (error) => this.setError(error));
     }    
   }
 
@@ -138,7 +137,13 @@ export class ContentEditComponent implements OnInit {
     this.contentForm.patchValue(currentContent);
   }
 
+  private setError(error:string){
+    this.hasError = true;
+    this.errorMessage = error;
+    console.log(error);
+  }
+
   private setOk():void{
-    alert("Ok!");
+    alert("Enviado correctamente!");
   }
 }

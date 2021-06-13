@@ -38,14 +38,14 @@ export class ContentsService extends BaseService{
     let modelContent:ModelContent = ModelContentConverter.GetModelContent(content);
     return this.http
       .patch<ModelContent>(this.target_url, modelContent, this.authOptions)
-      .pipe(catchError(this.handleError), map(this.convertModelContent));
+      .pipe(catchError(this.handleError), map(() => content));
   }
 
   public post(content:Content):Observable<Content>{
     let modelContent:ModelContent = ModelContentConverter.GetModelContent(content);
     return this.http
       .post<ModelContent>(this.target_url, modelContent, this.authOptions)
-      .pipe(catchError(this.handleError), map(this.convertModelContent));
+      .pipe(catchError(this.handleError), map(() => content));
   }
 
   public delete(id:number):Observable<any>{
