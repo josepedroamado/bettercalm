@@ -27,6 +27,7 @@ import { ContentEditComponent } from './content-edit/content-edit.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ShowErrorComponent } from './show-error/show-error.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
+import { ImportComponent } from './import/import.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { PlaylistsComponent } from './playlists/playlists.component';
     ContentEditComponent,
     LoadingComponent,
     ShowErrorComponent,
-    PlaylistsComponent
+    PlaylistsComponent,
+    ImportComponent
   ],
   imports: [
     BrowserModule,
