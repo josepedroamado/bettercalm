@@ -60,7 +60,7 @@ export class AdministratorEditComponent implements OnInit {
 
   onSubmit(input: any){
     if(this.isAModification){
-      input.id = +this.administratorEmail;
+      input.id = +this.administratorId;
       this.administratorsService.patch(input).subscribe(
         (() => this.goBackToListView()),
         ((error : any) => this.showError(error))
