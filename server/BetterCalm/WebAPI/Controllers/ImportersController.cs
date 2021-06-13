@@ -27,7 +27,11 @@ namespace WebAPI.Controllers
 		[HttpGet]
 		public IActionResult GetTypes()
 		{
-			throw NotImplementedException();
+			ImporterTypesModel result = new ImporterTypesModel()
+			{
+				Types = importerLogic.GetTypes()
+			};
+			return Ok(result);
 		}
 	}
 }
