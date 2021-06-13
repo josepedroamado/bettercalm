@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Category } from '../domain/category';
 import { Content } from '../domain/content';
 import { CategoriesService } from '../services/categories/categories.service';
 import { ContentsService } from '../services/contents/contents.service';
+import { PlaylistsService } from '../services/playlists/playlists.service';
 
 @Component({
   selector: 'app-contents',
@@ -16,17 +18,27 @@ export class ContentsComponent implements OnInit {
   typeFilters:string[] = [ "audio", "video"]
   categoryFilters:number[] = [];
   isLoading = true;
+  playlistId:number | undefined;
 
-  constructor(private contentsService: ContentsService, private categoriesService:CategoriesService) { }
+  constructor(private contentsService: ContentsService, 
+    private categoriesService:CategoriesService,
+    private playlistsService:PlaylistsService, 
+    private currentRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.playlistId = this.currentRoute.snapshot.params['playlistId'];
     this.contentsService.contentRemoved.subscribe(() => this.getContents());
     this.getContents();
     this.getCategories();
   }
 
   private getContents(){
-    this.contentsService.getAll().subscribe((contents) => this.setContents(contents), console.error);
+    if (this.playlistId){
+      this.playlistsService.getContents(this.playlistId).subscribe((contents) => this.setContents(contents), console.error);
+    }
+    else{
+      this.contentsService.getAll().subscribe((contents) => this.setContents(contents), console.error);
+    }    
   }
 
   private getCategories(){
