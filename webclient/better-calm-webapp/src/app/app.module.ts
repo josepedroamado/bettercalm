@@ -26,6 +26,7 @@ import { AdministratorEditComponent } from './administrator-edit/administrator-e
 import { ContentEditComponent } from './content-edit/content-edit.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ShowErrorComponent } from './show-error/show-error.component';
+import { PlaylistsComponent } from './playlists/playlists.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ShowErrorComponent } from './show-error/show-error.component';
     AdministratorEditComponent,
     ContentEditComponent,
     LoadingComponent,
-    ShowErrorComponent
+    ShowErrorComponent,
+    PlaylistsComponent
   ],
   imports: [
     BrowserModule,
