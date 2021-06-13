@@ -67,5 +67,10 @@ namespace BL
 			}
 			return types;
 		}
+
+		public IEnumerable<string> GetTypes()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
