@@ -10,10 +10,10 @@ import { BaseService } from '../common/base-service';
   providedIn: 'root'
 })
 export class PsychologistsService extends BaseService{
-    private readonly target_url:string = `${environment.api_url}/psychologists`
-    
-    constructor(http: HttpClient) {
-      super(http);
+  private readonly target_url:string = `${environment.api_url}/psychologists`
+  
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   public getAll(): Observable<Psychologist[]> {

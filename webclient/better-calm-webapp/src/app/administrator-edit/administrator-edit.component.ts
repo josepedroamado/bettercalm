@@ -13,7 +13,7 @@ export class AdministratorEditComponent implements OnInit {
   isAModification = false;
   administratorEmail = "";
   administratorId = 0;
-  loginError = false;
+  errorOccurred = false;
   errorMessage ="";
   administratorForm = this.formBuilder.group(
     {
@@ -79,7 +79,7 @@ export class AdministratorEditComponent implements OnInit {
   }
 
   private showError(error: any){
-    this.loginError = true;
+    this.errorOccurred = true;
     this.errorMessage = error;
   }
 }
