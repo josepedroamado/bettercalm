@@ -5,6 +5,6 @@ namespace BLInterfaces
 	public interface IImporterLogic
 	{
 		void Import(string type, string filePath);
-		IEnumerable<string> GetTypes();
+		List<string> GetTypes();
 	}
 }
