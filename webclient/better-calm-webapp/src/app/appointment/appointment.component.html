@@ -50,18 +50,20 @@
     </div>
 </div>
 
-<div class="card text-dark bg-light mb-3 ms-auto me-auto wd-75" *ngIf="submitted">
+<div class="card text-dark bg-light mb-3 ms-auto me-auto" *ngIf="submitted">
     <div class="card-header text-light bg-primary">
         <h5 class="card-title mt-1">¡Registro de consulta exitoso!</h5>
     </div>
     <div class="card-body">
         <p class="card-text text-center">Los datos de tu consulta son:</p>
-        <div class="card" style="width: 18rem;">
+        <div class="card card ms-auto me-auto" style="width: 18rem;">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><strong>Psicólogo: </strong>{{appointmentData.psychologistName}}</li>
                 <li class="list-group-item"><strong>Formato: </strong>{{appointmentData.format}}</li>
                 <li class="list-group-item"><strong>Dirección: </strong>{{appointmentData.address}}</li>
                 <li class="list-group-item"><strong>Fecha: </strong>{{appointmentData.date}}</li>
+                <li class="list-group-item" *ngIf="appointmentData.discount > 0"><strong>Descuento: </strong>{{appointmentData.discount}}%</li>
+                <li class="list-group-item"><strong>Costo: </strong>{{appointmentData.cost}}</li>
             </ul>
         </div>
     </div>

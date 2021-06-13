@@ -3,4 +3,6 @@ export interface AppointmentIn {
     format: string;
     address: string;
     date: Date;
+    cost: number;
+    discount: number;
 }
