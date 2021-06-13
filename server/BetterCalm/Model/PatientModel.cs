@@ -46,13 +46,20 @@ namespace Model
 
 		public PatientModel(Patient patient)
 		{
+			if(patient.AppointmentDiscount == null)
+            {
+				AppointmentDiscount = 0;
+			}
+            else
+            {
+				AppointmentDiscount = patient.AppointmentDiscount.Discount;
+			}
 			Id = patient.Id;
 			FirstName = patient.FirstName;
 			LastName = patient.LastName;
 			BirthDate = patient.BirthDate;
 			Email = patient.Email;
 			Phone = patient.Phone;
-			AppointmentDiscount = patient.AppointmentDiscount.Discount;
 			AppointmentQuantity = patient.AppointmentQuantity;
 		}
 

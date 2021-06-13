@@ -24,7 +24,6 @@ namespace Domain
 
 		public void UpdateFromPatient(Patient patient)
 		{
-			this.Id = patient.Id;
 			this.BirthDate = patient.BirthDate;
 			if (!string.IsNullOrWhiteSpace(patient.FirstName))
 				this.FirstName = patient.FirstName;
@@ -33,6 +32,7 @@ namespace Domain
 			if (!string.IsNullOrWhiteSpace(patient.Phone))
 				this.Phone = patient.Phone;
 			this.AppointmentDiscount = patient.AppointmentDiscount;
+			this.AppointmentQuantity = patient.AppointmentQuantity;
 		}
 	}
 }
