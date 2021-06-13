@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
             return Ok(patientModels);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{email}")]
         public IActionResult Get(string email)
         {
             PatientModel obtainedPatientModel = new PatientModel(this.patientLogic.Get(email));

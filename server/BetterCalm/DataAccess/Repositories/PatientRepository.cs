@@ -46,7 +46,7 @@ namespace DataAccess.Repositories
 
 		public Patient Get(string email)
 		{
-			Patient patient = this.patients.FirstOrDefault(patient => patient.Email.Equals(email));
+			Patient patient = this.patients.Include(x => x.AppointmentDiscount).FirstOrDefault(patient => patient.Email.Equals(email));
 			if (patient == null)
 			{
 				throw new NotFoundException("Patient");
@@ -67,7 +67,7 @@ namespace DataAccess.Repositories
 		{
             if (this.patients.Count() > 0)
             {
-				return this.patients.Where(patient => patient.AppointmentDiscount == null && patient.AppointmentQuantity >= numberOfAppointments);
+				return this.patients.Where(patient => (patient.AppointmentDiscount == null || patient.AppointmentDiscount.Discount == 0 ) && patient.AppointmentQuantity >= numberOfAppointments);
 			}
             else
             {
