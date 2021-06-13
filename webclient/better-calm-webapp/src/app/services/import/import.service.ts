@@ -31,7 +31,7 @@ export class ImportService extends BaseService{
   public getTypes(): Observable<ImportTypes> {
     let url:string = this.target_url+'/types';
     return this.http
-      .get<ModelImportTypes>(this.target_url)
+      .get<ModelImportTypes>(url, this.authOptions)
       .pipe(catchError(this.handleError), map(this.convertModelImportTypes));
   }
 
