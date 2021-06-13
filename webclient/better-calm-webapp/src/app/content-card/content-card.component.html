@@ -16,11 +16,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        Realmente desea el contenido {{content.name}} del sistema?
+                        Realmente desea eliminar el contenido {{content.name}} del sistema?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" (click)="removeContent(content.id)" data-bs-dismiss="modal">Eliminar</button>
+                        <button type="button" class="btn btn-danger" (click)="removeContent(content.id)" data-bs-dismiss="modal">Eliminar</button>
                     </div>
                 </div>
             </div>
