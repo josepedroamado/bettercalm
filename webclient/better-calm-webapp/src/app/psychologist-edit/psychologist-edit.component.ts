@@ -1,5 +1,5 @@
 import { Psychologist } from 'src/app/model/psychologist';
-import { IllnessOut } from './../model/illnessOut';
+import { IllnessOut } from '../model/illnessOut';
 import { PsychologistsService } from '../services/psychologists/psychologists.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -9,10 +9,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-psychologist-edit',
-  templateUrl: './psychologist-add.component.html',
-  styleUrls: ['./psychologist-add.component.scss']
+  templateUrl: './psychologist-edit.component.html',
+  styleUrls: ['./psychologist-edit.component.scss']
 })
-export class PsychologistAddComponent implements OnInit {
+export class PsychologistEditComponent implements OnInit {
   isAModification = false;
   illnesses:IllnessIn[] = [];
   selectedIllnesses: number[] = [];

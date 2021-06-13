@@ -1,3 +1,4 @@
+import { AdministratorEditComponent } from './administrator-edit/administrator-edit.component';
 import { PsychologistAddComponent } from './psychologist-add/psychologist-add.component';
 import { AdministratorGuard } from './guards/administrator.guard';
 import { ImportersComponent } from './importers/importers.component';
@@ -53,6 +54,18 @@ const routes: Routes = [
   {
     path: 'administrators',
     component: AdministratorsComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'administrator-edit',
+    component: AdministratorEditComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'administrator-edit/:email',
+    component: AdministratorEditComponent,
     canActivate: [AdministratorGuard],
     pathMatch: 'full'
   },

@@ -155,12 +155,12 @@ namespace WebAPI.Test
 		}
 
 		[TestMethod]
-		public void Get_UserFound_Fetched()
+		public void Get_UsersExist_Fetched()
 		{
 			string roleName = "Administrator";
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Id = 1,
 				Password = "1234Test",
 				Name = "test"
@@ -180,6 +180,50 @@ namespace WebAPI.Test
 			OkObjectResult okObjectResult = result as OkObjectResult;
 
 			Assert.IsTrue(okObjectResult.StatusCode == 200);
+		}
+
+		[TestMethod]
+		public void Get_UserFound_Fetched()
+		{
+			User expectedUser = new User()
+			{
+				Email = "a@a.com",
+				Id = 1,
+				Password = "1234Test",
+				Name = "test"
+			};
+			AdministratorOutputModel expectedAdministratorOutputModel = new AdministratorOutputModel(expectedUser);
+			Mock<IUserLogic> userLogicMock = new Mock<IUserLogic>(MockBehavior.Strict);
+			userLogicMock.Setup(m => m.GetUser(expectedUser.Email)).Returns(expectedUser);
+
+			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
+
+			IActionResult result = controller.Get(expectedUser.Email);
+			OkObjectResult objectResult = result as OkObjectResult;
+			AdministratorOutputModel obtainedAdministratorOutputModel = (objectResult.Value as AdministratorOutputModel);
+
+			userLogicMock.VerifyAll();
+			Assert.IsTrue(Equals(expectedAdministratorOutputModel.Id, obtainedAdministratorOutputModel.Id)
+				&& Equals(expectedAdministratorOutputModel.Email, obtainedAdministratorOutputModel.Email)
+				&& Equals(expectedAdministratorOutputModel.Name, obtainedAdministratorOutputModel.Name));
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void Get_UserNotFound_Fetched()
+		{
+			string userEmail = "a@a.com";
+			Mock<IUserLogic> userLogicMock = new Mock<IUserLogic>(MockBehavior.Strict);
+			userLogicMock.Setup(m => m.GetUser(userEmail)).Throws(new NotFoundException(userEmail));
+
+			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
+
+			IActionResult result = controller.Get(userEmail);
+			OkObjectResult objectResult = result as OkObjectResult;
+			AdministratorOutputModel obtainedAdministratorOutputModel = (objectResult.Value as AdministratorOutputModel);
+
+			userLogicMock.VerifyAll();
+			Assert.IsNull(obtainedAdministratorOutputModel);
 		}
 	}
 }

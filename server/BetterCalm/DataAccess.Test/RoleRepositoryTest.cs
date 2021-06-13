@@ -93,7 +93,7 @@ namespace DataAccess.Test
 
             User user1 = new User()
             {
-                EMail = "a@a.com",
+                Email = "a@a.com",
                 Id = 1,
                 Password = "1234Test",
                 Name = "test",
@@ -104,7 +104,7 @@ namespace DataAccess.Test
             };
             User user2 = new User()
             {
-                EMail = "b@b.com",
+                Email = "b@b.com",
                 Id = 2,
                 Password = "1234Test",
                 Name = "test"

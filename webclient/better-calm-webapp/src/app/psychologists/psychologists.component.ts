@@ -34,7 +34,6 @@ export class PsychologistsComponent implements OnInit {
   }
 
   removePsychologist(psychologist: number){
-    this.psychologistsService.remove(psychologist).subscribe();
-    this.updatePsychologists();
+    this.psychologistsService.remove(psychologist).subscribe(() => this.updatePsychologists());
   }
 }
