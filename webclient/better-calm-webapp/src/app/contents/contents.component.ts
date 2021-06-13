@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Category } from '../domain/category';
 import { Content } from '../domain/content';
 import { ContentsService } from '../services/contents/contents.service';
 import { PlaylistsService } from '../services/playlists/playlists.service';
