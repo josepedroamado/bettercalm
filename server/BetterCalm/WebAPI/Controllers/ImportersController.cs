@@ -23,5 +23,11 @@ namespace WebAPI.Controllers
 			importerLogic.Import(importerModel.Type, importerModel.FilePath);
 			return NoContent();
 		}
+
+		[HttpGet]
+		public IActionResult GetTypes()
+		{
+			throw NotImplementedException();
+		}
 	}
 }
