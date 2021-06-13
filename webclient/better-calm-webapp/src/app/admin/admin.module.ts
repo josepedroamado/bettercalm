@@ -26,6 +26,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 import { UtilsModule } from '../utils/utils.module';
 import { IndexAdminComponent } from './index-admin/index-admin.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
@@ -40,7 +41,8 @@ import { IndexAdminComponent } from './index-admin/index-admin.component';
     ImportersComponent,
     PsychologistEditComponent,
     PsychologistsComponent,
-    IndexAdminComponent
+    IndexAdminComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,

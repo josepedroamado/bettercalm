@@ -1,45 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary p-2">
-  <div class="container-fluid">
-    <a class="navbar-brand" [routerLink]="['home']">Better Calm</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-4 me-auto">
-        <li class="nav-item active">
-          <a class="nav-link text-light" [routerLink]="['contents']">Contenidos </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" [routerLink]="['playlists']">Listas de Reproducción</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" [routerLink]="['appointment']">Solicitud de Consulta</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="loggedIn" [routerLink]="['psychologists']">Psicologos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="loggedIn" [routerLink]="['administrators']">Administradores</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="loggedIn" [routerLink]="['approvediscounts']">Aprobar descuentos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="loggedIn" [routerLink]="['importers']">Importar contenidos</a>
-        </li>
-      </ul>   
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="!loggedIn" [routerLink]="['login']"> Iniciar Sesión</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" *ngIf="loggedIn" [routerLink]="['logout']"> Cerrar Sesión</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="container-md py-4 p-5 mb-4 rounded-3">
+<div class="container-fluid">
   <!-- Content -->
   <div class="" role="main">
     <router-outlet></router-outlet>
