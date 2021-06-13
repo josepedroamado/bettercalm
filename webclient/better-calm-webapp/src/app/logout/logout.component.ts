@@ -8,6 +8,7 @@ import { SessionsService } from '../services/sessions/sessions.service';
   styleUrls: ['./logout.component.scss']
 })
 export class LogoutComponent implements OnInit {
+  private static readonly publicTarget = '';
 
   ngOnInit(): void {
     this.logout();
@@ -19,6 +20,6 @@ export class LogoutComponent implements OnInit {
   logout(){
     let token = localStorage.getItem("token") ?? "";
     this.sessionsService.logOut(token).subscribe();
-    this.router.navigate(['/home'])
+    this.router.navigate([LogoutComponent.publicTarget])
   }
 }

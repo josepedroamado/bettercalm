@@ -8,8 +8,6 @@ import { PatientsService } from '../services/patients/patients.service';
 import { CategoriesService } from '../services/categories/categories.service';
 import { ImportService } from '../services/import/import.service';
 import { BaseService } from '../services/common/base-service';
-import { ShowErrorComponent } from '../utils/show-error/show-error.component';
-import { LoadingComponent } from '../utils/loading/loading.component';
 import { AdministratorEditComponent } from './administrator/administrator-edit/administrator-edit.component';
 import { AdministratorsComponent } from './administrator/administrators/administrators.component';
 import { ContentEditComponent } from './contents/content-edit/content-edit.component';
@@ -19,8 +17,6 @@ import { PatientDiscountAddComponent } from './discounts/patient-discount-add/pa
 import { ImportersComponent } from './importers/importers/importers.component';
 import { PsychologistEditComponent } from './psychologists/psychologist-edit/psychologist-edit.component';
 import { PsychologistsComponent } from './psychologists/psychologists/psychologists.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
@@ -47,7 +43,6 @@ import { NavbarComponent } from './navbar/navbar.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    HttpClientModule,
     ReactiveFormsModule,
     NgSelectModule,
     NgOptionHighlightModule,

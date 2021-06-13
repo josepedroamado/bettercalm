@@ -10,6 +10,7 @@ import { PatientDiscountAddComponent } from "./discounts/patient-discount-add/pa
 import { PsychologistEditComponent } from "./psychologists/psychologist-edit/psychologist-edit.component";
 import { PsychologistsComponent } from "./psychologists/psychologists/psychologists.component";
 import { IndexAdminComponent } from "./index-admin/index-admin.component";
+import { LogoutComponent } from "../logout/logout.component";
 
 const routes: Routes = [
     {
@@ -67,12 +68,13 @@ const routes: Routes = [
           {
             path:'importers',
             component: ImportersComponent
-          },
-          {
-            path:'**',
-            redirectTo: ''
           }
         ]
+      },
+      {
+        path: 'logout',
+        component: LogoutComponent,
+        pathMatch: 'full'
       }
 ]
 

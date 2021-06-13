@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Content } from '../domain/content';
+import { Content } from '../../../domain/content';
 
 @Component({
   selector: 'app-content-card',

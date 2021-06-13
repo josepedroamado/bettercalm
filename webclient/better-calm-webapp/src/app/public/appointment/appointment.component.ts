@@ -1,10 +1,10 @@
 import { AppointmentOut } from 'src/app/model/appointmentOut';
-import { AppointmentsService } from './../services/appointments/appointments.service';
+import { AppointmentsService } from '../../services/appointments/appointments.service';
 import { Component, OnInit } from '@angular/core';
-import { IllnessIn } from '../model/illnessIn';
-import { IllnessesService } from '../services/illnesses/illnesses.service';
+import { IllnessIn } from '../../model/illnessIn';
+import { IllnessesService } from '../../services/illnesses/illnesses.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AppointmentIn } from '../model/appointmentIn';
+import { AppointmentIn } from '../../model/appointmentIn';
 
 @Component({
   selector: 'app-appointment',
