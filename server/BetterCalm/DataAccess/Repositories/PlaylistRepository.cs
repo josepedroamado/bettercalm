@@ -31,7 +31,7 @@ namespace DataAccess.Repositories
 			if (this.playlists.Count() <= 0)
 				throw new CollectionEmptyException("Playlists");
 			else
-				return this.playlists;
+				return this.playlists.Include("Categories");
 		}
 
         public IEnumerable<Playlist> GetAll(Category category)
