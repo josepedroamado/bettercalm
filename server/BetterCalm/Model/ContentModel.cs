@@ -17,6 +17,22 @@ namespace Model
 		public string ContentType { get; set; }
 		public IEnumerable<PlaylistBasicInfo> Playlists {get; set;}
 
+		public ContentModel() { }
+
+		public ContentModel(Content content)
+		{
+			this.Id = content.Id;
+			this.Name = content.Name;
+			this.ContentLength = content.ContentLength.ToString();
+			this.ArtistName = content.ArtistName;
+			this.ImageUrl = content.ImageUrl;
+			this.ContentUrl = content.ContentUrl;
+			this.ImageUrl = content.ImageUrl;
+			this.Categories = content.Categories?.Select(category => category.Id).ToArray();
+			this.ContentType = content.ContentType.Name;
+			this.Playlists = content.PlayLists?.Select(playlist => new PlaylistBasicInfo(playlist));
+		}
+
 		public Content ToEntity()
 		{
 			TimeSpan timeSpan = ContentLength == null ? 

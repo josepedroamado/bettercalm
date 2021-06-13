@@ -19,10 +19,13 @@ import { PsychologistsComponent } from './psychologists/psychologists.component'
 import { AdministratorsComponent } from './administrators/administrators.component';
 import { ApprovediscountsComponent } from './approvediscounts/approvediscounts.component';
 import { ImportersComponent } from './importers/importers.component';
-import { PsychologistAddComponent } from './psychologist-add/psychologist-add.component';
+import { PsychologistEditComponent } from './psychologist-edit/psychologist-edit.component';
 import { NgSelectModule } from '@ng-select/ng-select'; 
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 import { AdministratorEditComponent } from './administrator-edit/administrator-edit.component';
+import { ContentEditComponent } from './content-edit/content-edit.component';
+import { LoadingComponent } from './loading/loading.component';
+import { ShowErrorComponent } from './show-error/show-error.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +44,11 @@ import { AdministratorEditComponent } from './administrator-edit/administrator-e
     AdministratorsComponent,
     ApprovediscountsComponent,
     ImportersComponent,
-    PsychologistAddComponent,
-    AdministratorEditComponent
+    PsychologistEditComponent,
+    AdministratorEditComponent,
+    ContentEditComponent,
+    LoadingComponent,
+    ShowErrorComponent
   ],
   imports: [
     BrowserModule,

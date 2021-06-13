@@ -1,14 +1,13 @@
-import { Playlist } from "./playlist";
+import { PlaylistBasicInfo } from "./playlist-basic-info";
 
-export interface Content {
+export interface ModelContent{
     id: number;
     name: string;
-    contentLength: string;
     artistName: string;
     imageUrl: string;
     contentUrl: string;
     contentType: string;
+    contentLength: string;
     categories: number[];
-    playlistIds: number[];
-    playlists: Playlist[];
+    playlists: PlaylistBasicInfo[]
 }

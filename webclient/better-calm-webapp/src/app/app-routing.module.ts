@@ -1,5 +1,5 @@
 import { AdministratorEditComponent } from './administrator-edit/administrator-edit.component';
-import { PsychologistAddComponent } from './psychologist-add/psychologist-add.component';
+import { PsychologistEditComponent } from './psychologist-edit/psychologist-edit.component';
 import { AdministratorGuard } from './guards/administrator.guard';
 import { ImportersComponent } from './importers/importers.component';
 import { ApprovediscountsComponent } from './approvediscounts/approvediscounts.component';
@@ -11,6 +11,7 @@ import { AppointmentComponent } from './appointment/appointment.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentsComponent } from './contents/contents.component';
+import { ContentEditComponent } from './content-edit/content-edit.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,18 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'contents/edit',
+    component: ContentEditComponent,
+    pathMatch: 'full',
+    canActivate: [AdministratorGuard]
+  },
+  {
+    path: 'contents/edit/:id',
+    component: ContentEditComponent,
+    pathMatch: 'full',
+    canActivate: [AdministratorGuard]
+  },
+  {
     path: 'appointment',
     component: AppointmentComponent,
     pathMatch: 'full'
@@ -40,14 +53,14 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'psychologist-add',
-    component: PsychologistAddComponent,
+    path: 'psychologist-edit',
+    component: PsychologistEditComponent,
     canActivate: [AdministratorGuard],
     pathMatch: 'full'
   },
   {
-    path: 'psychologist-add/:id',
-    component: PsychologistAddComponent,
+    path: 'psychologist-edit/:id',
+    component: PsychologistEditComponent,
     canActivate: [AdministratorGuard],
     pathMatch: 'full'
   },

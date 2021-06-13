@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
 		public IActionResult Get(int id)
 		{
 			Content content = this.contentLogic.GetContent(id);
-			return Ok(new ContentBasicInfo(content));
+			return Ok(new ContentModel(content));
 		}
 
 

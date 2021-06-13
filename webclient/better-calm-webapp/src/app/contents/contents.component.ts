@@ -20,7 +20,16 @@ export class ContentsComponent implements OnInit {
   constructor(private contentsService: ContentsService, private categoriesService:CategoriesService) { }
 
   ngOnInit(): void {
+    this.contentsService.contentRemoved.subscribe(() => this.getContents());
+    this.getContents();
+    this.getCategories();
+  }
+
+  private getContents(){
     this.contentsService.getAll().subscribe((contents) => this.setContents(contents), console.error);
+  }
+
+  private getCategories(){
     this.categoriesService.getAll().subscribe((categories) => this.setCategories(categories), console.error);
   }
 
@@ -67,5 +76,9 @@ export class ContentsComponent implements OnInit {
       this.categoryFilters.push(id);
     }
     this.setShowContents();
+  }
+
+  private removeContent(id:number):void{
+
   }
 }

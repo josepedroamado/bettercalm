@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PsychologistEditComponent } from './psychologist-edit.component';
+import { ShowErrorComponent } from './show-error.component';
 
-describe('PsychologistEditComponent', () => {
-  let component: PsychologistEditComponent;
-  let fixture: ComponentFixture<PsychologistEditComponent>;
+describe('ShowErrorComponent', () => {
+  let component: ShowErrorComponent;
+  let fixture: ComponentFixture<ShowErrorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PsychologistEditComponent ]
+      declarations: [ ShowErrorComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PsychologistEditComponent);
+    fixture = TestBed.createComponent(ShowErrorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
