@@ -1,10 +1,10 @@
 <app-loading *ngIf="!hasError && isLoading" text="Loading categories..."></app-loading>
 <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
-<app-categories style="margin-left: 35%; margin-bottom: 5px;" (changeSelectedCategories)="changeSelectedCatagories($event)"></app-categories>    
-<div *ngIf="!isLoading">
-    <div class="fluid playlistsContainer">
+<app-categories style="margin-left: 35%; margin-bottom: 5px;" (changeSelectedCategories)="changeSelectedCatagories($event)"></app-categories> 
+<div class="pt-2" *ngIf="!isLoading">
+    <div class="container-fluid playlistsContainer">
         <ng-container *ngFor="let playlist of playlists">
-            <div class="card mb-3 playlist" [routerLink]="['contents', playlist.id]">
+            <div class="card mb-3 playlist shadow-sm bg-body rounded" [routerLink]="['contents', playlist.id]">
                 <div class="row g-0">
                     <div *ngIf="playlist.imageUrl" class="col-md-4" style="max-width: 6rem; max-height:6rem;">
                         <img [src]="playlist.imageUrl" style="max-width: 6rem; max-height:6rem;">

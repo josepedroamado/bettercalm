@@ -1,14 +1,14 @@
-<body class="text-center h-100 w-25 mx-auto my-xl-5">
+<body class="text-center h-100 w-25 mx-auto my-xl-5 bg-light">
     <main class="form-signin">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
             <img class="mb-4" src="https://download.flaticon.com/download/icon/1524?icon_id=1524&author=1&team=1&keyword=Letter+b+logotype&pack=0&style=1&style_id=0&format=png&color=%23000000&colored=1&size=512&selection=1&premium=0&type=standard" alt="" width="72" height="72">
             <h1 class="h3 mb-3 fw-normal">Inicio de Sesión</h1>
             <div class="form-floating">
-                <input type="email" class="form-control" id="eMail" formControlName="eMail" required>
+                <input type="email" class="form-control shadow-sm" id="eMail" formControlName="eMail" required>
                 <label for="eMail">Email</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="password" formControlName="password" required>
+                <input type="password" class="form-control shadow-sm" id="password" formControlName="password" required>
                 <label for="password">Contraseña</label>
             </div>
             <div class="checkbox mb-3">
@@ -16,7 +16,7 @@
                   <span class="text-danger" *ngIf="loginError">{{errorMessage}}</span>
                 </label>
             </div>
-            <button class="w-75 btn btn-lg btn-primary" type="submit" [disabled]="!loginForm.valid">Iniciar Sesión</button>
+            <button class="w-75 btn btn-lg btn-primary shadow rounded" type="submit" [disabled]="!loginForm.valid">Iniciar Sesión</button>
         </form>
     </main>
 </body>
