@@ -64,7 +64,7 @@ namespace BL
                         Psychologist = candidate
                     });
 			appointment.TotalCost = CostCalculator.CalculateTotalCost(obtainedPatient.AppointmentDiscount, candidate.Rate.HourlyRate, appointmentDuration.Duration.TotalHours);			
-            if (obtainedPatient.AppointmentDiscount != null)
+            if (obtainedPatient.AppointmentDiscount != null && obtainedPatient.AppointmentDiscount.Discount != 0)
             {
 				obtainedPatient.AppointmentDiscount = null;
 				obtainedPatient.AppointmentQuantity = 0;
