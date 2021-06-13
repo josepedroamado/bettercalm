@@ -124,5 +124,26 @@ namespace WebAPI.Test
             StatusCodeResult contentResult = result as StatusCodeResult;
             Assert.AreEqual(expectedStatusCode, contentResult.StatusCode);
         }
+
+        [TestMethod]
+        public void GetTypes_ExistTypes_Fetched()
+		{
+            List<string> expectedTypes = new List<string>()
+            {
+                "JSON",
+                "XML"
+            };
+
+
+            Mock<IImporterLogic> mock = new Mock<IImporterLogic>(MockBehavior.Strict);
+            mock.Setup(m => m.GetTypes()).Returns(expectedTypes);
+            ImportersController controller = new ImportersController(mock.Object);
+
+            IActionResult result = controller.GetTypes();
+            OkObjectResult objectResult = result as OkObjectResult;
+            ImporterTypesModel obtainedOutput = objectResult.Value as ImporterTypesModel;
+
+            Assert.IsTrue(expectedTypes.SequenceEqual(obtainedOutput.Types));
+        }
     }
 }
