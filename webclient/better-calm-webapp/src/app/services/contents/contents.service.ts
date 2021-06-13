@@ -37,21 +37,21 @@ export class ContentsService extends BaseService{
   public patch(content:Content):Observable<Content>{
     let modelContent:ModelContent = ModelContentConverter.GetModelContent(content);
     return this.http
-      .patch<ModelContent>(this.target_url, modelContent, this.authOptions)
+      .patch<ModelContent>(this.target_url, modelContent, this.getAuthOptions())
       .pipe(catchError(this.handleError), map(() => content));
   }
 
   public post(content:Content):Observable<Content>{
     let modelContent:ModelContent = ModelContentConverter.GetModelContent(content);
     return this.http
-      .post<ModelContent>(this.target_url, modelContent, this.authOptions)
+      .post<ModelContent>(this.target_url, modelContent, this.getAuthOptions())
       .pipe(catchError(this.handleError), map(() => content));
   }
 
   public delete(id:number):Observable<any>{
     let deleteUrl = this.target_url+"/"+id;
     return this.http
-      .delete(deleteUrl, this.authOptions)
+      .delete(deleteUrl, this.getAuthOptions())
       .pipe(catchError(this.handleError), map(() => this.emitContentRemoved()));
   }
 

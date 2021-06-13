@@ -24,14 +24,14 @@ export class ImportService extends BaseService{
   public post(importInfo:ImportInfo):Observable<ImportInfo>{
     let modelImportInfo:ModelImportInfo = ModelImportInfoConverter.GetModelImportInfo(importInfo);
     return this.http
-      .post<ModelImportInfo>(this.target_url, modelImportInfo, this.authOptions)
+      .post<ModelImportInfo>(this.target_url, modelImportInfo, this.getAuthOptions())
       .pipe(catchError(this.handleError), map(() => importInfo));
   }
 
   public getTypes(): Observable<ImportTypes> {
     let url:string = this.target_url+'/types';
     return this.http
-      .get<ModelImportTypes>(url, this.authOptions)
+      .get<ModelImportTypes>(url, this.getAuthOptions())
       .pipe(catchError(this.handleError), map(this.convertModelImportTypes));
   }
 

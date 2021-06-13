@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit{
+  private static readonly adminTarget = '/admin';
   loginForm = this.formBuilder.group(
     {
       eMail: ['', [Validators.required, Validators.email]],
@@ -27,13 +28,13 @@ export class LoginComponent implements OnInit{
   ngOnInit(): void {
     this.loggedIn = this.sessionsService.isLogged();
     if(this.loggedIn){
-      this.router.navigate(['/home']);
+      this.router.navigate([LoginComponent.adminTarget]);
     }
   }
 
   onSubmit(input: LoginOut){
     this.sessionsService.login(input).subscribe(
-      ((data : LoginIn) => this.router.navigate(['/home'])),
+      ((data : LoginIn) => this.router.navigate([LoginComponent.adminTarget])),
       ((error : any) => this.showError(error))
     );
   }

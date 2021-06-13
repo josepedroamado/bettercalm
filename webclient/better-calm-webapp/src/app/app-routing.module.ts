@@ -1,133 +1,16 @@
-import { PatientDiscountAddComponent } from './patient-discount-add/patient-discount-add.component';
-import { AdministratorEditComponent } from './administrator-edit/administrator-edit.component';
-import { PsychologistEditComponent } from './psychologist-edit/psychologist-edit.component';
 import { AdministratorGuard } from './guards/administrator.guard';
-import { ImportersComponent } from './importers/importers.component';
-import { ApprovediscountsComponent } from './approvediscounts/approvediscounts.component';
-import { AdministratorsComponent } from './administrators/administrators.component';
-import { PsychologistsComponent } from './psychologists/psychologists.component';
-import { LogoutComponent } from './logout/logout.component';
-import { LoginComponent } from './login/login.component';
-import { AppointmentComponent } from './appointment/appointment.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContentsComponent } from './contents/contents.component';
-import { ContentEditComponent } from './content-edit/content-edit.component';
-import { PlaylistsComponent } from './playlists/playlists.component';
-import { ContentManagementComponent } from './content-management/content-management.component';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    component: ContentsComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'admin/contents',
-    component: ContentManagementComponent,
-    pathMatch: 'full',
-    canActivate: [AdministratorGuard]
-  },
-  {
-    path: 'contents',
-    component: ContentsComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'admin/contents/edit',
-    component: ContentEditComponent,
-    pathMatch: 'full',
-    canActivate: [AdministratorGuard]
-  },
-  {
-    path: 'admin/contents/edit/:id',
-    component: ContentEditComponent,
-    pathMatch: 'full',
-    canActivate: [AdministratorGuard]
-  },
-  {
-    path: 'playlists',
-    component: PlaylistsComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'playlists/contents/:playlistId',
-    component: ContentsComponent,
-    pathMatch: 'full',
-  },
-  {
-    path: 'appointment',
-    component: AppointmentComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'psychologists',
-    component: PsychologistsComponent,
+    path:'admin',
     canActivate: [AdministratorGuard],
-    pathMatch: 'full'
+    loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
   },
   {
-    path: 'psychologist-edit',
-    component: PsychologistEditComponent,
-    canActivate: [AdministratorGuard],
-    pathMatch: 'full'
-  },
-  {
-    path: 'psychologist-edit/:id',
-    component: PsychologistEditComponent,
-    canActivate: [AdministratorGuard],
-    pathMatch: 'full'
-  },
-  {
-    path: 'administrators',
-    component: AdministratorsComponent,
-    canActivate: [AdministratorGuard],
-    pathMatch: 'full'
-  },
-  {
-    path: 'administrator-edit',
-    component: AdministratorEditComponent,
-    canActivate: [AdministratorGuard],
-    pathMatch: 'full'
-  },
-  {
-    path: 'administrator-edit/:email',
-    component: AdministratorEditComponent,
-    canActivate: [AdministratorGuard],
-    pathMatch: 'full'
-  },
-  {
-    path: 'approvediscounts',
-    component: ApprovediscountsComponent,
-    canActivate: [AdministratorGuard],
-    pathMatch: 'full'
-  },
-  {
-    path: 'patient-discount-add/:email',
-    component: PatientDiscountAddComponent,
-    canActivate: [AdministratorGuard],
-    pathMatch: 'full'
-  },
-  {
-    path: 'importers',
-    component: ImportersComponent,
-    canActivate: [AdministratorGuard],
-    pathMatch: 'full'
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'logout',
-    component: LogoutComponent,
-    pathMatch: 'full'
+    path:'',
+    loadChildren: () => import('./public/public.module').then(mod => mod.PublicModule)
   }
 ];
 
