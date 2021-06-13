@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
 			return NoContent();
 		}
 
-		[HttpGet]
+		[HttpGet("types")]
 		public IActionResult GetTypes()
 		{
 			ImporterTypesModel result = new ImporterTypesModel()
