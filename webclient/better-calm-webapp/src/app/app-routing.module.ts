@@ -12,6 +12,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentsComponent } from './contents/contents.component';
 import { ContentEditComponent } from './content-edit/content-edit.component';
+import { PlaylistsComponent } from './playlists/playlists.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,16 @@ const routes: Routes = [
     component: ContentEditComponent,
     pathMatch: 'full',
     canActivate: [AdministratorGuard]
+  },
+  {
+    path: 'playlists',
+    component: PlaylistsComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'playlists/contents/:playlistId',
+    component: ContentsComponent,
+    pathMatch: 'full',
   },
   {
     path: 'appointment',
