@@ -8,12 +8,19 @@ namespace Model
 		public AppointmentOutputModel() { }
 		public AppointmentOutputModel(Appointment appointment)
 		{
+            if (appointment.Discount == null)
+            {
+				this.Discount = 0;
+			}
+            else
+            {
+				this.Discount = appointment.Discount.Discount;
+			}
 			this.PsychologistName = appointment.Psychologist.GetFullName();
 			this.Format = appointment.Psychologist.Format.ToString();
 			this.Address = appointment.Address;
 			this.Date = appointment.Date;
 			this.Cost = appointment.TotalCost;
-			this.Discount = appointment.Discount.Discount;
 		}
 
 		public string PsychologistName { get; set; }
