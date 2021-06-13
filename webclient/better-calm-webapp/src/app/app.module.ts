@@ -28,6 +28,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { ShowErrorComponent } from './show-error/show-error.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
 import { PatientDiscountAddComponent } from './patient-discount-add/patient-discount-add.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { PatientDiscountAddComponent } from './patient-discount-add/patient-disc
     LoadingComponent,
     ShowErrorComponent,
     PlaylistsComponent,
-    PatientDiscountAddComponent
+    PatientDiscountAddComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,
