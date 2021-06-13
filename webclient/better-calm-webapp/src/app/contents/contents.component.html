@@ -9,12 +9,7 @@
             <label class="btn btn-outline-primary" for="btnVideoType" (click)="switchContentTypeValue('video')">Video</label>
         </div>
 
-        <div *ngIf="categories" class="btn-group" role="group" aria-label="Categories selector" style="float:right;">
-            <ng-container *ngFor="let category of categories" style="display:inline-block">
-                <input type="checkbox" class="btn-check" [id]="category.name" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" [for]="category.name" (click)="switchCategoryValue(category.id)">{{category.name}}</label>
-            </ng-container>
-        </div>
+        <app-categories style="float:right;" (changeSelectedCategories)="changeSelectedCatagories($event)"></app-categories>    
     </div>
     <div class="container" style="text-align: center;">
         <app-content-card *ngFor="let content of contents" [content]="content" style="display: inline-block; margin:2px;"></app-content-card>

@@ -10,6 +10,8 @@ import { PlaylistsService } from '../services/playlists/playlists.service';
 export class PlaylistsComponent implements OnInit {
   isLoading:boolean = false;
   playlists:Playlist[] = [];
+  obtainedPlaylists:Playlist[] = [];
+  selectedCategories:number[] = [];
   hasError:boolean = false;
   errorMessage:string = "";
   
@@ -24,7 +26,8 @@ export class PlaylistsComponent implements OnInit {
   }
 
   private setPlaylists(playlists:Playlist[]):void{
-    this.playlists = playlists;
+    this.obtainedPlaylists = playlists;
+    this.showPlaylists();
     this.isLoading = false;
   }
 
@@ -32,5 +35,19 @@ export class PlaylistsComponent implements OnInit {
     this.hasError = true;
     this.errorMessage = error;
     console.log(error);
+  }
+
+  public changeSelectedCatagories(selectedCategories:number[]):void{
+    this.selectedCategories = selectedCategories;
+    this.showPlaylists();
+  }
+
+  private showPlaylists():void{
+    this.playlists = [];
+    this.obtainedPlaylists.forEach(playlist => {
+      if (playlist.categories.length == 0 || 
+        playlist.categories?.some(category => this.selectedCategories.includes(category)))
+        this.playlists.push(playlist);
+    })
   }
 }
