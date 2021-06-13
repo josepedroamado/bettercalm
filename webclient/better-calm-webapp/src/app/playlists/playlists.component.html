@@ -1,13 +1,19 @@
 <app-loading *ngIf="!hasError && isLoading" text="Loading categories..."></app-loading>
 <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
 <div *ngIf="!isLoading">
-    <div class="fluid">
+    <div class="fluid playlistsContainer">
         <ng-container *ngFor="let playlist of playlists">
-            <div class="card" style="width: 15rem;display: inline-block;" [routerLink]="['contents', playlist.id]">
-                <img *ngIf="playlist.imageUrl" [src]="playlist.imageUrl" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{playlist.name}}</h5>
-                    <p class="card-text">{{playlist.description}}</p>
+            <div class="card mb-3 playlist" [routerLink]="['contents', playlist.id]">
+                <div class="row g-0">
+                    <div *ngIf="playlist.imageUrl" class="col-md-4" style="max-width: 6rem; max-height:6rem;">
+                        <img [src]="playlist.imageUrl" style="max-width: 6rem; max-height:6rem;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{playlist.name}}</h5>
+                            <p class="card-text">{{playlist.description}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </ng-container>
