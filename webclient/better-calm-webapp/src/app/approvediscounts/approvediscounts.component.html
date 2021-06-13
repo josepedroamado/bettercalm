@@ -1,1 +1,63 @@
-<p>approvediscounts works!</p>
+<div class="card text-dark bg-light mb-3 ms-auto me-auto wd-75">
+    <div class="card-header text-light bg-primary">
+        <div class="row">
+            <h5 class="card-title mt-1">Aprobación de Descuentos</h5>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="container-md">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-hover table-striped table-bordered w-80">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Fecha de Nacimiento</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Teléfono</th>
+                                <th scope="col">Cantidad de consultas</th>
+                                <th scope="col">Descuento Actual</th>
+                                <th scope="col-2">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let patient of patients">                                
+                                <th scope="row">{{patient.id}}</th>
+                                <td>{{patient.firstName}}</td>
+                                <td>{{patient.lastName}}</td>
+                                <td>{{patient.birthDate}}</td>
+                                <td>{{patient.email}}</td>
+                                <td>{{patient.phone}}</td>
+                                <td>{{patient.appointmentQuantity}}</td>
+                                <td>{{patient.appointmentDiscount}}</td>
+                                <td class="col-2">
+                                    <button type="button" class="btn btn-success btn-sm ms-2 me-1" (click)="approveDiscount(patient.email)">Conceder</button>     
+                                    <button type="button" class="btn btn-danger btn-sm ms-1 me-1" data-bs-toggle="modal" [attr.data-bs-target]="'#denyDiscountModal'+patient.id">Denegar</button>
+                                    <div class="modal fade" [id]="'denyDiscountModal'+patient.id" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" [id]="'denyDiscountModalLabel'+patient.id">Conceder Descuento</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Realmente desea denegar el descuento al paciente {{patient.firstName}} {{patient.lastName}}?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="button" class="btn btn-danger" (click)="denyDiscount(patient.email)" data-bs-dismiss="modal">Denegar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                             
+                                </td>
+                            </tr>
+                        </tbody>                   
+                    </table>
+                </div>
+            </div>   
+        </div>
+    </div>
+</div>

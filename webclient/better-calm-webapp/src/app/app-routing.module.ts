@@ -1,3 +1,4 @@
+import { PatientDiscountAddComponent } from './patient-discount-add/patient-discount-add.component';
 import { AdministratorEditComponent } from './administrator-edit/administrator-edit.component';
 import { PsychologistEditComponent } from './psychologist-edit/psychologist-edit.component';
 import { AdministratorGuard } from './guards/administrator.guard';
@@ -96,6 +97,12 @@ const routes: Routes = [
   {
     path: 'approvediscounts',
     component: ApprovediscountsComponent,
+    canActivate: [AdministratorGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'patient-discount-add/:email',
+    component: PatientDiscountAddComponent,
     canActivate: [AdministratorGuard],
     pathMatch: 'full'
   },
