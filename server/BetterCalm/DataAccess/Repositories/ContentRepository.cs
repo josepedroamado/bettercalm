@@ -70,7 +70,9 @@ namespace DataAccess.Repositories
 			if (this.contents.Count() <= 0)
 				throw new CollectionEmptyException("Contents");
 			else
-				return this.contents.Include("ContentType")
+				return this.contents
+					.Include("ContentType")
+					.Include("Categories")
 					.Where(content => content.PlayLists.Contains(playlist));
 		}
 
