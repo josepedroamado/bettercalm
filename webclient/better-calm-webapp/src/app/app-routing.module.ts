@@ -28,7 +28,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'admin.contents',
+    path: 'admin/contents',
     component: ContentManagementComponent,
     pathMatch: 'full',
     canActivate: [AdministratorGuard]
@@ -39,13 +39,13 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'admin.contents/edit',
+    path: 'admin/contents/edit',
     component: ContentEditComponent,
     pathMatch: 'full',
     canActivate: [AdministratorGuard]
   },
   {
-    path: 'admin.contents/edit/:id',
+    path: 'admin/contents/edit/:id',
     component: ContentEditComponent,
     pathMatch: 'full',
     canActivate: [AdministratorGuard]
