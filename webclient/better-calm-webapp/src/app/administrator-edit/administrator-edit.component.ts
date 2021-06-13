@@ -5,16 +5,19 @@ import { Administrator } from '../model/administrator';
 import { AdministratorsService } from '../services/administrators/administrators.service';
 
 @Component({
-  selector: 'app-administrator-add',
-  templateUrl: './administrator-add.component.html',
-  styleUrls: ['./administrator-add.component.scss']
+  selector: 'app-administrator-edit',
+  templateUrl: './administrator-edit.component.html',
+  styleUrls: ['./administrator-edit.component.scss']
 })
-export class AdministratorAddComponent implements OnInit {
+export class AdministratorEditComponent implements OnInit {
   isAModification = false;
+  administratorEmail = "";
   administratorId = 0;
+  loginError = false;
+  errorMessage ="";
   administratorForm = this.formBuilder.group(
     {
-      email: ["", Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       name: ["", Validators.required],
       password: ["", Validators.required]
     });
@@ -27,12 +30,12 @@ export class AdministratorAddComponent implements OnInit {
     private currentRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    let id = this.currentRoute.snapshot.params['id'];
-    if(id != null){
-      this.administratorId = id;
+    let email = this.currentRoute.snapshot.params['email'];
+    if(email != undefined){
+      this.administratorEmail = email;
       this.isAModification = true;
       this.changeToModifyUI();
-      this.loadStoredAdministrator(id);
+      this.loadStoredAdministrator(email);
     }
   }
 
@@ -43,11 +46,12 @@ export class AdministratorAddComponent implements OnInit {
 
   private loadStoredAdministrator(administratorEmail: string){
     this.administratorsService.get(administratorEmail).subscribe(
-      ((data : Administrator) => this.loadPsychologistInfoToForm(data)),
+      ((data : Administrator) => this.loadAdministratorInfoToForm(data)),
       ((error : any) => console.log(error)));
   }
 
-  private loadPsychologistInfoToForm(input : Administrator){
+  private loadAdministratorInfoToForm(input : Administrator){
+    this.administratorId = input.id;
     this.administratorForm.patchValue({
       email: input.email,
       name: input.name,
@@ -56,21 +60,26 @@ export class AdministratorAddComponent implements OnInit {
 
   onSubmit(input: any){
     if(this.isAModification){
-      input.id = +this.administratorId;
+      input.id = +this.administratorEmail;
       this.administratorsService.patch(input).subscribe(
         (() => this.goBackToListView()),
-        ((error : any) => console.log(error))
+        ((error : any) => this.showError(error))
       );
     }
     else{
       this.administratorsService.post(input).subscribe(
         (() => this.goBackToListView()),
-        ((error : any) => console.log(error))
+        ((error : any) => this.showError(error))
       );
     }
   }
 
   goBackToListView(){
-    this.router.navigate(['/administrators'])
+    this.router.navigate(['/administrators']);
+  }
+
+  private showError(error: any){
+    this.loginError = true;
+    this.errorMessage = error;
   }
 }

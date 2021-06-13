@@ -1,10 +1,10 @@
 import { Administrator } from './../../model/administrator';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { BaseService } from '../common/base-service';
 import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -67,12 +67,9 @@ export class AdministratorsService extends BaseService{
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem("token") ?? ""
-      }),
-      body: {
-        id: input
-      },
+      })
     };
-    return this.http.delete<any>(this.target_url, options)
+    return this.http.delete<any>(this.target_url+'/'+input, options)
     .pipe(catchError(this.handleError));
   }
 }

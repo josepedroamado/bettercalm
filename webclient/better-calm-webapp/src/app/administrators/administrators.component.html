@@ -7,7 +7,7 @@
             <div class="col-3"></div>
             <div class="col"></div>
             <div class="col">
-                <button type="button" class="btn btn-light me-1" (click)="goToAddView(null)">Agregar administrador</button>
+                <button type="button" class="btn btn-light me-1" (click)="goToAddView('')">Agregar administrador</button>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                                 <td>{{administrator.email}}</td>
                                 <td>{{administrator.name}}</td>
                                 <td class="col-2">
-                                    <button type="button" class="btn btn-primary btn-sm ms-2 me-1" (click)="goToAddView(administrator.id)">Editar</button>
+                                    <button type="button" class="btn btn-primary btn-sm ms-2 me-1" (click)="goToAddView(administrator.email)">Editar</button>
                                     <button type="button" class="btn btn-danger btn-sm ms-1 me-1" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal'+administrator.id">Eliminar</button>
                                     <div class="modal fade" [id]="'deleteModal'+administrator.id" tabindex="-1">
                                         <div class="modal-dialog">
@@ -44,14 +44,14 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                    <button type="button" class="btn btn-primary" (click)="removeAdministrator(administrator.id)" data-bs-dismiss="modal">Eliminar</button>
+                                                    <button type="button" class="btn btn-danger" (click)="removeAdministrator(administrator.id)" data-bs-dismiss="modal">Eliminar</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>                             
                                 </td>
                             </tr>
-                        </tbody>
+                        </tbody>                   
                     </table>
                 </div>
             </div>   

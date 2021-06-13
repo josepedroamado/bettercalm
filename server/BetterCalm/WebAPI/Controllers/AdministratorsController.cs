@@ -19,7 +19,6 @@ namespace WebAPI.Controllers
 			this.userLogic = userLogic;
 		}
 
-		// POST api/<AdministratorsController>
 		[HttpPost]
 		public IActionResult Post([FromBody] AdministratorInputModel model)
 		{
@@ -50,7 +49,7 @@ namespace WebAPI.Controllers
 					ToList());
 		}
 
-		[HttpGet("{id}")]
+		[HttpGet("{email}")]
 		public IActionResult Get(string email)
 		{
 			AdministratorOutputModel user = new AdministratorOutputModel(this.userLogic.GetUser(email));

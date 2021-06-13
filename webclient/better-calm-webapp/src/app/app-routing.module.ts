@@ -1,4 +1,4 @@
-import { AdministratorAddComponent } from './administrator-add/administrator-add.component';
+import { AdministratorEditComponent } from './administrator-edit/administrator-edit.component';
 import { PsychologistAddComponent } from './psychologist-add/psychologist-add.component';
 import { AdministratorGuard } from './guards/administrator.guard';
 import { ImportersComponent } from './importers/importers.component';
@@ -58,15 +58,15 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'administrator-add',
-    component: AdministratorAddComponent,
+    path: 'administrator-edit',
+    component: AdministratorEditComponent,
     canActivate: [AdministratorGuard],
     pathMatch: 'full'
   },
   {
-    path: 'administrator-add/:id',
-    component: AdministratorAddComponent,
-    canActivate: [AdministratorAddComponent],
+    path: 'administrator-edit/:email',
+    component: AdministratorEditComponent,
+    canActivate: [AdministratorGuard],
     pathMatch: 'full'
   },
   {

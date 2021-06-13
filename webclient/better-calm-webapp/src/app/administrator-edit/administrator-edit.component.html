@@ -10,18 +10,29 @@
                     <input type="text" class="form-control" placeholder="Por favor ingrese el nombre" id="name" formControlName="name" required>
                 </div>
                 <div class="col">
-                    <label for="lastName" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" placeholder="Por favor ingrese el apellido" id="lastName" formControlName="lastName" required>
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" placeholder="Por favor ingrese el email" id="email" formControlName="email" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="password" class="form-label">Dirección</label>
+                    <label for="password" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" placeholder="Por favor ingrese una contraseña" id="password" formControlName="password" required>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary me-3" (click)="goBackToListView()">Cancelar</button>
-            <button type="submit" class="btn btn-primary" [disabled]="!administratorForm.valid">{{buttonText}}</button>
+            <div class="row">
+                <div class="col-1">
+                    <button type="button" class="btn btn-primary me-3" (click)="goBackToListView()">Cancelar</button>
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary" [disabled]="!administratorForm.valid">{{buttonText}}</button>
+                </div>
+                <div class="col">
+                    <label class="form-label">
+                        <span class="text-danger" *ngIf="loginError"><strong>{{errorMessage}}</strong></span>
+                    </label>
+                </div>
+            </div>
         </form>
     </div>
 </div>

@@ -10,7 +10,7 @@ import { AdministratorsService } from '../services/administrators/administrators
 })
 export class AdministratorsComponent implements OnInit {
   administrators:Administrator[] = [];
-  
+
   constructor(private router: Router, private administratorsService: AdministratorsService) { }
 
   ngOnInit(): void {
@@ -18,23 +18,18 @@ export class AdministratorsComponent implements OnInit {
   }
 
   private updateAdministrators(){
-    this.administratorsService.getAll().subscribe((contents) => this.setPsychologists(contents), console.error);
+    this.administratorsService.getAll().subscribe((contents) => this.setAdministrators(contents), console.error);
   }
-  private setPsychologists(administrators:Administrator[]){
+  
+  private setAdministrators(administrators:Administrator[]){
     this.administrators = administrators;
   }
 
-  goToAddView(id: any){
-    if(id != null){
-      this.router.navigate(['/administrator-add/'+id])
-    }
-    else{
-      this.router.navigate(['/administrator-add']);
-    }
+  goToAddView(email: string){
+    this.router.navigate(['/administrator-edit/'+ email]);
   }
 
   removeAdministrator(administrator: number){
-    this.administratorsService.remove(administrator).subscribe();
-    this.updateAdministrators();
+    this.administratorsService.remove(administrator).subscribe(() => this.updateAdministrators());
   }
 }
