@@ -1,8 +1,8 @@
-import { PatientsService } from './../services/patients/patients.service';
+import { PatientsService } from '../../../services/patients/patients.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Patient } from '../model/patient';
+import { Patient } from '../../../model/patient';
 
 @Component({
   selector: 'app-patient-discount-add',

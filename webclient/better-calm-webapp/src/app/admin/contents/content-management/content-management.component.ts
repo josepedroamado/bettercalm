@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Content } from '../domain/content';
-import { ContentsService } from '../services/contents/contents.service';
+import { Content } from '../../../domain/content';
+import { ContentsService } from '../../../services/contents/contents.service';
 
 @Component({
   selector: 'app-content-management',

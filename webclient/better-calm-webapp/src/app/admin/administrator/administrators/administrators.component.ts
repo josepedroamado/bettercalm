@@ -1,7 +1,7 @@
-import { Administrator } from './../model/administrator';
+import { Administrator } from '../../../model/administrator';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdministratorsService } from '../services/administrators/administrators.service';
+import { AdministratorsService } from '../../../services/administrators/administrators.service';
 
 @Component({
   selector: 'app-administrators',

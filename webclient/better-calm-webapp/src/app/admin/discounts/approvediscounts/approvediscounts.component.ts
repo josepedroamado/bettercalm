@@ -1,7 +1,7 @@
-import { Patient } from './../model/patient';
+import { Patient } from '../../../model/patient';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PatientsService } from '../services/patients/patients.service';
+import { PatientsService } from '../../../services/patients/patients.service';
 
 @Component({
   selector: 'app-approvediscounts',

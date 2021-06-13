@@ -1,10 +1,10 @@
 import { Psychologist } from 'src/app/model/psychologist';
-import { IllnessOut } from '../model/illnessOut';
-import { PsychologistsService } from '../services/psychologists/psychologists.service';
+import { IllnessOut } from '../../../model/illnessOut';
+import { PsychologistsService } from '../../../services/psychologists/psychologists.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { IllnessIn } from '../model/illnessIn';
-import { IllnessesService } from '../services/illnesses/illnesses.service';
+import { IllnessIn } from '../../../model/illnessIn';
+import { IllnessesService } from '../../../services/illnesses/illnesses.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

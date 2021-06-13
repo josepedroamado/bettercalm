@@ -1,6 +1,6 @@
-import { PsychologistsService } from './../services/psychologists/psychologists.service';
+import { PsychologistsService } from '../../../services/psychologists/psychologists.service';
 import { Component, OnInit } from '@angular/core';
-import { Psychologist } from '../model/psychologist';
+import { Psychologist } from '../../../model/psychologist';
 import { Router } from '@angular/router';
 
 @Component({

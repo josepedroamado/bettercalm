@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Category } from '../domain/category';
-import { Content } from '../domain/content';
-import { Playlist } from '../domain/playlist';
-import { CategoriesService } from '../services/categories/categories.service';
-import { ContentsService } from '../services/contents/contents.service';
-import { PlaylistsService } from '../services/playlists/playlists.service';
+import { Category } from '../../../domain/category';
+import { Content } from '../../../domain/content';
+import { Playlist } from '../../../domain/playlist';
+import { CategoriesService } from '../../../services/categories/categories.service';
+import { ContentsService } from '../../../services/contents/contents.service';
+import { PlaylistsService } from '../../../services/playlists/playlists.service';
 
 @Component({
   selector: 'app-content-edit',

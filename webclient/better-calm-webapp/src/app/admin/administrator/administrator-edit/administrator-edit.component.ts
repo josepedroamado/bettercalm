@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Administrator } from '../model/administrator';
-import { AdministratorsService } from '../services/administrators/administrators.service';
+import { Administrator } from '../../../model/administrator';
+import { AdministratorsService } from '../../../services/administrators/administrators.service';
 
 @Component({
   selector: 'app-administrator-edit',

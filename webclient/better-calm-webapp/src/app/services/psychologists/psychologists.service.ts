@@ -6,9 +6,7 @@ import { Psychologist } from 'src/app/model/psychologist';
 import { environment } from 'src/environments/environment';
 import { BaseService } from '../common/base-service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PsychologistsService extends BaseService{
   private readonly target_url:string = `${environment.api_url}/psychologists`
   

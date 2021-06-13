@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ImportInfo } from '../domain/import-info';
-import { ImportTypes } from '../domain/import-types';
-import { ImportService } from '../services/import/import.service';
+import { ImportInfo } from '../../../domain/import-info';
+import { ImportTypes } from '../../../domain/import-types';
+import { ImportService } from '../../../services/import/import.service';
 
 @Component({
   selector: 'app-importers',
