@@ -10,72 +10,70 @@ import { PatientDiscountAddComponent } from "./discounts/patient-discount-add/pa
 import { PsychologistEditComponent } from "./psychologists/psychologist-edit/psychologist-edit.component";
 import { PsychologistsComponent } from "./psychologists/psychologists/psychologists.component";
 import { IndexAdminComponent } from "./index-admin/index-admin.component";
-import { LogoutComponent } from "../logout/logout.component";
 
 const routes: Routes = [
     {
-        path:'',
-        component: IndexAdminComponent,
-        children:[
-          {
-            path:'',
-            component: ContentManagementComponent
-          },
-          {
-            path:'contents',
-            component: ContentManagementComponent
-          },
-          {
-            path:'contents/edit',
-            component: ContentEditComponent
-          },
-          {
-            path:'contents/edit/:id',
-            component: ContentEditComponent
-          },
-          {
-            path:'psychologists',
-            component: PsychologistsComponent
-          },
-          {
-            path:'psychologists/edit',
-            component: PsychologistEditComponent
-          },
-          {
-            path:'psychologists/edit/:id',
-            component: PsychologistEditComponent
-          },
-          {
-            path:'administrators',
-            component: AdministratorsComponent
-          },
-          {
-            path:'administrators/edit',
-            component: AdministratorEditComponent
-          },
-          {
-            path:'administrators/edit/:email',
-            component: AdministratorEditComponent
-          },
-          {
-            path:'discounts',
-            component: ApprovediscountsComponent
-          },
-          {
-            path:'discounts/add/:email',
-            component: PatientDiscountAddComponent
-          },
-          {
-            path:'importers',
-            component: ImportersComponent
-          }
-        ]
-      },
-      {
-        path: 'logout',
-        component: LogoutComponent,
-        pathMatch: 'full'
-      }
+      path:'',
+      component: IndexAdminComponent,
+      children:[
+        {
+          path:'',
+          redirectTo: 'contents'
+        },
+        {
+          path:'contents',
+          component: ContentManagementComponent
+        },
+        {
+          path:'contents/edit',
+          component: ContentEditComponent
+        },
+        {
+          path:'contents/edit/:id',
+          component: ContentEditComponent
+        },
+        {
+          path:'psychologists',
+          component: PsychologistsComponent
+        },
+        {
+          path:'psychologists/edit',
+          component: PsychologistEditComponent
+        },
+        {
+          path:'psychologists/edit/:id',
+          component: PsychologistEditComponent
+        },
+        {
+          path:'administrators',
+          component: AdministratorsComponent
+        },
+        {
+          path:'administrators/edit',
+          component: AdministratorEditComponent
+        },
+        {
+          path:'administrators/edit/:email',
+          component: AdministratorEditComponent
+        },
+        {
+          path:'discounts',
+          component: ApprovediscountsComponent
+        },
+        {
+          path:'discounts/add/:email',
+          component: PatientDiscountAddComponent
+        },
+        {
+          path:'importers',
+          component: ImportersComponent
+        },
+        {
+          path:'**',
+          redirectTo: ''
+        }
+      ]
+    }
 ]
 
 @NgModule({

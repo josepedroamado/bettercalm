@@ -4,7 +4,6 @@ import { PlaylistsComponent } from "./playlists/playlists.component";
 import { AppointmentComponent } from "./appointment/appointment.component";
 import { ContentsComponent } from "./contents/contents/contents.component";
 import { IndexPublicComponent } from "./index-public/index-public.component";
-import { LoginComponent } from "../login/login.component";
 
 const routes: Routes = [
     {
@@ -13,7 +12,7 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                component: ContentsComponent,
+                redirectTo: 'contents',
                 pathMatch: 'full'
             },
             {
@@ -37,10 +36,6 @@ const routes: Routes = [
                 pathMatch: 'full'
             }
         ]
-    },
-    {
-      path: 'login',
-      component: LoginComponent
     }
 ]
 
