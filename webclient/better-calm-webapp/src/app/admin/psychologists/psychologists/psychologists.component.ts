@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class PsychologistsComponent implements OnInit {
   psychologists:Psychologist[] = [];
+  error = false;
 
   constructor(private psychologistsService: PsychologistsService, private router: Router) { }
 
@@ -18,10 +19,14 @@ export class PsychologistsComponent implements OnInit {
   }
 
   private updatePsychologists(){
-    this.psychologistsService.getAll().subscribe((contents) => this.setPsychologists(contents), console.error);
+    this.psychologistsService.getAll().subscribe((contents) => this.setPsychologists(contents), (error : any) => this.showError(error));
   }
   private setPsychologists(psychologists:Psychologist[]){
     this.psychologists = psychologists;
+  }
+
+  private showError(error: any){
+    this.error = true;
   }
 
   goToAddView(id: any){
