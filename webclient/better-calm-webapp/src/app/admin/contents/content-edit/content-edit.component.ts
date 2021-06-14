@@ -24,7 +24,6 @@ export class ContentEditComponent implements OnInit {
   public selectedPlaylists: number[] = [];
   public isLoadingContent:boolean = true;
   public isLoadingCategories:boolean = true;
-  public isLoadingPlaylists:boolean = true;
   public hasError:boolean = false;
   public errorMessage: string = "";
   public contentForm = this.formBuilder.group(
@@ -77,8 +76,7 @@ export class ContentEditComponent implements OnInit {
   }
 
   private getPlaylists():void{
-    this.isLoadingPlaylists = true;
-    this.playlistsService.getAll().subscribe((playlists) => this.setPlaylists(playlists), this.setError.bind(this));
+    this.playlistsService.getAll().subscribe((playlists) => this.setPlaylists(playlists), (error) => console.log(error));
   }
 
   private setContent(content:Content):void{
@@ -106,7 +104,6 @@ export class ContentEditComponent implements OnInit {
 
   private setPlaylists(playlists:Playlist[]):void{
     this.playlists = playlists;
-    this.isLoadingPlaylists = false;
   }
 
   onSubmit(content: Content){

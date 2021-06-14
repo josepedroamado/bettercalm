@@ -1,6 +1,6 @@
-<app-loading *ngIf="!hasError && (isLoadingContent || isLoadingCategories || isLoadingPlaylists)" text="Loading..."></app-loading>
+<app-loading *ngIf="!hasError && (isLoadingContent || isLoadingCategories)" text="Loading..."></app-loading>
 <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
-<div *ngIf="!(isLoadingContent || isLoadingCategories || isLoadingPlaylists) && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto" style="width: 75rem;">
+<div *ngIf="!(isLoadingContent || isLoadingCategories) && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto" style="width: 75rem;">
     <div class="card-header text-light bg-primary">
         <h5 class="card-title mt-1">Edición de Contenido</h5>
     </div>
