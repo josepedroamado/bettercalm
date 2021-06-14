@@ -11,7 +11,7 @@
 
         <app-categories style="float:right;" (changeSelectedCategories)="changeSelectedCatagories($event)"></app-categories>    
     </div>
-    <div class="container" style="text-align: center;">
+    <div class="container mb-5 pb-5" style="text-align: center;">
         <app-content-card *ngFor="let content of contents" [content]="content" style="display: inline-block; margin:2px;"></app-content-card>
     </div>
 </div>
