@@ -10,6 +10,7 @@ import { ContentsService } from '../../../services/contents/contents.service';
 export class ContentManagementComponent implements OnInit {
   contents:Content[] = [];
   isLoading = true;
+  error = false;
 
   constructor(private contentsService: ContentsService){}
 
@@ -18,7 +19,12 @@ export class ContentManagementComponent implements OnInit {
   }
 
   private getContents(){
-    this.contentsService.getAll().subscribe((contents) => this.setContents(contents), console.error);
+    this.contentsService.getAll().subscribe((contents) => this.setContents(contents), (error : any) => this.showError(error));
+  }
+
+  private showError(error: any){
+    this.error = true;
+    this.isLoading = false;
   }
 
   private setContents(contents:Content[]){

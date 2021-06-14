@@ -1,8 +1,8 @@
 <app-loading *ngIf="!hasError && isLoading" text="Loading categories..."></app-loading>
-<app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
 <app-categories style="margin-left: 35%; margin-bottom: 5px;" (changeSelectedCategories)="changeSelectedCatagories($event)"></app-categories> 
 <div class="pt-2" *ngIf="!isLoading">
     <div class="container-fluid playlistsContainer">
+        <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
         <ng-container *ngFor="let playlist of playlists">
             <div class="card mb-3 playlist shadow-sm bg-body rounded" [routerLink]="['contents', playlist.id]">
                 <div class="row g-0">

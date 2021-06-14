@@ -19,7 +19,9 @@ export class ContentEditComponent implements OnInit {
   public isCreate:boolean = true;
   public content:Content = {} as any;
   public categories:Category[] = [];
+  public selectedCategories: number[] = [];
   public playlists:Playlist[] = [];
+  public selectedPlaylists: number[] = [];
   public isLoadingContent:boolean = true;
   public isLoadingCategories:boolean = true;
   public isLoadingPlaylists:boolean = true;
@@ -80,6 +82,8 @@ export class ContentEditComponent implements OnInit {
   }
 
   private setContent(content:Content):void{
+    this.selectedCategories = content.categories;
+    this.selectedPlaylists = content.playlistIds;
     this.content = content;
     this.contentForm.patchValue({
       id: content.id,
@@ -89,7 +93,6 @@ export class ContentEditComponent implements OnInit {
       imageUrl: content.imageUrl,
       contentUrl: content.contentUrl,
       contentType: content.contentType,
-      categories: content.categories,
       playlistIds: content.playlistIds
     })
     this.hasError = false;
@@ -131,9 +134,11 @@ export class ContentEditComponent implements OnInit {
 
   onSubmitPlaylist(playlist: Playlist){
     playlist.id = 0;
-    this.playlists.push(playlist);
     let currentContent = this.contentForm.value;
     currentContent.playlistIds.push(playlist.id);
+    let updatedPlaylists = this.playlists;
+    updatedPlaylists.push(playlist);
+    this.playlists = [...updatedPlaylists];
     this.contentForm.patchValue(currentContent);
   }
 

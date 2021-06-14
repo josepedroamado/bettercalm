@@ -16,6 +16,8 @@ export class ContentsComponent implements OnInit {
   typeFilters:string[] = [ "audio", "video"]
   isLoading = true;
   playlistId:number | undefined;
+  public hasError:boolean = false;
+  public errorMessage: string = "";
 
   constructor(private contentsService: ContentsService, 
     private playlistsService:PlaylistsService, 
@@ -29,10 +31,10 @@ export class ContentsComponent implements OnInit {
 
   private getContents(){
     if (this.playlistId){
-      this.playlistsService.getContents(this.playlistId).subscribe((contents) => this.setContents(contents), console.error);
+      this.playlistsService.getContents(this.playlistId).subscribe((contents) => this.setContents(contents), (error) => this.setError(error));
     }
     else{
-      this.contentsService.getAll().subscribe((contents) => this.setContents(contents), console.error);
+      this.contentsService.getAll().subscribe((contents) => this.setContents(contents), (error) => this.setError(error));
     }    
   }
 
@@ -66,5 +68,12 @@ export class ContentsComponent implements OnInit {
       this.typeFilters.push(filterValue);
     }
     this.setShowContents();
+  }
+
+  private setError(error:string){
+    this.hasError = true;
+    this.errorMessage = error;
+    this.isLoading = false;
+    console.log(error);
   }
 }
