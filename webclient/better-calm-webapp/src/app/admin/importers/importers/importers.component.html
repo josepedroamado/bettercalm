@@ -1,12 +1,12 @@
 <app-loading *ngIf="!hasError && isLoading" text="Loading..."></app-loading>
 <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
-<div *ngIf="!isLoading && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto wd-75">
+<div *ngIf="!isLoading && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto shadow rounded" style="width: 75rem;">
     <div class="card-header text-light bg-primary">
         <h5 class="card-title mt-1">Importar contenidos</h5>
     </div>
     <div class="card-body">
         <p class="card-text">Para importar contenidos, por favor complete el siguiente formulario.</p>
-        <form [formGroup]="importForm" (ngSubmit)="onSubmit(importForm.value)">
+        <form class="pt-2" [formGroup]="importForm" (ngSubmit)="onSubmit(importForm.value)">
             <div class="row mb-3">
                 <div class="col">
                     <label for="filePath" class="form-label">Ruta</label>
@@ -21,7 +21,9 @@
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!importForm.valid">Confirmar</button>
+            <div class="row">
+                <button type="submit" class="btn btn-primary mt-2 mx-auto shadow-sm rounded" style="width: 10rem;" [disabled]="!importForm.valid">Confirmar</button>
+            </div>
         </form>
     </div>
 </div>

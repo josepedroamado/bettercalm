@@ -45,7 +45,7 @@ export class PatientDiscountAddComponent implements OnInit {
   }
 
   goBackToListView(){
-    this.router.navigate(['/approvediscounts']);
+    this.router.navigate(['/admin/discounts']);
   }
 
   private showError(error: any){

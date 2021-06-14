@@ -26,7 +26,7 @@ export class AdministratorsComponent implements OnInit {
   }
 
   goToAddView(email: string){
-    this.router.navigate(['/administrator-edit/'+ email]);
+    this.router.navigate(['/admin/administrators/edit/'+ email]);
   }
 
   removeAdministrator(administrator: number){

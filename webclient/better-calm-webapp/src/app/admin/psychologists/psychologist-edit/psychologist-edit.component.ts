@@ -112,6 +112,6 @@ export class PsychologistEditComponent implements OnInit {
   }
 
   goBackToListView(){
-    this.router.navigate(['/psychologists'])
+    this.router.navigate(['/admin/psychologists'])
   }
 }

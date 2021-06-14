@@ -33,7 +33,7 @@ export class ContentEditComponent implements OnInit {
       artistName: ['', [Validators.required]],
       imageUrl: ['', [Validators.pattern(ContentEditComponent.urlPattern)]],
       contentUrl: ['', [Validators.pattern(ContentEditComponent.urlPattern), Validators.required]],
-      contentType: ['', Validators.required],
+      contentType: ['audio', Validators.required],
       categories: ['', Validators.required],
       playlistIds: ['']
     });
