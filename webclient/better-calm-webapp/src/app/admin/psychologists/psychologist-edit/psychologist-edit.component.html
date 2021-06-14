@@ -1,4 +1,4 @@
-<div class="card text-dark bg-light mb-3 ms-auto me-auto shadow rounded" style="width: 75rem;">
+<div class="card text-dark bg-dark mb-3 ms-auto me-auto shadow rounded" style="max-width: 75rem;">
     <div class="card-header text-light bg-success">
         <h5 class="card-title mt-1">{{title}}</h5>
     </div>
@@ -48,8 +48,8 @@
                 </div>
             </div>
             <div class="row mx-auto">
-                <button type="button" class="btn btn-secondary ms-auto me-1 shadow-sm rounded" style="width: 10rem;" (click)="goBackToListView()">Cancelar</button>
-                <button type="submit" class="btn btn-success ms-1 me-auto shadow-sm rounded" style="width: 10rem;" [disabled]="!psychologistForm.valid">{{buttonText}}</button>
+                <button type="button" class="btn btn-secondary ms-auto me-1 shadow-sm rounded" style="max-width: 10rem;" (click)="goBackToListView()">Cancelar</button>
+                <button type="submit" class="btn btn-success ms-1 me-auto shadow-sm rounded" style="max-width: 10rem;" [disabled]="!psychologistForm.valid">{{buttonText}}</button>
             </div>
         </form>
     </div>

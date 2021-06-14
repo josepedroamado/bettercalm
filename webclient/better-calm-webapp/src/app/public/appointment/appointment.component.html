@@ -1,9 +1,9 @@
-<div class="card text-dark bg-light ms-auto me-auto shadow bg-body rounded" style="width: 65rem;" *ngIf="!submitted">
+<div class="card text-dark bg-dark ms-auto me-auto shadow bg-dark rounded" style="width: 65rem;" *ngIf="!submitted">
     <div class="card-header text-light bg-success">
         <h5 class="card-title mt-1">Solicitud de Consulta</h5>
     </div>
     <div class="card-body bg-dark">
-        <p class="card-text">Para realizar una solicitud de consulta con uno de nuestros psicólogos especializados, por favor completar el siguiente formulario:</p>
+        <p class="card-text text-light">Para realizar una solicitud de consulta con uno de nuestros psicólogos especializados, por favor completar el siguiente formulario:</p>
         <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit(appointmentForm.value)">
             <div class="row mb-3 pt-2">
                 <div class="col">
@@ -52,20 +52,20 @@
     </div>
 </div>
 
-<div class="card text-dark bg-light ms-auto me-auto shadow bg-body rounded" style="width: 25rem;" *ngIf="submitted">
+<div class="card text-dark ms-auto me-auto shadow bg-dark rounded" style="width: 25rem;" *ngIf="submitted">
     <div class="card-header text-light bg-success">
         <h5 class="card-title mt-1">¡Registro de consulta exitoso!</h5>
     </div>
-    <div class="card-body bg-dark">
+    <div class="card-body">
         <p class="card-text text-center text-light">Los datos de tu consulta son:</p>
-        <div class="card card ms-auto me-auto" style="width: 18rem;">
-            <ul class="list-group list-group-flush bg-secondary">
-                <li class="list-group-item"><strong>Psicólogo: </strong>{{appointmentData.psychologistName}}</li>
-                <li class="list-group-item"><strong>Formato: </strong>{{appointmentData.format}}</li>
-                <li class="list-group-item"><strong>Dirección: </strong>{{appointmentData.address}}</li>
-                <li class="list-group-item"><strong>Fecha: </strong>{{appointmentData.date}}</li>
-                <li class="list-group-item" *ngIf="appointmentData.discount > 0"><strong>Descuento: </strong>{{appointmentData.discount}}%</li>
-                <li class="list-group-item"><strong>Costo: </strong>{{appointmentData.cost}}</li>
+        <div class="card ms-auto me-auto bg-dark border-secondary" style="width: 18rem;">
+            <ul class="list-group list-group-flush bg-dark">
+                <li class="list-group-item bg-dark border-secondary text-light"><strong>Psicólogo: </strong>{{appointmentData.psychologistName}}</li>
+                <li class="list-group-item bg-dark border-secondary text-light"><strong>Formato: </strong>{{appointmentData.format}}</li>
+                <li class="list-group-item bg-dark border-secondary text-light"><strong>Dirección: </strong>{{appointmentData.address}}</li>
+                <li class="list-group-item bg-dark border-secondary text-light"><strong>Fecha: </strong>{{appointmentData.date}}</li>
+                <li class="list-group-item bg-dark border-secondary text-light" *ngIf="appointmentData.discount > 0"><strong>Descuento: </strong>{{appointmentData.discount}}%</li>
+                <li class="list-group-item bg-dark border-secondary text-light"><strong>Costo: </strong>{{appointmentData.cost}}</li>
             </ul>
         </div>
     </div>

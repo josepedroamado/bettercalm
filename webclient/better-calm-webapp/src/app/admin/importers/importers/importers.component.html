@@ -1,6 +1,6 @@
 <app-loading *ngIf="!hasError && isLoading" text="Loading..."></app-loading>
 <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
-<div *ngIf="!isLoading && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto shadow rounded" style="width: 75rem;">
+<div *ngIf="!isLoading && !hasError" class="card text-dark bg-dark mb-3 ms-auto me-auto shadow rounded" style="max-width: 75rem;">
     <div class="card-header text-light bg-success">
         <h5 class="card-title mt-1">Importar contenidos</h5>
     </div>
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="row">
-                <button type="submit" class="btn btn-success mt-2 mx-auto shadow-sm rounded" style="width: 10rem;" [disabled]="!importForm.valid">Confirmar</button>
+                <button type="submit" class="btn btn-success mt-2 mx-auto shadow-sm rounded" style="max-width: 10rem;" [disabled]="!importForm.valid">Confirmar</button>
             </div>
         </form>
     </div>
