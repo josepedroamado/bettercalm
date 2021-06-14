@@ -1,22 +1,22 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary p-2">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary p-2 shadow">
     <div class="container-fluid">
-      <a class="navbar-brand" [routerLink]="['']">Better Calm</a>
+      <a class="navbar-brand" [routerLink]="['']"><strong>Better Calm</strong></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-4 me-auto">
-          <li class="nav-item active">
-            <a class="nav-link text-light" [routerLink]="['contents']">Contenidos </a>
+          <li class="nav-item active mx-2">
+            <a class="nav-link text-light" [routerLink]="['contents']">Contenidos</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item mx-2">
             <a class="nav-link text-light" [routerLink]="['playlists']">Listas de Reproducción</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item mx-2">
             <a class="nav-link text-light" [routerLink]="['appointment']">Solicitud de Consulta</a>
           </li>
         </ul>   
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav mx-2 ms-auto">
           <li class="nav-item">
             <a class="nav-link text-light" [routerLink]="['login']"> Iniciar Sesión</a>
           </li>

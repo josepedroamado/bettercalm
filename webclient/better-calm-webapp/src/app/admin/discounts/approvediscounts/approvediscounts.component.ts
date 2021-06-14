@@ -26,7 +26,7 @@ export class ApprovediscountsComponent implements OnInit {
   }
 
   approveDiscount(email: string){
-    this.router.navigate(['/patient-discount-add/'+ email]);
+    this.router.navigate(['/admin/discounts/add/'+ email]);
   }
 
   denyDiscount(email: string){

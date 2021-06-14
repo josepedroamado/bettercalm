@@ -26,8 +26,8 @@ export class AppointmentComponent implements OnInit {
       birthDate: ['', Validators.required],
       eMail: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern("[0-9]{3,9}")]],
-      illnessId: [null, Validators.required],
-      duration: ['', Validators.required],
+      illnessId: [1, Validators.required],
+      duration: ["01:00:00", Validators.required],
     });
   
   constructor(private illnessesService: IllnessesService, private formBuilder: FormBuilder, private appointmentsService: AppointmentsService) { 

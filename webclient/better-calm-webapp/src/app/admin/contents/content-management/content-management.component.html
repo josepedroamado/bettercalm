@@ -1,14 +1,12 @@
 <app-loading *ngIf="isLoading" text="Loading contents..."></app-loading>
 <div *ngIf="!isLoading">
-    <div class="card text-dark bg-light mb-3 ms-auto me-auto wd-75">
+    <div class="card text-dark bg-light mb-3 ms-auto me-auto shadow rounded" style="width: 75rem;">
         <div class="card-header text-light bg-primary">
             <div class="row">
-                <div class="col-4">
+                <div class="col">
                     <h5 class="card-title mt-1">Mantenimiento de Contenidos</h5>
                 </div>
-                <div class="col-3"></div>
-                <div class="col"></div>
-                <div class="col">
+                <div class="col-2">
                     <button type="button" class="btn btn-light me-1" [routerLink]="['/admin/contents/edit']">Agregar contenido</button>
                 </div>
             </div>
@@ -17,7 +15,7 @@
             <div class="container-md">
                 <div class="row">
                     <div class="col">
-                        <table class="table table-hover table-striped table-bordered w-80">
+                        <table class="table table-hover table-striped table-bordered w-80 shadow-sm rounded">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
@@ -34,10 +32,10 @@
                                     <td>{{content.name}}</td>
                                     <td>{{content.artistName}}</td>
                                     <td>{{content.contentLength}}</td>
-                                    <td>{{content.contentType}}</td>
+                                    <td>{{content.contentType | titlecase}}</td>
                                     <td class="col-2">
-                                        <button type="button" class="btn btn-primary btn-sm ms-2 me-1" [routerLink]="['/admin/contents/edit', content.id]" >Editar</button>
-                                        <button type="button" class="btn btn-danger btn-sm ms-1 me-1" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal'+content.id">Eliminar</button>
+                                        <button type="button" class="btn btn-primary btn-sm ms-4 me-1 shadow-sm rounded" [routerLink]="['/admin/contents/edit', content.id]" >Editar</button>
+                                        <button type="button" class="btn btn-danger btn-sm ms-1 me-auto shadow-sm rounded" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal'+content.id">Eliminar</button>
                                         <div class="modal fade" [id]="'deleteModal'+content.id" tabindex="-1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">

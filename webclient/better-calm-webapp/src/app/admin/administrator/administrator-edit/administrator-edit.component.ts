@@ -75,7 +75,7 @@ export class AdministratorEditComponent implements OnInit {
   }
 
   goBackToListView(){
-    this.router.navigate(['/administrators']);
+    this.router.navigate(['/admin/administrators']);
   }
 
   private showError(error: any){

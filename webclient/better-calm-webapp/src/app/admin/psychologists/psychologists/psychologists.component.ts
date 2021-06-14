@@ -26,10 +26,10 @@ export class PsychologistsComponent implements OnInit {
 
   goToAddView(id: any){
     if(id != null){
-      this.router.navigate(['/psychologist-add/'+id])
+      this.router.navigate(['/admin/psychologists/edit/'+id])
     }
     else{
-      this.router.navigate(['/psychologist-add']);
+      this.router.navigate(['/admin/psychologists/edit']);
     }
   }
 

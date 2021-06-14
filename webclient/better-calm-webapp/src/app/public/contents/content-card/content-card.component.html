@@ -1,11 +1,11 @@
-<div class="card" style="width: 18rem;">
+<div class="card m-1 shadow bg-body rounded" style="width: 18rem;">
     <img *ngIf="content.imageUrl" [src]="content.imageUrl" class="card-img-top" alt="...">
     <div class="card-body">
-        <h5 class="card-title">{{content.name}}</h5>
-        <p class="card-text">Artist: {{content.artistName}}</p>
-        <p class="card-text">Duration: {{content.contentLength}}</p>
-        <p class="card-text">Type: {{content.contentType}}</p>
-        <a (click)="show()" class="btn btn-primary">Show</a>
+        <h5 class="card-title fw-bold">{{content.name}}</h5>
+        <p class="card-text"><strong>Artista: </strong>{{content.artistName}}</p>
+        <p class="card-text"><strong>Duración: </strong>{{content.contentLength}}</p>
+        <p class="card-text"><strong>Tipo: </strong>{{content.contentType}}</p>
+        <a (click)="show()" class="btn btn-primary">Reproducir</a>
         <app-content-detail *ngIf="showDetail" [content]="content"></app-content-detail>
     </div>
 </div>

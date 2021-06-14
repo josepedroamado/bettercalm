@@ -1,11 +1,11 @@
-<div class="card text-dark bg-light mb-3 ms-auto me-auto wd-75" *ngIf="!submitted">
+<div class="card text-dark bg-light ms-auto me-auto shadow bg-body rounded" style="width: 65rem;" *ngIf="!submitted">
     <div class="card-header text-light bg-primary">
         <h5 class="card-title mt-1">Solicitud de Consulta</h5>
     </div>
     <div class="card-body">
-        <p class="card-text">Para realizar una solicitud de consulta con uno de nuestros psicólogos especializados, por favor completar el siguiente formulario</p>
+        <p class="card-text">Para realizar una solicitud de consulta con uno de nuestros psicólogos especializados, por favor completar el siguiente formulario:</p>
         <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit(appointmentForm.value)">
-            <div class="row mb-3">
+            <div class="row mb-3 pt-2">
                 <div class="col">
                     <label for="name" class="form-label">Nombre</label>
                     <input type="text" class="form-control" placeholder="Por favor ingrese su nombre" id="name" formControlName="name" required>
@@ -45,12 +45,14 @@
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!appointmentForm.valid">Solicitar consulta</button>
+            <div class="row pt-2">
+                <button type="submit" class="btn btn-primary w-25 ms-auto me-auto" [disabled]="!appointmentForm.valid">Solicitar consulta</button>
+            </div>
         </form>
     </div>
 </div>
 
-<div class="card text-dark bg-light mb-3 ms-auto me-auto" *ngIf="submitted">
+<div class="card text-dark bg-light ms-auto me-auto shadow bg-body rounded" style="width: 25rem;" *ngIf="submitted">
     <div class="card-header text-light bg-primary">
         <h5 class="card-title mt-1">¡Registro de consulta exitoso!</h5>
     </div>

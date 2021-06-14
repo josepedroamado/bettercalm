@@ -1,15 +1,15 @@
 <app-loading *ngIf="!hasError && (isLoadingContent || isLoadingCategories || isLoadingPlaylists)" text="Loading..."></app-loading>
 <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
-<div *ngIf="!(isLoadingContent || isLoadingCategories || isLoadingPlaylists) && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto wd-75">
+<div *ngIf="!(isLoadingContent || isLoadingCategories || isLoadingPlaylists) && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto" style="width: 75rem;">
     <div class="card-header text-light bg-primary">
-        <h5 class="card-title mt-1">Edición de contenido </h5>
+        <h5 class="card-title mt-1">Edición de Contenido</h5>
     </div>
-    <div class="card-body">
+    <div class="card-body shadow rounded">
         <p class="card-text">Para editar el contenido, por favor complete el siguiente formulario.</p>
-        <form [formGroup]="contentForm" (ngSubmit)="onSubmit(contentForm.value)">
+        <form class="pt-2" [formGroup]="contentForm" (ngSubmit)="onSubmit(contentForm.value)">
             <div class="row mb-3">
                 <div class="col" *ngIf="!isCreate">
-                    <label for="id" class="form-label">Id</label>
+                    <label for="id" class="form-label">ID</label>
                     <input type="number" class="form-control" placeholder="Por favor ingrese el id del contenido" id="id" formControlName="id">
                 </div>
                 <div class="col">
@@ -19,8 +19,8 @@
                 <div class="col">
                     <label for="contentType" class="form-label">Seleccione el tipo de contenido</label>
                     <select class="form-select" id="contentType" formControlName="contentType" required>
-                        <option value="audio" selected>audio</option>
-                        <option value="video">video</option>
+                        <option value="audio">Audio</option>
+                        <option value="video">Video</option>
                     </select>
                 </div>
             </div>
@@ -104,7 +104,10 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!contentForm.valid">Confirmar</button>
+            <div class="row mx-auto">
+                <button type="button" class="btn btn-primary ms-auto me-1 shadow-sm rounded" [routerLink]="['/admin/contents']" style="width: 10rem;">Cancelar</button>
+                <button type="submit" class="btn btn-primary ms-1 me-auto shadow-sm rounded" [disabled]="!contentForm.valid" style="width: 10rem;">Confirmar</button>
+            </div>
         </form>
     </div>
 </div>
