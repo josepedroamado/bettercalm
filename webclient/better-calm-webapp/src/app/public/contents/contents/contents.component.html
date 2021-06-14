@@ -3,10 +3,10 @@
     <div class="container-fluid">
         <div class="btn-group shadow bg-body rounded" role="group" aria-label="Content type selector" style="display:inline-block">
             <input type="checkbox" class="btn-check" id="btnAudioType" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="btnAudioType" (click)="switchContentTypeValue('audio')">Audio</label>
+            <label class="btn btn-outline-success" for="btnAudioType" (click)="switchContentTypeValue('audio')">Audio</label>
         
             <input type="checkbox" class="btn-check" id="btnVideoType" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="btnVideoType" (click)="switchContentTypeValue('video')">Video</label>
+            <label class="btn btn-outline-success" for="btnVideoType" (click)="switchContentTypeValue('video')">Video</label>
         </div>
 
         <app-categories style="float:right;" (changeSelectedCategories)="changeSelectedCatagories($event)"></app-categories>    

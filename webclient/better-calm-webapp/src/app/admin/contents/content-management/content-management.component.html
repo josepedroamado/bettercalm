@@ -1,7 +1,7 @@
 <app-loading *ngIf="isLoading" text="Loading contents..."></app-loading>
 <div *ngIf="!isLoading">
-    <div class="card text-dark bg-light mb-3 ms-auto me-auto shadow rounded" style="width: 75rem;">
-        <div class="card-header text-light bg-primary">
+    <div class="card text-dark bg-dark mb-3 ms-auto me-auto shadow rounded" style="width: 75rem;">
+        <div class="card-header text-light bg-success">
             <div class="row">
                 <div class="col">
                     <h5 class="card-title mt-1">Mantenimiento de Contenidos</h5>
@@ -18,32 +18,32 @@
                         <table class="table table-hover table-striped table-bordered w-80 shadow-sm rounded">
                             <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Artista</th>
-                                    <th scope="col">Duracion</th>
-                                    <th scope="col">Tipo</th>
-                                    <th scope="col-2">Acciones</th>
+                                    <th scope="col" class="text-light">ID</th>
+                                    <th scope="col" class="text-light">Nombre</th>
+                                    <th scope="col" class="text-light">Artista</th>
+                                    <th scope="col" class="text-light">Duracion</th>
+                                    <th scope="col" class="text-light">Tipo</th>
+                                    <th scope="col-2" class="text-light">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let content of contents">                                
-                                    <th scope="row">{{content.id}}</th>
-                                    <td>{{content.name}}</td>
-                                    <td>{{content.artistName}}</td>
-                                    <td>{{content.contentLength}}</td>
-                                    <td>{{content.contentType | titlecase}}</td>
+                                    <th scope="row" class="text-light">{{content.id}}</th>
+                                    <td class="text-light">{{content.name}}</td>
+                                    <td class="text-light">{{content.artistName}}</td>
+                                    <td class="text-light">{{content.contentLength}}</td>
+                                    <td class="text-light">{{content.contentType | titlecase}}</td>
                                     <td class="col-2">
-                                        <button type="button" class="btn btn-primary btn-sm ms-4 me-1 shadow-sm rounded" [routerLink]="['/admin/contents/edit', content.id]" >Editar</button>
+                                        <button type="button" class="btn btn-success btn-sm ms-4 me-1 shadow-sm rounded" [routerLink]="['/admin/contents/edit', content.id]" >Editar</button>
                                         <button type="button" class="btn btn-danger btn-sm ms-1 me-auto shadow-sm rounded" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal'+content.id">Eliminar</button>
                                         <div class="modal fade" [id]="'deleteModal'+content.id" tabindex="-1">
                                             <div class="modal-dialog">
-                                                <div class="modal-content">
+                                                <div class="modal-content bg-dark">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" [id]="'deleteModalLabel'+content.id">Eliminación de Contenido</h5>
+                                                        <h5 class="modal-title text-light" [id]="'deleteModalLabel'+content.id">Eliminación de Contenido</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                     </div>
-                                                    <div class="modal-body">
+                                                    <div class="modal-body text-light">
                                                         Realmente desea eliminar el contenido {{content.name}} del sistema?
                                                     </div>
                                                     <div class="modal-footer">

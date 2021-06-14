@@ -1,53 +1,53 @@
 <div class="card text-dark bg-light mb-3 ms-auto me-auto shadow rounded" style="width: 75rem;">
-    <div class="card-header text-light bg-primary">
+    <div class="card-header text-light bg-success">
         <div class="row">
             <div class="col">
-                <h5 class="card-title mt-1">Mantenimiento de Psicólogos</h5>
+                <h5 class="card-title mt-1 text-light">Mantenimiento de Psicólogos</h5>
             </div>
             <div class="col-2">
                 <button type="button" class="btn btn-light me-1" (click)="goToAddView(null)">Agregar psicólogo</button>
             </div>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body bg-dark">
         <div class="container-md">
             <div class="row">
                 <div class="col">
                     <table class="table table-hover table-striped table-bordered shadow-sm rounded">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Apellido</th>
-                                <th scope="col">Dirección</th>
-                                <th scope="col">Formato</th>
-                                <th scope="col">Experto en</th>
-                                <th scope="col">Costo por hora</th>
-                                <th scope="col-2">Acciones</th>
+                                <th scope="col" class="text-light">ID</th>
+                                <th scope="col" class="text-light">Nombre</th>
+                                <th scope="col" class="text-light">Apellido</th>
+                                <th scope="col" class="text-light">Dirección</th>
+                                <th scope="col" class="text-light">Formato</th>
+                                <th scope="col" class="text-light">Experto en</th>
+                                <th scope="col" class="text-light">Costo por hora</th>
+                                <th scope="col-2" class="text-light">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let psychologist of psychologists">                                
-                                <th scope="row">{{psychologist.id}}</th>
-                                <td>{{psychologist.firstName}}</td>
-                                <td>{{psychologist.lastName}}</td>
-                                <td>{{psychologist.address}}</td>
-                                <td>{{psychologist.format}}</td>
+                                <th scope="row" class="text-light">{{psychologist.id}}</th>
+                                <td class="text-light">{{psychologist.firstName}}</td>
+                                <td class="text-light">{{psychologist.lastName}}</td>
+                                <td class="text-light">{{psychologist.address}}</td>
+                                <td class="text-light">{{psychologist.format}}</td>
                                 <td>
-                                    <tr *ngFor="let illness of psychologist.illnessModels">{{illness.name}}</tr>
+                                    <tr *ngFor="let illness of psychologist.illnessModels" class="text-light">{{illness.name}}</tr>
                                 </td>
-                                <td>${{psychologist.rate}}</td>
+                                <td class="text-light">${{psychologist.rate}}</td>
                                 <td class="col-2">
-                                    <button type="button" class="btn btn-primary btn-sm ms-4 me-1 shadow-sm rounded" (click)="goToAddView(psychologist.id)">Editar</button>
+                                    <button type="button" class="btn btn-success btn-sm ms-4 me-1 shadow-sm rounded " (click)="goToAddView(psychologist.id)">Editar</button>
                                     <button type="button" class="btn btn-danger btn-sm ms-1 me-1 shadow-sm rounded" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal'+psychologist.id">Eliminar</button>
                                     <div class="modal fade" [id]="'deleteModal'+psychologist.id" tabindex="-1">
                                         <div class="modal-dialog">
-                                            <div class="modal-content">
+                                            <div class="modal-content bg-dark">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" [id]="'deleteModalLabel'+psychologist.id">Eliminación de Usuario</h5>
+                                                    <h5 class="modal-title text-light" [id]="'deleteModalLabel'+psychologist.id">Eliminación de Usuario</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body text-light">
                                                     Realmente desea eliminar al usuario {{psychologist.firstName}} {{psychologist.lastName}} del sistema?
                                                 </div>
                                                 <div class="modal-footer">

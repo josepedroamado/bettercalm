@@ -1,5 +1,5 @@
 <div class="card text-dark bg-light mb-3 ms-auto me-auto shadow rounded" style="width: 75rem;">
-    <div class="card-header text-light bg-primary">
+    <div class="card-header text-light bg-success">
         <div class="row">
             <div class="col">
                 <h5 class="card-title mt-1">Mantenimiento de Administradores</h5>
@@ -9,35 +9,35 @@
             </div>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body bg-dark">
         <div class="container-md">
             <div class="row">
                 <div class="col">
                     <table class="table table-hover table-striped table-bordered shadow-sm">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col-2">Acciones</th>
+                                <th scope="col" class="text-light">ID</th>
+                                <th scope="col" class="text-light">Email</th>
+                                <th scope="col" class="text-light">Nombre</th>
+                                <th scope="col-2" class="text-light">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let administrator of administrators">                                
-                                <th scope="row">{{administrator.id}}</th>
-                                <td>{{administrator.email}}</td>
-                                <td>{{administrator.name}}</td>
-                                <td class="col-2">
-                                    <button type="button" class="btn btn-primary btn-sm ms-4 me-1 shadow-sm rounded" (click)="goToAddView(administrator.email)">Editar</button>
+                                <th scope="row" class="text-light">{{administrator.id}}</th>
+                                <td class="text-light">{{administrator.email}}</td>
+                                <td class="text-light">{{administrator.name}}</td>
+                                <td class="col-2 text-light">
+                                    <button type="button" class="btn btn-success btn-sm ms-4 me-1 shadow-sm rounded" (click)="goToAddView(administrator.email)">Editar</button>
                                     <button type="button" class="btn btn-danger btn-sm ms-1 me-1 shadow-sm rounded" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal'+administrator.id">Eliminar</button>
                                     <div class="modal fade" [id]="'deleteModal'+administrator.id" tabindex="-1">
                                         <div class="modal-dialog">
-                                            <div class="modal-content">
+                                            <div class="modal-content bg-dark">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" [id]="'deleteModalLabel'+administrator.id">Eliminación de Usuario</h5>
+                                                    <h5 class="modal-titletext-light" [id]="'deleteModalLabel'+administrator.id">Eliminación de Usuario</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body text-light">
                                                     Realmente desea eliminar al usuario {{administrator.name}} del sistema?
                                                 </div>
                                                 <div class="modal-footer">

@@ -1,23 +1,23 @@
 <app-loading *ngIf="!hasError && (isLoadingContent || isLoadingCategories || isLoadingPlaylists)" text="Loading..."></app-loading>
 <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
-<div *ngIf="!(isLoadingContent || isLoadingCategories || isLoadingPlaylists) && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto" style="width: 75rem;">
-    <div class="card-header text-light bg-primary">
+<div *ngIf="!(isLoadingContent || isLoadingCategories || isLoadingPlaylists) && !hasError" class="card text-dark bg-dark mb-3 ms-auto me-auto" style="width: 75rem;">
+    <div class="card-header text-light bg-success">
         <h5 class="card-title mt-1">Edición de Contenido</h5>
     </div>
     <div class="card-body shadow rounded">
-        <p class="card-text">Para editar el contenido, por favor complete el siguiente formulario.</p>
+        <p class="card-text text-light">Para editar el contenido, por favor complete el siguiente formulario.</p>
         <form class="pt-2" [formGroup]="contentForm" (ngSubmit)="onSubmit(contentForm.value)">
             <div class="row mb-3">
                 <div class="col" *ngIf="!isCreate">
-                    <label for="id" class="form-label">ID</label>
+                    <label for="id" class="form-label text-light">ID</label>
                     <input type="number" class="form-control" placeholder="Por favor ingrese el id del contenido" id="id" formControlName="id">
                 </div>
                 <div class="col">
-                    <label for="contentLength" class="form-label">Duración</label>
+                    <label for="contentLength" class="form-label text-light">Duración</label>
                     <input type="text" class="form-control" placeholder="Por favor ingrese la duración" id="contentLength" formControlName="contentLength" required>
                 </div>
                 <div class="col">
-                    <label for="contentType" class="form-label">Seleccione el tipo de contenido</label>
+                    <label for="contentType" class="form-label text-light">Seleccione el tipo de contenido</label>
                     <select class="form-select" id="contentType" formControlName="contentType" required>
                         <option value="audio">Audio</option>
                         <option value="video">Video</option>
@@ -26,27 +26,27 @@
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="name" class="form-label">Nombre</label>
+                    <label for="name" class="form-label text-light">Nombre</label>
                     <input type="text" class="form-control" placeholder="Por favor ingrese el nombre del contenido" id="name" formControlName="name" required>
                 </div>
                 <div class="col">
-                    <label for="artistName" class="form-label">Artista</label>
+                    <label for="artistName" class="form-label text-light">Artista</label>
                     <input type="text" class="form-control" placeholder="Por favor ingrese el nombre del artista" id="artistName" formControlName="artistName" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="imageUrl" class="form-label">Imagen</label>
+                    <label for="imageUrl" class="form-label text-light">Imagen</label>
                     <input type="url" class="form-control" placeholder="Por favor ingrese la url de la imagen de portada" id="imageUrl" formControlName="imageUrl" required>
                 </div>
                 <div class="col">
-                    <label for="contentUrl" class="form-label">Contenido</label>
+                    <label for="contentUrl" class="form-label text-light">Contenido</label>
                     <input type="url" class="form-control" placeholder="Por favor ingrese la url del contenido" id="contentUrl" formControlName="contentUrl" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="categories" class="form-label">Selecciona las categorías</label>
+                    <label for="categories" class="form-label text-light">Selecciona las categorías</label>
                     <select class="form-select" id="categories" formControlName="categories" multiple aria-label="multiple select example" required>
                         <ng-container *ngFor="let category of categories">
                             <option [value]="category.id">{{category.name}}</option>
@@ -56,7 +56,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="playlistIds" class="form-label">Selecciona las playlists</label>
+                    <label for="playlistIds" class="form-label text-light">Selecciona las playlists</label>
                     <select class="form-select" id="playlistIds" formControlName="playlistIds" multiple aria-label="multiple select example">
                         <ng-container *ngFor="let playlist of playlists">
                             <option [value]="playlist.id">{{playlist.name}}</option>
@@ -67,28 +67,28 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="card-header text-light bg-primary">
-                                    <h5 class="card-title mt-1">Creación de playlist</h5>
+                                    <h5 class="card-title mt-1 text-light">Creación de playlist</h5>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">Para agregar una nueva playlist, por favor completa el siguiente formulario.</p>
+                                    <p class="card-text text-light">Para agregar una nueva playlist, por favor completa el siguiente formulario.</p>
                                     <form [formGroup]="playlistForm" (ngSubmit)="onSubmitPlaylist(playlistForm.value)">
                                         <div class="row mb-3">
                                             <div class="col">
-                                                <label for="playlistName" class="form-label">Nombre</label>
+                                                <label for="playlistName" class="form-label text-light">Nombre</label>
                                                 <input type="text" class="form-control" placeholder="Por favor ingrese el nombre del contenido" id="playlistName" formControlName="name" required>
                                             </div>
                                             <div class="col">
-                                                <label for="playlistdescription" class="form-label">Descripción</label>
+                                                <label for="playlistdescription" class="form-label text-light">Descripción</label>
                                                 <input type="text" class="form-control" placeholder="Por favor ingrese el nombre del contenido" id="playlistDescription" formControlName="description" required>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col">
-                                                <label for="playlistImageUrl" class="form-label">Imagen</label>
+                                                <label for="playlistImageUrl" class="form-label text-light">Imagen</label>
                                                 <input type="text" class="form-control" placeholder="Por favor ingrese la url de la imagen de portada" id="playlistImageUrl" formControlName="name">
                                             </div>
                                             <div class="col">
-                                                <label for="categories" class="form-label">Selecciona las categorías</label>
+                                                <label for="categories" class="form-label text-light">Selecciona las categorías</label>
                                                 <select class="form-select" id="playlistCategories" formControlName="categories" multiple aria-label="multiple select example" required>
                                                     <ng-container *ngFor="let category of categories">
                                                         <option [value]="category.id">{{category.name}}</option>
@@ -105,8 +105,8 @@
                 </div>
             </div>
             <div class="row mx-auto">
-                <button type="button" class="btn btn-primary ms-auto me-1 shadow-sm rounded" [routerLink]="['/admin/contents']" style="width: 10rem;">Cancelar</button>
-                <button type="submit" class="btn btn-primary ms-1 me-auto shadow-sm rounded" [disabled]="!contentForm.valid" style="width: 10rem;">Confirmar</button>
+                <button type="button" class="btn btn-light ms-auto me-1 shadow-sm rounded" [routerLink]="['/admin/contents']" style="width: 10rem;">Cancelar</button>
+                <button type="submit" class="btn btn-success ms-1 me-auto shadow-sm rounded" [disabled]="!contentForm.valid" style="width: 10rem;">Confirmar</button>
             </div>
         </form>
     </div>

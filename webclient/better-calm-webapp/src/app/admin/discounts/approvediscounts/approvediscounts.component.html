@@ -1,48 +1,48 @@
 <div class="card text-dark bg-light mb-3 ms-auto me-auto" style="width: 75rem;">
-    <div class="card-header text-light bg-primary">
+    <div class="card-header text-light bg-success">
         <div class="row">
             <h5 class="card-title mt-1">Aprobación de Descuentos</h5>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body bg-dark">
         <div class="container-md">
             <div class="row">
                 <div class="col">
                     <table class="table table-hover table-striped table-bordered shadow-sm">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Apellido</th>
-                                <th scope="col">Fecha de Nacimiento</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Teléfono</th>
-                                <th scope="col">Cantidad de consultas</th>
-                                <th scope="col">Descuento Actual</th>
-                                <th scope="col-2">Acciones</th>
+                                <th scope="col" class="text-light">ID</th>
+                                <th scope="col" class="text-light">Nombre</th>
+                                <th scope="col" class="text-light">Apellido</th>
+                                <th scope="col" class="text-light">Fecha de Nacimiento</th>
+                                <th scope="col" class="text-light">Email</th>
+                                <th scope="col" class="text-light">Teléfono</th>
+                                <th scope="col" class="text-light">Cantidad de consultas</th>
+                                <th scope="col" class="text-light">Descuento Actual</th>
+                                <th scope="col-2" class="text-light">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let patient of patients">                                
-                                <th scope="row">{{patient.id}}</th>
-                                <td>{{patient.firstName}}</td>
-                                <td>{{patient.lastName}}</td>
-                                <td>{{patient.birthDate}}</td>
-                                <td>{{patient.email}}</td>
-                                <td>{{patient.phone}}</td>
-                                <td>{{patient.appointmentQuantity}}</td>
-                                <td>{{patient.appointmentDiscount}}</td>
+                                <th scope="row" class="text-light">{{patient.id}}</th>
+                                <td class="text-light">{{patient.firstName}}</td>
+                                <td class="text-light">{{patient.lastName}}</td>
+                                <td class="text-light">{{patient.birthDate}}</td>
+                                <td class="text-light">{{patient.email}}</td>
+                                <td class="text-light">{{patient.phone}}</td>
+                                <td class="text-light">{{patient.appointmentQuantity}}</td>
+                                <td class="text-light">{{patient.appointmentDiscount}}</td>
                                 <td class="col-2">
                                     <button type="button" class="btn btn-success btn-sm ms-2 me-1 shadow-sm rounded" (click)="approveDiscount(patient.email)">Conceder</button>     
                                     <button type="button" class="btn btn-danger btn-sm ms-1 me-1 shadow-sm rounded" data-bs-toggle="modal" [attr.data-bs-target]="'#denyDiscountModal'+patient.id">Denegar</button>
                                     <div class="modal fade" [id]="'denyDiscountModal'+patient.id" tabindex="-1">
                                         <div class="modal-dialog">
-                                            <div class="modal-content">
+                                            <div class="modal-content bg-dark">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" [id]="'denyDiscountModalLabel'+patient.id">Conceder Descuento</h5>
+                                                    <h5 class="modal-title text-light" [id]="'denyDiscountModalLabel'+patient.id">Conceder Descuento</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body text-light">
                                                     Realmente desea denegar el descuento al paciente {{patient.firstName}} {{patient.lastName}}?
                                                 </div>
                                                 <div class="modal-footer">

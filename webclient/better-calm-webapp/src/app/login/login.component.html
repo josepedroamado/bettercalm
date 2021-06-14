@@ -1,4 +1,4 @@
-<body class="text-center h-100 w-25 mx-auto my-xl-5 bg-light">
+<body class="text-center h-100 w-25 mx-auto my-xl-5 bg-secondary">
     <main class="form-signin">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
             <img class="mb-4" src="https://image.flaticon.com/icons/png/512/1/1524.png" alt="" width="72" height="72">
@@ -16,7 +16,7 @@
                   <span class="text-danger" *ngIf="loginError">{{errorMessage}}</span>
                 </label>
             </div>
-            <button class="w-75 btn btn-lg btn-primary shadow rounded" type="submit" [disabled]="!loginForm.valid">Iniciar Sesión</button>
+            <button class="w-75 btn btn-lg btn-success shadow rounded" type="submit" [disabled]="!loginForm.valid">Iniciar Sesión</button>
         </form>
     </main>
 </body>

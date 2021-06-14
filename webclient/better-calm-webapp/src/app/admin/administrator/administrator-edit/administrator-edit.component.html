@@ -1,22 +1,22 @@
 <div class="card text-dark bg-light mb-3 ms-auto me-auto" style="width: 75rem;">
-    <div class="card-header text-light bg-primary">
+    <div class="card-header text-light bg-success">
         <h5 class="card-title mt-1">{{title}}</h5>
     </div>
-    <div class="card-body">
+    <div class="card-body bg-dark">
         <form [formGroup]="administratorForm" (ngSubmit)="onSubmit(administratorForm.value)">
             <div class="row mb-3">
                 <div class="col">
-                    <label for="name" class="form-label">Nombre</label>
+                    <label for="name" class="form-label text-light">Nombre</label>
                     <input type="text" class="form-control" placeholder="Por favor ingrese el nombre" id="name" formControlName="name" required>
                 </div>
                 <div class="col">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label text-light">Email</label>
                     <input type="email" class="form-control" placeholder="Por favor ingrese el email" id="email" formControlName="email" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="password" class="form-label">Contraseña</label>
+                    <label for="password" class="form-label text-light">Contraseña</label>
                     <input type="password" class="form-control" placeholder="Por favor ingrese una contraseña" id="password" formControlName="password" required>
                 </div>
             </div>
@@ -24,8 +24,8 @@
                 <label class="form-label">
                     <span class="text-danger" *ngIf="errorOccurred"><strong>{{errorMessage}}</strong></span>
                 </label>
-                <button type="button" class="btn btn-primary ms-auto me-1 shadow-sm rounded" style="width: 10rem;" (click)="goBackToListView()">Cancelar</button>
-                <button type="submit" class="btn btn-primary ms-1 me-auto shadow-sm rounded" style="width: 10rem;" [disabled]="!administratorForm.valid">{{buttonText}}</button>
+                <button type="button" class="btn btn-secondary ms-auto me-1 shadow-sm rounded" style="width: 10rem;" (click)="goBackToListView()">Cancelar</button>
+                <button type="submit" class="btn btn-success ms-1 me-auto shadow-sm rounded" style="width: 10rem;" [disabled]="!administratorForm.valid">{{buttonText}}</button>
             </div>
         </form>
     </div>

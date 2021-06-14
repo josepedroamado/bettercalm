@@ -1,44 +1,44 @@
 <div class="card text-dark bg-light mb-3 ms-auto me-auto shadow rounded" style="width: 75rem;">
-    <div class="card-header text-light bg-primary">
+    <div class="card-header text-light bg-success">
         <h5 class="card-title mt-1">Conceder un descuento al paciente</h5>
     </div>
-    <div class="card-body">
+    <div class="card-body bg-dark">
         <form [formGroup]="patientDiscountForm" (ngSubmit)="onSubmit(patientDiscountForm.value)">
             <div class="row mb-3">
                 <div class="col">
-                    <label for="firstName" class="form-label">Nombre</label>
+                    <label for="firstName" class="form-label text-light">Nombre</label>
                     <p class="form-control" id="firstName">{{patient.firstName}}</p>
                 </div>
                 <div class="col">
-                    <label for="lastName" class="form-label">Apellido</label>
+                    <label for="lastName" class="form-label text-light">Apellido</label>
                     <p class="form-control" id="lastName">{{patient.lastName}}</p>
                 </div>
                 <div class="col">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label text-light">Email</label>
                     <p class="form-control" id="email">{{patient.email}}</p>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="birthDate" class="form-label">Fecha de Nacimiento</label>
+                    <label for="birthDate" class="form-label text-light">Fecha de Nacimiento</label>
                     <p class="form-control" id="birthDate">{{patient.birthDate}}</p>
                 </div>
                 <div class="col">
-                    <label for="phone" class="form-label">Teléfono</label>
+                    <label for="phone" class="form-label text-light">Teléfono</label>
                     <p class="form-control" id="phone">{{patient.phone}}</p>
                 </div>
                 <div class="col">
-                    <label for="appointmentQuantity" class="form-label">Cantidad de Consultas</label>
+                    <label for="appointmentQuantity" class="form-label text-light">Cantidad de Consultas</label>
                     <p class="form-control" id="appointmentQuantity">{{patient.appointmentQuantity}}</p>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="appointmentDiscount" class="form-label">Descuento Actual</label>
+                    <label for="appointmentDiscount" class="form-label text-light">Descuento Actual</label>
                     <p class="form-control" id="appointmentDiscount">{{patient.appointmentDiscount}}</p>
                 </div>
                 <div class="col">
-                    <label for="discount" class="form-label">Seleccione el descuento a conceder</label>
+                    <label for="discount" class="form-label text-light">Seleccione el descuento a conceder</label>
                     <select class="form-select" id="discount" formControlName="discount" required>
                         <option value="15">15%</option>
                         <option value="25">25%</option>
@@ -47,8 +47,8 @@
                 </div>
             </div>
             <div class="row">
-                <button type="button" class="btn btn-primary ms-auto me-1 shadow-sm rounded" style="width: 10rem;" (click)="goBackToListView()">Cancelar</button>
-                <button type="submit" class="btn btn-primary ms-1 me-auto shadow-sm rounded" style="width: 10rem;" [disabled]="!patientDiscountForm.valid">Aprobar</button>
+                <button type="button" class="btn btn-secondary ms-auto me-1 shadow-sm rounded" style="width: 10rem;" (click)="goBackToListView()">Cancelar</button>
+                <button type="submit" class="btn btn-success ms-1 me-auto shadow-sm rounded" style="width: 10rem;" [disabled]="!patientDiscountForm.valid">Aprobar</button>
                 <label class="form-label">
                     <span class="text-danger" *ngIf="errorOccurred"><strong>{{errorMessage}}</strong></span>
                 </label>
