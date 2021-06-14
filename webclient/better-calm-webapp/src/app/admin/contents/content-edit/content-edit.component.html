@@ -46,27 +46,29 @@
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="categories" class="form-label text-light">Selecciona las categorías</label>
-                    <select class="form-select" id="categories" formControlName="categories" multiple aria-label="multiple select example" required>
-                        <ng-container *ngFor="let category of categories">
-                            <option [value]="category.id">{{category.name}}</option>
-                        </ng-container>
-                      </select>
+                    <label for="playlistIds" class="form-label text-light">Seleccione las listas de reproducción</label>
+                    <ng-select [items]="playlists" bindLabel="name" bindValue="id" labelForId="state"
+                                [multiple]="true" placeholder="Seleccione las listas de reproducción" clearAllText="Limpiar"
+                                [hideSelected]="true" notFoundText="No listas de reproducción registradas"
+                                [ngModel]="selectedPlaylists" formControlName="playlistIds">
+                    </ng-select>
+                </div>
+                <div class="col">
+                    <label for="categories" class="form-label text-light">Seleccione categorías</label>
+                    <ng-select [items]="categories" bindLabel="name" bindValue="id" labelForId="state"
+                                [multiple]="true" placeholder="Seleccione las categorias" clearAllText="Limpiar"
+                                [hideSelected]="true" notFoundText="No categorias registradas"
+                                [ngModel]="selectedCategories" formControlName="categories">
+                    </ng-select>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="playlistIds" class="form-label text-light">Selecciona las playlists</label>
-                    <select class="form-select" id="playlistIds" formControlName="playlistIds" multiple aria-label="multiple select example">
-                        <ng-container *ngFor="let playlist of playlists">
-                            <option [value]="playlist.id">{{playlist.name}}</option>
-                        </ng-container>
-                    </select>
                     <span class="badge bg-success" data-bs-toggle="modal" [attr.data-bs-target]="'#addPlaylist'+content.id">Agregar nueva playlist</span>
                     <div class="modal fade" [id]="'addPlaylist'+content.id" tabindex="-1">
                         <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="card-header text-light bg-primary">
+                            <div class="modal-content bg-dark">
+                                <div class="card-header text-light bg-success">
                                     <h5 class="card-title mt-1 text-light">Creación de playlist</h5>
                                 </div>
                                 <div class="card-body">
@@ -89,11 +91,11 @@
                                             </div>
                                             <div class="col">
                                                 <label for="categories" class="form-label text-light">Selecciona las categorías</label>
-                                                <select class="form-select" id="playlistCategories" formControlName="categories" multiple aria-label="multiple select example" required>
-                                                    <ng-container *ngFor="let category of categories">
-                                                        <option [value]="category.id">{{category.name}}</option>
-                                                    </ng-container>
-                                                  </select>
+                                                <ng-select [items]="categories" bindLabel="name" bindValue="id" labelForId="state"
+                                                            [multiple]="true" placeholder="Seleccione las categorias" clearAllText="Limpiar"
+                                                            [hideSelected]="true" notFoundText="No categorias registradas"
+                                                            formControlName="categories">
+                                                </ng-select>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary" [disabled]="!playlistForm.valid" data-bs-toggle="modal" [attr.data-bs-target]="'#addPlaylist'+content.id">Confirmar</button>
