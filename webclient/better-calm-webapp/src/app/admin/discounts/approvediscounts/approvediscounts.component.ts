@@ -10,6 +10,8 @@ import { PatientsService } from '../../../services/patients/patients.service';
 })
 export class ApprovediscountsComponent implements OnInit {
   patients:Patient[] = [];
+  error = false;
+  errorMessage ="No hay pacientes que cumplan los requerimientos para obtener un descuento.";
 
   constructor(private router: Router, private patientsService: PatientsService) { }
 
@@ -18,9 +20,13 @@ export class ApprovediscountsComponent implements OnInit {
   }
 
   private updatePatients(){
-    this.patientsService.getAllPatientsWithDiscountsToAprove().subscribe((contents) => this.setPatients(contents), console.error);
+    this.patientsService.getAllPatientsWithDiscountsToAprove().subscribe((contents) => this.setPatients(contents), (error : any) => this.showError(error));
   }
   
+  private showError(error: any){
+    this.error = true;
+  }
+
   private setPatients(patients:Patient[]){
     this.patients = patients;
   }
