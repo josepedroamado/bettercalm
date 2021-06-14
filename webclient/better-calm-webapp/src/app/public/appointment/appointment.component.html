@@ -63,7 +63,7 @@
                 <li class="list-group-item"><strong>Psicólogo: </strong>{{appointmentData.psychologistName}}</li>
                 <li class="list-group-item"><strong>Formato: </strong>{{appointmentData.format}}</li>
                 <li class="list-group-item"><strong>Dirección: </strong>{{appointmentData.address}}</li>
-                <li class="list-group-item"><strong>Fecha: </strong>{{appointmentData.date}}</li>
+                <li class="list-group-item"><strong>Fecha: </strong>{{appointmentData.date | date}}</li>
                 <li class="list-group-item" *ngIf="appointmentData.discount > 0"><strong>Descuento: </strong>{{appointmentData.discount}}%</li>
                 <li class="list-group-item"><strong>Costo: </strong>{{appointmentData.cost}}</li>
             </ul>
