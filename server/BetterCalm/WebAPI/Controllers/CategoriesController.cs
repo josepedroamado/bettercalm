@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/categories")]
 	[ApiController]
 	public class CategoriesController : ControllerBase
 	{
@@ -36,23 +36,21 @@ namespace WebAPI.Controllers
 			return Ok(category);
 		}
 
-		[HttpGet("{categoryId}/contents/")]
+		[HttpGet("{categoryId}/contents")]
 		public IActionResult GetContents(int categoryId)
 		{
-			IEnumerable<ContentBasicInfo> contents =
-				this.contentLogic.GetContents(categoryLogic.GetCategory(categoryId)).
-				Select(content => new ContentBasicInfo(content));
-
+			IEnumerable<ContentBasicInfo> contents = this.contentLogic
+				.GetContents(categoryLogic.GetCategory(categoryId))
+				.Select(content => new ContentBasicInfo(content));
 			return Ok(contents);
 		}
 
-		[HttpGet("{categoryId}/playlists/")]
+		[HttpGet("{categoryId}/playlists")]
 		public IActionResult GetPlaylists (int categoryId)
 		{
-			IEnumerable<PlaylistBasicInfo> playlists =
-				this.playlistLogic.GetPlaylists(categoryLogic.GetCategory(categoryId)).
-				Select(playlist => new PlaylistBasicInfo(playlist));
-
+			IEnumerable<PlaylistBasicInfo> playlists = this.playlistLogic
+				.GetPlaylists(categoryLogic.GetCategory(categoryId))
+				.Select(playlist => new PlaylistBasicInfo(playlist));
 			return Ok(playlists);
 		}
 	}
