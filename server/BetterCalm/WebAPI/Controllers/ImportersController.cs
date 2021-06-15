@@ -5,7 +5,7 @@ using WebAPI.Filters;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/importers")]
 	[ApiController]
 	[AuthorizationFilter("Administrator")]
 	public class ImportersController : ControllerBase

@@ -1,5 +1,4 @@
 ﻿using BLInterfaces;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using System.Collections.Generic;
@@ -30,8 +29,7 @@ namespace WebAPI.Controllers
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			Content content = this.contentLogic.GetContent(id);
-			return Ok(new ContentModel(content));
+			return Ok(new ContentModel(this.contentLogic.GetContent(id)));
 		}
 
 

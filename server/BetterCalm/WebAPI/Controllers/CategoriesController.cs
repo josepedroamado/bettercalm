@@ -25,15 +25,13 @@ namespace WebAPI.Controllers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			IEnumerable<Category> categories = this.categoryLogic.GetCategories();
-			return Ok(categories);
+			return Ok(this.categoryLogic.GetCategories());
 		}
 
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			Category category = this.categoryLogic.GetCategory(id);
-			return Ok(category);
+			return Ok(this.categoryLogic.GetCategory(id));
 		}
 
 		[HttpGet("{categoryId}/contents")]

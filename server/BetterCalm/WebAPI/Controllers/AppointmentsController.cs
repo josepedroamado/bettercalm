@@ -18,9 +18,7 @@ namespace WebAPI.Controllers
 		[HttpPost]
 		public IActionResult Post([FromBody] AppointmentInputModel model)
 		{
-			return Ok(new AppointmentOutputModel(
-				this.appointmentLogic.CreateAppointment(model.ToEntity())
-				));
+			return Ok(new AppointmentOutputModel(this.appointmentLogic.CreateAppointment(model.ToEntity())));
 		}
 	}
 }

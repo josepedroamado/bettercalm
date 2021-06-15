@@ -52,8 +52,7 @@ namespace WebAPI.Controllers
 		[HttpGet("{email}")]
 		public IActionResult Get(string email)
 		{
-			AdministratorOutputModel user = new AdministratorOutputModel(this.userLogic.GetUser(email));
-			return Ok(user);
+			return Ok(new AdministratorOutputModel(this.userLogic.GetUser(email)));
 		}
 	}
 }
