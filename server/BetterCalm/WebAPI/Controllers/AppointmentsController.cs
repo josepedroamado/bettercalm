@@ -4,7 +4,7 @@ using Model;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/appointments")]
 	[ApiController]
 	public class AppointmentsController : ControllerBase
 	{
