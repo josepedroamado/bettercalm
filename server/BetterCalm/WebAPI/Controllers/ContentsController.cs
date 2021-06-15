@@ -1,17 +1,13 @@
 ﻿using BLInterfaces;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebAPI.Filters;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/contents")]
 	[ApiController]
 	public class ContentsController : ControllerBase
 	{
@@ -25,28 +21,23 @@ namespace WebAPI.Controllers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			IEnumerable<ContentBasicInfo> contents =
-				this.contentLogic.GetContents().
-				Select(content => new ContentBasicInfo(content));
-
+			IEnumerable<ContentBasicInfo> contents = this.contentLogic.GetContents()
+				.Select(content => new ContentBasicInfo(content));
 			return Ok(contents);
 		}
 
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			Content content = this.contentLogic.GetContent(id);
-			return Ok(new ContentModel(content));
+			return Ok(new ContentModel(this.contentLogic.GetContent(id)));
 		}
 
 
 		[HttpGet("contentType/{contentType}")]
 		public IActionResult Get(string contentType)
 		{
-			IEnumerable<ContentBasicInfo> contents =
-				this.contentLogic.GetContents(contentType).
-				Select(content => new ContentBasicInfo(content));
-
+			IEnumerable<ContentBasicInfo> contents = this.contentLogic.GetContents(contentType)
+				.Select(content => new ContentBasicInfo(content));
 			return Ok(contents);
 		}
 
@@ -55,7 +46,7 @@ namespace WebAPI.Controllers
 		public IActionResult Post([FromBody] ContentModel contentModel)
 		{
 			this.contentLogic.CreateContent(contentModel.ToEntity());
-			return Ok();
+			return NoContent();
 		}
 
 		[HttpDelete("{id}")]
@@ -63,14 +54,14 @@ namespace WebAPI.Controllers
 		public IActionResult Delete(int id)
 		{
 			this.contentLogic.DeleteContent(id);
-			return Ok();
+			return NoContent();
 		}
 
 		[HttpPatch]
 		public IActionResult Patch([FromBody] ContentModel contentModel)
 		{
 			this.contentLogic.UpdateContent(contentModel.ToEntity());
-			return Ok();
+			return NoContent();
 		}
 	}
 }

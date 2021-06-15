@@ -16,6 +16,7 @@ namespace BL
 		private IContentLogic contentLogic;
 		private const string importersFolder = "Importers";
 		private const string assemblyTypeFilter = "*.dll";
+
 		public ImporterLogic(IContentLogic contentLogic)
 		{
 			this.contentLogic = contentLogic;
@@ -25,8 +26,7 @@ namespace BL
 		{
 			IImporter importer = GetImporter(type);
 			List<ImporterModel.Content> toImport = importer.Import(filePath).ToList();
-			List<Content> contents = toImport.Select(importContent => 
-				ContentModelConverter.GetDomainContent(importContent)).ToList();
+			List<Content> contents = toImport.Select(importContent => ContentModelConverter.GetDomainContent(importContent)).ToList();
 			contents.ForEach(content => contentLogic.CreateContent(content));
 		}
 

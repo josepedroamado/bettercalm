@@ -1,5 +1,4 @@
 ﻿using BLInterfaces;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using System.Collections.Generic;
@@ -30,14 +29,14 @@ namespace WebAPI.Controllers
         [HttpGet("{email}")]
         public IActionResult Get(string email)
         {
-            PatientModel obtainedPatientModel = new PatientModel(this.patientLogic.Get(email));
-            return Ok(obtainedPatientModel);
+            return Ok(new PatientModel(this.patientLogic.Get(email)));
         }
 
         [HttpPatch]
-        public void Patch([FromBody] PatientModel patient)
+        public IActionResult Patch([FromBody] PatientModel patient)
         {
             this.patientLogic.Update(patient.ToEntity());
+            return NoContent();
         }
     }
 }

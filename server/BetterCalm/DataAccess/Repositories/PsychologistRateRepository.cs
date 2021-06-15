@@ -2,7 +2,6 @@
 using Domain;
 using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,16 +22,22 @@ namespace DataAccess.Repositories
         {
             PsychologistRate storedRate = this.rates.FirstOrDefault(stored => stored.HourlyRate == rate);
             if (storedRate == null)
+            {
                 throw new NotFoundException("Psychologist Rate");
+            }
             return storedRate;
         }
 
         public IEnumerable<PsychologistRate> GetAll()
         {
             if (this.rates.Count() <= 0)
+            {
                 throw new CollectionEmptyException("Psychologist Rates");
+            }
             else
+            {
                 return this.rates;
+            }
         }
     }
 }

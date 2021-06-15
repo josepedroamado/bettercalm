@@ -22,9 +22,13 @@ namespace DataAccess.Repositories
         public IEnumerable<Psychologist> GetAll()
         {
             if (this.psychologists.Count() <= 0)
+            {
                 throw new CollectionEmptyException("Psychologists");
+            }
             else
+            {
                 return this.psychologists.Include(x => x.Rate).Include(p => p.Illnesses);
+            }
         }
 
         public Psychologist Get(int id)
@@ -36,7 +40,9 @@ namespace DataAccess.Repositories
                 .ThenInclude(s => s.Appointments)
                 .FirstOrDefault(psychologist => psychologist.Id == id);
             if (psychologist == null)
+            {
                 throw new NotFoundException(id.ToString());
+            }
             return psychologist;
         }
 
@@ -58,8 +64,9 @@ namespace DataAccess.Repositories
 		public Psychologist Get(Illness illness, DateTime until, int appointmentLimitPerDay)
 		{
             if (this.psychologists.Count() == 0)
+            {
                 throw new CollectionEmptyException("Psychologists");
-
+            }
             Psychologist candidate = this.psychologists
                 .Include(psychologist => psychologist.ScheduleDays).ThenInclude(scheduleDays => scheduleDays.Appointments)
                 .Include(psychologist => psychologist.Rate)
@@ -87,7 +94,6 @@ namespace DataAccess.Repositories
                    .OrderBy(psychologist => psychologist.CreatedDate)
                    .FirstOrDefault();
             }
-
             return candidate;
         }
 

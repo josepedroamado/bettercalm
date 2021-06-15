@@ -6,7 +6,7 @@ using WebAPI.Filters;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/administrators")]
 	[ApiController]
 	[AuthorizationFilter("Administrator")]
 	public class AdministratorsController : ControllerBase
@@ -23,21 +23,21 @@ namespace WebAPI.Controllers
 		public IActionResult Post([FromBody] AdministratorInputModel model)
 		{
 			this.userLogic.CreateUser(model.ToEntityWithRole());
-			return Ok();
+			return NoContent();
 		}
 
 		[HttpPatch]
 		public IActionResult Patch([FromBody] AdministratorInputModel model)
 		{
 			this.userLogic.UpdateUser(model.ToEntity());
-			return new StatusCodeResult(204);
+			return NoContent();
 		}
 
 		[HttpDelete("{id}")]
 		public IActionResult Delete(int id)
 		{
 			this.userLogic.DeleteUser(id);
-			return new StatusCodeResult(204);
+			return NoContent();
 		}
 
 		[HttpGet]
@@ -52,8 +52,7 @@ namespace WebAPI.Controllers
 		[HttpGet("{email}")]
 		public IActionResult Get(string email)
 		{
-			AdministratorOutputModel user = new AdministratorOutputModel(this.userLogic.GetUser(email));
-			return Ok(user);
+			return Ok(new AdministratorOutputModel(this.userLogic.GetUser(email)));
 		}
 	}
 }

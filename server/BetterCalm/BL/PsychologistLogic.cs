@@ -32,25 +32,18 @@ namespace BL
 
         public void Add(Psychologist psychologist)
         {
-            psychologist.Illnesses = GetStoredIlnesses(psychologist.Illnesses);
+            psychologist.Illnesses = GetStoredIllnesses(psychologist.Illnesses);
             psychologist.Rate = this.psychologistRateRepository.Get(psychologist.Rate.HourlyRate);
             this.psychologistRepository.Add(psychologist);
         }
 
-        private List<Illness> GetStoredIlnesses(IEnumerable<Illness> inMemoryIlnesses)
+        private List<Illness> GetStoredIllnesses(IEnumerable<Illness> inMemoryIlnesses)
         {
-            if (inMemoryIlnesses == null)
+            if (inMemoryIlnesses == null || inMemoryIlnesses.Count() == 0 || inMemoryIlnesses.Count() > 3)
             {
-                return null;
+                throw new IncorrectNumberOfIllnessesException();
             }
-
-            if (inMemoryIlnesses.Count() > 3)
-            {
-                throw new ExceedingNumberOfIllnessesException();
-            }
-
             List<Illness> storedIllnesses = inMemoryIlnesses.Select(illness => this.illnessRepository.Get(illness.Id)).ToList();
-
             return storedIllnesses;
         }
 

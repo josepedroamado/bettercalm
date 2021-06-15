@@ -22,16 +22,22 @@ namespace DataAccess.Repositories
         {
             Illness illness = this.illnesses.FirstOrDefault(illness => illness.Id == id);
             if (illness == null)
+            {
                 throw new NotFoundException(id.ToString());
+            }
             return illness;
         }
 
         public IEnumerable<Illness> GetAll()
         {
             if (this.illnesses.Count() <= 0)
+            {
                 throw new CollectionEmptyException("Illnesses");
+            }
             else
+            {
                 return this.illnesses;
+            }
         }
     }
 }

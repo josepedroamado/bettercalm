@@ -62,7 +62,7 @@ namespace WebAPI.Filters
 					Content = ex.Message
 				};
 			}
-			catch (ExceedingNumberOfIllnessesException ex)
+			catch (IncorrectNumberOfIllnessesException ex)
 			{
 				context.Result = new ContentResult()
 				{

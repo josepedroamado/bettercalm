@@ -152,7 +152,8 @@ namespace BL.Test
         }
 
         [TestMethod]
-        public void Add_NoIllnesses_Added()
+        [ExpectedException(typeof(IncorrectNumberOfIllnessesException))]
+        public void Add_NoIllnesses_ExceptionThrown()
         {
             Illness stress = new Illness { Id = 1, Name = "Stress" };
             Illness depression = new Illness { Id = 2, Name = "Depression" };
@@ -184,7 +185,7 @@ namespace BL.Test
 
             Psychologist obtainedPsychologist = psychologistLogic.Get(expectedPsychologist.Id);
 
-            Assert.AreEqual(expectedPsychologist, obtainedPsychologist);
+            Assert.IsNull(obtainedPsychologist);
         }
 
         [TestMethod]
@@ -262,7 +263,7 @@ namespace BL.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ExceedingNumberOfIllnessesException))]
+        [ExpectedException(typeof(IncorrectNumberOfIllnessesException))]
         public void Add_MoreThanThreeIllnesses_ExceptionThrown()
         {
             Illness stress = new Illness { Id = 1, Name = "Stress" };

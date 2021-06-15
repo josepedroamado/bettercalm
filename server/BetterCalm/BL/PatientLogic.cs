@@ -9,8 +9,8 @@ namespace BL
 {
     public class PatientLogic : IPatientLogic
     {
-        private readonly IPatientRepository patientRepository;
-        private readonly IAppointmentDiscountRepository discountRepository;
+        private IPatientRepository patientRepository;
+        private IAppointmentDiscountRepository discountRepository;
         private const int RequiredAppointmentQuantity = 5;
 
         public PatientLogic(IPatientRepository patientRepository, IAppointmentDiscountRepository discountRepository)
