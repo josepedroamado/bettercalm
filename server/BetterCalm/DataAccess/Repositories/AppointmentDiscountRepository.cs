@@ -22,16 +22,22 @@ namespace DataAccess.Repositories
         {
             AppointmentDiscount appointmentDiscount = this.discounts.FirstOrDefault(stored => stored.Discount == discount);
             if (appointmentDiscount == null)
+            {
                 throw new NotFoundException("Appointment Discount");
+            }
             return appointmentDiscount;
         }
 
         public IEnumerable<AppointmentDiscount> GetAll()
         {
             if (this.discounts.Count() <= 0)
+            {
                 throw new CollectionEmptyException("Appointment Discounts");
+            }
             else
+            {
                 return this.discounts;
+            }
         }
     }
 }

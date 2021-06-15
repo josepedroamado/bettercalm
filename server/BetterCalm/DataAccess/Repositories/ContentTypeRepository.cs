@@ -21,7 +21,9 @@ namespace DataAccess.Repositories
 		{
 			ContentType contentType = this.contentTypes.FirstOrDefault(type => type.Name.Equals(name));
 			if (contentType == null)
+            {
 				throw new NotFoundException(name);
+			}
 			return contentType;
 		}
 	}

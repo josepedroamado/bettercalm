@@ -9,8 +9,8 @@ namespace DataAccess.Repositories
 {
 	public class PlaylistRepository : IPlaylistRepository
 	{
-		private readonly DbContext context;
-		private readonly DbSet<Playlist> playlists;
+		private DbContext context;
+		private DbSet<Playlist> playlists;
 
 		public PlaylistRepository(DbContext context)
 		{
@@ -22,24 +22,34 @@ namespace DataAccess.Repositories
 		{
 			Playlist playlist = this.playlists.FirstOrDefault(playlist => playlist.Id == id);
 			if (playlist == null)
+            {
 				throw new NotFoundException(id.ToString());
+			}
 			return playlist;
 		}
 
 		public IEnumerable<Playlist> GetAll()
 		{
 			if (this.playlists.Count() <= 0)
+            {
 				throw new CollectionEmptyException("Playlists");
-			else
+			}
+            else
+            {
 				return this.playlists.Include("Categories");
+			}
 		}
 
         public IEnumerable<Playlist> GetAll(Category category)
         {
 			if (this.playlists.Count() <= 0)
+			{
 				throw new CollectionEmptyException("Playlists");
-			else
+			}
+            else
+			{
 				return this.playlists.Where(playlist => playlist.Categories.Contains(category));
+			}
 		}
     }
 }

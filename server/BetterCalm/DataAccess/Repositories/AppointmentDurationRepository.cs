@@ -23,15 +23,21 @@ namespace DataAccess.Repositories
         {
             AppointmentDuration appointmentDuration =  this.durations.FirstOrDefault(stored => stored.Duration == duration);
             if (appointmentDuration == null)
+            {
                 throw new NotFoundException("Appointment Duration");
+            }
             return appointmentDuration;
         }
 
         public IEnumerable<AppointmentDuration> GetAll(){
             if (this.durations.Count() <= 0)
+            {
                 throw new CollectionEmptyException("Appointment Durations");
+            }
             else
+            {
                 return this.durations;
-       }
+            }
+        }
     }
 }
