@@ -70,7 +70,7 @@ namespace WebAPI.Filters
 					Content = ex.Message
 				};
 			}
-			catch (InvalidPsychologistConsultationFormat ex)
+			catch (InvalidPsychologistConsultationFormatException ex)
 			{
 				context.Result = new ContentResult()
 				{
