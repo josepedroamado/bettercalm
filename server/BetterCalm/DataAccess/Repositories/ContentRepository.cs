@@ -46,49 +46,56 @@ namespace DataAccess.Repositories
 		public Content Get(int id)
 		{
 			Content content = this.contents
-				.Include("PlayLists")
-				.Include("Categories")
-				.Include("ContentType")
+				.Include(c => c.PlayLists)
+				.Include(c => c.Categories)
+				.Include(c => c.ContentType)
 				.FirstOrDefault(cont => cont.Id == id);
 			if (content == null)
-				throw new NotFoundException(id.ToString());
+			{
+                throw new NotFoundException(id.ToString());
+            }
 			return content;
 		}
 
 		public IEnumerable<Content> GetAll()
 		{
 			if (this.contents.Count() <= 0)
+            {
 				throw new CollectionEmptyException("Contents");
-			else
-				return this.contents
-					.Include("ContentType")
-					.Include("Categories");
+			}
+            else
+            {
+				return this.contents.Include(c => c.ContentType).Include(c => c.Categories);
+			}
+				
 		}
 
         public IEnumerable<Content> GetAll(Playlist playlist)
         {
 			if (this.contents.Count() <= 0)
+			{
 				throw new CollectionEmptyException("Contents");
+			}
 			else
-				return this.contents
-					.Include("ContentType")
-					.Include("Categories")
+				return this.contents.Include(c => c.ContentType).Include(c => c.Categories)
 					.Where(content => content.PlayLists.Contains(playlist));
 		}
 
         public IEnumerable<Content> GetAll(Category category)
         {
 			if (this.contents.Count() <= 0)
+            {
 				throw new CollectionEmptyException("Contents");
-			else
-				return this.contents.Include("ContentType")
-					.Where(content => content.Categories.Contains(category));
+			}
+            else
+            {
+				return this.contents.Include(c => c.ContentType).Where(content => content.Categories.Contains(category));
+			}
 		}
 
 		public IEnumerable<Content> GetAll(string contentType)
 		{
-			return this.contents.Include("ContentType")
-				.Where(content => content.ContentType.Name.Equals(contentType));
+			return this.contents.Include(c => c.ContentType).Where(content => content.ContentType.Name.Equals(contentType));
 		}
 
 		public void Update(Content content)

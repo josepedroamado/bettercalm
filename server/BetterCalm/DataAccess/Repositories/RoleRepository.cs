@@ -22,17 +22,19 @@ namespace DataAccess.Repositories
 		{
 			Role role = this.roles.FirstOrDefault(role => role.Name.Equals(name));
 			if (role == null)
+			{
 				throw new NotFoundException(name);
+			}
 			return role;
 		}
 
 		public ICollection<User> GetUsers(string name)
 		{
-			Role role = this.roles.
-				Include("Users").
-				FirstOrDefault(role => role.Name.Equals(name));
+			Role role = this.roles.Include(u => u.Users).FirstOrDefault(role => role.Name.Equals(name));
 			if (role != null)
+			{
 				return role.Users;
+			}
 			return new List<User>();
 		}
 	}
