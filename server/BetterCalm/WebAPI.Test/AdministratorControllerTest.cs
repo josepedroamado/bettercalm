@@ -29,8 +29,8 @@ namespace WebAPI.Test
 			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
 
 			IActionResult result = controller.Post(input);
-			OkResult objectResult = result as OkResult;
-			Assert.IsTrue(objectResult.StatusCode == 200);
+			NoContentResult objectResult = result as NoContentResult;
+			Assert.IsTrue(objectResult.StatusCode == 204);
 		}
 
 		[TestMethod]
@@ -50,7 +50,7 @@ namespace WebAPI.Test
 			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
 
 			IActionResult result = controller.Post(input);
-			ObjectResult objectResult = result as ObjectResult;
+			NoContentResult objectResult = result as NoContentResult;
 			Assert.IsTrue(objectResult.StatusCode == 400);
 		}
 
@@ -71,7 +71,7 @@ namespace WebAPI.Test
 			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
 
 			IActionResult result = controller.Post(input);
-			ObjectResult objectResult = result as ObjectResult;
+			NoContentResult objectResult = result as NoContentResult;
 			Assert.IsTrue(objectResult.StatusCode == 400);
 		}
 
@@ -92,8 +92,8 @@ namespace WebAPI.Test
 			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
 
 			IActionResult result = controller.Patch(input);
-			StatusCodeResult statusCodeResult = result as StatusCodeResult;
-			Assert.IsTrue(statusCodeResult.StatusCode == 204);
+			NoContentResult objectResult = result as NoContentResult;
+			Assert.IsTrue(objectResult.StatusCode == 204);
 		}
 
 		[TestMethod]
@@ -114,7 +114,7 @@ namespace WebAPI.Test
 			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
 
 			IActionResult result = controller.Patch(input);
-			ObjectResult objectResult = result as ObjectResult;
+			NoContentResult objectResult = result as NoContentResult;
 			Assert.IsTrue(objectResult.StatusCode == 400);
 		}
 
@@ -136,7 +136,7 @@ namespace WebAPI.Test
 			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
 
 			IActionResult result = controller.Patch(input);
-			ObjectResult objectResult = result as ObjectResult;
+			NoContentResult objectResult = result as NoContentResult;
 			Assert.IsTrue(objectResult.StatusCode == 400);
 		}
 
@@ -150,8 +150,8 @@ namespace WebAPI.Test
 			AdministratorsController controller = new AdministratorsController(userLogicMock.Object);
 
 			IActionResult result = controller.Delete(id);
-			StatusCodeResult statusCodeResult = result as StatusCodeResult;
-			Assert.IsTrue(statusCodeResult.StatusCode == 204);
+			NoContentResult objectResult = result as NoContentResult;
+			Assert.IsTrue(objectResult.StatusCode == 204);
 		}
 
 		[TestMethod]
