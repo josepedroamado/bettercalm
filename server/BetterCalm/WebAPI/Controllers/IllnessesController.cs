@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/illnesses")]
 	[ApiController]
 	public class IllnessesController : ControllerBase
 	{
@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			IEnumerable<IllnessModel> illnessModels = this.illnessLogic.GetIllnesses().Select(illness => new IllnessModel(illness)).ToList();
+			IEnumerable<IllnessModel> illnessModels = this.illnessLogic.GetIllnesses().Select(illness => new IllnessModel(illness));
 			return Ok(illnessModels);
 		}
 	}
