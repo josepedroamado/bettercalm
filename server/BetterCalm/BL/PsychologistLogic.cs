@@ -39,14 +39,9 @@ namespace BL
 
         private List<Illness> GetStoredIllnesses(IEnumerable<Illness> inMemoryIlnesses)
         {
-            if (inMemoryIlnesses == null)
+            if (inMemoryIlnesses == null || inMemoryIlnesses.Count() == 0 || inMemoryIlnesses.Count() > 3)
             {
-                return null;
-            }
-
-            if (inMemoryIlnesses.Count() > 3)
-            {
-                throw new ExceedingNumberOfIllnessesException();
+                throw new IncorrectNumberOfIllnessesException();
             }
             List<Illness> storedIllnesses = inMemoryIlnesses.Select(illness => this.illnessRepository.Get(illness.Id)).ToList();
             return storedIllnesses;
