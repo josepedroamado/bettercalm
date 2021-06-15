@@ -482,8 +482,7 @@ namespace BL.Test
 			contentRepositoryMock.Setup(m => m.Get(toSaveContent.Id)).Returns(toSaveContent);
 
 			Mock<IPlaylistRepository> playlistRepository = new Mock<IPlaylistRepository>(MockBehavior.Strict);
-			Playlist notFound = null;
-			playlistRepository.Setup(m => m.Get(playlist.Id)).Returns(notFound);
+			playlistRepository.Setup(m => m.Get(playlist.Id)).Throws(new NotFoundException(playlist.Id.ToString()));
 
 			Mock<ICategoryRepository> categoryRepository = new Mock<ICategoryRepository>(MockBehavior.Strict);
 			categoryRepository.Setup(m => m.Get(music.Id)).Returns(music);
