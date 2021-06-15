@@ -1,5 +1,4 @@
 ﻿using BLInterfaces;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using System.Collections.Generic;
