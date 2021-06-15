@@ -29,7 +29,12 @@ namespace DataAccess.Repositories
 
         public Psychologist Get(int id)
         {
-            Psychologist psychologist = this.psychologists.Include(psychologist => psychologist.Illnesses).Include(x => x.Rate).FirstOrDefault(psychologist => psychologist.Id == id);
+            Psychologist psychologist = this.psychologists
+                .Include(psychologist => psychologist.Illnesses)
+                .Include(x => x.Rate)
+                .Include(s => s.ScheduleDays)
+                .ThenInclude(s => s.Appointments)
+                .FirstOrDefault(psychologist => psychologist.Id == id);
             if (psychologist == null)
                 throw new NotFoundException(id.ToString());
             return psychologist;
@@ -102,6 +107,14 @@ namespace DataAccess.Repositories
                 Psychologist psychologistToDelete = this.Get(psychologistId);
                 if (psychologistToDelete != null)
                 {
+                    foreach(Schedule schedule in psychologistToDelete.ScheduleDays)
+					{                             
+                        foreach(Appointment appointment in schedule.Appointments)
+						{
+                            this.context.Remove(appointment);
+                        }
+                        this.context.Remove(schedule);
+                    }
                     this.psychologists.Remove(psychologistToDelete);
                     this.context.SaveChanges();
                 }
