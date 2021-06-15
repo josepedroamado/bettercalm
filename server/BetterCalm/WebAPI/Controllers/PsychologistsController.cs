@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/psychologists")]
 	[ApiController]
-	[AuthorizationFilter("Administrator")]
+	[AuthorizationFilterAttribute("Administrator")]
 	public class PsychologistsController : ControllerBase
 	{
 

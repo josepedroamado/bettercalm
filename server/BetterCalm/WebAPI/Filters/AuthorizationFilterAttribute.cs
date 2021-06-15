@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Filters
 {
-	public class AuthorizationFilter : Attribute, IActionFilter
+	public class AuthorizationFilterAttribute : Attribute, IActionFilter
     {
         private readonly string role;
 
-        public AuthorizationFilter(string role)
+        public AuthorizationFilterAttribute(string role)
         {
             this.role = role;
         }

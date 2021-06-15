@@ -43,7 +43,7 @@ namespace Model
 			}
 			else
 			{
-				throw new InvalidPsychologistConsultationFormat();
+				throw new InvalidPsychologistConsultationFormatException();
 			}
 		}
 

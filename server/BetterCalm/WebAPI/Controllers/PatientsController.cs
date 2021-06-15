@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/patients")]
     [ApiController]
-    [AuthorizationFilter("Administrator")]
+    [AuthorizationFilterAttribute("Administrator")]
     public class PatientsController : ControllerBase
     {
         private readonly IPatientLogic patientLogic;
