@@ -15,5 +15,14 @@
                 "categories": [ 1002 ]
             }
         ]
+    },
+	{
+        "name": "Test contents",
+        "contentLength": "00:04:35",
+        "artistName": "Michael Jack",
+        "imageUrl": "http://images.com/image3.jpg",
+        "contentUrl": "http://audio.com/audio3.mp4",
+        "categories": [ 1002 ],
+        "contentType": "video"
     }
 ]

@@ -33,7 +33,7 @@ namespace BL.Utils
 		private static List<Category> GetDomainCategories(int[] categories)
 		{
 			List<Category> domainCategories = new List<Category>();
-			categories.ToList().ForEach(category =>
+			categories?.ToList().ForEach(category =>
 				domainCategories.Add(new Category()
 				{
 					Id = category
@@ -45,7 +45,7 @@ namespace BL.Utils
 		{
 			List<Playlist> domainPlaylists = new List<Playlist>();
 
-			playlists.ToList().ForEach(playlist =>
+			playlists?.ToList().ForEach(playlist =>
 				domainPlaylists.Add(new Playlist()
 				{
 					Id = playlist.Id,
