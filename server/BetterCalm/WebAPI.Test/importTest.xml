@@ -22,4 +22,16 @@
 			</Playlist>
 		</Playlists>
 	</Content>
+	<Content>
+		<Id>0</Id>
+		<Name>Beat It extended 78</Name>
+		<ContentLength>00:06:30</ContentLength>
+		<ArtistName>Michael Jackson</ArtistName>
+		<ImageUrl>http://images.com/image3.jpg</ImageUrl>
+		<ContentUrl>http://audio.com/audio3.mp8</ContentUrl>
+		<Categories>
+			<int>1002</int>
+		</Categories>
+		<ContentType>audio</ContentType>
+	</Content>
 </Contents>
