@@ -1,6 +1,6 @@
-<app-loading *ngIf="!hasError && (isLoadingContent || isLoadingCategories || isLoadingPlaylists)" text="Loading..."></app-loading>
+<app-loading *ngIf="!hasError && (isLoadingContent || isLoadingCategories)" text="Loading..."></app-loading>
 <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
-<div *ngIf="!(isLoadingContent || isLoadingCategories || isLoadingPlaylists) && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto" style="width: 75rem;">
+<div *ngIf="!(isLoadingContent || isLoadingCategories) && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto" style="width: 75rem;">
     <div class="card-header text-light bg-primary">
         <h5 class="card-title mt-1">Edición de Contenido</h5>
     </div>
@@ -87,7 +87,7 @@
                                         <div class="row mb-3">
                                             <div class="col">
                                                 <label for="playlistImageUrl" class="form-label">Imagen</label>
-                                                <input type="text" class="form-control" placeholder="Por favor ingrese la url de la imagen de portada" id="playlistImageUrl" formControlName="name">
+                                                <input type="text" class="form-control" placeholder="Por favor ingrese la url de la imagen de portada" id="playlistImageUrl" formControlName="playlistImageUrl">
                                             </div>
                                             <div class="col">
                                                 <label for="categories" class="form-label">Selecciona las categorías</label>

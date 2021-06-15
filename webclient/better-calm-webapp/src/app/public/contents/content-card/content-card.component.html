@@ -4,7 +4,7 @@
         <h5 class="card-title fw-bold">{{content.name}}</h5>
         <p class="card-text"><strong>Artista: </strong>{{content.artistName}}</p>
         <p class="card-text"><strong>Duración: </strong>{{content.contentLength}}</p>
-        <p class="card-text"><strong>Tipo: </strong>{{content.contentType}}</p>
+        <p class="card-text"><strong>Tipo: </strong>{{content.contentType | titlecase}}</p>
         <a (click)="show()" class="btn btn-primary">Reproducir</a>
         <app-content-detail *ngIf="showDetail" [content]="content"></app-content-detail>
     </div>
