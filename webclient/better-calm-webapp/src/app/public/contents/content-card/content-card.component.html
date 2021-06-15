@@ -1,5 +1,5 @@
 <div class="card m-1 shadow bg-body rounded" style="width: 18rem;">
-    <img *ngIf="content.imageUrl" [src]="content.imageUrl" class="card-img-top" style="width: 286px; height:286px" alt="..." onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCnW4Qps4JXyNuaKFgxA4isRjwI5LgOAKIpvkUEzBM8WZHn3UD6sR-6UPkDNIyU5FEPJk&usqp=CAU';">
+    <img [src]="content.imageUrl" class="card-img-top" style="width: 286px; height:286px" alt="..." onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCnW4Qps4JXyNuaKFgxA4isRjwI5LgOAKIpvkUEzBM8WZHn3UD6sR-6UPkDNIyU5FEPJk&usqp=CAU';">
     <div class="card-body">
         <h5 class="card-title fw-bold">{{content.name}}</h5>
         <p class="card-text"><strong>Artista: </strong>{{content.artistName}}</p>
