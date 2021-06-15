@@ -10,8 +10,8 @@ namespace BL
 {
 	public class SessionLogic : ISessionLogic
 	{
-		private readonly ISessionRepository sessionRepository;
-		private readonly IUserRepository userRepository;
+		private ISessionRepository sessionRepository;
+		private IUserRepository userRepository;
 
 		public SessionLogic(ISessionRepository sessionRepository, IUserRepository userRepository)
 		{
@@ -21,8 +21,7 @@ namespace BL
 
 		public bool TokenHasRole(string token, string role)
 		{
-			return this.sessionRepository.GetRoles(token).
-				Any(tokenRole => tokenRole.Name.Equals(role));
+			return this.sessionRepository.GetRoles(token).Any(tokenRole => tokenRole.Name.Equals(role));
 		}
 
 		public bool IsTokenValid(string token)
@@ -50,8 +49,10 @@ namespace BL
 					}
 					token = session.Token;
 				}
-				else
+                else
+				{
 					throw new InvalidCredentialsException();
+				}
 			}
 			catch (NotFoundException)
 			{

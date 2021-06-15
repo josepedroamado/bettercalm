@@ -48,9 +48,7 @@ namespace BL
             {
                 throw new ExceedingNumberOfIllnessesException();
             }
-
             List<Illness> storedIllnesses = inMemoryIlnesses.Select(illness => this.illnessRepository.Get(illness.Id)).ToList();
-
             return storedIllnesses;
         }
 

@@ -8,8 +8,8 @@ namespace BL
 {
 	public class UserLogic : IUserLogic
 	{
-		private readonly IUserRepository userRepository;
-		private readonly IRoleRepository roleRepository;
+		private IUserRepository userRepository;
+		private IRoleRepository roleRepository;
 
 		public UserLogic(IUserRepository userRepository, IRoleRepository roleRepository)
 		{
@@ -31,8 +31,9 @@ namespace BL
 		private ICollection<Role> GetStoredRoles(ICollection<Role> roles)
 		{
 			if (roles == null)
+            {
 				return roles;
-
+			}
 			return roles.Select(role => this.roleRepository.Get(role.Name)).ToList();
 		}
 
@@ -40,7 +41,9 @@ namespace BL
 		{
 			User currentUser = this.userRepository.Get(user.Id);
 			if (currentUser == null)
+            {
 				return;
+			}
 			currentUser.UpdateFromUser(user);
 			this.userRepository.Update(currentUser);
 		}

@@ -7,7 +7,8 @@ namespace BL
 {
 	public class PlaylistLogic : IPlaylistLogic
 	{
-		private readonly IPlaylistRepository playlistRepository;
+		private IPlaylistRepository playlistRepository;
+
 		public PlaylistLogic(IPlaylistRepository playlistRepository)
 		{
 			this.playlistRepository = playlistRepository;

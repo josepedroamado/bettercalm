@@ -13,11 +13,10 @@ namespace BL
 		private const int LimitOfAppointmentsPerDay = 5;
 		private const string BetterCalmUrl = "http://bettercalm.com.uy/meeting_id/";
 
-		private readonly IPsychologistRepository psychologistRepository;
-		private readonly IIllnessRepository illnessRepository;
-		private readonly IPatientRepository patientRepository;
-
-		private readonly IAppointmentDurationRepository appointmentDurationRepository;
+		private IPsychologistRepository psychologistRepository;
+		private IIllnessRepository illnessRepository;
+		private IPatientRepository patientRepository;
+		private IAppointmentDurationRepository appointmentDurationRepository;
 
 		public AppointmentLogic(IPsychologistRepository psychologistRepository, 
 								IIllnessRepository illnessRepository, 
@@ -105,7 +104,9 @@ namespace BL
 		private string CalculateAddress(Psychologist candidate)
 		{
 			if (candidate.Format == Format.OnSite)
+			{
 				return candidate.Address;
+			}
 			return string.Concat(BetterCalmUrl, Guid.NewGuid().ToString());
 		}
     }

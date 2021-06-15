@@ -9,9 +9,9 @@ namespace BL
 {
 	public class ContentLogic : IContentLogic
 	{
-		private readonly IContentRepository contentRepository;
-		private readonly IPlaylistRepository playlistRepository;
-		private readonly ICategoryRepository categoryRepository;
+		private IContentRepository contentRepository;
+		private IPlaylistRepository playlistRepository;
+		private ICategoryRepository categoryRepository;
 
 		public ContentLogic(IContentRepository contentRepository, 
 			IPlaylistRepository playlistRepository, 
@@ -25,29 +25,29 @@ namespace BL
 		public void CreateContent(Content content)
 		{
 			if (content.Categories == null || content.Categories.Count() == 0)
+			{
 				throw new MissingCategoriesException();
-
+			}
 			content.Categories = GetStoredCategories(content.Categories);
 			content.PlayLists = GetStoredPlaylists(content.PlayLists);
-						
 			this.contentRepository.Add(content);
 		}
 
 		private List<Category> GetStoredCategories(IEnumerable<Category> inMemoryCategories)
 		{
 			List<Category> storedCategories = new List<Category>();
-
 			if (inMemoryCategories != null)
 			{
 				storedCategories = inMemoryCategories.Select(category =>
 				{
 					Category stored = this.categoryRepository.Get(category.Id);
 					if (stored != null)
+					{
 						return stored;
+					}
 					throw new NotFoundException(category.Id.ToString());
 				}).ToList();
 			}
-			
 			return storedCategories;
 		}
 
@@ -115,11 +115,15 @@ namespace BL
 		{
 			Content currentContent = this.contentRepository.Get(content.Id);
 			if (currentContent == null)
+			{
 				return;
+			}
 			currentContent.UpdateFromContent(content);
 
 			if (currentContent.Categories == null || currentContent.Categories.Count() == 0)
+			{
 				throw new MissingCategoriesException();
+			}
 
 			currentContent.PlayLists = GetStoredPlaylists(currentContent.PlayLists);
 			currentContent.Categories = GetStoredCategories(currentContent.Categories);

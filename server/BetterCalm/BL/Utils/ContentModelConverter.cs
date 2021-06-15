@@ -24,9 +24,6 @@ namespace BL.Utils
 				Name = content.Name,
 				PlayLists = GetDomainPlaylists(content.Playlists)
 			};
-
-			
-
 			return domainContent;
 		}
 
