@@ -42,7 +42,7 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpPost]
-		[AuthorizationFilter("Administrator")]
+		[AuthorizationFilterAttribute("Administrator")]
 		public IActionResult Post([FromBody] ContentModel contentModel)
 		{
 			this.contentLogic.CreateContent(contentModel.ToEntity());
@@ -50,7 +50,7 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		[AuthorizationFilter("Administrator")]
+		[AuthorizationFilterAttribute("Administrator")]
 		public IActionResult Delete(int id)
 		{
 			this.contentLogic.DeleteContent(id);

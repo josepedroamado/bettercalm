@@ -7,7 +7,7 @@ namespace WebAPI.Controllers
 {
 	[Route("api/importers")]
 	[ApiController]
-	[AuthorizationFilter("Administrator")]
+	[AuthorizationFilterAttribute("Administrator")]
 	public class ImportersController : ControllerBase
 	{
 		private readonly IImporterLogic importerLogic;
