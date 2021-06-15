@@ -32,7 +32,7 @@ namespace BL
 		public Appointment CreateAppointment(Appointment newAppointment)
         {
             Illness obtainedIllness = this.illnessRepository.Get(newAppointment.Illness.Id);
-            Patient obtainedPatient = GetPatient(newAppointment.Patient);
+            Patient obtainedPatient = GetPatientOrCreateNewPatient(newAppointment.Patient);
             Psychologist candidate = GetCandidate(obtainedIllness);
             AppointmentDuration appointmentDuration = this.appointmentDurationRepository.Get(newAppointment.Duration.Duration);
 
@@ -76,7 +76,7 @@ namespace BL
             return appointment;
         }
 
-        private Patient GetPatient(Patient patient)
+        private Patient GetPatientOrCreateNewPatient(Patient patient)
 		{
 			try
 			{
