@@ -1,15 +1,12 @@
 ﻿using BLInterfaces;
-using Domain;
-using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/playlists")]
 	[ApiController]
 	public class PlaylistsController : ControllerBase
 	{
@@ -25,27 +22,23 @@ namespace WebAPI.Controllers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			IEnumerable<PlaylistBasicInfo> playlists = 
-				this.playlistLogic.GetPlaylists().
-				Select(playlist => new PlaylistBasicInfo(playlist));
-
+			IEnumerable<PlaylistBasicInfo> playlists = this.playlistLogic.GetPlaylists()
+				.Select(playlist => new PlaylistBasicInfo(playlist));
 			return Ok(playlists);
 		}
 
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			Playlist playlist = this.playlistLogic.GetPlaylist(id);
-			return Ok(playlist);
+			return Ok(this.playlistLogic.GetPlaylist(id));
 		}
 
-		[HttpGet("{id}/contents/")]
+		[HttpGet("{id}/contents")]
 		public IActionResult GetContents(int id)
 		{
-			IEnumerable<ContentBasicInfo> contents =
-				this.contentLogic.GetContents(playlistLogic.GetPlaylist(id)).
-				Select(content => new ContentBasicInfo(content));
-
+			IEnumerable<ContentBasicInfo> contents = this.contentLogic
+				.GetContents(playlistLogic.GetPlaylist(id))
+				.Select(content => new ContentBasicInfo(content));
 			return Ok(contents);
 		}
 	}
