@@ -2,12 +2,11 @@
 using Domain;
 using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
 {
-	public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
 	{
 		private DbContext context;
 		private DbSet<User> users;
@@ -20,36 +19,43 @@ namespace DataAccess.Repositories
 
 		public void Add(User user)
 		{
-			if (user.Validate())
+			if (user != null && user.Validate() && !UserExists(user.Email))
 			{
-				try
+				this.users.Add(user);
+				this.context.SaveChanges();
+			}
+            else
+			{
+				if (UserExists(user.Email))
 				{
-					if (Get(user.Email) != null)
-						throw new AlreadyExistsException(user.Email);
-				}
-				catch (NotFoundException)
-				{
-					this.users.Add(user);
-					this.context.SaveChanges();
+					throw new AlreadyExistsException(user.Email);
 				}
 			}
 		}
 
-		public User Get(string email)
+        private bool UserExists(string email)
+        {
+			return this.users.Any(u => u.Email == email);
+        }
+
+        public User Get(string email)
 		{
 			User user = this.users.
 				FirstOrDefault(user => user.Email == email);
 			if (user == null)
+			{
 				throw new NotFoundException(email);
+			}
 			return user;
 		}
 
 		public User Get(int id)
 		{
-			User user = this.users.
-				FirstOrDefault(user => user.Id == id);
+			User user = this.users.FirstOrDefault(user => user.Id == id);
 			if (user == null)
-				throw new NotFoundException(id.ToString());
+			{
+                throw new NotFoundException(id.ToString());
+            }
 			return user;
 		}
 
@@ -65,7 +71,6 @@ namespace DataAccess.Repositories
 		public void Delete(int id)
 		{
 			User user = this.users.FirstOrDefault(user => user.Id == id);
-			
 			if (user != null)
 			{
 				this.users.Remove(user);
