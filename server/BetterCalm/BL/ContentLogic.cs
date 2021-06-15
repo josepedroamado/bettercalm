@@ -58,29 +58,22 @@ namespace BL
 			{
 				storedPlaylists = inMemoryPlaylists.Select(playlist =>
 				{
-					Playlist stored;
 					try
 					{
-						stored = this.playlistRepository.Get(playlist.Id);
+						return this.playlistRepository.Get(playlist.Id);
 					}
 					catch (NotFoundException)
 					{
-						stored = null;
+						if (!string.IsNullOrEmpty(playlist.Name))
+						{
+							playlist.Categories = GetStoredCategories(playlist.Categories);
+							return playlist;
+						}
+                        else
+                        {
+							throw new UnableToCreatePlaylistException();
+						}
 					}
-
-					if (stored != null)
-					{
-						stored.Categories = GetStoredCategories(stored.Categories);
-						return stored;
-					}
-						
-					if (!string.IsNullOrEmpty(playlist.Name))
-					{
-						playlist.Categories = GetStoredCategories(playlist.Categories);
-						return playlist;
-					}	
-
-					throw new UnableToCreatePlaylistException();
 				}).ToList();
 			}
 			return storedPlaylists;

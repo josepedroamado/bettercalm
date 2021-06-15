@@ -20,7 +20,7 @@ namespace DataAccess.Repositories
 
 		public Playlist Get(int id)
 		{
-			Playlist playlist = this.playlists.FirstOrDefault(playlist => playlist.Id == id);
+			Playlist playlist = this.playlists.Include(x => x.Categories).FirstOrDefault(playlist => playlist.Id == id);
 			if (playlist == null)
             {
 				throw new NotFoundException(id.ToString());
