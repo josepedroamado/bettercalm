@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/psychologists")]
 	[ApiController]
 	[AuthorizationFilter("Administrator")]
 	public class PsychologistsController : ControllerBase
@@ -30,27 +30,28 @@ namespace WebAPI.Controllers
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			PsychologistModel psychologistModel = new PsychologistModel(this.psychologistLogic.Get(id));
-			return Ok(psychologistModel);
+			return Ok(new PsychologistModel(this.psychologistLogic.Get(id)));
 		}
 
 		[HttpPost]
 		public IActionResult Post([FromBody] PsychologistModel psychologistModel)
 		{
 			this.psychologistLogic.Add(psychologistModel.ToEntity());
-			return Ok();
+			return NoContent();
 		}
 
 		[HttpPatch]
-		public void Patch([FromBody] PsychologistModel psychologistModel)
+		public IActionResult Patch([FromBody] PsychologistModel psychologistModel)
 		{
 			this.psychologistLogic.Update(psychologistModel.ToEntity());
+			return NoContent();
 		}
 
 		[HttpDelete]
-		public void Delete([FromBody] PsychologistDeleteModel psychologist)
+		public IActionResult Delete([FromBody] PsychologistDeleteModel psychologist)
 		{
 			this.psychologistLogic.Delete(psychologist.Id);
+			return NoContent();
 		}
 	}
 }
