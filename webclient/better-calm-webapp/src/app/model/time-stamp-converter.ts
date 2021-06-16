@@ -17,7 +17,7 @@ export class TimeStampConverter{
             minutes = `0${ts.minutes}`;
         }
         let seconds = `${ts.seconds}`;
-        if (ts.minutes < 10){
+        if (ts.seconds < 10){
             seconds = `0${ts.seconds}`;
         }
         if (ts.seconds == 0){
