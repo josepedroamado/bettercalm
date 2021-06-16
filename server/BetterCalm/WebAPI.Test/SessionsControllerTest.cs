@@ -16,13 +16,13 @@ namespace WebAPI.Test
 		{
 			UserCredentialsModel credentialsParameters = new UserCredentialsModel()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Password = "1234"
 			};
 
 			string expectedToken = "6813521C-A18F-493A-9DF7-BE6704DAA2CC";
 			Mock<ISessionLogic> mock = new Mock<ISessionLogic>(MockBehavior.Strict);
-			mock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Returns(expectedToken);
+			mock.Setup(m => m.Login(credentialsParameters.Email, credentialsParameters.Password)).Returns(expectedToken);
 
 			SessionsController controller = new SessionsController(mock.Object);
 
@@ -40,13 +40,13 @@ namespace WebAPI.Test
 		{
 			UserCredentialsModel credentialsParameters = new UserCredentialsModel()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Password = "1234"
 			};
 
 			string expectedToken = "";
 			Mock<ISessionLogic> mock = new Mock<ISessionLogic>(MockBehavior.Strict);
-			mock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Throws(new InvalidCredentialsException());
+			mock.Setup(m => m.Login(credentialsParameters.Email, credentialsParameters.Password)).Throws(new InvalidCredentialsException());
 
 			SessionsController controller = new SessionsController(mock.Object);
 
@@ -64,13 +64,13 @@ namespace WebAPI.Test
 		{
 			UserCredentialsModel credentialsParameters = new UserCredentialsModel()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Password = "1234"
 			};
 
 			string expectedToken = "";
 			Mock<ISessionLogic> mock = new Mock<ISessionLogic>(MockBehavior.Strict);
-			mock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Throws(new InvalidCredentialsException());
+			mock.Setup(m => m.Login(credentialsParameters.Email, credentialsParameters.Password)).Throws(new InvalidCredentialsException());
 
 			SessionsController controller = new SessionsController(mock.Object);
 
@@ -87,16 +87,16 @@ namespace WebAPI.Test
 		{
 			UserCredentialsModel credentialsParameters = new UserCredentialsModel()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Password = "1234"
 			};
-			UserTokenModel expectedTokenModel = new UserTokenModel()
+			SessionInfoModel expectedTokenModel = new SessionInfoModel()
 			{
 				Token = "token1234"
 			}; 
 			Mock<ISessionLogic> sessionLogicMock = new Mock<ISessionLogic>(MockBehavior.Strict);
 			sessionLogicMock.Setup(m => m.Logout(expectedTokenModel.Token));
-			sessionLogicMock.Setup(m => m.Login(credentialsParameters.EMail, credentialsParameters.Password)).Returns("newToken");
+			sessionLogicMock.Setup(m => m.Login(credentialsParameters.Email, credentialsParameters.Password)).Returns("newToken");
 
 			SessionsController controller = new SessionsController(sessionLogicMock.Object);
 
