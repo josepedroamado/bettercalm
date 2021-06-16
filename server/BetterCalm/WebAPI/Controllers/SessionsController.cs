@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpDelete]
-		public IActionResult Delete([FromBody] UserTokenModel expectedToken)
+		public IActionResult Delete([FromBody] SessionInfoModel expectedToken)
         {
 			this.sessionLogic.Logout(expectedToken.Token);
 			return NoContent();

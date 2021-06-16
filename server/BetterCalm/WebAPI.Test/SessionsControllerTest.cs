@@ -90,7 +90,7 @@ namespace WebAPI.Test
 				EMail = "a@a.com",
 				Password = "1234"
 			};
-			UserTokenModel expectedTokenModel = new UserTokenModel()
+			SessionInfoModel expectedTokenModel = new SessionInfoModel()
 			{
 				Token = "token1234"
 			}; 
