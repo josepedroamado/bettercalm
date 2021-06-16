@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from '../../../domain/category';
 import { Content } from '../../../domain/content';
 import { Playlist } from '../../../domain/playlist';
@@ -42,15 +42,16 @@ export class ContentEditComponent implements OnInit {
   public playlistForm = this.formBuilder.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
-    imageUrl: ['', [Validators.pattern(ContentEditComponent.urlPattern)]],
+    playlistImageUrl: ['', [Validators.pattern(ContentEditComponent.urlPattern)]],
     categories: ['', Validators.required],
   });
 
   constructor(private contentsService: ContentsService,
     private categoriesService: CategoriesService,
     private playlistsService: PlaylistsService,
-    private _currentRoute: ActivatedRoute, 
-    private formBuilder: FormBuilder) { }
+    private currentRoute: ActivatedRoute, 
+    private formBuilder: FormBuilder,
+    private router: Router) { }
   
   ngOnInit(): void {
     this.getContent();
@@ -60,7 +61,7 @@ export class ContentEditComponent implements OnInit {
 
   private getContent():void{
     this.isLoadingContent = true;
-    let id:string = this._currentRoute.snapshot.params['id'];
+    let id:string = this.currentRoute.snapshot.params['id'];
     if (id){
       this.isCreate = false;
       this.contentsService.get(id).subscribe((content) => this.setContent(content), this.setError.bind(this));
@@ -147,5 +148,6 @@ export class ContentEditComponent implements OnInit {
 
   private setOk():void{
     alert("Enviado correctamente!");
+    this.router.navigate(['/admin/contents']);
   }
 }

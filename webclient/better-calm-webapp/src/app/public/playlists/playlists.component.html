@@ -6,8 +6,8 @@
         <ng-container *ngFor="let playlist of playlists">
             <div class="card mb-3 playlist shadow-sm bg-body rounded" [routerLink]="['contents', playlist.id]">
                 <div class="row g-0">
-                    <div *ngIf="playlist.imageUrl" class="col-md-4" style="max-width: 6rem; max-height:6rem;">
-                        <img [src]="playlist.imageUrl" style="max-width: 6rem; max-height:6rem;">
+                    <div class="col-md-4 rounded" style="max-width: 6rem; max-height:6rem;">
+                        <img [src]="playlist.imageUrl" style="width: 85px; height:85px" class="rounded" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCnW4Qps4JXyNuaKFgxA4isRjwI5LgOAKIpvkUEzBM8WZHn3UD6sR-6UPkDNIyU5FEPJk&usqp=CAU';">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
