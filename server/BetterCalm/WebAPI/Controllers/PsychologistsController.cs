@@ -4,13 +4,12 @@ using Model;
 using BLInterfaces;
 using WebAPI.Filters;
 using System.Linq;
-using System;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/psychologists")]
 	[ApiController]
-	[AuthorizationFilter("Administrator")]
+	[AuthorizationFilterAttribute("Administrator")]
 	public class PsychologistsController : ControllerBase
 	{
 
@@ -24,36 +23,35 @@ namespace WebAPI.Controllers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			IEnumerable<PsychologistModel> models =
-				   this.psychologistLogic.GetAll().
-				   Select(psychologist => new PsychologistModel(psychologist));
+			IEnumerable<PsychologistModel> models = this.psychologistLogic.GetAll().Select(psychologist => new PsychologistModel(psychologist));
 			return Ok(models);
 		}
 
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			PsychologistModel psychologistModel = new PsychologistModel(this.psychologistLogic.Get(id));
-			return Ok(psychologistModel);
+			return Ok(new PsychologistModel(this.psychologistLogic.Get(id)));
 		}
 
 		[HttpPost]
 		public IActionResult Post([FromBody] PsychologistModel psychologistModel)
 		{
 			this.psychologistLogic.Add(psychologistModel.ToEntity());
-			return Ok();
+			return NoContent();
 		}
 
 		[HttpPatch]
-		public void Patch([FromBody] PsychologistModel psychologistModel)
+		public IActionResult Patch([FromBody] PsychologistModel psychologistModel)
 		{
 			this.psychologistLogic.Update(psychologistModel.ToEntity());
+			return NoContent();
 		}
 
 		[HttpDelete]
-		public void Delete([FromBody] int id)
+		public IActionResult Delete([FromBody] PsychologistDeleteModel psychologist)
 		{
-			this.psychologistLogic.Delete(id);
+			this.psychologistLogic.Delete(psychologist.Id);
+			return NoContent();
 		}
 	}
 }

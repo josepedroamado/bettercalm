@@ -9,6 +9,7 @@ namespace BLInterfaces
 		public IEnumerable<Content> GetContents();
 		public IEnumerable<Content> GetContents(Playlist playlist);
 		public IEnumerable<Content> GetContents(Category category);
+		public IEnumerable<Content> GetContents(string contentType);
 		void CreateContent(Content content);
 		void DeleteContent(int id);
 		void UpdateContent(Content content);

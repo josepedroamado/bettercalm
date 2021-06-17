@@ -1,12 +1,10 @@
 ﻿using Domain.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.Test
 {
-	[TestClass]
+    [TestClass]
 	public class PatientTest
 	{
 		[TestMethod]
@@ -17,7 +15,7 @@ namespace Domain.Test
 				Id = 1,
 				FirstName = "first name",
 				LastName = "last name",
-				EMail = "email",
+				Email = "email",
 				BirthDate = new DateTime(1990, 1, 1),
 				Phone = "099099099"
 			};
@@ -33,7 +31,7 @@ namespace Domain.Test
 			{
 				Id = 1,
 				LastName = "last name",
-				EMail = "email",
+				Email = "email",
 				BirthDate = new DateTime(1990, 1, 1),
 				Phone = "099099099"
 			};
@@ -49,7 +47,7 @@ namespace Domain.Test
 			{
 				Id = 1,
 				FirstName = "first name",
-				EMail = "email",
+				Email = "email",
 				BirthDate = new DateTime(1990, 1, 1),
 				Phone = "099099099"
 			};
@@ -82,7 +80,7 @@ namespace Domain.Test
 				Id = 1,
 				FirstName = "first name",
 				LastName = "last name",
-				EMail = "email",
+				Email = "email",
 				Phone = "099099099"
 			};
 
@@ -98,11 +96,51 @@ namespace Domain.Test
 				Id = 1,
 				FirstName = "first name",
 				LastName = "last name",
-				EMail = "email",
+				Email = "email",
 				BirthDate = new DateTime(1990, 1, 1),
 			};
 
 			Assert.IsFalse(patient.Validate());
+		}
+
+		[TestMethod]
+		public void UpdateFromPatient_DataIsCorrect_Updated()
+		{
+			Patient original = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1990, 1, 1),
+				Email = "john.doe@gmail.com",
+				FirstName = "John",
+				LastName = "Doe",
+				Phone = "14785559632"
+			};
+
+			AppointmentDiscount discount = new AppointmentDiscount()
+			{
+				Id = 1,
+				Discount = 50.00
+			};
+
+			Patient updated = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1950, 1, 1),
+				Email = "arthur.morgan@gmail.com",
+				FirstName = "Arthur",
+				LastName = "Morgan",
+				Phone = "8885551234",
+				AppointmentDiscount = discount
+			};
+
+			original.UpdateFromPatient(updated);
+
+			Assert.IsTrue(Equals(original.Id, updated.Id)
+				&& !Equals(original.Email, updated.Email)
+				&& Equals(original.FirstName, updated.FirstName)
+				&& Equals(original.LastName, updated.LastName)
+				&& Equals(original.Phone, updated.Phone)
+				&& Equals(original.BirthDate, updated.BirthDate));
 		}
 	}
 }

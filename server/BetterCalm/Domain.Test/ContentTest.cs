@@ -15,7 +15,7 @@ namespace Domain.Test
 			Content source = new Content()
 			{
 				ArtistName = "ArtistName",
-				AudioUrl = "http://audio.com/audio.mp3",
+				ContentUrl = "http://audio.com/audio.mp3",
 				Categories = new List<Category>()
 				{
 					new Category()
@@ -33,6 +33,11 @@ namespace Domain.Test
 					{
 						Id = 1
 					}
+				},
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
 				}
 			};
 
@@ -46,7 +51,7 @@ namespace Domain.Test
 			Content content = new Content()
 			{
 				ArtistName = "artist name",
-				AudioUrl = "http://www.images.com/image.jpg",
+				ContentUrl = "http://www.images.com/image.jpg",
 				ContentLength = TimeSpan.Parse("00:01:30"),
 				Name = "content name",
 				PlayLists = new List<Playlist>()
@@ -57,18 +62,24 @@ namespace Domain.Test
 						Name = "playlist name",
 						Description = "playlist description"
 					}
+				},
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
 				}
 			};
 
 			Assert.IsTrue(content.Validate());
 		}
+
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Validate_NoArtistName_ExceptionThrown()
 		{
 			Content content = new Content()
 			{
-				AudioUrl = "http://www.images.com/image.jpg",
+				ContentUrl = "http://www.images.com/image.jpg",
 				ContentLength = TimeSpan.Parse("00:01:30"),
 				Name = "content name",
 				PlayLists = new List<Playlist>()
@@ -79,11 +90,17 @@ namespace Domain.Test
 						Name = "playlist name",
 						Description = "playlist description"
 					}
+				},
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
 				}
 			};
 
 			Assert.IsFalse(content.Validate());
 		}
+
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Validate_NoAudioUrl_ExceptionThrown()
@@ -101,11 +118,17 @@ namespace Domain.Test
 						Name = "playlist name",
 						Description = "playlist description"
 					}
+				},
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
 				}
 			};
 
 			Assert.IsFalse(content.Validate());
 		}
+
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Validate_NoContentLength_ExceptionThrown()
@@ -113,7 +136,7 @@ namespace Domain.Test
 			Content content = new Content()
 			{
 				ArtistName = "artist name",
-				AudioUrl = "http://www.images.com/image.jpg",
+				ContentUrl = "http://www.images.com/image.jpg",
 				Name = "content name",
 				PlayLists = new List<Playlist>()
 				{
@@ -123,11 +146,17 @@ namespace Domain.Test
 						Name = "playlist name",
 						Description = "playlist description"
 					}
+				},
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
 				}
 			};
 
 			Assert.IsFalse(content.Validate());
 		}
+
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Validate_NoName_ExceptionThrown()
@@ -135,7 +164,7 @@ namespace Domain.Test
 			Content content = new Content()
 			{
 				ArtistName = "artist name",
-				AudioUrl = "http://www.images.com/image.jpg",
+				ContentUrl = "http://www.images.com/image.jpg",
 				ContentLength = TimeSpan.Parse("00:01:30"),
 				PlayLists = new List<Playlist>()
 				{
@@ -145,6 +174,11 @@ namespace Domain.Test
 						Name = "playlist name",
 						Description = "playlist description"
 					}
+				},
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
 				}
 			};
 
@@ -158,7 +192,7 @@ namespace Domain.Test
 			Content content = new Content()
 			{
 				ArtistName = "artist name",
-				AudioUrl = "http://www.images.com/image.jpg",
+				ContentUrl = "http://www.images.com/image.jpg",
 				ContentLength = TimeSpan.Parse("00:01:30"),
 				PlayLists = new List<Playlist>()
 				{
@@ -166,6 +200,35 @@ namespace Domain.Test
 					{
 						Id = 1,
 						Name = "playlist name"
+					}
+				},
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
+			};
+
+			Assert.IsFalse(content.Validate());
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidInputException))]
+		public void Validate_NoContentType_ExceptionThrown()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "artist name",
+				ContentUrl = "http://www.images.com/image.jpg",
+				ContentLength = TimeSpan.Parse("00:01:30"),
+				Name = "content name",
+				PlayLists = new List<Playlist>()
+				{
+					new Playlist()
+					{
+						Id = 1,
+						Name = "playlist name",
+						Description = "playlist description"
 					}
 				}
 			};

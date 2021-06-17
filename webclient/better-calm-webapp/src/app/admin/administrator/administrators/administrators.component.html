@@ -1,0 +1,58 @@
+<div class="card text-dark bg-light mb-3 ms-auto me-auto shadow rounded" style="width: 75rem;">
+    <div class="card-header text-light bg-primary">
+        <div class="row">
+            <div class="col">
+                <h5 class="card-title mt-1">Mantenimiento de Administradores</h5>
+            </div>
+            <div class="col-2 me-4">
+                <button type="button" class="btn btn-light me-1" style="width: 12rem;" (click)="goToAddView('')">Agregar administrador</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="container-md">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-hover table-striped table-bordered shadow-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col-2">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let administrator of administrators">                                
+                                <th scope="row">{{administrator.id}}</th>
+                                <td>{{administrator.email}}</td>
+                                <td>{{administrator.name}}</td>
+                                <td class="col-2">
+                                    <button type="button" class="btn btn-primary btn-sm ms-4 me-1 shadow-sm rounded" (click)="goToAddView(administrator.email)">Editar</button>
+                                    <button type="button" class="btn btn-danger btn-sm ms-1 me-1 shadow-sm rounded" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal'+administrator.id">Eliminar</button>
+                                    <div class="modal fade" [id]="'deleteModal'+administrator.id" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" [id]="'deleteModalLabel'+administrator.id">Eliminación de Usuario</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Realmente desea eliminar al usuario {{administrator.name}} del sistema?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="button" class="btn btn-danger" (click)="removeAdministrator(administrator.id)" data-bs-dismiss="modal">Eliminar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                             
+                                </td>
+                            </tr>
+                        </tbody>                   
+                    </table>
+                </div>
+            </div>   
+        </div>
+    </div>
+</div>

@@ -18,6 +18,7 @@ namespace DataAccess.Context
         public DbSet<Session> Sessions { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<User> Roles { get; set; }
+        public DbSet<ContentType> ContentTypes { get; set; }
 
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options) { }
@@ -42,7 +43,7 @@ namespace DataAccess.Context
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().HasIndex(prop => prop.EMail).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(prop => prop.Email).IsUnique();
             modelBuilder.Entity<User>().Property(prop => prop.Name).IsRequired();
             modelBuilder.Entity<User>().Property(prop => prop.Password).IsRequired();
 
@@ -50,7 +51,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<Playlist>().Property(prop => prop.Name).IsRequired();
 
             modelBuilder.Entity<Content>().Property(prop => prop.ArtistName).IsRequired();
-            modelBuilder.Entity<Content>().Property(prop => prop.AudioUrl).IsRequired();
+            modelBuilder.Entity<Content>().Property(prop => prop.ContentUrl).IsRequired();
             modelBuilder.Entity<Content>().Property(prop => prop.ContentLength).IsRequired();
             modelBuilder.Entity<Content>().Property(prop => prop.Name).IsRequired();
             
@@ -62,7 +63,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<Patient>().Property(prop => prop.FirstName).IsRequired();
             modelBuilder.Entity<Patient>().Property(prop => prop.LastName).IsRequired();
             modelBuilder.Entity<Patient>().Property(prop => prop.BirthDate).IsRequired();
-            modelBuilder.Entity<Patient>().Property(prop => prop.EMail).IsRequired();
+            modelBuilder.Entity<Patient>().Property(prop => prop.Email).IsRequired();
             modelBuilder.Entity<Patient>().Property(prop => prop.Phone).IsRequired();
         }
 	}

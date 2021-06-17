@@ -17,12 +17,13 @@ namespace WebAPI.Test
         [TestMethod]
         public void Get_PsychologistsExist_Fetched()
         {
-            List<PsychologistModel> expectedPsychologistModels = GetAllExpectedPsychologistModels();
-            List<Psychologist> expectedPsychologists = new List<Psychologist>();
-            foreach (PsychologistModel psychologistModel in expectedPsychologistModels)
+            List<Psychologist> expectedPsychologists = GetAllExpectedPsychologists();
+            List<PsychologistModel> expectedPsychologistModels = new List<PsychologistModel>();
+            foreach (Psychologist psychologist in expectedPsychologists)
             {
-                expectedPsychologists.Add(psychologistModel.ToEntity());
+                expectedPsychologistModels.Add(new PsychologistModel(psychologist));
             }
+
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistLogicMock.Setup(m => m.GetAll()).Returns(expectedPsychologists);
 
@@ -53,51 +54,68 @@ namespace WebAPI.Test
             Assert.IsNull(obtainedPsychologistModels);
         }
 
-        private List<PsychologistModel> GetAllExpectedPsychologistModels()
+        private List<Psychologist> GetAllExpectedPsychologists()
         {
-            PsychologistModel firstPsychologist = new PsychologistModel()
+            PsychologistRate thousand = new PsychologistRate()
+            {
+                Id = 1,
+                HourlyRate = 1000
+            };
+            Psychologist firstPsychologist = new Psychologist()
             {
                 Id = 1,
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
-                Format = "OnSite"
+                Format = Format.OnSite,
+                Rate = thousand
             };
-
-            PsychologistModel secondPsychologist = new PsychologistModel()
+            PsychologistRate twoThousand = new PsychologistRate()
+            {
+                Id = 2,
+                HourlyRate = 2000
+            };
+            Psychologist secondPsychologist = new Psychologist()
             {
                 Id = 2,
                 FirstName = "Hannibal",
                 LastName = "Lecter",
                 Address = "14th Street",
-                Format = "Remote"
+                Format = Format.Remote,
+                Rate = twoThousand
             };
-            List<PsychologistModel> expectedPsychologists = new List<PsychologistModel>() { firstPsychologist, secondPsychologist };
+            List<Psychologist> expectedPsychologists = new List<Psychologist>() { firstPsychologist, secondPsychologist };
             return expectedPsychologists;
         }
 
         [TestMethod]
         public void GetById_PsychologistFound_Fetched()
         {
-            PsychologistModel expectedPsychologistModel = new PsychologistModel()
+            PsychologistRate thousand = new PsychologistRate()
+            {
+                Id = 1,
+                HourlyRate = 1000
+            };
+            Psychologist expectedPsychologist = new Psychologist()
             {
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
-                Format = "OnSite"
+                Format = Format.OnSite,
+                Rate = thousand
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
-            psychologistLogicMock.Setup(m => m.Get(expectedPsychologistModel.Id)).Returns(expectedPsychologistModel.ToEntity());
+            psychologistLogicMock.Setup(m => m.Get(expectedPsychologist.Id)).Returns(expectedPsychologist);
 
             PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
 
-            IActionResult result = psychologistsController.Get(expectedPsychologistModel.Id);
+            IActionResult result = psychologistsController.Get(expectedPsychologist.Id);
             OkObjectResult objectResult = result as OkObjectResult;
             PsychologistModel obtainedPsychologistModel = (objectResult.Value as PsychologistModel);
 
             psychologistLogicMock.VerifyAll();
-            Assert.AreEqual(expectedPsychologistModel, obtainedPsychologistModel);
+            Assert.AreEqual(new PsychologistModel(expectedPsychologist), obtainedPsychologistModel);
         }
 
         [TestMethod]
@@ -109,7 +127,8 @@ namespace WebAPI.Test
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
-                Format = "OnSite"
+                Format = "OnSite",
+                Rate = 1000
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
@@ -128,21 +147,28 @@ namespace WebAPI.Test
         [TestMethod]
         public void Post_DataIsCorrect_Created()
         {
-            PsychologistModel expectedPsychologistModel = new PsychologistModel()
+            PsychologistRate thousand = new PsychologistRate()
+            {
+                Id = 1,
+                HourlyRate = 1000
+            };
+            Psychologist expectedPsychologist = new Psychologist()
             {
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
-                Format = "OnSite"
+                Format = Format.OnSite,
+                Rate = thousand
             };
+            PsychologistModel expectedPsychologistModel = new PsychologistModel(expectedPsychologist);
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistLogicMock.Setup(m => m.Add(It.IsAny<Psychologist>()));
-            psychologistLogicMock.Setup(m => m.Get(expectedPsychologistModel.Id)).Returns(expectedPsychologistModel.ToEntity());
+            psychologistLogicMock.Setup(m => m.Get(expectedPsychologist.Id)).Returns(expectedPsychologist);
             PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
             psychologistsController.Post(expectedPsychologistModel);
 
-            IActionResult result = psychologistsController.Get(expectedPsychologistModel.Id);
+            IActionResult result = psychologistsController.Get(expectedPsychologist.Id);
             OkObjectResult objectResult = result as OkObjectResult;
             PsychologistModel obtainedPsychologistModel = (objectResult.Value as PsychologistModel);
 
@@ -158,7 +184,8 @@ namespace WebAPI.Test
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
-                Format = "OnSite"
+                Format = "OnSite",
+                Rate = 1000
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
@@ -177,32 +204,40 @@ namespace WebAPI.Test
         [TestMethod]
         public void Patch_DataIsCorrect_Updated()
         {
-            PsychologistModel originalPsychologistModel = new PsychologistModel()
+            PsychologistRate thousand = new PsychologistRate()
+            { 
+                Id = 1, 
+                HourlyRate = 1000 
+            };
+            Psychologist originalPsychologist = new Psychologist()
             {
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Address = "Calle 1234",
-                Format = "OnSite"
+                Format = Format.OnSite,
+                Rate = thousand
             };
+            PsychologistModel originalPsychologistModel = new PsychologistModel(originalPsychologist);
 
             PsychologistModel newPsychologistModel = new PsychologistModel()
             {
                 FirstName = "Orestes",
                 LastName = "Fiandra",
                 Address = "General Paz 1234",
-                Format = "Remote"
+                Format = "Remote",
+                Rate = 2000
             };
 
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistLogicMock.Setup(m => m.Update(It.IsAny<Psychologist>()));
-            psychologistLogicMock.Setup(m => m.Get(originalPsychologistModel.Id)).Returns(originalPsychologistModel.ToEntity());
+            psychologistLogicMock.Setup(m => m.Get(originalPsychologist.Id)).Returns(originalPsychologist);
             PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
             psychologistsController.Patch(originalPsychologistModel);
 
             psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistLogicMock.Setup(m => m.Get(originalPsychologistModel.Id)).Returns(newPsychologistModel.ToEntity());
 
-            IActionResult result = psychologistsController.Get(originalPsychologistModel.Id);
+            IActionResult result = psychologistsController.Get(originalPsychologist.Id);
             OkObjectResult objectResult = result as OkObjectResult;
             PsychologistModel obtainedPsychologistModel = (objectResult.Value as PsychologistModel);
 
@@ -218,15 +253,19 @@ namespace WebAPI.Test
                 FirstName = "Hannibal",
                 LastName = "Lecter",
                 Address = "Calle 1234",
-                Format = "OnSite"
+                Format = "OnSite",
+                Rate = 1000
             };
-
+            PsychologistDeleteModel deleteModel = new PsychologistDeleteModel()
+            {
+                Id = psychologistToDelete.Id
+            };
             Mock<IPsychologistLogic> psychologistLogicMock = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             psychologistLogicMock.Setup(m => m.Delete(psychologistToDelete.Id));
             psychologistLogicMock.Setup(m => m.Get(psychologistToDelete.Id)).Returns(psychologistToDelete.ToEntity());
 
             PsychologistsController psychologistsController = new PsychologistsController(psychologistLogicMock.Object);
-            psychologistsController.Delete(psychologistToDelete.Id);
+            psychologistsController.Delete(deleteModel);
 
             psychologistLogicMock.Setup(m => m.Get(psychologistToDelete.Id)).Throws(new NotFoundException(psychologistToDelete.Id.ToString()));
 

@@ -1,0 +1,115 @@
+<app-loading *ngIf="!hasError && (isLoadingContent || isLoadingCategories)" text="Loading..."></app-loading>
+<div *ngIf="!(isLoadingContent || isLoadingCategories)" class="card text-dark bg-light mb-3 ms-auto me-auto" style="width: 75rem;">
+    <div class="card-header text-light bg-primary">
+        <h5 class="card-title mt-1">Edición de Contenido</h5>
+    </div>
+    <div class="card-body shadow rounded">
+        <p class="card-text">Para editar el contenido, por favor complete el siguiente formulario.</p>
+        <form class="pt-2" [formGroup]="contentForm" (ngSubmit)="onSubmit(contentForm.value)">
+            <div class="row mb-3">
+                <div class="col" *ngIf="!isCreate">
+                    <label for="id" class="form-label">ID</label>
+                    <input type="number" class="form-control" placeholder="Por favor ingrese el id del contenido" id="id" formControlName="id">
+                </div>
+                <div class="col">
+                    <label for="contentLength" class="form-label">Duración</label>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese la duración" id="contentLength" formControlName="contentLength" required>
+                </div>
+                <div class="col">
+                    <label for="contentType" class="form-label">Seleccione el tipo de contenido</label>
+                    <select class="form-select" id="contentType" formControlName="contentType" required>
+                        <option value="audio">Audio</option>
+                        <option value="video">Video</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese el nombre del contenido" id="name" formControlName="name" required>
+                </div>
+                <div class="col">
+                    <label for="artistName" class="form-label">Artista</label>
+                    <input type="text" class="form-control" placeholder="Por favor ingrese el nombre del artista" id="artistName" formControlName="artistName" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="imageUrl" class="form-label">Imagen</label>
+                    <input type="url" class="form-control" placeholder="Por favor ingrese la url de la imagen de portada" id="imageUrl" formControlName="imageUrl">
+                </div>
+                <div class="col">
+                    <label for="contentUrl" class="form-label">Contenido</label>
+                    <input type="url" class="form-control" placeholder="Por favor ingrese la url del contenido" id="contentUrl" formControlName="contentUrl" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="playlistIds" class="form-label text-light">Seleccione las listas de reproducción</label>
+                    <ng-select [items]="playlists" bindLabel="name" bindValue="id" labelForId="state"
+                                [multiple]="true" placeholder="Seleccione las listas de reproducción" clearAllText="Limpiar"
+                                [hideSelected]="true" notFoundText="No listas de reproducción registradas"
+                                [ngModel]="selectedPlaylists" formControlName="playlistIds">
+                    </ng-select>
+                </div>               
+                <div class="col">
+                    <label for="categories" class="form-label text-light">Seleccione categorías</label>
+                    <ng-select [items]="categories" bindLabel="name" bindValue="id" labelForId="state"
+                                [multiple]="true" placeholder="Seleccione las categorias" clearAllText="Limpiar"
+                                [hideSelected]="true" notFoundText="No categorias registradas"
+                                [ngModel]="selectedCategories" formControlName="categories">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <span class="badge bg-success" data-bs-toggle="modal" [attr.data-bs-target]="'#addPlaylist'+content.id">Agregar nueva playlist</span>
+                    <div class="modal fade" [id]="'addPlaylist'+content.id" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="card-header text-light bg-primary">
+                                    <h5 class="card-title mt-1">Creación de playlist</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">Para agregar una nueva playlist, por favor completa el siguiente formulario.</p>
+                                    <form [formGroup]="playlistForm" (ngSubmit)="onSubmitPlaylist(playlistForm.value)">
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <label for="playlistName" class="form-label">Nombre</label>
+                                                <input type="text" class="form-control" placeholder="Por favor ingrese el nombre del contenido" id="playlistName" formControlName="name" required>
+                                            </div>
+                                            <div class="col">
+                                                <label for="playlistdescription" class="form-label">Descripción</label>
+                                                <input type="text" class="form-control" placeholder="Por favor ingrese el nombre del contenido" id="playlistDescription" formControlName="description" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <label for="playlistImageUrl" class="form-label">Imagen</label>
+                                                <input type="text" class="form-control" placeholder="Por favor ingrese la url de la imagen de portada" id="playlistImageUrl" formControlName="imageUrl">
+                                            </div>
+                                            <div class="col">
+                                                <label for="categories" class="form-label">Selecciona las categorías</label>
+                                                <ng-select [items]="categories" bindLabel="name" bindValue="id" labelForId="state"
+                                                            [multiple]="true" placeholder="Seleccione las categorias" clearAllText="Limpiar"
+                                                            [hideSelected]="true" notFoundText="No categorias registradas"
+                                                            formControlName="categories">
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" [disabled]="!playlistForm.valid" data-bs-toggle="modal" [attr.data-bs-target]="'#addPlaylist'+content.id">Confirmar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mx-auto">
+                <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
+                <button type="button" class="btn btn-primary ms-auto me-1 shadow-sm rounded" [routerLink]="['/admin/contents']" style="width: 10rem;">Cancelar</button>
+                <button type="submit" class="btn btn-primary ms-1 me-auto shadow-sm rounded" [disabled]="!contentForm.valid" style="width: 10rem;">Confirmar</button>
+            </div>
+        </form>
+    </div>
+</div>

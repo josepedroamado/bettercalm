@@ -1,0 +1,28 @@
+[
+
+    {
+        "name": "Beat It extended",
+        "contentLength": "00:06:30",
+        "artistName": "Michael Jackson",
+        "imageUrl": "http://images.com/image3.jpg",
+        "contentUrl": "http://audio.com/audio3.mp3",
+        "categories": [ 1002 ],
+        "contentType": "audio",
+        "playlists": [
+            {
+                "name": "Trending",
+                "description": "Trending music",
+                "categories": [ 1002 ]
+            }
+        ]
+    },
+	{
+        "name": "Test contents",
+        "contentLength": "00:04:35",
+        "artistName": "Michael Jack",
+        "imageUrl": "http://images.com/image3.jpg",
+        "contentUrl": "http://audio.com/audio3.mp4",
+        "categories": [ 1002 ],
+        "contentType": "video"
+    }
+]

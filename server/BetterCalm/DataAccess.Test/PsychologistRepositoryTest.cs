@@ -62,6 +62,7 @@ namespace DataAccess.Test
             IEnumerable<Psychologist> obtainedPsychologists = repository.GetAll();
             Assert.IsNull(obtainedPsychologists);
         }
+
         private List<Psychologist> GetAllExpectedPsychologists()
         {
             Psychologist firstPsychologist = new Psychologist()
@@ -71,7 +72,8 @@ namespace DataAccess.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Psychologist secondPsychologist = new Psychologist()
@@ -81,7 +83,8 @@ namespace DataAccess.Test
                 LastName = "Lecter",
                 Address = "14th Street",
                 Format = Format.Remote,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 2000 }
             };
             List<Psychologist> expectedPsychologists = new List<Psychologist>() { firstPsychologist, secondPsychologist };
             return expectedPsychologists;
@@ -97,7 +100,8 @@ namespace DataAccess.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             this.context.Add(expectedPsychologist);
@@ -133,7 +137,8 @@ namespace DataAccess.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             PsychologistRepository repository = new PsychologistRepository(this.context);
@@ -155,7 +160,8 @@ namespace DataAccess.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             PsychologistRepository repository = new PsychologistRepository(this.context);
@@ -177,7 +183,8 @@ namespace DataAccess.Test
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             PsychologistRepository repository = new PsychologistRepository(this.context);
@@ -198,7 +205,8 @@ namespace DataAccess.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             PsychologistRepository repository = new PsychologistRepository(this.context);
@@ -211,7 +219,29 @@ namespace DataAccess.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidInputException))]
-        public void Add_NoLastNAme_ExceptionThrown()
+        public void Add_NoLastName_ExceptionThrown()
+        {
+            Psychologist expectedPsychologist = new Psychologist()
+            {
+                Id = 1,
+                FirstName = "Juan",
+                Address = "Calle 1234",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(expectedPsychologist);
+
+            Psychologist obtainedPsychologist = repository.Get(expectedPsychologist.Id);
+
+            Assert.IsNull(obtainedPsychologist);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Add_NoRate_ExceptionThrown()
         {
             Psychologist expectedPsychologist = new Psychologist()
             {
@@ -265,6 +295,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 },
                 ScheduleDays = new List<Schedule>() { },
                 Illnesses = new List<Illness>()
                 {
@@ -306,6 +337,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -331,6 +363,7 @@ namespace DataAccess.Test
                 Address = "Calle 12342",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 02),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 2000 },
                 ScheduleDays = new List<Schedule>() { },
                 Illnesses = new List<Illness>()
                 {
@@ -379,6 +412,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -404,6 +438,7 @@ namespace DataAccess.Test
                 Address = "Calle 12342",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 02),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 2000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -454,6 +489,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -479,6 +515,7 @@ namespace DataAccess.Test
                 Address = "Calle 12342",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 02),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 2000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -545,6 +582,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -568,6 +606,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 02),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 2000 },
                 ScheduleDays = new List<Schedule>(),
                 Illnesses = new List<Illness>()
                 {
@@ -617,6 +656,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -642,6 +682,7 @@ namespace DataAccess.Test
                 Address = "Calle 12342",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 02),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 2000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -699,6 +740,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -724,6 +766,7 @@ namespace DataAccess.Test
                 Address = "Calle 5",
                 Format = Format.Remote,
                 CreatedDate = new DateTime(2021, 01, 02),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 2000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -768,6 +811,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 },
                 ScheduleDays = new List<Schedule>() { },
                 Illnesses = new List<Illness>() { }
             };
@@ -813,6 +857,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -835,6 +880,7 @@ namespace DataAccess.Test
                 Address = "Calle 12342",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 02),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 2000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -898,6 +944,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -918,6 +965,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 02),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 2000 },
                 ScheduleDays = new List<Schedule>(),
                 Illnesses = new List<Illness>() { }
             };
@@ -964,6 +1012,7 @@ namespace DataAccess.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -986,6 +1035,7 @@ namespace DataAccess.Test
                 Address = "Calle 12342",
                 Format = Format.OnSite,
                 CreatedDate = new DateTime(2021, 01, 02),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 2000 },
                 ScheduleDays = new List<Schedule>()
                 {
                     new Schedule()
@@ -1036,7 +1086,8 @@ namespace DataAccess.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             PsychologistRepository repository = new PsychologistRepository(this.context);
@@ -1081,7 +1132,8 @@ namespace DataAccess.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             PsychologistRepository repository = new PsychologistRepository(this.context);
@@ -1128,6 +1180,15 @@ namespace DataAccess.Test
             };
             psychologist.LastName = "last name";
 
+            PsychologistRate newRate = new PsychologistRate() {
+                Id = 2, 
+                HourlyRate = 2000
+            };
+            this.context.Add(newRate);
+            this.context.SaveChanges();
+
+            psychologist.Rate = newRate;
+
             repository.Update(psychologist);
             Psychologist obtained = repository.Get(psychologist.Id);
 
@@ -1145,7 +1206,8 @@ namespace DataAccess.Test
                 LastName = "Sartori",
                 Address = "Calle 1234",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             PsychologistRepository repository = new PsychologistRepository(this.context);
@@ -1168,7 +1230,8 @@ namespace DataAccess.Test
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             PsychologistRepository repository = new PsychologistRepository(this.context);
@@ -1193,7 +1256,8 @@ namespace DataAccess.Test
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             PsychologistRepository repository = new PsychologistRepository(this.context);
@@ -1218,7 +1282,8 @@ namespace DataAccess.Test
                 FirstName = "Juan",
                 LastName = "Sartori",
                 Format = Format.OnSite,
-                CreatedDate = DateTime.Today.AddMonths(-3)
+                CreatedDate = DateTime.Today.AddMonths(-3),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             PsychologistRepository repository = new PsychologistRepository(this.context);
@@ -1227,6 +1292,31 @@ namespace DataAccess.Test
             psychologist.LastName = string.Empty;
             repository.Update(psychologist);
             
+            Psychologist obtainedPsychologist = repository.Get(psychologist.Id);
+
+            Assert.AreNotEqual(psychologist.LastName, obtainedPsychologist.LastName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Update_NoRate_ExceptionThrown()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Id = 1,
+                Address = "Address of Sartori",
+                FirstName = "Juan",
+                LastName = "Sartori",
+                Format = Format.OnSite,
+                CreatedDate = DateTime.Today.AddMonths(-3)
+            };
+
+            PsychologistRepository repository = new PsychologistRepository(this.context);
+            repository.Add(psychologist);
+
+            psychologist.LastName = string.Empty;
+            repository.Update(psychologist);
+
             Psychologist obtainedPsychologist = repository.Get(psychologist.Id);
 
             Assert.AreNotEqual(psychologist.LastName, obtainedPsychologist.LastName);

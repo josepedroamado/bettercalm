@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary p-2 shadow">
+    <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]="['/admin']"><strong>Better Calm</strong></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-4 me-auto">
+          <li class="nav-item active mx-2">
+            <a class="nav-link text-light" [routerLink]="['contents']">Contenidos </a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link text-light" [routerLink]="['psychologists']">Psicólogos</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link text-light" [routerLink]="['administrators']">Administradores</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link text-light" [routerLink]="['discounts']">Aprobar descuentos</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link text-light" [routerLink]="['importers']">Importar contenidos</a>
+          </li> 
+        </ul>   
+        <ul class="navbar-nav mx-2 ms-auto">
+          <li class="nav-item">
+            <a class="nav-link text-light" [routerLink]="['../logout']"> Cerrar Sesión</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>

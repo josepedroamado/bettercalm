@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Contents xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Content>
+		<Id>0</Id>
+		<Name>Beat It extended</Name>
+		<ContentLength>00:06:30</ContentLength>
+		<ArtistName>Michael Jackson</ArtistName>
+		<ImageUrl>http://images.com/image3.jpg</ImageUrl>
+		<ContentUrl>http://audio.com/audio3.mp3</ContentUrl>
+		<Categories>
+			<int>1002</int>
+		</Categories>
+		<ContentType>audio</ContentType>
+		<Playlists>
+			<Playlist>
+				<Id>0</Id>
+				<Name>Trending</Name>
+				<Description>Trending music</Description>
+				<Categories>
+					<int>1002</int>
+				</Categories>
+			</Playlist>
+		</Playlists>
+	</Content>
+	<Content>
+		<Id>0</Id>
+		<Name>Beat It extended 78</Name>
+		<ContentLength>00:06:30</ContentLength>
+		<ArtistName>Michael Jackson</ArtistName>
+		<ImageUrl>http://images.com/image3.jpg</ImageUrl>
+		<ContentUrl>http://audio.com/audio3.mp8</ContentUrl>
+		<Categories>
+			<int>1002</int>
+		</Categories>
+		<ContentType>audio</ContentType>
+	</Content>
+</Contents>

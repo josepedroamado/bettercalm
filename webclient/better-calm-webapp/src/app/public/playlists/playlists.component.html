@@ -1,0 +1,22 @@
+<app-loading *ngIf="!hasError && isLoading" text="Loading categories..."></app-loading>
+<app-categories style="margin-left: 35%; margin-bottom: 5px;" (changeSelectedCategories)="changeSelectedCatagories($event)"></app-categories> 
+<div class="pt-2 mb-5 pb-5" *ngIf="!isLoading">
+    <div class="container-fluid playlistsContainer">
+        <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
+        <ng-container *ngFor="let playlist of playlists">
+            <div class="card mb-3 playlist shadow-sm bg-body rounded" [routerLink]="['contents', playlist.id]">
+                <div class="row g-0">
+                    <div class="col-md-4 rounded" style="max-width: 6rem; max-height:6rem;">
+                        <img [src]="playlist.imageUrl" style="width: 85px; height:85px" class="rounded" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCnW4Qps4JXyNuaKFgxA4isRjwI5LgOAKIpvkUEzBM8WZHn3UD6sR-6UPkDNIyU5FEPJk&usqp=CAU';">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{playlist.name}}</h5>
+                            <p class="card-text">{{playlist.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

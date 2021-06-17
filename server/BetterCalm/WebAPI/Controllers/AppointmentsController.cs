@@ -4,7 +4,7 @@ using Model;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/appointments")]
 	[ApiController]
 	public class AppointmentsController : ControllerBase
 	{
@@ -18,9 +18,7 @@ namespace WebAPI.Controllers
 		[HttpPost]
 		public IActionResult Post([FromBody] AppointmentInputModel model)
 		{
-			return Ok(new AppointmentOutputModel(
-				this.appointmentLogic.CreateAppointment(model.ToEntity().Patient, model.ToEntity().Illness)
-				));
+			return Ok(new AppointmentOutputModel(this.appointmentLogic.CreateAppointment(model.ToEntity())));
 		}
 	}
 }

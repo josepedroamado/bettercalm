@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\dscaf\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\dscaf\\.nuget\\packages"
-    ]
-  }
-}

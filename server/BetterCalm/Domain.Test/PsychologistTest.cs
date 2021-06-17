@@ -90,7 +90,8 @@ namespace Domain.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 Illnesses = new List<Illness>() { stress },
-                CreatedDate = new DateTime(2021, 01, 01)
+                CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Psychologist newPsychologist = new Psychologist()
@@ -101,7 +102,8 @@ namespace Domain.Test
                 Address = "General Paz 1234",
                 Format = Format.Remote,
                 Illnesses = new List<Illness>() { depression },
-                CreatedDate = new DateTime(2011, 01, 01)
+                CreatedDate = new DateTime(2011, 01, 01),
+                Rate = new PsychologistRate() { Id = 2, HourlyRate = 1500 }
             };
 
             psychologist.UpdateData(newPsychologist);
@@ -110,7 +112,8 @@ namespace Domain.Test
                 && Equals(psychologist.LastName, newPsychologist.LastName)
                 && Equals(psychologist.Address, newPsychologist.Address)
                 && Equals(psychologist.Format, newPsychologist.Format)
-                && Equals(psychologist.Illnesses, newPsychologist.Illnesses));
+                && Equals(psychologist.Illnesses, newPsychologist.Illnesses)
+                && Equals(psychologist.Rate, newPsychologist.Rate));
         }
 
         [TestMethod]
@@ -126,7 +129,8 @@ namespace Domain.Test
                 Address = "Calle 1234",
                 Format = Format.OnSite,
                 Illnesses = new List<Illness>() { stress },
-                CreatedDate = new DateTime(2021, 01, 01)
+                CreatedDate = new DateTime(2021, 01, 01),
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Psychologist newPsychologist = new Psychologist()
@@ -137,7 +141,8 @@ namespace Domain.Test
                 Address = "",
                 Format = Format.Remote,
                 Illnesses = null,
-                CreatedDate = new DateTime(2011, 01, 01)
+                CreatedDate = new DateTime(2011, 01, 01),
+                Rate = null
             };
 
             psychologist.UpdateData(newPsychologist);
@@ -146,7 +151,8 @@ namespace Domain.Test
                 && !Equals(psychologist.LastName, newPsychologist.LastName)
                 && !Equals(psychologist.Address, newPsychologist.Address)
                 && Equals(psychologist.Format, newPsychologist.Format)
-                && !Equals(psychologist.Illnesses, newPsychologist.Illnesses));
+                && !Equals(psychologist.Illnesses, newPsychologist.Illnesses)
+                && !Equals(psychologist.Rate, newPsychologist.Rate));
         }
 
         [TestMethod]
@@ -157,7 +163,8 @@ namespace Domain.Test
                 Address = "Address",
                 FirstName = "First name",
                 LastName = "Last name",
-                Format = Format.OnSite
+                Format = Format.OnSite,
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Assert.IsTrue(psychologist.Validate());
@@ -171,7 +178,8 @@ namespace Domain.Test
             {
                 FirstName = "First name",
                 LastName = "Last name",
-                Format = Format.OnSite
+                Format = Format.OnSite,
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Assert.IsFalse(psychologist.Validate());
@@ -185,7 +193,8 @@ namespace Domain.Test
             {
                 Address = "Address",
                 LastName = "Last name",
-                Format = Format.OnSite
+                Format = Format.OnSite,
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Assert.IsFalse(psychologist.Validate());
@@ -199,10 +208,26 @@ namespace Domain.Test
             {
                 Address = "Address",
                 FirstName = "First name",
-                Format = Format.OnSite
+                Format = Format.OnSite,
+                Rate = new PsychologistRate() { Id = 1, HourlyRate = 1000 }
             };
 
             Assert.IsFalse(psychologist.Validate());
 		}
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidInputException))]
+        public void Validate_NoRate_ExceptionThrown()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Address = "Address",
+                FirstName = "First name",
+                LastName = "Last name",
+                Format = Format.OnSite,
+            };
+
+            Assert.IsFalse(psychologist.Validate());
+        }
     }
 }

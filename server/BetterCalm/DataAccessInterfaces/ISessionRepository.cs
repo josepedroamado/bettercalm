@@ -5,7 +5,7 @@ namespace DataAccessInterfaces
 {
 	public interface ISessionRepository
 	{
-		Session GetByEmail(string eMail);
+		Session GetByEmail(string email);
 		Session GetByToken(string token);
 		void Add(Session session);
 		void Delete(Session session);

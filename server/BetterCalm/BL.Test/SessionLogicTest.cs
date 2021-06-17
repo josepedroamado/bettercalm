@@ -20,7 +20,7 @@ namespace BL.Test
 
 			User expectedUser = new User()
 			{
-				EMail = queryEmail,
+				Email = queryEmail,
 				Id = 1,
 				Password = queryPassword,
 				Name = "test"
@@ -54,7 +54,7 @@ namespace BL.Test
 
 			User expectedUser = new User()
 			{
-				EMail = queryEmail,
+				Email = queryEmail,
 				Id = 1,
 				Password = queryPassword,
 				Name = "test"
@@ -86,7 +86,7 @@ namespace BL.Test
 
 			User expectedUser = new User()
 			{
-				EMail = queryEmail,
+				Email = queryEmail,
 				Id = 1,
 				Password = queryPassword,
 				Name = "test"
@@ -121,7 +121,7 @@ namespace BL.Test
 
 			User expectedUser = new User()
 			{
-				EMail = queryEmail,
+				Email = queryEmail,
 				Id = 1,
 				Password = "123",
 				Name = "test"
@@ -155,7 +155,7 @@ namespace BL.Test
 
 			User expectedUser = new User()
 			{
-				EMail = queryEmail,
+				Email = queryEmail,
 				Id = 1,
 				Password = queryPassword,
 				Name = "test"
@@ -203,7 +203,7 @@ namespace BL.Test
 				Token = tokenToSearch,
 				User = new User()
 				{
-					EMail = "a@a.com",
+					Email = "a@a.com",
 					Id = 1,
 					Password = "1234",
 					Name = "test"

@@ -16,7 +16,7 @@ namespace Model
 			return new User()
 			{
 				Id = this.Id,
-				EMail = this.EMail,
+				Email = this.EMail,
 				Name = this.Name,
 				Password = this.Password,
 				Roles = new List<Role>()
@@ -34,7 +34,7 @@ namespace Model
 			return new User()
 			{
 				Id = this.Id,
-				EMail = this.EMail,
+				Email = this.EMail,
 				Name = this.Name,
 				Password = this.Password
 			};

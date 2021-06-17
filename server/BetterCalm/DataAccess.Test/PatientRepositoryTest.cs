@@ -6,7 +6,9 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
 
 namespace DataAccess.Test
 {
@@ -45,7 +47,7 @@ namespace DataAccess.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -55,7 +57,7 @@ namespace DataAccess.Test
 			this.context.SaveChanges();
 
 			PatientRepository repository = new PatientRepository(this.context);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 			Assert.AreEqual(obtained, patient);
 		}
 		
@@ -66,7 +68,7 @@ namespace DataAccess.Test
 			Patient patient = new Patient()
 			{
 				BirthDate = new DateTime(1993, 11, 15),
-				EMail = "patient@gmail.com",
+				Email = "patient@gmail.com",
 				FirstName = "Patient",
 				LastName = "Perez",
 				Id = 1,
@@ -81,13 +83,139 @@ namespace DataAccess.Test
 		}
 
 		[TestMethod]
+		public void GetAll_PatientsExist_Fetched()
+		{
+			List<Patient> expectedPatients = GetAllExpectedPatients();
+
+			foreach (Patient patient in expectedPatients)
+			{
+				this.context.Add(patient);
+			}
+			this.context.SaveChanges();
+			PatientRepository patientRepository = new PatientRepository(this.context);
+
+			IEnumerable<Patient> obtainedPatients = patientRepository.GetAll();
+			Assert.IsTrue(expectedPatients.SequenceEqual(obtainedPatients));
+		}
+
+        private List<Patient> GetAllExpectedPatients()
+        {
+			Patient johnDoe = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "john.doe@gmail.com",
+				FirstName = "John",
+				LastName = "Doe",
+				Id = 1,
+				Phone = "46465551256"
+			};
+			Patient janeDoe = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "jane.doe@gmail.com",
+				FirstName = "Jane",
+				LastName = "Doe",
+				Id = 2,
+				Phone = "36325551478"
+			};
+			return new List<Patient>() { johnDoe, janeDoe };
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(CollectionEmptyException))]
+		public void GetAll_NoPatientsExist_ExceptionThrown()
+		{
+			PatientRepository patientRepository = new PatientRepository(this.context);
+
+			IEnumerable<Patient> obtainedPatients = patientRepository.GetAll();
+			Assert.IsNull(obtainedPatients);
+		}
+
+		[TestMethod]
+		public void GetAllWithoutDiscount_PatientsExist_Fetched()
+		{
+			List<Patient> expectedPatients = GetAllWithoutDiscountExpectedPatients();
+
+			foreach (Patient patient in expectedPatients)
+			{
+				this.context.Add(patient);
+			}
+
+			Patient discountBob = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "robert.discount@gmail.com",
+				FirstName = "Bob",
+				LastName = "Discount",
+				Id = 3,
+				Phone = "46465559999",
+				AppointmentQuantity = 5,
+				AppointmentDiscount = new AppointmentDiscount() { Id = 1, Discount = 50}
+			};
+			this.context.Add(discountBob);
+
+			Patient noAppointmentsMike = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "mike.noappointments@gmail.com",
+				FirstName = "Mike",
+				LastName = "Noappointments",
+				Id = 4,
+				Phone = "46465557777",
+				AppointmentQuantity = 0
+			};
+			this.context.Add(noAppointmentsMike);
+
+			this.context.SaveChanges();
+			PatientRepository patientRepository = new PatientRepository(this.context);
+
+			IEnumerable<Patient> obtainedPatients = patientRepository.GetAllWithoutDiscount(1);
+			Assert.IsTrue(expectedPatients.SequenceEqual(obtainedPatients));
+		}
+
+		private List<Patient> GetAllWithoutDiscountExpectedPatients()
+		{
+			Patient johnDoe = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "john.doe@gmail.com",
+				FirstName = "John",
+				LastName = "Doe",
+				Id = 1,
+				Phone = "46465551256",
+				AppointmentQuantity = 1
+			};
+			Patient janeDoe = new Patient()
+			{
+				BirthDate = new DateTime(1993, 11, 15),
+				Email = "jane.doe@gmail.com",
+				FirstName = "Jane",
+				LastName = "Doe",
+				Id = 2,
+				Phone = "36325551478",
+				AppointmentQuantity = 4
+			};
+			return new List<Patient>() { johnDoe, janeDoe };
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(CollectionEmptyException))]
+		public void GetAllWithoutDiscount_NoPatientsExist_ExceptionThrown()
+		{
+			PatientRepository patientRepository = new PatientRepository(this.context);
+
+			IEnumerable<Patient> obtainedPatients = patientRepository.GetAllWithoutDiscount(1);
+			Assert.IsNull(obtainedPatients);
+		}
+
+		[TestMethod]
 		public void Add_DataIsCorrect_Added()
 		{
 			Patient patient = new Patient()
 			{
 				Id = 1,
 				BirthDate = new DateTime(1990, 1, 1),
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				FirstName = "first name",
 				LastName = "last name",
 				Phone = "099099099"
@@ -95,7 +223,7 @@ namespace DataAccess.Test
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.AreEqual(patient, obtained);
 		}
@@ -108,7 +236,7 @@ namespace DataAccess.Test
 			{
 				Id = 1,
 				BirthDate = new DateTime(1990, 1, 1),
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				FirstName = "first name",
 				LastName = "last name",
 				Phone = "099099099"
@@ -117,7 +245,7 @@ namespace DataAccess.Test
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.AreEqual(patient, obtained);
 		}
@@ -129,7 +257,7 @@ namespace DataAccess.Test
 			Patient patient = new Patient()
 			{
 				Id = 1,
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				FirstName = "first name",
 				LastName = "last name",
 				Phone = "099099099"
@@ -137,7 +265,7 @@ namespace DataAccess.Test
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.IsNull(obtained);
 		}
@@ -157,7 +285,7 @@ namespace DataAccess.Test
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.IsNull(obtained);
 		}
@@ -170,14 +298,14 @@ namespace DataAccess.Test
 			{
 				Id = 1,
 				BirthDate = new DateTime(1990, 1, 1),
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				LastName = "last name",
 				Phone = "099099099"
 			};
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.IsNull(obtained);
 		}
@@ -190,14 +318,14 @@ namespace DataAccess.Test
 			{
 				Id = 1,
 				BirthDate = new DateTime(1990, 1, 1),
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				FirstName = "first name",
 				Phone = "099099099"
 			};
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
 
 			Assert.IsNull(obtained);
 		}
@@ -210,14 +338,66 @@ namespace DataAccess.Test
 			{
 				Id = 1,
 				BirthDate = new DateTime(1990, 1, 1),
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				FirstName = "first name",
 				LastName = "last name"
 			};
 
 			PatientRepository repository = new PatientRepository(this.context);
 			repository.Add(patient);
-			Patient obtained = repository.Get(patient.EMail);
+			Patient obtained = repository.Get(patient.Email);
+
+			Assert.IsNull(obtained);
+		}
+
+		[TestMethod]
+		public void Update_DataIsCorrect_Added()
+		{
+			Patient original = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1990, 1, 1),
+				Email = "john.doe@gmail.com",
+				FirstName = "John",
+				LastName = "Doe",
+				Phone = "14785559632"
+			};
+
+			Patient updated = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1950, 1, 1),
+				Email = "john.doe@gmail.com",
+				FirstName = "Arthur",
+				LastName = "Morgan",
+				Phone = "8885551234"
+			};
+
+			PatientRepository repository = new PatientRepository(this.context);
+			repository.Add(original);
+			repository.Update(updated);
+			Patient obtained = repository.Get(original.Email);
+
+			Assert.AreEqual(original, obtained);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotFoundException))]
+		public void Update_PatientNotFound_ExceptionThrown()
+		{
+			Patient updated = new Patient()
+			{
+				Id = 1,
+				BirthDate = new DateTime(1950, 1, 1),
+				Email = "john.doe@gmail.com",
+				FirstName = "Arthur",
+				LastName = "Morgan",
+				Phone = "8885551234"
+			};
+
+			PatientRepository repository = new PatientRepository(this.context);
+			repository.Update(updated);
+			Patient obtained = repository.Get(updated.Email);
 
 			Assert.IsNull(obtained);
 		}

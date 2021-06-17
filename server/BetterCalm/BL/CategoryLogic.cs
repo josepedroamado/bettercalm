@@ -7,7 +7,7 @@ namespace BL
 {
 	public class CategoryLogic : ICategoryLogic
 	{
-		private readonly ICategoryRepository categoryRepository;
+		private ICategoryRepository categoryRepository;
 
 		public CategoryLogic(ICategoryRepository categoryRepository)
 		{

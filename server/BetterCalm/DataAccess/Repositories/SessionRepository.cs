@@ -32,29 +32,20 @@ namespace DataAccess.Repositories
 			}
 		}
 
-        public Session GetByEmail(string eMail)
+        public Session GetByEmail(string email)
 		{
-			Session session = this.sessions.
-				FirstOrDefault(itSession => itSession.User.EMail == eMail);
-			return session;
+			return this.sessions.FirstOrDefault(itSession => itSession.User.Email == email);
 		}
 
         public Session GetByToken(string token)
         {
-			Session session = this.sessions.
-				FirstOrDefault(itSession => itSession.Token == token);
-			return session;
+			return this.sessions.FirstOrDefault(itSession => itSession.Token == token);
 		}
 
 		public IEnumerable<Role> GetRoles(string token)
 		{
-			return this.sessions.
-				Include("User").
-				Include("User.Roles").
-				FirstOrDefault(session => session.Token.Equals(token))?.
-				User?.
-				Roles;
-
+			return this.sessions.Include(u => u.User).Include(u => u.User.Roles)
+				.FirstOrDefault(session => session.Token.Equals(token))?.User?.Roles;
 		}
 	}
 }

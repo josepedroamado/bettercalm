@@ -1,0 +1,29 @@
+<app-loading *ngIf="!hasError && isLoading" text="Loading..."></app-loading>
+<app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
+<div *ngIf="!isLoading && !hasError" class="card text-dark bg-light mb-3 ms-auto me-auto shadow rounded" style="width: 75rem;">
+    <div class="card-header text-light bg-primary">
+        <h5 class="card-title mt-1">Importar contenidos</h5>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Para importar contenidos, por favor complete el siguiente formulario.</p>
+        <form class="pt-2" [formGroup]="importForm" (ngSubmit)="onSubmit(importForm.value)">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="filePath" class="form-label">Ruta</label>
+                    <input type="text" class="form-control" placeholder="Por favor la ruta del archivo a importar" id="filePath" formControlName="filePath" required>
+                </div>
+                <div class="col">
+                    <label for="type" class="form-label">Seleccione el importador</label>
+                    <select class="form-select" id="type" formControlName="type" required>
+                        <ng-container *ngFor="let type of importTypes">
+                            <option [value]="type">{{type}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary mt-2 mx-auto shadow-sm rounded" style="width: 10rem;" [disabled]="!importForm.valid">Confirmar</button>
+            </div>
+        </form>
+    </div>
+</div>

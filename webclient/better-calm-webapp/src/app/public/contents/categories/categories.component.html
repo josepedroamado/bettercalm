@@ -1,0 +1,7 @@
+<app-loading *ngIf="isLoading" text="Loading categories..."></app-loading>
+<div *ngIf="categories" class="btn-group shadow bg-body rounded" role="group" aria-label="Categories selector">
+    <ng-container *ngFor="let category of categories" style="display:inline-block">
+        <input type="checkbox" class="btn-check" [id]="category.name" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" [for]="category.name" (click)="switchCategoryValue(category.id)">{{category.name}}</label>
+    </ng-container>
+</div>

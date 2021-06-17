@@ -1,0 +1,20 @@
+<app-loading *ngIf="isLoading" text="Loading contents..."></app-loading>
+<div *ngIf="!isLoading">
+    <div class="container-fluid">
+        <div class="btn-group shadow bg-body rounded" role="group" aria-label="Content type selector" style="display:inline-block">
+            <input type="checkbox" class="btn-check" id="btnAudioType" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="btnAudioType" (click)="switchContentTypeValue('audio')">Audio</label>
+        
+            <input type="checkbox" class="btn-check" id="btnVideoType" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="btnVideoType" (click)="switchContentTypeValue('video')">Video</label>
+        </div>
+
+        <app-categories style="float:right;" (changeSelectedCategories)="changeSelectedCatagories($event)"></app-categories>    
+    </div>
+    <div class="container mb-5 pb-5" style="text-align: center;">
+        <p *ngIf="hasError" class="fw-strong"><strong>No hay contenidos registrados en el sistema.</strong></p>
+        <div *ngIf="!hasError">
+            <app-content-card  *ngFor="let content of contents" [content]="content" style="display: inline-block; margin:2px;"></app-content-card>
+        </div>
+    </div>
+</div>

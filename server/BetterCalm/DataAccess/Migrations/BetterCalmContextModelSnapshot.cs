@@ -77,6 +77,12 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DiscountId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DurationId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("IllnessId")
                         .HasColumnType("int");
 
@@ -89,7 +95,14 @@ namespace DataAccess.Migrations
                     b.Property<int?>("ScheduleId")
                         .HasColumnType("int");
 
+                    b.Property<double>("TotalCost")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DiscountId");
+
+                    b.HasIndex("DurationId");
 
                     b.HasIndex("IllnessId");
 
@@ -100,6 +113,36 @@ namespace DataAccess.Migrations
                     b.HasIndex("ScheduleId");
 
                     b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("Domain.AppointmentDiscount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppointmentDiscount");
+                });
+
+            modelBuilder.Entity("Domain.AppointmentDuration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppointmentDuration");
                 });
 
             modelBuilder.Entity("Domain.Category", b =>
@@ -128,12 +171,15 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AudioUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<TimeSpan>("ContentLength")
                         .HasColumnType("time");
+
+                    b.Property<int?>("ContentTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ContentUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -144,7 +190,24 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ContentTypeId");
+
                     b.ToTable("Contents");
+                });
+
+            modelBuilder.Entity("Domain.ContentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContentTypes");
                 });
 
             modelBuilder.Entity("Domain.Illness", b =>
@@ -169,10 +232,16 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AppointmentDiscountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AppointmentQuantity")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EMail")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -189,6 +258,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppointmentDiscountId");
 
                     b.ToTable("Patients");
                 });
@@ -242,9 +313,29 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RateId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("RateId");
+
                     b.ToTable("Psychologists");
+                });
+
+            modelBuilder.Entity("Domain.PsychologistRate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("HourlyRate")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PsychologistRate");
                 });
 
             modelBuilder.Entity("Domain.Role", b =>
@@ -312,7 +403,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("EMail")
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -325,9 +416,9 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EMail")
+                    b.HasIndex("Email")
                         .IsUnique()
-                        .HasFilter("[EMail] IS NOT NULL");
+                        .HasFilter("[Email] IS NOT NULL");
 
                     b.ToTable("User");
                 });
@@ -409,6 +500,14 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Appointment", b =>
                 {
+                    b.HasOne("Domain.AppointmentDiscount", "Discount")
+                        .WithMany()
+                        .HasForeignKey("DiscountId");
+
+                    b.HasOne("Domain.AppointmentDuration", "Duration")
+                        .WithMany()
+                        .HasForeignKey("DurationId");
+
                     b.HasOne("Domain.Illness", "Illness")
                         .WithMany()
                         .HasForeignKey("IllnessId");
@@ -425,11 +524,42 @@ namespace DataAccess.Migrations
                         .WithMany("Appointments")
                         .HasForeignKey("ScheduleId");
 
+                    b.Navigation("Discount");
+
+                    b.Navigation("Duration");
+
                     b.Navigation("Illness");
 
                     b.Navigation("Patient");
 
                     b.Navigation("Psychologist");
+                });
+
+            modelBuilder.Entity("Domain.Content", b =>
+                {
+                    b.HasOne("Domain.ContentType", "ContentType")
+                        .WithMany()
+                        .HasForeignKey("ContentTypeId");
+
+                    b.Navigation("ContentType");
+                });
+
+            modelBuilder.Entity("Domain.Patient", b =>
+                {
+                    b.HasOne("Domain.AppointmentDiscount", "AppointmentDiscount")
+                        .WithMany()
+                        .HasForeignKey("AppointmentDiscountId");
+
+                    b.Navigation("AppointmentDiscount");
+                });
+
+            modelBuilder.Entity("Domain.Psychologist", b =>
+                {
+                    b.HasOne("Domain.PsychologistRate", "Rate")
+                        .WithMany()
+                        .HasForeignKey("RateId");
+
+                    b.Navigation("Rate");
                 });
 
             modelBuilder.Entity("Domain.Schedule", b =>

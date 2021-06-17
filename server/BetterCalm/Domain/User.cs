@@ -7,14 +7,14 @@ namespace Domain
 	public class User
 	{
 		public int Id { get; set; }
-		public string EMail { get; set; }
+		public string Email { get; set; }
 		public string Password { get; set; }
 		public string Name { get; set; }
 		public ICollection<Role> Roles {get; set; }
 
 		public bool Validate()
 		{
-			if (string.IsNullOrEmpty(EMail))
+			if (string.IsNullOrEmpty(Email))
 				throw new InvalidInputException("EMail is required");
 			if (string.IsNullOrEmpty(Password))
 				throw new InvalidInputException("Password is required");
@@ -30,8 +30,8 @@ namespace Domain
 
 			if (!string.IsNullOrEmpty(user.Name))
 				this.Name = user.Name;			
-			if (!string.IsNullOrEmpty(user.EMail))
-				this.EMail = user.EMail;			
+			if (!string.IsNullOrEmpty(user.Email))
+				this.Email = user.Email;			
 			if (!string.IsNullOrEmpty(user.Password))
 				this.Password = user.Password;
 			if (user.Roles != null)

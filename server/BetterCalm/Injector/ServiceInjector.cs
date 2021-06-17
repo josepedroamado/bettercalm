@@ -27,6 +27,8 @@ namespace Injector
 			services.AddScoped<IPsychologistLogic, PsychologistLogic>();
 			services.AddScoped<IAppointmentLogic, AppointmentLogic>();
 			services.AddScoped<IUserLogic, UserLogic>();
+			services.AddScoped<IImporterLogic, ImporterLogic>();
+			services.AddScoped<IPatientLogic, PatientLogic>();
 		}
 
 		public void AddDataAccessServices()
@@ -40,6 +42,10 @@ namespace Injector
 			services.AddScoped<IPsychologistRepository, PsychologistRepository>();
 			services.AddScoped<IPatientRepository, PatientRepository>();
 			services.AddScoped<IRoleRepository, RoleRepository>();
+			services.AddScoped<IContentTypeRepository, ContentTypeRepository>();
+			services.AddScoped<IAppointmentDurationRepository, AppointmentDurationRepository>();
+			services.AddScoped<IPsychologistRateRepository, PsychologistRateRepository>();
+			services.AddScoped<IAppointmentDiscountRepository, AppointmentDiscountRepository>();
 		}
 
 		public void AddContextServices()

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/categories")]
 	[ApiController]
 	public class CategoriesController : ControllerBase
 	{
@@ -25,34 +25,30 @@ namespace WebAPI.Controllers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			IEnumerable<Category> categories = this.categoryLogic.GetCategories();
-			return Ok(categories);
+			return Ok(this.categoryLogic.GetCategories());
 		}
 
 		[HttpGet("{id}")]
 		public IActionResult Get(int id)
 		{
-			Category category = this.categoryLogic.GetCategory(id);
-			return Ok(category);
+			return Ok(this.categoryLogic.GetCategory(id));
 		}
 
-		[HttpGet("{categoryId}/contents/")]
+		[HttpGet("{categoryId}/contents")]
 		public IActionResult GetContents(int categoryId)
 		{
-			IEnumerable<ContentBasicInfo> contents =
-				this.contentLogic.GetContents(categoryLogic.GetCategory(categoryId)).
-				Select(content => new ContentBasicInfo(content));
-
+			IEnumerable<ContentBasicInfo> contents = this.contentLogic
+				.GetContents(categoryLogic.GetCategory(categoryId))
+				.Select(content => new ContentBasicInfo(content));
 			return Ok(contents);
 		}
 
-		[HttpGet("{categoryId}/playlists/")]
+		[HttpGet("{categoryId}/playlists")]
 		public IActionResult GetPlaylists (int categoryId)
 		{
-			IEnumerable<PlaylistBasicInfo> playlists =
-				this.playlistLogic.GetPlaylists(categoryLogic.GetCategory(categoryId)).
-				Select(playlist => new PlaylistBasicInfo(playlist));
-
+			IEnumerable<PlaylistBasicInfo> playlists = this.playlistLogic
+				.GetPlaylists(categoryLogic.GetCategory(categoryId))
+				.Select(playlist => new PlaylistBasicInfo(playlist));
 			return Ok(playlists);
 		}
 	}

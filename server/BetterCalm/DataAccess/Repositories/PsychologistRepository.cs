@@ -22,17 +22,27 @@ namespace DataAccess.Repositories
         public IEnumerable<Psychologist> GetAll()
         {
             if (this.psychologists.Count() <= 0)
+            {
                 throw new CollectionEmptyException("Psychologists");
+            }
             else
-                return this.psychologists;
+            {
+                return this.psychologists.Include(x => x.Rate).Include(p => p.Illnesses);
+            }
         }
 
         public Psychologist Get(int id)
         {
-            Psychologist psychologist = this.psychologists.Include(psychologist => psychologist.Illnesses).
-                FirstOrDefault(psychologist => psychologist.Id == id);
+            Psychologist psychologist = this.psychologists
+                .Include(psychologist => psychologist.Illnesses)
+                .Include(x => x.Rate)
+                .Include(s => s.ScheduleDays)
+                .ThenInclude(s => s.Appointments)
+                .FirstOrDefault(psychologist => psychologist.Id == id);
             if (psychologist == null)
+            {
                 throw new NotFoundException(id.ToString());
+            }
             return psychologist;
         }
 
@@ -54,11 +64,12 @@ namespace DataAccess.Repositories
 		public Psychologist Get(Illness illness, DateTime until, int appointmentLimitPerDay)
 		{
             if (this.psychologists.Count() == 0)
+            {
                 throw new CollectionEmptyException("Psychologists");
-
+            }
             Psychologist candidate = this.psychologists
-                .Include("ScheduleDays")
-                .Include("ScheduleDays.Appointments")
+                .Include(psychologist => psychologist.ScheduleDays).ThenInclude(scheduleDays => scheduleDays.Appointments)
+                .Include(psychologist => psychologist.Rate)
                 .Where(psychologist =>
                     psychologist.Illnesses.Contains(illness) &&
                     (psychologist.ScheduleDays.Count() == 0 ||
@@ -72,8 +83,8 @@ namespace DataAccess.Repositories
             if (candidate == null)
             {
                 candidate = this.psychologists
-                   .Include("ScheduleDays")
-                   .Include("ScheduleDays.Appointments")
+                   .Include(psychologist => psychologist.ScheduleDays).ThenInclude(scheduleDays => scheduleDays.Appointments)
+                   .Include(psychologist => psychologist.Rate)
                    .Where(psychologist =>
                        psychologist.ScheduleDays.Count() == 0 ||
                        (psychologist.ScheduleDays.OrderBy(schedule => schedule.Date).Last().Date < until ||
@@ -83,7 +94,6 @@ namespace DataAccess.Repositories
                    .OrderBy(psychologist => psychologist.CreatedDate)
                    .FirstOrDefault();
             }
-
             return candidate;
         }
 
@@ -103,6 +113,14 @@ namespace DataAccess.Repositories
                 Psychologist psychologistToDelete = this.Get(psychologistId);
                 if (psychologistToDelete != null)
                 {
+                    foreach(Schedule schedule in psychologistToDelete.ScheduleDays)
+					{                             
+                        foreach(Appointment appointment in schedule.Appointments)
+						{
+                            this.context.Remove(appointment);
+                        }
+                        this.context.Remove(schedule);
+                    }
                     this.psychologists.Remove(psychologistToDelete);
                     this.context.SaveChanges();
                 }

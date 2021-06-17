@@ -47,7 +47,7 @@ namespace DataAccess.Test
 
 			expectedContents.ForEach(content => this.context.Add(content));
 			this.context.SaveChanges();
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			IEnumerable<Content> obtainedContents = repository.GetAll();
 			Assert.IsTrue(expectedContents.SequenceEqual(obtainedContents));
@@ -71,7 +71,7 @@ namespace DataAccess.Test
 					ContentLength = new TimeSpan(0, 2, 30),
 					Name = "It's My Life",
 					ImageUrl = "http://www.images.com/image.jpg",
-					AudioUrl = "http://www.audios.com/audio.mp3"
+					ContentUrl = "http://www.audios.com/audio.mp3"
 				},
 				new Content()
 				{
@@ -87,7 +87,7 @@ namespace DataAccess.Test
 					ContentLength = new TimeSpan(0, 2, 30),
 					Name = "La vida es un carnaval",
 					ImageUrl = "http://www.images.com/image2.jpg",
-					AudioUrl = "http://www.audios.com/audio.mp3"
+					ContentUrl = "http://www.audios.com/audio.mp3"
 				}
 			};
 		}
@@ -96,7 +96,7 @@ namespace DataAccess.Test
 		[ExpectedException(typeof(CollectionEmptyException))]
 		public void GetAll_NoContentsExist_ExceptionThrown()
 		{
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 			IEnumerable<Content> obtainedContents = repository.GetAll();
 			Assert.IsNull(obtainedContents);
 		}
@@ -108,7 +108,7 @@ namespace DataAccess.Test
 
 			expectedContents.ForEach(content => this.context.Add(content));
 			this.context.SaveChanges();
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			Playlist expectedPlaylist = expectedContents.First().PlayLists.First();
 			IEnumerable<Content> obtainedContents = repository.GetAll(expectedPlaylist);
@@ -120,7 +120,7 @@ namespace DataAccess.Test
 		public void GetAllByPlaylist_NoContentExistsPlaylistExists_ExceptionThrown()
 		{
 			List<Content> expectedContents = GetAllByPlaylistExpectedContents();
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 			Playlist expectedPlaylist = expectedContents.First().PlayLists.First();
 			IEnumerable<Content> obtainedContents = repository.GetAll(expectedPlaylist);
 			Assert.IsNull(obtainedContents);
@@ -154,7 +154,7 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Content livinOnAPrayer = new Content()
@@ -166,7 +166,7 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 4, 10),
 				Name = "Livin' On A Prayer",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			bestOfBonJovi.Contents = new List<Content>() { itsMyLife, livinOnAPrayer };
@@ -187,7 +187,7 @@ namespace DataAccess.Test
 
 			expectedContents.ForEach(content => this.context.Add(content));
 			this.context.SaveChanges();
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			Category expectedCategory = expectedContents.First().Categories.First();
 			IEnumerable<Content> obtainedContents = repository.GetAll(expectedCategory);
@@ -199,7 +199,7 @@ namespace DataAccess.Test
 		public void GetAllByCategory_NoContentsExistsCategoryExists_ExceptionThrown()
 		{
 			List<Content> expectedContents = GetAllByCategoryExpectedContents();
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 			Category expectedCategory = expectedContents.First().Categories.First();
 			IEnumerable<Content> obtainedContents = repository.GetAll(expectedCategory);
 			Assert.IsNull(obtainedContents);
@@ -222,7 +222,7 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			Content livinOnAPrayer = new Content()
@@ -234,7 +234,7 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 4, 10),
 				Name = "Livin' On A Prayer",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			rock = new Category()
@@ -269,13 +269,13 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			this.context.Add(expectedContent);
 			this.context.SaveChanges();
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			Content obtainedContent = repository.Get(expectedContent.Id);
 			Assert.AreEqual(expectedContent, obtainedContent);
@@ -299,7 +299,7 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3"
 			};
 
 			this.context.Add(toSaveContent);
@@ -307,7 +307,7 @@ namespace DataAccess.Test
 
 			int toGetContentId = 2;
 			
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			Content obtainedContent = repository.Get(toGetContentId);
 			Assert.AreNotEqual(toSaveContent, obtainedContent);
@@ -322,6 +322,13 @@ namespace DataAccess.Test
 				Name = "Musica"
 			};
 			this.context.Add(music);
+
+			ContentType contentType = new ContentType()
+			{
+				Id = 1,
+				Name = "audio"
+			};
+			this.context.Add(contentType);
 
 			Content toSaveContent = new Content()
 			{
@@ -342,11 +349,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = contentType
 			};
 			this.context.SaveChanges();
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(toSaveContent);
 			Content added = repository.Get(toSaveContent.Id);
@@ -363,6 +371,13 @@ namespace DataAccess.Test
 				Name = "Musica"
 			};
 			this.context.Add(music);
+
+			ContentType contentType = new ContentType()
+			{
+				Id = 1,
+				Name = "audio"
+			};
+			this.context.Add(contentType);
 
 			Playlist playlist = new Playlist()
 			{
@@ -386,11 +401,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = contentType
 			};
 			this.context.SaveChanges();
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(toSaveContent);
 			Content added = repository.Get(toSaveContent.Id);
@@ -408,6 +424,13 @@ namespace DataAccess.Test
 			};
 			this.context.Add(music);
 
+			ContentType contentType = new ContentType()
+			{
+				Id = 1,
+				Name = "audio"
+			};
+			this.context.Add(contentType);
+
 			Content toSaveContent = new Content()
 			{
 				ArtistName = "Bon Jovi",
@@ -418,11 +441,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = contentType
 			};
 			this.context.SaveChanges();
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(toSaveContent);
 			Content added = repository.Get(toSaveContent.Id);
@@ -434,15 +458,23 @@ namespace DataAccess.Test
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Add_NoNameEntered_ExceptionThrown()
 		{
+			ContentType type = new ContentType()
+			{
+				Name = "audio"
+			};
+			this.context.Add(type);
+			this.context.SaveChanges();
+
 			Content content = new Content()
 			{
 				Id = 1,
 				ArtistName = "artist name",
-				AudioUrl = "http://audio.com/audio.mp3",
-				ContentLength = TimeSpan.Parse("00:00:01")
+				ContentUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:00:01"),
+				ContentType = type
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(content);
 			Content obtained = repository.Get(content.Id);
@@ -454,15 +486,23 @@ namespace DataAccess.Test
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Add_NoArtistNameEntered_ExceptionThrown()
 		{
+			ContentType type = new ContentType()
+			{
+				Name = "audio"
+			};
+			this.context.Add(type);
+			this.context.SaveChanges();
+
 			Content content = new Content()
 			{
 				Id = 1,
 				Name = "name",
-				AudioUrl = "http://audio.com/audio.mp3",
-				ContentLength = TimeSpan.Parse("00:00:01")
+				ContentUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:00:01"),
+				ContentType = type
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(content);
 			Content obtained = repository.Get(content.Id);
@@ -474,15 +514,23 @@ namespace DataAccess.Test
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Add_NoAudioUrlEntered_ExceptionThrown()
 		{
+			ContentType type = new ContentType()
+			{
+				Name = "audio"
+			};
+			this.context.Add(type);
+			this.context.SaveChanges();
+
 			Content content = new Content()
 			{
 				Id = 1,
 				Name = "name",
 				ArtistName = "artist name",
-				ContentLength = TimeSpan.Parse("00:00:01")
+				ContentLength = TimeSpan.Parse("00:00:01"),
+				ContentType = type
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(content);
 			Content obtained = repository.Get(content.Id);
@@ -494,15 +542,23 @@ namespace DataAccess.Test
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Add_NoContentLengthEntered_ExceptionThrown()
 		{
+			ContentType type = new ContentType()
+			{
+				Name = "audio"
+			};
+			this.context.Add(type);
+			this.context.SaveChanges();
+
 			Content content = new Content()
 			{
 				Id = 1,
 				Name = "name",
 				ArtistName = "artist name",
-				AudioUrl = "http://audio.com/audio.mp3"
+				ContentUrl = "http://audio.com/audio.mp3",
+				ContentType = type
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(content);
 			Content obtained = repository.Get(content.Id);
@@ -514,12 +570,19 @@ namespace DataAccess.Test
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Add_NoValidPlaylistEntered_ExceptionThrown()
 		{
+			ContentType type = new ContentType()
+			{
+				Name = "audio"
+			};
+			this.context.Add(type);
+			this.context.SaveChanges();
+
 			Content content = new Content()
 			{
 				Id = 1,
 				Name = "name",
 				ArtistName = "artist name",
-				AudioUrl = "http://audio.com/audio.mp3",
+				ContentUrl = "http://audio.com/audio.mp3",
 				ContentLength = TimeSpan.Parse("00:00:01"),
 				PlayLists = new List<Playlist>()
 				{
@@ -528,10 +591,11 @@ namespace DataAccess.Test
 						Id = 1,
 						Name = "playlist name"
 					}
-				}
+				},
+				ContentType = type
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(content);
 			Content obtained = repository.Get(content.Id);
@@ -561,10 +625,15 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 			repository.Add(toSaveContent);
 
 			repository.Delete(toSaveContent.Id);
@@ -606,7 +675,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 			this.context.Add(currentContent);
 
@@ -625,7 +699,7 @@ namespace DataAccess.Test
 				newPlaylist
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Update(currentContent);
 			Content obtained = repository.Get(currentContent.Id);
@@ -661,14 +735,19 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 			this.context.Add(currentContent);
 			this.context.SaveChanges();
 
 			currentContent.PlayLists = new List<Playlist>();
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Update(currentContent);
 			Content obtained = repository.Get(currentContent.Id);
@@ -704,7 +783,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 			this.context.Add(currentContent);
 
@@ -722,7 +806,7 @@ namespace DataAccess.Test
 				category
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Update(currentContent);
 			Content obtained = repository.Get(currentContent.Id);
@@ -761,7 +845,12 @@ namespace DataAccess.Test
 				ContentLength = new TimeSpan(0, 2, 30),
 				Name = "It's My Life",
 				ImageUrl = "http://www.images.com/image.jpg",
-				AudioUrl = "http://www.audios.com/audio.mp3"
+				ContentUrl = "http://www.audios.com/audio.mp3",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "audio"
+				}
 			};
 			this.context.Add(currentContent);
 
@@ -792,12 +881,12 @@ namespace DataAccess.Test
 				newPlaylist
 			};
 			currentContent.ArtistName = "new artist name";
-			currentContent.AudioUrl = "http://audio.com/a.mp3";
+			currentContent.ContentUrl = "http://audio.com/a.mp3";
 			currentContent.ContentLength = TimeSpan.Parse("00:00:30");
 			currentContent.ImageUrl = "http://image.com/a.jpg";
 			currentContent.Name = "new content name";
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Update(currentContent);
 			Content obtained = repository.Get(currentContent.Id);
@@ -808,16 +897,24 @@ namespace DataAccess.Test
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Update_NoNameEntered_ExceptionThrown()
 		{
+			ContentType type = new ContentType()
+			{
+				Name = "audio"
+			};
+			this.context.Add(type);
+			this.context.SaveChanges();
+
 			Content content = new Content()
 			{
 				Id = 1,
 				Name = "name",
 				ArtistName = "artist name",
-				AudioUrl = "http://audio.com/audio.mp3",
-				ContentLength = TimeSpan.Parse("00:01:30")
+				ContentUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:01:30"),
+				ContentType = type
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(content);
 
@@ -833,16 +930,24 @@ namespace DataAccess.Test
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Update_NoArtistNameEntered_ExceptionThrown()
 		{
+			ContentType type = new ContentType()
+			{
+				Name = "audio"
+			};
+			this.context.Add(type);
+			this.context.SaveChanges();
+
 			Content content = new Content()
 			{
 				Id = 1,
 				Name = "name",
 				ArtistName = "artist name",
-				AudioUrl = "http://audio.com/audio.mp3",
-				ContentLength = TimeSpan.Parse("00:01:30")
+				ContentUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:01:30"),
+				ContentType = type
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(content);
 
@@ -858,41 +963,57 @@ namespace DataAccess.Test
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Update_NoAudioUrlEntered_ExceptionThrown()
 		{
+			ContentType type = new ContentType()
+			{
+				Name = "audio"
+			};
+			this.context.Add(type);
+			this.context.SaveChanges();
+
 			Content content = new Content()
 			{
 				Id = 1,
 				Name = "name",
 				ArtistName = "artist name",
-				AudioUrl = "http://audio.com/audio.mp3",
-				ContentLength = TimeSpan.Parse("00:01:30")
+				ContentUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:01:30"),
+				ContentType = type
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(content);
 
-			content.AudioUrl = string.Empty;
+			content.ContentUrl = string.Empty;
 			repository.Update(content);
 
 			Content obtained = repository.Get(content.Id);
 
-			Assert.AreNotEqual(content.AudioUrl, obtained.AudioUrl);
+			Assert.AreNotEqual(content.ContentUrl, obtained.ContentUrl);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Update_NoContentLengthEntered_ExceptionThrown()
 		{
+			ContentType type = new ContentType()
+			{
+				Name = "audio"
+			};
+			this.context.Add(type);
+			this.context.SaveChanges();
+
 			Content content = new Content()
 			{
 				Id = 1,
 				Name = "name",
 				ArtistName = "artist name",
-				AudioUrl = "http://audio.com/audio.mp3",
-				ContentLength = TimeSpan.Parse("00:01:30")
+				ContentUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:01:30"),
+				ContentType = type
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(content);
 
@@ -908,16 +1029,24 @@ namespace DataAccess.Test
 		[ExpectedException(typeof(InvalidInputException))]
 		public void Update_InvalidPlaylistEntered_ExceptionThrown()
 		{
+			ContentType type = new ContentType()
+			{
+				Name = "audio"
+			};
+			this.context.Add(type);
+			this.context.SaveChanges();
+
 			Content content = new Content()
 			{
 				Id = 1,
 				Name = "name",
 				ArtistName = "artist name",
-				AudioUrl = "http://audio.com/audio.mp3",
-				ContentLength = TimeSpan.Parse("00:01:30")
+				ContentUrl = "http://audio.com/audio.mp3",
+				ContentLength = TimeSpan.Parse("00:01:30"),
+				ContentType = type
 			};
 
-			ContentRepository repository = new ContentRepository(this.context);
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
 
 			repository.Add(content);
 
@@ -935,6 +1064,77 @@ namespace DataAccess.Test
 			Content obtained = repository.Get(content.Id);
 
 			CollectionAssert.AreNotEqual(content.PlayLists.ToList(), obtained.PlayLists.ToList());
+		}
+
+		[TestMethod]
+		public void GetAll_ContentsByContentType_Fetched()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						new Category()
+						{
+							Id = 1,
+							Name = "Rock"
+						}
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ContentUrl = "http://www.audios.com/video.mp4",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "video"
+				}
+			};
+
+			this.context.Add(content);
+			this.context.SaveChanges();
+
+			List<Content> expectedContents = new List<Content>()
+			{
+				content
+			};
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
+
+			IEnumerable<Content> obtainedContents = repository.GetAll(content.ContentType.Name);
+			Assert.IsTrue(expectedContents.SequenceEqual(obtainedContents));
+		}
+
+		[TestMethod]
+		public void GetAll_ContentsByContentTypeNoContent_Fetched()
+		{
+			Content content = new Content()
+			{
+				ArtistName = "Bon Jovi",
+				Categories = new List<Category>(){
+						new Category()
+						{
+							Id = 1,
+							Name = "Rock"
+						}
+					},
+				Id = 1,
+				ContentLength = new TimeSpan(0, 2, 30),
+				Name = "It's My Life",
+				ContentUrl = "http://www.audios.com/video.mp4",
+				ContentType = new ContentType()
+				{
+					Id = 1,
+					Name = "video"
+				}
+			};
+
+			List<Content> expectedContents = new List<Content>()
+			{
+				content
+			};
+			ContentRepository repository = new ContentRepository(this.context, new ContentTypeRepository(this.context));
+
+			IEnumerable<Content> obtainedContents = repository.GetAll(content.ContentType.Name);
+			Assert.IsFalse(expectedContents.SequenceEqual(obtainedContents));
 		}
 	}
 }

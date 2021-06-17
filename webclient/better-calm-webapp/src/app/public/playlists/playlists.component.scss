@@ -1,0 +1,9 @@
+.playlist:hover{
+    cursor: pointer;
+}
+
+.playlistsContainer{
+    max-height: 85vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}

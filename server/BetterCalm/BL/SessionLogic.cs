@@ -10,8 +10,8 @@ namespace BL
 {
 	public class SessionLogic : ISessionLogic
 	{
-		private readonly ISessionRepository sessionRepository;
-		private readonly IUserRepository userRepository;
+		private ISessionRepository sessionRepository;
+		private IUserRepository userRepository;
 
 		public SessionLogic(ISessionRepository sessionRepository, IUserRepository userRepository)
 		{
@@ -21,8 +21,7 @@ namespace BL
 
 		public bool TokenHasRole(string token, string role)
 		{
-			return this.sessionRepository.GetRoles(token).
-				Any(tokenRole => tokenRole.Name.Equals(role));
+			return this.sessionRepository.GetRoles(token).Any(tokenRole => tokenRole.Name.Equals(role));
 		}
 
 		public bool IsTokenValid(string token)
@@ -30,35 +29,43 @@ namespace BL
 			return this.sessionRepository.GetByToken(token) != null;
 		}
 
-		public string Login(string eMail, string password)
+		public string Login(string email, string password)
 		{
-			string token = string.Empty;
 			try
-			{
-				User user = userRepository.Get(eMail);
-                if (UserCredentialsValidator.ValidateCredentials(user, password))
-                {
-					Session session = this.sessionRepository.GetByEmail(eMail);
-					if (session == null)
-					{
-						session = new Session()
-						{
-							Token = Guid.NewGuid().ToString(),
-							User = user
-						};
-						this.sessionRepository.Add(session);
-					}
-					token = session.Token;
-				}
-				else
-					throw new InvalidCredentialsException();
-			}
-			catch (NotFoundException)
+            {
+                User user = userRepository.Get(email);
+                return GetCurrentOrNewToken(email, password, user);
+            }
+            catch (NotFoundException)
 			{
 				throw new InvalidCredentialsException();
 			}
-			return token;
 		}
+
+        private string GetCurrentOrNewToken(string email, string password, User user)
+        {
+            string token;
+            if (UserCredentialsValidator.ValidateCredentials(user, password))
+            {
+                Session session = this.sessionRepository.GetByEmail(email);
+                if (session == null)
+                {
+                    session = new Session()
+                    {
+                        Token = Guid.NewGuid().ToString(),
+                        User = user
+                    };
+                    this.sessionRepository.Add(session);
+                }
+                token = session.Token;
+            }
+            else
+            {
+                throw new InvalidCredentialsException();
+            }
+
+            return token;
+        }
 
         public void Logout(string token)
         {

@@ -2,6 +2,7 @@
 using Domain;
 using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess.Repositories
@@ -19,12 +20,12 @@ namespace DataAccess.Repositories
 
 		public void Add(Patient patient)
 		{
-
 			if (patient.Validate())
 			{
 				if (Exists(patient))
-					throw new AlreadyExistsException(patient.EMail);
-
+                {
+					throw new AlreadyExistsException(patient.Email);
+				}
 				this.patients.Add(patient);
 				this.context.SaveChanges();
 			}
@@ -34,7 +35,7 @@ namespace DataAccess.Repositories
 		{
 			try
 			{
-				return Get(patient.EMail) != null;
+				return Get(patient.Email) != null;
 			}
 			catch (NotFoundException)
 			{
@@ -42,12 +43,50 @@ namespace DataAccess.Repositories
 			}
 		}
 
-		public Patient Get(string eMail)
+		public Patient Get(string email)
 		{
-			Patient patient = this.patients.FirstOrDefault(patient => patient.EMail.Equals(eMail));
+			Patient patient = this.patients.Include(x => x.AppointmentDiscount).FirstOrDefault(patient => patient.Email.Equals(email));
 			if (patient == null)
-				throw new NotFoundException(eMail);
+			{
+				throw new NotFoundException("Patient");
+			}
 			return patient;
+		}
+
+        public IEnumerable<Patient> GetAll()
+        {
+            if (this.patients.Count() <= 0)
+            {
+				throw new CollectionEmptyException("Patients");
+            }
+			return this.patients;
+        }
+
+		public IEnumerable<Patient> GetAllWithoutDiscount(int numberOfAppointments)
+		{
+            if (this.patients.Count() > 0)
+            {
+				return this.patients.Where(patient => (patient.AppointmentDiscount == null || patient.AppointmentDiscount.Discount == 0 ) && patient.AppointmentQuantity >= numberOfAppointments);
+			}
+            else
+            {
+				throw new CollectionEmptyException("Patients");
+            }	
+		}
+
+		public void Update(Patient patient)
+		{
+			Patient original = Get(patient.Email);
+			if (original == null)
+			{
+				throw new NotFoundException("Patient");
+			}
+			if (patient.Validate())
+			{
+				original.UpdateFromPatient(patient);
+				this.patients.Update(original);
+				this.context.SaveChanges();
+			}
 		}
 	}
 }

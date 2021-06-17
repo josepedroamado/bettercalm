@@ -23,7 +23,7 @@ namespace BL.Test
 
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Id = 1,
 				Password = "1234Test",
 				Name = "test",
@@ -35,7 +35,7 @@ namespace BL.Test
 
 			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
 			userMock.Setup(m => m.Add(user));
-			userMock.Setup(m => m.Get(user.EMail)).Returns(user);
+			userMock.Setup(m => m.Get(user.Email)).Returns(user);
 
 			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
 			roleMock.Setup(m => m.Get(role.Name)).Returns(role);
@@ -43,7 +43,7 @@ namespace BL.Test
 			UserLogic userLogic = new UserLogic(userMock.Object, roleMock.Object);
 			
 			userLogic.CreateUser(user);
-			User obtainedUser = userLogic.GetUser(user.EMail);
+			User obtainedUser = userLogic.GetUser(user.Email);
 
 			userMock.VerifyAll();
 			roleMock.VerifyAll();
@@ -64,7 +64,7 @@ namespace BL.Test
 
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Id = 1,
 				Password = "1234Test",
 				Name = "test",
@@ -76,7 +76,7 @@ namespace BL.Test
 
 			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
 			userMock.Setup(m => m.Add(user));
-			userMock.Setup(m => m.Get(user.EMail)).Returns(user);
+			userMock.Setup(m => m.Get(user.Email)).Returns(user);
 
 			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
 			roleMock.Setup(m => m.Get(role.Name)).Returns(role);
@@ -84,9 +84,9 @@ namespace BL.Test
 			UserLogic userLogic = new UserLogic(userMock.Object, roleMock.Object);
 
 			userLogic.CreateUser(user);
-			userMock.Setup(m => m.Get(user.EMail)).Throws(new AlreadyExistsException(user.EMail));
+			userMock.Setup(m => m.Get(user.Email)).Throws(new AlreadyExistsException(user.Email));
 			userLogic.CreateUser(user);
-			User obtainedUser = userLogic.GetUser(user.EMail);
+			User obtainedUser = userLogic.GetUser(user.Email);
 
 			userMock.VerifyAll();
 			roleMock.VerifyAll();
@@ -107,7 +107,7 @@ namespace BL.Test
 
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Id = 1,
 				Password = "1234Test",
 				Name = "test",
@@ -119,7 +119,7 @@ namespace BL.Test
 
 			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
 			userMock.Setup(m => m.Add(user));
-			userMock.Setup(m => m.Get(user.EMail)).Returns(user);
+			userMock.Setup(m => m.Get(user.Email)).Returns(user);
 
 			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
 			roleMock.Setup(m => m.Get(role.Name)).Throws(new NotFoundException(role.Name));
@@ -127,7 +127,7 @@ namespace BL.Test
 			UserLogic userLogic = new UserLogic(userMock.Object, roleMock.Object);
 
 			userLogic.CreateUser(user);
-			User obtainedUser = userLogic.GetUser(user.EMail);
+			User obtainedUser = userLogic.GetUser(user.Email);
 
 			userMock.VerifyAll();
 			roleMock.VerifyAll();
@@ -141,7 +141,7 @@ namespace BL.Test
 
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Id = 1,
 				Password = "1234Test",
 				Name = "test"
@@ -149,7 +149,7 @@ namespace BL.Test
 
 			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
 			userMock.Setup(m => m.Update(user));
-			userMock.Setup(m => m.Get(user.EMail)).Returns(user);
+			userMock.Setup(m => m.Get(user.Email)).Returns(user);
 			userMock.Setup(m => m.Get(user.Id)).Returns(user);
 
 			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
@@ -157,7 +157,7 @@ namespace BL.Test
 			UserLogic userLogic = new UserLogic(userMock.Object, roleMock.Object);
 
 			userLogic.UpdateUser(user);
-			User obtainedUser = userLogic.GetUser(user.EMail);
+			User obtainedUser = userLogic.GetUser(user.Email);
 
 			userMock.VerifyAll();
 
@@ -171,7 +171,7 @@ namespace BL.Test
 
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Id = 1,
 				Password = "1234Test",
 				Name = "test"
@@ -179,7 +179,7 @@ namespace BL.Test
 
 			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
 			userMock.Setup(m => m.Update(user));
-			userMock.Setup(m => m.Get(user.EMail)).Throws(new NotFoundException(user.EMail));
+			userMock.Setup(m => m.Get(user.Email)).Throws(new NotFoundException(user.Email));
 			userMock.Setup(m => m.Get(user.Id)).Throws(new NotFoundException(user.Id.ToString()));
 
 			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
@@ -187,7 +187,7 @@ namespace BL.Test
 			UserLogic userLogic = new UserLogic(userMock.Object, roleMock.Object);
 
 			userLogic.UpdateUser(user);
-			User obtainedUser = userLogic.GetUser(user.EMail);
+			User obtainedUser = userLogic.GetUser(user.Email);
 
 			userMock.VerifyAll();
 
@@ -198,19 +198,19 @@ namespace BL.Test
 		[ExpectedException(typeof(NotFoundException))]
 		public void Delete_UserExists_Delted()
 		{
-			string eMail = "a@a.com";
+			string email = "a@a.com";
 			int toDelete = 1;
 
 			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
 			userMock.Setup(m => m.Delete(toDelete));
-			userMock.Setup(m => m.Get(eMail)).Throws(new NotFoundException(eMail));
+			userMock.Setup(m => m.Get(email)).Throws(new NotFoundException(email));
 
 			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
 
 			UserLogic userLogic = new UserLogic(userMock.Object, roleMock.Object);
 
 			userLogic.DeleteUser(toDelete);
-			User obtainedUser = userLogic.GetUser(eMail);
+			User obtainedUser = userLogic.GetUser(email);
 
 			userMock.VerifyAll();
 
@@ -224,7 +224,7 @@ namespace BL.Test
 
 			User user = new User()
 			{
-				EMail = "a@a.com",
+				Email = "a@a.com",
 				Id = 1,
 				Password = "1234Test",
 				Name = "test"

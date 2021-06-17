@@ -14,6 +14,7 @@ namespace Model
 		public string Address { get; set; }
 		public string Format { get; set; }
 		public IEnumerable<IllnessModel> IllnessModels { get; set; }
+		public int Rate { get; set; }
 
 		public Psychologist ToEntity()
         {
@@ -25,7 +26,12 @@ namespace Model
 				Address = this.Address,
 				Format = ParseFormat(this.Format),
 				Illnesses = this.IllnessModels?.Select(illnessModel => illnessModel.ToEntity()).ToList(),
-				CreatedDate = DateTime.Now
+				CreatedDate = DateTime.Now,
+				Rate = new PsychologistRate()
+                {
+					Id = 1,
+					HourlyRate = Rate
+                }
 			};
         }
 
@@ -37,7 +43,7 @@ namespace Model
 			}
 			else
 			{
-				throw new InvalidPsychologistConsultationFormat();
+				throw new InvalidPsychologistConsultationFormatException();
 			}
 		}
 
@@ -60,6 +66,7 @@ namespace Model
 			Address = psychologist.Address;
 			Format = psychologist.Format.ToString();
 			IllnessModels = psychologist.Illnesses?.Select(illness => new IllnessModel(illness)).ToList();
+			Rate = psychologist.Rate.HourlyRate;
 		}
 
         public PsychologistModel()

@@ -1,11 +1,10 @@
 ﻿using BLInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Model;
-using System;
 
 namespace WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/sessions")]
 	[ApiController]
 	public class SessionsController : ControllerBase
 	{
@@ -19,7 +18,7 @@ namespace WebAPI.Controllers
 		[HttpPost]
 		public IActionResult Post([FromBody] UserCredentialsModel userCredentialsModel)
 		{
-			string token = this.sessionLogic.Login(userCredentialsModel.EMail, userCredentialsModel.Password);
+			string token = this.sessionLogic.Login(userCredentialsModel.Email, userCredentialsModel.Password);
 			SessionInfoModel sessionInfo = new SessionInfoModel()
 			{
 				Token = token
@@ -28,9 +27,10 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpDelete]
-		public void Delete([FromBody] string expectedToken)
+		public IActionResult Delete([FromBody] SessionInfoModel expectedToken)
         {
-			this.sessionLogic.Logout(expectedToken);
+			this.sessionLogic.Logout(expectedToken.Token);
+			return NoContent();
 		}
     }
 }
