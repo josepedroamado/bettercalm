@@ -32,17 +32,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CodeCoverage.runsettings = CodeCoverage.runsettings
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterInterfaces", "ImporterInterfaces\ImporterInterfaces.csproj", "{26C8D840-4106-41CD-B2EC-2BD01D098A9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImporterInterfaces", "ImporterInterfaces\ImporterInterfaces.csproj", "{26C8D840-4106-41CD-B2EC-2BD01D098A9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterModel", "ImporterModel\ImporterModel.csproj", "{0DC0671D-7C29-4B7A-A63A-0856CEFEF0E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImporterModel", "ImporterModel\ImporterModel.csproj", "{0DC0671D-7C29-4B7A-A63A-0856CEFEF0E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterJSON", "ImporterJSON\ImporterJSON.csproj", "{F6E1836E-3AAE-4319-B822-043C93DF08A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImporterJSON", "ImporterJSON\ImporterJSON.csproj", "{F6E1836E-3AAE-4319-B822-043C93DF08A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterJSON.Test", "ImporterJSON.Test\ImporterJSON.Test.csproj", "{FA7F7D15-1E13-4338-A4C1-378AF567866B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImporterJSON.Test", "ImporterJSON.Test\ImporterJSON.Test.csproj", "{FA7F7D15-1E13-4338-A4C1-378AF567866B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterXML.Test", "ImporterXML.Test\ImporterXML.Test.csproj", "{E9E132DF-051B-4F06-BCAD-2C26ABD30D66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImporterXML.Test", "ImporterXML.Test\ImporterXML.Test.csproj", "{E9E132DF-051B-4F06-BCAD-2C26ABD30D66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImporterXML", "ImporterXML\ImporterXML.csproj", "{AEFE2EA8-5CD9-49C8-9EFD-04E3CB7EE310}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImporterXML", "ImporterXML\ImporterXML.csproj", "{AEFE2EA8-5CD9-49C8-9EFD-04E3CB7EE310}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
