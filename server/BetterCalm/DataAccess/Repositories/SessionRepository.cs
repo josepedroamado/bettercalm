@@ -32,9 +32,9 @@ namespace DataAccess.Repositories
 			}
 		}
 
-        public Session GetByEmail(string eMail)
+        public Session GetByEmail(string email)
 		{
-			return this.sessions.FirstOrDefault(itSession => itSession.User.Email == eMail);
+			return this.sessions.FirstOrDefault(itSession => itSession.User.Email == email);
 		}
 
         public Session GetByToken(string token)

@@ -17,9 +17,9 @@ namespace BL
 			this.roleRepository = roleRepository;
 		}
 
-		public User GetUser(string eMail)
+		public User GetUser(string email)
 		{
-			return this.userRepository.Get(eMail);
+			return this.userRepository.Get(email);
 		}
 
 		public void CreateUser(User user)

@@ -198,19 +198,19 @@ namespace BL.Test
 		[ExpectedException(typeof(NotFoundException))]
 		public void Delete_UserExists_Delted()
 		{
-			string eMail = "a@a.com";
+			string email = "a@a.com";
 			int toDelete = 1;
 
 			Mock<IUserRepository> userMock = new Mock<IUserRepository>(MockBehavior.Strict);
 			userMock.Setup(m => m.Delete(toDelete));
-			userMock.Setup(m => m.Get(eMail)).Throws(new NotFoundException(eMail));
+			userMock.Setup(m => m.Get(email)).Throws(new NotFoundException(email));
 
 			Mock<IRoleRepository> roleMock = new Mock<IRoleRepository>(MockBehavior.Strict);
 
 			UserLogic userLogic = new UserLogic(userMock.Object, roleMock.Object);
 
 			userLogic.DeleteUser(toDelete);
-			User obtainedUser = userLogic.GetUser(eMail);
+			User obtainedUser = userLogic.GetUser(email);
 
 			userMock.VerifyAll();
 
