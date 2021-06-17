@@ -7,6 +7,6 @@ namespace DataAccessInterfaces
     {
         IEnumerable<AppointmentDiscount> GetAll();
 
-        AppointmentDiscount Get(double? discount);
+        AppointmentDiscount Get(double discount);
     }
 }

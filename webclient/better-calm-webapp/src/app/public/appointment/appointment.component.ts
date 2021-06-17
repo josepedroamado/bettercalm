@@ -25,7 +25,7 @@ export class AppointmentComponent implements OnInit {
       lastName: ['', Validators.required],
       birthDate: ['', Validators.required],
       eMail: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern("[0-9]{3,9}")]],
+      phone: ['', [Validators.required, Validators.pattern("[0-9]{9}")]],
       illnessId: [1, Validators.required],
       duration: ["01:00:00", Validators.required],
     });

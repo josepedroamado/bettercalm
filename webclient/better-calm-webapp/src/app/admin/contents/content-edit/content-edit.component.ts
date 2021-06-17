@@ -42,7 +42,7 @@ export class ContentEditComponent implements OnInit {
   public playlistForm = this.formBuilder.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
-    playlistImageUrl: ['', [Validators.pattern(ContentEditComponent.urlPattern)]],
+    imageUrl: ['', [Validators.pattern(ContentEditComponent.urlPattern)]],
     categories: ['', Validators.required],
   });
 
