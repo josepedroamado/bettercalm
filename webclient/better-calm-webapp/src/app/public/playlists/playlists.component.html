@@ -1,6 +1,6 @@
 <app-loading *ngIf="!hasError && isLoading" text="Loading categories..."></app-loading>
 <app-categories style="margin-left: 35%; margin-bottom: 5px;" (changeSelectedCategories)="changeSelectedCatagories($event)"></app-categories> 
-<div class="pt-2" *ngIf="!isLoading">
+<div class="pt-2 mb-5 pb-5" *ngIf="!isLoading">
     <div class="container-fluid playlistsContainer">
         <app-show-error *ngIf="hasError" [errorMessage]="errorMessage"></app-show-error>
         <ng-container *ngFor="let playlist of playlists">
