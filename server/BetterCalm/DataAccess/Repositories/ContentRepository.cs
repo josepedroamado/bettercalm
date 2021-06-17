@@ -11,15 +11,18 @@ namespace DataAccess.Repositories
 	{
 		private DbContext context;
 		private DbSet<Content> contents;
+		private IContentTypeRepository contentTypeRepository;
 
-		public ContentRepository(DbContext context)
+		public ContentRepository(DbContext context, IContentTypeRepository contentTypeRepository)
 		{
 			this.context = context;
 			this.contents = context.Set<Content>();
+			this.contentTypeRepository = contentTypeRepository;
 		}
 
 		public void Add(Content content)
 		{
+			content.ContentType = contentTypeRepository.Get(content.ContentType.Name);
 			if (content.Validate())
 			{
 				ContentTypeRepository typesRepository = new ContentTypeRepository(this.context);
@@ -100,6 +103,7 @@ namespace DataAccess.Repositories
 
 		public void Update(Content content)
 		{
+			content.ContentType = contentTypeRepository.Get(content.ContentType.Name);
 			if (content.Validate())
 			{
 				this.contents.Update(content);
