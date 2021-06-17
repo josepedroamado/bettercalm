@@ -18,7 +18,7 @@ namespace DataAccess.Repositories
             this.discounts = context.Set<AppointmentDiscount>();
         }
 
-        public AppointmentDiscount Get(double? discount)
+        public AppointmentDiscount Get(double discount)
         {
             AppointmentDiscount appointmentDiscount = this.discounts.FirstOrDefault(stored => stored.Discount == discount);
             if (appointmentDiscount == null)
